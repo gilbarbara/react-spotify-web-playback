@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SpotifyWebPlayer should render properly 1`] = `
+<SpotifyWebPlayer
+  name="Spotify Web Player"
+>
+  <div
+    className="rswp"
+  >
+    <div
+      className="rswp__container"
+    >
+      <div
+        className="rswp__loader"
+      >
+        <div />
+      </div>
+    </div>
+  </div>
+</SpotifyWebPlayer>
+`;
