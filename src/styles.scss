@@ -33,6 +33,10 @@ $rswp-loader-size: $rswp-height * 0.6;
     }
   }
 
+  p {
+    margin: 0;
+  }
+
   &__container {
     align-items: center;
     display: flex;
@@ -165,8 +169,9 @@ $rswp-loader-size: $rswp-height * 0.6;
   &__error {
     border-top: 1px solid #c66;
     color: #c66;
-    line-height: $rswp-height;
     height: $rswp-height;
+    line-height: $rswp-height;
+    text-align: center;
     width: 100%;
   }
 

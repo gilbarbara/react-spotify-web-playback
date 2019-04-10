@@ -29,7 +29,8 @@
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "@gilbarbara/react-range-slider": "^0.4.2"
+    "@gilbarbara/react-range-slider": "^0.4.2",
+    "exenv": "^1.2.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
@@ -72,7 +73,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
-    "exenv": "^1.2.2",
     "husky": "^1.3.1",
     "is-ci-cli": "^1.1.1",
     "jest": "^24.7.1",

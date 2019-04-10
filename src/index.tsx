@@ -46,7 +46,7 @@ export interface State {
   volume: number;
 }
 
-export default class SpotifyWebPlayer extends React.PureComponent<Props, State> {
+export default class SpotifyWebPlayer extends React.Component<Props, State> {
   private static defaultProps = {
     name: 'Spotify Web Player',
   };
@@ -79,39 +79,16 @@ export default class SpotifyWebPlayer extends React.PureComponent<Props, State> 
     this._isMounted = false;
   }
 
-  public componentDidMount() {
-    const { name, token } = this.props;
-
+  public async componentDidMount() {
     this.setState({ status: STATUS.INITIALIZING });
 
-    loadScript({
+    // @ts-ignore
+    window.onSpotifyWebPlaybackSDKReady = this.initializePlayer;
+
+    await loadScript({
+      defer: true,
       id: 'spotify-player',
       source: 'https://sdk.scdn.co/spotify-player.js',
-    }).then(() => {
-      // @ts-ignore
-      window.onSpotifyWebPlaybackSDKReady = () => {
-        // @ts-ignore
-        this.player = new window.Spotify.Player({
-          getOAuthToken: (cb: (token: string) => void) => {
-            cb(token);
-          },
-          name,
-        }) as WebPlaybackPlayer;
-
-        this.player.addListener('initialization_error', this.handlePlayerErrors);
-        this.player.addListener('authentication_error', this.handlePlayerErrors);
-        this.player.addListener('account_error', this.handlePlayerErrors);
-        this.player.addListener('playback_error', this.handlePlayerErrors);
-
-        this.player.addListener('player_state_changed', this.handlePlayerStateChanges);
-        this.player.addListener('ready', this.handlePlayerStatus);
-        this.player.addListener('not_ready', this.handlePlayerStatus);
-
-        this.player.connect();
-
-        // @ts-ignore
-        window.player = this.player;
-      };
     });
   }
 
@@ -123,6 +100,29 @@ export default class SpotifyWebPlayer extends React.PureComponent<Props, State> 
       play(deviceId as string, token, this.tracks, offset);
     }
   }
+
+  private initializePlayer = () => {
+    const { name, token } = this.props;
+
+    // @ts-ignore
+    this.player = new window.Spotify.Player({
+      getOAuthToken: (cb: (token: string) => void) => {
+        cb(token);
+      },
+      name,
+    }) as WebPlaybackPlayer;
+
+    this.player.addListener('initialization_error', this.handlePlayerErrors);
+    this.player.addListener('authentication_error', this.handlePlayerErrors);
+    this.player.addListener('account_error', this.handlePlayerErrors);
+    this.player.addListener('playback_error', this.handlePlayerErrors);
+
+    this.player.addListener('player_state_changed', this.handlePlayerStateChanges);
+    this.player.addListener('ready', this.handlePlayerStatus);
+    this.player.addListener('not_ready', this.handlePlayerStatus);
+
+    this.player.connect();
+  };
 
   private updateSeekBar = async () => {
     if (this.player) {
