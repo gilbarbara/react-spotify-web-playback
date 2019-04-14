@@ -13,10 +13,9 @@ export const STATUS = {
   ERROR: 'ERROR',
   IDLE: 'IDLE',
   INITIALIZING: 'INITIALIZING',
-  PAUSED: 'PAUSED',
-  PLAYING: 'PLAYING',
   READY: 'READY',
   RUNNING: 'RUNNING',
+  UNSUPPORTED: 'UNSUPPORTED',
 };
 
 export function loadScript(attributes: ScriptAttributes): Promise<any> {

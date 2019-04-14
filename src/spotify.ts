@@ -1,6 +1,72 @@
-export async function play(deviceId: string, token: string, tracks: string[], offset: number = 0) {
+interface PlayOptions {
+  deviceId: string;
+  offset?: number;
+  tracks?: string[];
+}
+
+export async function play({ deviceId, offset = 0, tracks }: PlayOptions, token: string) {
   return fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
-    body: JSON.stringify({ uris: tracks, offset: { position: offset } }),
+    body: tracks ? JSON.stringify({ uris: tracks, offset: { position: offset } }) : undefined,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+  });
+}
+
+export async function pause(token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player/pause`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+  });
+}
+
+export async function previous(token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player/previous`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  });
+}
+
+export async function next(token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player/next`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  });
+}
+
+export async function getPlayerStatus(token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function seek(position: number, token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player/seek?position_ms=${position}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+  });
+}
+
+export async function setVolume(volume: number, token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -38,6 +104,87 @@ export interface SpotifyDevice {
   name: string;
   type: string;
   volume_percent: number;
+}
+
+export interface SpotifyArtist {
+  external_urls: {
+    spotify: string;
+  };
+  href: string;
+  id: string;
+  name: string;
+  type: string;
+  uri: string;
+}
+
+export interface SpotifyImage {
+  height: number;
+  url: string;
+  width: number;
+}
+
+export interface SpotifyPlayerStatus {
+  device: {
+    id: string;
+    is_active: boolean;
+    is_private_session: false;
+    is_restricted: false;
+    name: string;
+    type: string;
+    volume_percent: number;
+  };
+  shuffle_state: false;
+  repeat_state: string;
+  timestamp: number;
+  context: null;
+  progress_ms: number;
+  item: {
+    album: {
+      album_type: string;
+      artists: SpotifyArtist[];
+      available_markets: string[];
+      external_urls: {
+        spotify: string;
+      };
+      href: string;
+      id: string;
+      images: SpotifyImage[];
+      name: string;
+      release_date: string;
+      release_date_precision: string;
+      total_tracks: number;
+      type: string;
+      uri: string;
+    };
+    artists: SpotifyArtist[];
+    available_markets: string[];
+    disc_number: number;
+    duration_ms: number;
+    explicit: false;
+    external_ids: {
+      isrc: string;
+    };
+    external_urls: {
+      spotify: string;
+    };
+    href: string;
+    id: string;
+    is_local: false;
+    name: string;
+    popularity: number;
+    preview_url: string;
+    track_number: number;
+    type: string;
+    uri: string;
+  };
+  currently_playing_type: string;
+  actions: {
+    disallows: {
+      resuming: boolean;
+      skipping_prev: boolean;
+    };
+  };
+  is_playing: boolean;
 }
 
 export type WebPlaybackStatusEvents = 'ready' | 'not_ready';

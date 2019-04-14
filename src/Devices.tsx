@@ -1,12 +1,14 @@
 import React from 'react';
 import { getDevices, setDevice, SpotifyDevice } from './spotify';
-import { STATUS } from './utils';
 
 import ClickOutside from './ClickOutside';
 
 import DevicesIcon from './icons/Devices';
 
 interface Props {
+  deviceId?: string;
+  onClickDevice: (deviceId: string) => any;
+  open: boolean;
   token: string;
 }
 
@@ -23,7 +25,7 @@ export default class Devices extends React.Component<Props, State> {
 
     this.state = {
       devices: [],
-      isOpen: false,
+      isOpen: props.open,
     };
   }
 
@@ -31,15 +33,16 @@ export default class Devices extends React.Component<Props, State> {
     const { token } = this.props;
 
     getDevices(token).then(({ devices }) => {
-      this.setState({ devices });
+      this.setState({ devices: devices || [] });
     });
   }
 
   private handleClickSetDevice = (e: React.MouseEvent<HTMLElement>) => {
+    const { onClickDevice, token } = this.props;
     const { dataset } = e.currentTarget;
-    const { token } = this.props;
 
     if (dataset.id) {
+      onClickDevice(dataset.id);
       setDevice(dataset.id, token);
       this.setState({ isOpen: false });
     }
@@ -57,6 +60,7 @@ export default class Devices extends React.Component<Props, State> {
 
   public render() {
     const { devices, isOpen } = this.state;
+    const { deviceId } = this.props;
 
     return (
       <div className="rswp__devices">
@@ -67,9 +71,10 @@ export default class Devices extends React.Component<Props, State> {
                 {devices.map((d: SpotifyDevice) => (
                   <button
                     key={d.id}
-                    type="button"
+                    className={d.id === deviceId ? 'rswp__devices__active' : undefined}
                     data-id={d.id}
                     onClick={this.handleClickSetDevice}
+                    type="button"
                   >
                     {d.name}
                   </button>

@@ -29,7 +29,7 @@
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "@gilbarbara/react-range-slider": "^0.4.2",
+    "@gilbarbara/react-range-slider": "^0.4.3",
     "exenv": "^1.2.2"
   },
   "devDependencies": {
@@ -55,10 +55,10 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@types/exenv": "^1.2.0",
-    "@types/node": "^11.13.2",
+    "@types/node": "^11.13.4",
     "@types/once": "^1.4.0",
     "@types/react": "^16.8.13",
-    "@types/react-dom": "^16.8.3",
+    "@types/react-dom": "^16.8.4",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.7.1",
     "bundlesize": "^0.17.1",
@@ -69,7 +69,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-import": "^2.17.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
@@ -84,7 +84,7 @@
     "node-fetch": "^2.3.0",
     "node-sass": "^4.11.0",
     "nodemon": "^1.18.11",
-    "prettier": "^1.16.4",
+    "prettier": "^1.17.0",
     "react": "^16.7.0",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.7.0",
@@ -97,7 +97,7 @@
     "tslint": "^5.15.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0",
-    "typescript": "^3.4.2",
+    "typescript": "^3.4.3",
     "yargs": "^13.2.2"
   },
   "scripts": {
@@ -106,7 +106,7 @@
     "build:css": "node-sass -o lib src/styles.scss",
     "watch": "npm run watch:ts & npm run watch:scss",
     "watch:ts": "nodemon -e ts,tsx -w src -x \"npm run build:js\"",
-    "watch:scss": "nodemon -e scss -w src -x \"npm run build:css\"",
+    "watch:scss": "nodemon -e scss -w src -x \"npm run build:css && cp src/styles.scss lib/\"",
     "clean": "rimraf lib",
     "test": "is-ci \"test:coverage\" \"test:watch\"",
     "test:coverage": "jest --bail --coverage",
