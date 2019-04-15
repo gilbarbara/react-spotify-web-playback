@@ -1,6 +1,5 @@
 import React from 'react';
 import RangeSlider from '@gilbarbara/react-range-slider';
-import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
 import {
   SpotifyPlayerStatus,
   WebPlaybackAlbum,
@@ -18,7 +17,8 @@ import {
   seek,
   setVolume,
 } from './spotify';
-import { loadScript, STATUS } from './utils';
+import { isEqualArray, loadScript, STATUS } from './utils';
+import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
 
 import Controls from './Controls';
 import Devices from './Devices';
@@ -27,11 +27,12 @@ import Volume from './Volume';
 export interface Props {
   autoPlay?: boolean;
   followExternalDevices?: boolean;
+  list?: string;
   name?: string;
   offset?: number;
   persistDeviceSelection?: boolean;
   token: string;
-  uris?: string | string[];
+  tracks?: string | string[];
 
   [key: string]: any; // TODO: do I need this?
 }
@@ -113,11 +114,15 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
 
   public componentDidUpdate(prevProps: Props, prevState: State) {
     const { currentDeviceId, isPlaying, status } = this.state;
-    const { autoPlay, offset, token, uris } = this.props;
+    const { autoPlay, list, offset, tracks, token } = this.props;
     const isReady = prevState.status !== STATUS.READY && status === STATUS.READY;
+    const changedSource =
+      prevProps.list !== list || (Array.isArray(tracks) && !isEqualArray(prevProps.tracks, tracks));
+    const canPlay = currentDeviceId && !!(list || this.tracks);
+    const shouldPlay = (changedSource && isPlaying) || (isReady && autoPlay);
 
-    if (isReady && autoPlay && currentDeviceId && uris) {
-      play({ deviceId: currentDeviceId, tracks: this.tracks, offset }, token);
+    if (canPlay && shouldPlay) {
+      play({ context_uri: list, deviceId: currentDeviceId, uris: this.tracks, offset }, token);
     }
 
     if (prevState.currentDeviceId !== currentDeviceId) {
@@ -208,14 +213,19 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
 
   private togglePlay = async (init?: boolean) => {
     const { currentDeviceId, isPlaying } = this.state;
-    const { token, offset } = this.props;
+    const { list, offset, token } = this.props;
 
     if (this.isExternalPlayer) {
       if (!isPlaying) {
         this.setState({ isPlaying: true });
 
         return play(
-          { deviceId: currentDeviceId, tracks: init ? this.tracks : undefined, offset },
+          {
+            context_uri: list,
+            deviceId: currentDeviceId,
+            offset,
+            uris: init ? this.tracks : undefined,
+          },
           token,
         );
       } else {
@@ -226,7 +236,10 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
       const playerState = await this.player.getCurrentState();
 
       if (!playerState && this.tracks.length) {
-        return play({ deviceId: currentDeviceId, tracks: this.tracks, offset }, token);
+        return play(
+          { context_uri: list, deviceId: currentDeviceId, uris: this.tracks, offset },
+          token,
+        );
       } else {
         this.player.togglePlay();
       }
@@ -275,15 +288,15 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
   }
 
   private get tracks(): string[] {
-    const { uris } = this.props;
+    const { tracks } = this.props;
 
-    if (!uris) {
+    if (!tracks) {
       return [];
     }
 
-    const tracks: string[] = Array.isArray(uris) ? uris : [uris];
+    const uris: string[] = Array.isArray(tracks) ? tracks : [tracks];
 
-    return tracks.map(
+    return uris.map(
       (d: string): string => (d.indexOf('spotify:track') < 0 ? `spotify:track:${d}` : d),
     );
   }
@@ -554,7 +567,7 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
       );
     }
 
-    const classes = ['rswp', 'rswp--active'];
+    const classes = ['rswp'];
 
     if (isActive) {
       classes.push('rswp--active');

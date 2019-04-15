@@ -1,12 +1,31 @@
 interface PlayOptions {
+  context_uri?: string;
   deviceId: string;
   offset?: number;
-  tracks?: string[];
+  uris?: string[];
 }
 
-export async function play({ deviceId, offset = 0, tracks }: PlayOptions, token: string) {
+export async function play(
+  { context_uri, deviceId, offset = 0, uris }: PlayOptions,
+  token: string,
+) {
+  let body;
+
+  if (context_uri) {
+    const isArtist = context_uri.indexOf('artist') >= 0;
+    let position;
+
+    if (!isArtist) {
+      position = { position: offset };
+    }
+
+    body = JSON.stringify({ context_uri, offset: position });
+  } else if (Array.isArray(uris) && uris.length) {
+    body = JSON.stringify({ uris, offset: { position: offset } });
+  }
+
   return fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
-    body: tracks ? JSON.stringify({ uris: tracks, offset: { position: offset } }) : undefined,
+    body,
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',

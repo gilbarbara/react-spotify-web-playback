@@ -5,7 +5,7 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
   name="Spotify Web Player"
 >
   <div
-    className="rswp rswp--active"
+    className="rswp"
   >
     <div
       className="rswp__container"
