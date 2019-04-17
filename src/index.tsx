@@ -36,6 +36,7 @@ export interface Props {
   name?: string;
   offset?: number;
   persistDeviceSelection?: boolean;
+  syncExternalDeviceInterval?: number;
   token: string;
   tracks?: string | string[];
 }
@@ -62,6 +63,7 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
   private static defaultProps = {
     callback: () => undefined,
     name: 'Spotify Web Player',
+    syncExternalDeviceInterval: 5,
   };
 
   // tslint:disable-next-line:variable-name
@@ -360,7 +362,10 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
     const { isPlaying } = this.state;
 
     if (this.isExternalPlayer && isPlaying && !this.playerSyncInterval) {
-      this.playerSyncInterval = window.setInterval(this.syncDevice, 10 * 1000);
+      this.playerSyncInterval = window.setInterval(
+        this.syncDevice,
+        syncExternalDeviceInterval! * 1000,
+      );
     }
 
     if ((!isPlaying || !this.isExternalPlayer) && this.playerSyncInterval) {
