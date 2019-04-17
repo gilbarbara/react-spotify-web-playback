@@ -115,6 +115,15 @@ export async function setDevice(deviceId: string, token: string) {
   });
 }
 
+export interface PlayerTrack {
+  artists: string;
+  durationMs: number;
+  id: string;
+  name: string;
+  image: string;
+  uri: string;
+}
+
 export interface SpotifyDevice {
   id: string;
   is_active: boolean;

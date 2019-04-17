@@ -1,6 +1,6 @@
 import { canUseDOM as canUseDOMBool } from 'exenv';
 
-export interface ScriptAttributes {
+interface ScriptAttributes {
   async?: boolean;
   defer?: boolean;
   id?: string;
@@ -16,6 +16,13 @@ export const STATUS = {
   READY: 'READY',
   RUNNING: 'RUNNING',
   UNSUPPORTED: 'UNSUPPORTED',
+};
+
+export const TYPE = {
+  DEVICE: 'device_update',
+  PLAYER: 'player_update',
+  STATUS: 'status_update',
+  TRACK: 'track_update',
 };
 
 export function isEqualArray(A?: any, B?: any) {

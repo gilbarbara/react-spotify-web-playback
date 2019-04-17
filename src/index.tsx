@@ -1,6 +1,7 @@
 import React from 'react';
 import RangeSlider from '@gilbarbara/react-range-slider';
 import {
+  PlayerTrack,
   SpotifyPlayerStatus,
   WebPlaybackAlbum,
   WebPlaybackError,
@@ -17,24 +18,26 @@ import {
   seek,
   setVolume,
 } from './spotify';
-import { isEqualArray, loadScript, STATUS } from './utils';
+import { isEqualArray, loadScript, STATUS, TYPE } from './utils';
 import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
 
 import Controls from './Controls';
 import Devices from './Devices';
 import Volume from './Volume';
 
+export interface Callback extends State {
+  type: string;
+}
+
 export interface Props {
   autoPlay?: boolean;
-  followExternalDevices?: boolean;
+  callback?: (state: Callback) => any;
   list?: string;
   name?: string;
   offset?: number;
   persistDeviceSelection?: boolean;
   token: string;
   tracks?: string | string[];
-
-  [key: string]: any; // TODO: do I need this?
 }
 
 export interface State {
@@ -49,19 +52,15 @@ export interface State {
   nextTracks: WebPlaybackTrack[];
   position: number;
   previousTracks: WebPlaybackTrack[];
-  progressMS?: number;
+  progressMs?: number;
   status: string;
-  track: {
-    artists: string;
-    durationMS: number;
-    name: string;
-    image: string;
-  };
+  track: PlayerTrack;
   volume: number;
 }
 
-export default class SpotifyWebPlayer extends React.Component<Props, State> {
+class SpotifyWebPlayer extends React.Component<Props, State> {
   private static defaultProps = {
+    callback: () => undefined,
     name: 'Spotify Web Player',
   };
 
@@ -90,9 +89,11 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
       status: STATUS.IDLE,
       track: {
         artists: '',
-        durationMS: 0,
+        durationMs: 0,
+        id: '',
         image: '',
         name: '',
+        uri: '',
       },
       volume: 1,
     };
@@ -113,8 +114,8 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
   }
 
   public componentDidUpdate(prevProps: Props, prevState: State) {
-    const { currentDeviceId, isPlaying, status } = this.state;
-    const { autoPlay, list, offset, tracks, token } = this.props;
+    const { currentDeviceId, isPlaying, status, track } = this.state;
+    const { autoPlay, callback, list, offset, tracks, token } = this.props;
     const isReady = prevState.status !== STATUS.READY && status === STATUS.READY;
     const changedSource =
       prevProps.list !== list || (Array.isArray(tracks) && !isEqualArray(prevProps.tracks, tracks));
@@ -125,13 +126,39 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
       play({ context_uri: list, deviceId: currentDeviceId, uris: this.tracks, offset }, token);
     }
 
+    if (prevState.status !== status) {
+      callback!({
+        ...this.state,
+        type: TYPE.STATUS,
+      });
+    }
+
+    if (prevState.track.id !== track.id && track.id) {
+      callback!({
+        ...this.state,
+        type: TYPE.TRACK,
+      });
+    }
+
     if (prevState.currentDeviceId !== currentDeviceId) {
       this.handleDeviceChange();
+
+      if (!isReady) {
+        callback!({
+          ...this.state,
+          type: TYPE.DEVICE,
+        });
+      }
     }
 
     if (prevState.isPlaying !== isPlaying) {
       this.handlePlaybackStatus();
       this.handleDeviceChange();
+
+      callback!({
+        ...this.state,
+        type: TYPE.PLAYER,
+      });
     }
   }
 
@@ -177,15 +204,15 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
   };
 
   private updateSeekBar = async () => {
-    const { isPlaying, progressMS, track } = this.state;
+    const { isPlaying, progressMs, track } = this.state;
 
     if (isPlaying) {
       if (this.isExternalPlayer) {
-        const position = progressMS! / track.durationMS;
+        const position = progressMs! / track.durationMs;
 
         this.setState({
           position: Number((position * 100).toFixed(1)),
-          progressMS: progressMS! + this.seekUpdateInterval,
+          progressMs: progressMs! + this.seekUpdateInterval,
         });
       } else if (this.player) {
         const state = (await this.player.getCurrentState()) as WebPlaybackState;
@@ -254,23 +281,25 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
     const { token } = this.props;
 
     try {
-      const status: SpotifyPlayerStatus = await getPlayerStatus(token);
+      const player: SpotifyPlayerStatus = await getPlayerStatus(token);
 
       this.setState({
         error: '',
         errorType: '',
         isActive: true,
-        isPlaying: status.is_playing,
+        isPlaying: player.is_playing,
         nextTracks: [],
         previousTracks: [],
-        progressMS: status.progress_ms,
+        progressMs: player.progress_ms,
         track: {
-          artists: status.item.artists.map(d => d.name).join(' / '),
-          durationMS: status.item.duration_ms,
-          image: this.getAlbumImage(status.item.album),
-          name: status.item.name,
+          artists: player.item.artists.map(d => d.name).join(' / '),
+          durationMs: player.item.duration_ms,
+          id: player.item.id,
+          image: this.getAlbumImage(player.item.album),
+          name: player.item.name,
+          uri: player.item.uri,
         },
-        volume: status.device.volume_percent,
+        volume: player.device.volume_percent,
       });
     } catch (error) {
       this.setState({
@@ -369,8 +398,16 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
   private handlePlayerStateChanges = async (state: WebPlaybackState | null) => {
     if (state) {
       const isPlaying = !state.paused;
-      const { album, artists, duration_ms, name } = state.track_window.current_track;
+      const { album, artists, duration_ms, id, name, uri } = state.track_window.current_track;
       const volume = await this.player!.getVolume();
+      const track = {
+        artists: artists.map(d => d.name).join(' / '),
+        durationMs: duration_ms,
+        id,
+        image: this.getAlbumImage(album),
+        name,
+        uri,
+      };
 
       this.setState({
         error: '',
@@ -379,12 +416,7 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
         isPlaying,
         nextTracks: state.track_window.next_tracks,
         previousTracks: state.track_window.previous_tracks,
-        track: {
-          artists: artists.map(d => d.name).join(' / '),
-          durationMS: duration_ms,
-          image: this.getAlbumImage(album),
-          name,
-        },
+        track,
         volume,
       });
     } else if (this.isExternalPlayer) {
@@ -398,9 +430,11 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
         previousTracks: [],
         track: {
           artists: '',
-          durationMS: 0,
+          durationMs: 0,
+          id: '',
           image: '',
           name: '',
+          uri: '',
         },
       });
     }
@@ -421,11 +455,11 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
 
     if (this.isExternalPlayer) {
       try {
-        await seek(Math.round(track.durationMS * percentage), token);
+        await seek(Math.round(track.durationMs * percentage), token);
 
         this.setState({
           position: x,
-          progressMS: Math.round(track.durationMS * percentage),
+          progressMs: Math.round(track.durationMs * percentage),
         });
       } catch (error) {
         // nothing here
@@ -609,3 +643,7 @@ export default class SpotifyWebPlayer extends React.Component<Props, State> {
     );
   }
 }
+
+export { STATUS, TYPE };
+
+export default SpotifyWebPlayer;
