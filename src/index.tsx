@@ -36,7 +36,7 @@ export interface Props {
   list?: string;
   name?: string;
   offset?: number;
-  // persistDeviceSelection?: boolean;
+  persistDeviceSelection?: boolean;
   showSaveIcon?: boolean;
   syncExternalDeviceInterval?: number;
   token: string;
@@ -120,7 +120,7 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
 
   public componentDidUpdate(prevProps: Props, prevState: State) {
     const { currentDeviceId, isPlaying, status, track } = this.state;
-    const { autoPlay, callback, list, offset, tracks, token } = this.props;
+    const { autoPlay, callback, list, offset, persistDeviceSelection, tracks, token } = this.props;
     const isReady = prevState.status !== STATUS.READY && status === STATUS.READY;
     const changedSource =
       prevProps.list !== list || (Array.isArray(tracks) && !isEqualArray(prevProps.tracks, tracks));
@@ -128,7 +128,13 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
     const shouldPlay = (changedSource && isPlaying) || (isReady && autoPlay);
 
     if (canPlay && shouldPlay) {
-      play({ context_uri: list, deviceId: currentDeviceId, uris: this.tracks, offset }, token);
+      play({ context_uri: list, deviceId: currentDeviceId, uris: this.tracks, offset }, token).then(
+        () => {
+          if (!this.state.isPlaying) {
+            this.setState({ isPlaying: true });
+          }
+        },
+      );
     }
 
     if (prevState.status !== status) {
@@ -145,8 +151,11 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
       });
     }
 
-    if (prevState.currentDeviceId !== currentDeviceId) {
+    if (prevState.currentDeviceId !== currentDeviceId && currentDeviceId) {
       this.handleDeviceChange();
+      if (persistDeviceSelection) {
+        sessionStorage.setItem('rswpDeviceId', currentDeviceId);
+      }
 
       if (!isReady) {
         callback!({
@@ -450,8 +459,15 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
   };
 
   private handlePlayerStatus = ({ device_id }: WebPlaybackReady) => {
+    const { persistDeviceSelection } = this.props;
+    let currentDeviceId: string = device_id;
+
+    if (persistDeviceSelection && sessionStorage.getItem('rswpDeviceId')) {
+      currentDeviceId = sessionStorage.getItem('rswpDeviceId') as string;
+    }
+
     this.setState({
-      currentDeviceId: device_id,
+      currentDeviceId,
       deviceId: device_id,
       status: device_id ? STATUS.READY : STATUS.IDLE,
     });
@@ -526,9 +542,9 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
   };
 
   private handleToggleMagnify = () => {
-    const { isMagnified } = this.state;
-
-    this.setState({ isMagnified: !isMagnified });
+    this.setState((prevState: State) => {
+      return { isMagnified: !prevState.isMagnified };
+    });
   };
 
   public render() {
