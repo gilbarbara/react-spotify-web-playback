@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import RangeSlider from '@gilbarbara/react-range-slider';
 import {
   PlayerTrack,
@@ -61,7 +61,7 @@ export interface State {
   volume: number;
 }
 
-class SpotifyWebPlayer extends React.Component<Props, State> {
+class SpotifyWebPlayer extends PureComponent<Props, State> {
   private static defaultProps = {
     callback: () => undefined,
     name: 'Spotify Web Player',

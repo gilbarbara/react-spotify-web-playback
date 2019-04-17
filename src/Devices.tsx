@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { getDevices, setDevice, SpotifyDevice } from './spotify';
 
 import ClickOutside from './ClickOutside';
@@ -17,7 +17,7 @@ export interface State {
   isOpen: boolean;
 }
 
-export default class Devices extends React.Component<Props, State> {
+export default class Devices extends PureComponent<Props, State> {
   private timeout: any;
 
   constructor(props: Props) {

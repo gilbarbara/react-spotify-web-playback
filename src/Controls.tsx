@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { WebPlaybackTrack } from './spotify';
 
 import Next from './icons/Next';
@@ -16,41 +16,45 @@ interface Props {
   previousTracks: WebPlaybackTrack[];
 }
 
-const Controls = ({
-  isExternalDevice,
-  isPlaying,
-  onClickNext,
-  onClickPrevious,
-  onClickTogglePlay,
-  nextTracks,
-  previousTracks,
-}: Props) => (
-  <div className="rswp__controls">
-    <div>
-      {(!!previousTracks.length || isExternalDevice) && (
-        <button type="button" onClick={onClickPrevious} aria-label="Previous Track">
-          <Previous />
-        </button>
-      )}
-    </div>
-    <div>
-      <button
-        type="button"
-        className="rswp__toggle"
-        onClick={onClickTogglePlay}
-        aria-label={isPlaying ? 'Pause' : 'Play'}
-      >
-        {isPlaying ? <Pause /> : <Play />}
-      </button>
-    </div>
-    <div>
-      {(!!nextTracks.length || isExternalDevice) && (
-        <button type="button" onClick={onClickNext} aria-label="Next Track">
-          <Next />
-        </button>
-      )}
-    </div>
-  </div>
-);
+export default class Controls extends PureComponent<Props> {
+  public render() {
+    const {
+      isExternalDevice,
+      isPlaying,
+      onClickNext,
+      onClickPrevious,
+      onClickTogglePlay,
+      nextTracks,
+      previousTracks,
+    } = this.props;
 
-export default Controls;
+    return (
+      <div className="rswp__controls">
+        <div>
+          {(!!previousTracks.length || isExternalDevice) && (
+            <button type="button" onClick={onClickPrevious} aria-label="Previous Track">
+              <Previous />
+            </button>
+          )}
+        </div>
+        <div>
+          <button
+            type="button"
+            className="rswp__toggle"
+            onClick={onClickTogglePlay}
+            aria-label={isPlaying ? 'Pause' : 'Play'}
+          >
+            {isPlaying ? <Pause /> : <Play />}
+          </button>
+        </div>
+        <div>
+          {(!!nextTracks.length || isExternalDevice) && (
+            <button type="button" onClick={onClickNext} aria-label="Next Track">
+              <Next />
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
+}

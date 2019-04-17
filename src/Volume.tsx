@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import RangeSlider from '@gilbarbara/react-range-slider';
 import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
 
@@ -17,7 +17,7 @@ interface State {
   isOpen: boolean;
 }
 
-export default class Volume extends React.Component<Props, State> {
+export default class Volume extends PureComponent<Props, State> {
   private timeout?: any;
 
   constructor(props: Props) {

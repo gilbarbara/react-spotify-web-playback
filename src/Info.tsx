@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { PlayerTrack, checkTracksStatus, saveTracks, removeTracks } from './spotify';
 
 import Favorite from './icons/Favorite';
@@ -14,7 +14,7 @@ export interface State {
   isSaved: boolean;
 }
 
-export default class Info extends React.Component<Props, State> {
+export default class Info extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -69,7 +69,7 @@ export default class Info extends React.Component<Props, State> {
     const { showSaveIcon, track } = this.props;
     let icon;
 
-    if (showSaveIcon) {
+    if (showSaveIcon && track.id) {
       icon = (
         <button onClick={this.handleClickIcon} className={isSaved ? 'rswp__active' : undefined}>
           {isSaved ? <Favorite /> : <FavoriteOutline />}

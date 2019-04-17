@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 interface Props {
   onClick: () => any;
 }
 
-export default class ClickOutside extends Component<Props> {
+export default class ClickOutside extends PureComponent<Props> {
   private container: HTMLElement | null;
   private isTouch: boolean;
 
