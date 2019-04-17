@@ -4,6 +4,7 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
 <SpotifyWebPlayer
   callback={[Function]}
   name="Spotify Web Player"
+  showSaveIcon={false}
   syncExternalDeviceInterval={5}
 >
   <div

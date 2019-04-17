@@ -1,6 +1,7 @@
 $rswp-bg-color: #fff;
 $rswp-color: #000;
 $rswp-error-color: #d70500;
+$rswp-saved-color: #1cb954;
 $rswp-name-color: #000;
 $rswp-artist-color: #777;
 $rswp-height: 48px;
@@ -78,6 +79,26 @@ $rswp-loader-size: $rswp-height * 0.6;
       height: $rswp-height;
       width: $rswp-height;
     }
+
+    p {
+      &:first-child {
+        align-items: center;
+        display: inline-flex;
+
+        button {
+          font-size: 110%;
+          margin-left: 5px;
+
+          &:focus {
+            outline: none;
+          }
+
+          &.rswp__active {
+            color: $rswp-saved-color;
+          }
+        }
+      }
+    }
   }
 
   &__title {
@@ -99,7 +120,7 @@ $rswp-loader-size: $rswp-height * 0.6;
     }
   }
 
-  &__track {
+  &__slider {
     display: flex;
     min-height: 4px;
     position: relative;

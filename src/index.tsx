@@ -23,6 +23,7 @@ import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
 
 import Controls from './Controls';
 import Devices from './Devices';
+import Info from './Info';
 import Volume from './Volume';
 
 export interface Callback extends State {
@@ -35,7 +36,8 @@ export interface Props {
   list?: string;
   name?: string;
   offset?: number;
-  persistDeviceSelection?: boolean;
+  // persistDeviceSelection?: boolean;
+  showSaveIcon?: boolean;
   syncExternalDeviceInterval?: number;
   token: string;
   tracks?: string | string[];
@@ -63,6 +65,7 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
   private static defaultProps = {
     callback: () => undefined,
     name: 'Spotify Web Player',
+    showSaveIcon: false,
     syncExternalDeviceInterval: 5,
   };
 
@@ -360,6 +363,7 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
 
   private handleDeviceChange() {
     const { isPlaying } = this.state;
+    const { syncExternalDeviceInterval } = this.props;
 
     if (this.isExternalPlayer && isPlaying && !this.playerSyncInterval) {
       this.playerSyncInterval = window.setInterval(
@@ -544,7 +548,7 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
       track,
       volume,
     } = this.state;
-    const { name, token } = this.props;
+    const { name, showSaveIcon, token } = this.props;
     const isReady = [STATUS.READY, STATUS.UNSUPPORTED].indexOf(status) >= 0;
     const isPlaybackError = errorType === 'playback_error';
 
@@ -562,15 +566,7 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
 
     if (isReady) {
       if (!info) {
-        info = (
-          <React.Fragment>
-            <img src={track.image} alt={track.name} />
-            <div className="rswp__title">
-              <p>{track.name}</p>
-              <p>{track.artists}</p>
-            </div>
-          </React.Fragment>
-        );
+        info = <Info showSaveIcon={showSaveIcon!} token={token} track={track} />;
       }
 
       output = (
@@ -616,7 +612,7 @@ class SpotifyWebPlayer extends React.Component<Props, State> {
       <div className={classes.join(' ')}>
         {isReady && (
           <div
-            className="rswp__track"
+            className="rswp__slider"
             onMouseEnter={this.handleToggleMagnify}
             onMouseLeave={this.handleToggleMagnify}
           >

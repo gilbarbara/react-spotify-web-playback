@@ -74,6 +74,44 @@ export async function getPlayerStatus(token: string) {
   }).then(d => d.json());
 }
 
+export async function checkTracksStatus(tracks: string | string[], token: string) {
+  const ids = Array.isArray(tracks) ? tracks : [tracks];
+
+  return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function saveTracks(tracks: string | string[], token: string) {
+  const ids = Array.isArray(tracks) ? tracks : [tracks];
+
+  return fetch(`https://api.spotify.com/v1/me/tracks`, {
+    body: JSON.stringify({ ids }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+  });
+}
+
+export async function removeTracks(tracks: string | string[], token: string) {
+  const ids = Array.isArray(tracks) ? tracks : [tracks];
+
+  return fetch(`https://api.spotify.com/v1/me/tracks`, {
+    body: JSON.stringify(ids),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'DELETE',
+  });
+}
+
 export async function seek(position: number, token: string) {
   return fetch(`https://api.spotify.com/v1/me/player/seek?position_ms=${position}`, {
     headers: {
