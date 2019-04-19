@@ -1,5 +1,9 @@
 import React, { PureComponent } from 'react';
 import RangeSlider from '@gilbarbara/react-range-slider';
+import { getPlayerStatus, next, pause, play, previous, seek, setVolume } from './spotify';
+import { isEqualArray, loadScript, STATUS, TYPE } from './utils';
+
+import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
 import {
   PlayerTrack,
   SpotifyPlayerStatus,
@@ -10,16 +14,7 @@ import {
   WebPlaybackReady,
   WebPlaybackState,
   WebPlaybackTrack,
-  getPlayerStatus,
-  next,
-  pause,
-  play,
-  previous,
-  seek,
-  setVolume,
-} from './spotify';
-import { isEqualArray, loadScript, STATUS, TYPE } from './utils';
-import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
+} from './types/spotify';
 
 import Controls from './Controls';
 import Devices from './Devices';

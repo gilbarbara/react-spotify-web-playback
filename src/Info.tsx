@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
-import { PlayerTrack, checkTracksStatus, saveTracks, removeTracks } from './spotify';
+import { checkTracksStatus, saveTracks, removeTracks } from './spotify';
+
+import { PlayerTrack } from './types/spotify';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';

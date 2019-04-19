@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { WebPlaybackTrack } from './spotify';
+
+import { WebPlaybackTrack } from './types/spotify';
 
 import Next from './icons/Next';
 import Pause from './icons/Pause';

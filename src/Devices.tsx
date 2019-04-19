@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
-import { getDevices, setDevice, SpotifyDevice } from './spotify';
+import { getDevices, setDevice } from './spotify';
+
+import { SpotifyDevice } from './types/spotify';
 
 import ClickOutside from './ClickOutside';
 
