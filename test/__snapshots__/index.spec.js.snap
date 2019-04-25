@@ -7,18 +7,198 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
   showSaveIcon={false}
   syncExternalDeviceInterval={5}
 >
-  <div
-    className="rswp"
+  <Player
+    styles={
+      Object {
+        "bgColor": "#fff",
+        "color": "#333",
+        "errorColor": "#d7d300",
+        "height": 48,
+        "loaderSize": 32,
+        "rangeColor": "#666",
+        "rangeHandleBorderRadius": "50%",
+        "rangeHandleColor": "#000",
+        "rangeHeight": 4,
+        "rangeTrackBorderRadius": 0,
+        "rangeTrackColor": "#ccc",
+        "savedColor": "#1cb954",
+        "trackArtistColor": "#999",
+        "trackNameColor": "#333",
+      }
+    }
   >
-    <div
-      className="rswp__container"
+    <Component
+      styles={
+        Object {
+          "bgColor": "#fff",
+          "color": "#333",
+          "errorColor": "#d7d300",
+          "height": 48,
+          "loaderSize": 32,
+          "rangeColor": "#666",
+          "rangeHandleBorderRadius": "50%",
+          "rangeHandleColor": "#000",
+          "rangeHeight": 4,
+          "rangeTrackBorderRadius": 0,
+          "rangeTrackColor": "#ccc",
+          "savedColor": "#1cb954",
+          "trackArtistColor": "#999",
+          "trackNameColor": "#333",
+        }
+      }
     >
       <div
-        className="rswp__loader"
+        className=" __1v705to __1v1a1mw"
+        styles={
+          Object {
+            "bgColor": "#fff",
+            "color": "#333",
+            "errorColor": "#d7d300",
+            "height": 48,
+            "loaderSize": 32,
+            "rangeColor": "#666",
+            "rangeHandleBorderRadius": "50%",
+            "rangeHandleColor": "#000",
+            "rangeHeight": 4,
+            "rangeTrackBorderRadius": 0,
+            "rangeTrackColor": "#ccc",
+            "savedColor": "#1cb954",
+            "trackArtistColor": "#999",
+            "trackNameColor": "#333",
+          }
+        }
       >
-        <div />
+        <Content
+          styles={
+            Object {
+              "bgColor": "#fff",
+              "color": "#333",
+              "errorColor": "#d7d300",
+              "height": 48,
+              "loaderSize": 32,
+              "rangeColor": "#666",
+              "rangeHandleBorderRadius": "50%",
+              "rangeHandleColor": "#000",
+              "rangeHeight": 4,
+              "rangeTrackBorderRadius": 0,
+              "rangeTrackColor": "#ccc",
+              "savedColor": "#1cb954",
+              "trackArtistColor": "#999",
+              "trackNameColor": "#333",
+            }
+          }
+        >
+          <Component
+            styles={
+              Object {
+                "bgColor": "#fff",
+                "color": "#333",
+                "errorColor": "#d7d300",
+                "height": 48,
+                "loaderSize": 32,
+                "rangeColor": "#666",
+                "rangeHandleBorderRadius": "50%",
+                "rangeHandleColor": "#000",
+                "rangeHeight": 4,
+                "rangeTrackBorderRadius": 0,
+                "rangeTrackColor": "#ccc",
+                "savedColor": "#1cb954",
+                "trackArtistColor": "#999",
+                "trackNameColor": "#333",
+              }
+            }
+          >
+            <div
+              className=" __12uxyx4 __1xc0f9k"
+              styles={
+                Object {
+                  "bgColor": "#fff",
+                  "color": "#333",
+                  "errorColor": "#d7d300",
+                  "height": 48,
+                  "loaderSize": 32,
+                  "rangeColor": "#666",
+                  "rangeHandleBorderRadius": "50%",
+                  "rangeHandleColor": "#000",
+                  "rangeHeight": 4,
+                  "rangeTrackBorderRadius": 0,
+                  "rangeTrackColor": "#ccc",
+                  "savedColor": "#1cb954",
+                  "trackArtistColor": "#999",
+                  "trackNameColor": "#333",
+                }
+              }
+            >
+              <Loader
+                styles={
+                  Object {
+                    "bgColor": "#fff",
+                    "color": "#333",
+                    "errorColor": "#d7d300",
+                    "height": 48,
+                    "loaderSize": 32,
+                    "rangeColor": "#666",
+                    "rangeHandleBorderRadius": "50%",
+                    "rangeHandleColor": "#000",
+                    "rangeHeight": 4,
+                    "rangeTrackBorderRadius": 0,
+                    "rangeTrackColor": "#ccc",
+                    "savedColor": "#1cb954",
+                    "trackArtistColor": "#999",
+                    "trackNameColor": "#333",
+                  }
+                }
+              >
+                <Component
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#d7d300",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                >
+                  <div
+                    className=" __1e1bsbc __seuim4"
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#d7d300",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    <div />
+                  </div>
+                </Component>
+              </Loader>
+            </div>
+          </Component>
+        </Content>
       </div>
-    </div>
-  </div>
+    </Component>
+  </Player>
 </SpotifyWebPlayer>
 `;

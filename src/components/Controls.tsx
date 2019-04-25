@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
+import { px, styled } from '../styles';
 
-import { WebPlaybackTrack } from './types/spotify';
+import { StyledComponentProps, StylesOptions } from '../types/common';
+import { WebPlaybackTrack } from '../types/spotify';
 
 import Next from './icons/Next';
 import Pause from './icons/Pause';
@@ -15,7 +17,33 @@ interface Props {
   onClickTogglePlay: () => void;
   nextTracks: WebPlaybackTrack[];
   previousTracks: WebPlaybackTrack[];
+  styles: StylesOptions;
 }
+
+const Wrapper = styled('div')({}, ({ styles }: StyledComponentProps) => ({
+  alignItems: 'center',
+  display: 'flex',
+  height: px(styles.height),
+  justifyContent: 'center',
+
+  '@media (max-width: 767px)': {
+    padding: px(10),
+  },
+
+  '> div': {
+    minWidth: px(styles.height),
+    textAlign: 'center',
+  },
+
+  button: {
+    color: styles.color,
+    fontSize: px(16),
+
+    '&.rswp__toggle': {
+      fontSize: px(28),
+    },
+  },
+}));
 
 export default class Controls extends PureComponent<Props> {
   public render() {
@@ -27,10 +55,11 @@ export default class Controls extends PureComponent<Props> {
       onClickTogglePlay,
       nextTracks,
       previousTracks,
+      styles,
     } = this.props;
 
     return (
-      <div className="rswp__controls">
+      <Wrapper styles={styles}>
         <div>
           {(!!previousTracks.length || isExternalDevice) && (
             <button type="button" onClick={onClickPrevious} aria-label="Previous Track">
@@ -55,7 +84,7 @@ export default class Controls extends PureComponent<Props> {
             </button>
           )}
         </div>
-      </div>
+      </Wrapper>
     );
   }
 }

@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
-import RangeSlider from '@gilbarbara/react-range-slider';
+
 import { getPlayerStatus, next, pause, play, previous, seek, setVolume } from './spotify';
+import { getMergedStyles } from './styles';
 import { isEqualArray, loadScript, STATUS, TYPE } from './utils';
 
-import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
+import { StylesOptions, StylesProps } from './types/common';
 import {
   PlayerTrack,
   SpotifyPlayerStatus,
@@ -16,10 +17,14 @@ import {
   WebPlaybackTrack,
 } from './types/spotify';
 
-import Controls from './Controls';
-import Devices from './Devices';
-import Info from './Info';
-import Volume from './Volume';
+import Actions from './components/Actions';
+import Content from './components/Content';
+import Controls from './components/Controls';
+import Error from './components/Error';
+import Info from './components/Info';
+import Loader from './components/Loader';
+import Player from './components/Player';
+import Slider from './components/Slider';
 
 export interface Callback extends State {
   type: string;
@@ -36,6 +41,7 @@ export interface Props {
   syncExternalDeviceInterval?: number;
   token: string;
   tracks?: string | string[];
+  styles?: StylesProps;
 }
 
 export interface State {
@@ -70,6 +76,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   private playerProgressInterval?: number;
   private playerSyncInterval?: number;
   private seekUpdateInterval = 100;
+  private readonly styles: StylesOptions;
 
   constructor(props: Props) {
     super(props);
@@ -97,6 +104,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       },
       volume: 1,
     };
+
+    this.styles = getMergedStyles(props.styles);
   }
 
   public async componentDidMount() {
@@ -312,7 +321,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       });
     } catch (error) {
       this.setState({
-        error,
+        error: error.message,
         errorType: 'player_status',
         status: STATUS.ERROR,
       });
@@ -468,17 +477,17 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     });
   };
 
-  private handleChangeRange = async ({ x }: RangeSliderPosition) => {
+  private handleChangeRange = async (position: number) => {
     const { track } = this.state;
     const { token } = this.props;
-    const percentage = x / 100;
+    const percentage = position / 100;
 
     if (this.isExternalPlayer) {
       try {
         await seek(Math.round(track.durationMs * percentage), token);
 
         this.setState({
-          position: x,
+          position,
           progressMs: Math.round(track.durationMs * percentage),
         });
       } catch (error) {
@@ -563,11 +572,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const isReady = [STATUS.READY, STATUS.UNSUPPORTED].indexOf(status) >= 0;
     const isPlaybackError = errorType === 'playback_error';
 
-    let output = (
-      <div className="rswp__loader">
-        <div />
-      </div>
-    );
+    let output = <Loader styles={this.styles!} />;
 
     let info;
 
@@ -577,12 +582,20 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     if (isReady) {
       if (!info) {
-        info = <Info showSaveIcon={showSaveIcon!} token={token} track={track} />;
+        info = (
+          <Info
+            showSaveIcon={showSaveIcon!}
+            isActive={isActive}
+            styles={this.styles}
+            token={token}
+            track={track}
+          />
+        );
       }
 
       output = (
         <React.Fragment>
-          <div className="rswp__info">{info}</div>
+          <div>{info}</div>
           <Controls
             isExternalDevice={this.isExternalPlayer}
             isPlaying={isPlaying}
@@ -591,67 +604,42 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
             onClickTogglePlay={this.handleClickTogglePlay}
             nextTracks={nextTracks}
             previousTracks={previousTracks}
+            styles={this.styles}
           />
-          <div className="rswp__actions">
-            {currentDeviceId && <Volume volume={volume} setVolume={this.setVolume} />}
-            <Devices
-              deviceId={currentDeviceId}
-              open={isUnsupported && !deviceId}
-              onClickDevice={this.handleClickDevice}
-              token={token}
-            />
-          </div>
+          <Actions
+            currentDeviceId={currentDeviceId}
+            isDevicesOpen={isUnsupported && !deviceId}
+            onClickDevice={this.handleClickDevice}
+            setVolume={this.setVolume}
+            styles={this.styles}
+            token={token}
+            volume={volume}
+          />
         </React.Fragment>
       );
     }
 
     if (status === STATUS.ERROR) {
       output = (
-        <p className="rswp__error">
+        <Error styles={this.styles}>
           {name}: {error}
-        </p>
+        </Error>
       );
     }
 
-    const classes = ['rswp'];
-
-    if (isActive) {
-      classes.push('rswp--active');
-    }
-
     return (
-      <div className={classes.join(' ')}>
+      <Player styles={this.styles}>
         {isReady && (
-          <div
-            className="rswp__slider"
-            onMouseEnter={this.handleToggleMagnify}
-            onMouseLeave={this.handleToggleMagnify}
-          >
-            <RangeSlider
-              axis="x"
-              onChange={this.handleChangeRange}
-              styles={{
-                options: {
-                  handleBorder: '1px solid #000',
-                  handleBorderRadius: 10,
-                  handleColor: '#000',
-                  handleSize: isMagnified ? 14 : 10,
-                  height: isMagnified ? 8 : 4,
-                  padding: 0,
-                  rangeColor: '#666',
-                  trackBorderRadius: 0,
-                  trackColor: '#ccc',
-                },
-              }}
-              x={position}
-              xMin={0}
-              xMax={100}
-              xStep={0.1}
-            />
-          </div>
+          <Slider
+            isMagnified={isMagnified}
+            onChangeRange={this.handleChangeRange}
+            onToggleMagnify={this.handleToggleMagnify}
+            position={position}
+            styles={this.styles!}
+          />
         )}
-        <div className="rswp__container">{output}</div>
-      </div>
+        <Content styles={this.styles}>{output}</Content>
+      </Player>
     );
   }
 }

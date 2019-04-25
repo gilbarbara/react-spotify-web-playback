@@ -1,20 +1,87 @@
 import React, { PureComponent } from 'react';
-import { checkTracksStatus, saveTracks, removeTracks } from './spotify';
+import { checkTracksStatus, saveTracks, removeTracks } from '../spotify';
+import { px, styled } from '../styles';
 
-import { PlayerTrack } from './types/spotify';
+import { StyledComponentProps, StylesOptions } from '../types/common';
+import { PlayerTrack } from '../types/spotify';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
 
 interface Props {
+  isActive: boolean;
   showSaveIcon: boolean;
   track: PlayerTrack;
   token: string;
+  styles: StylesOptions;
 }
 
-export interface State {
+interface State {
   isSaved: boolean;
 }
+
+const Wrapper = styled('div')({}, ({ styles }: StyledComponentProps) => ({
+  alignItems: 'center',
+  display: 'flex',
+  height: px(styles.height),
+  textAlign: 'left',
+
+  '@media (max-width: 599px)': {
+    borderBottom: '1px solid #ccc',
+    display: 'none',
+    width: '100%',
+  },
+
+  '&.rswp__active': {
+    '@media (max-width: 599px)': {
+      display: 'flex',
+    },
+  },
+
+  img: {
+    height: px(styles.height),
+    width: px(styles.height),
+  },
+
+  p: {
+    '&:first-child': {
+      alignItems: 'center',
+      display: 'inline-flex',
+
+      button: {
+        fontSize: '110%',
+        marginLeft: px(5),
+
+        '&:focus': {
+          outline: 'none',
+        },
+
+        '&.rswp__active': {
+          color: styles.savedColor,
+        },
+      },
+    },
+  },
+}));
+
+const Title = styled('div')({}, ({ styles }: StyledComponentProps) => ({
+  marginLeft: px(10),
+  whiteSpace: 'nowrap',
+
+  p: {
+    color: styles.trackNameColor,
+    fontSize: px(14),
+    lineHeight: 1.3,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    width: '100%',
+
+    '&:last-child': {
+      color: styles.trackArtistColor,
+    },
+  },
+}));
 
 export default class Info extends PureComponent<Props, State> {
   constructor(props: Props) {
@@ -68,7 +135,7 @@ export default class Info extends PureComponent<Props, State> {
 
   public render() {
     const { isSaved } = this.state;
-    const { showSaveIcon, track } = this.props;
+    const { isActive, showSaveIcon, styles, track } = this.props;
     let icon;
 
     if (showSaveIcon && track.id) {
@@ -79,17 +146,23 @@ export default class Info extends PureComponent<Props, State> {
       );
     }
 
+    const classes = [];
+
+    if (isActive) {
+      classes.push('rswp__active');
+    }
+
     return (
-      <div className="rswp__info">
+      <Wrapper styles={styles} className={classes.join(' ')}>
         <img src={track.image} alt={track.name} />
-        <div className="rswp__title">
+        <Title styles={styles}>
           <p>
             <span>{track.name}</span>
             {icon}
           </p>
           <p>{track.artists}</p>
-        </div>
-      </div>
+        </Title>
+      </Wrapper>
     );
   }
 }

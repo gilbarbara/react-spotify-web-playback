@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "@gilbarbara/react-range-slider": "^0.4.3",
-    "exenv": "^1.2.2"
+    "exenv": "^1.2.2",
+    "nano-css": "^5.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
@@ -152,7 +153,7 @@
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "15 KB"
+      "limit": "16 KB"
     }
   ],
   "husky": {

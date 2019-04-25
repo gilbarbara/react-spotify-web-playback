@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
-import { getDevices, setDevice } from './spotify';
+import { getDevices, setDevice } from '../spotify';
+import { px, styled } from '../styles';
 
-import { SpotifyDevice } from './types/spotify';
+import { StyledComponentProps, StylesOptions } from '../types/common';
+import { SpotifyDevice } from '../types/spotify';
 
 import ClickOutside from './ClickOutside';
 
@@ -12,12 +14,50 @@ interface Props {
   onClickDevice: (deviceId: string) => any;
   open: boolean;
   token: string;
+  styles: StylesOptions;
 }
 
 export interface State {
   devices: SpotifyDevice[];
   isOpen: boolean;
 }
+
+const Wrapper = styled('div')(
+  {
+    position: 'relative',
+    zIndex: 20,
+
+    '> div': {
+      backgroundColor: '#fff',
+      bottom: '120%',
+      boxShadow: '1px 1px 10px #ccc',
+      display: 'flex',
+      flexDirection: 'column',
+      padding: px(8),
+      position: 'absolute',
+      right: `-${px(3)}`,
+
+      button: {
+        display: 'block',
+        padding: px(8),
+        whiteSpace: 'nowrap',
+
+        '&.rswp__devices__active': {
+          fontWeight: 'bold',
+        },
+      },
+    },
+
+    '> button': {
+      fontSize: px(26),
+    },
+  },
+  ({ styles }: StyledComponentProps) => ({
+    '> button': {
+      color: styles.color,
+    },
+  }),
+);
 
 export default class Devices extends PureComponent<Props, State> {
   private timeout: any;
@@ -62,10 +102,10 @@ export default class Devices extends PureComponent<Props, State> {
 
   public render() {
     const { devices, isOpen } = this.state;
-    const { deviceId } = this.props;
+    const { deviceId, styles } = this.props;
 
     return (
-      <div className="rswp__devices">
+      <Wrapper styles={styles}>
         {!!devices.length && (
           <React.Fragment>
             {isOpen && (
@@ -88,7 +128,7 @@ export default class Devices extends PureComponent<Props, State> {
             </button>
           </React.Fragment>
         )}
-      </div>
+      </Wrapper>
     );
   }
 }
