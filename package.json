@@ -61,7 +61,6 @@
     "@types/react-dom": "^16.8.4",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.7.1",
-    "bundlesize": "^0.17.1",
     "chalk": "^2.4.2",
     "cross-env": "^5.2.0",
     "enzyme": "^3.9.0",
@@ -82,8 +81,6 @@
     "jest-watch-typeahead": "^0.3.0",
     "lint-staged": "^8.1.5",
     "node-fetch": "^2.3.0",
-    "node-sass": "^4.11.0",
-    "nodemon": "^1.18.11",
     "prettier": "^1.17.0",
     "react": "^16.7.0",
     "react-addons-test-utils": "^15.6.2",
@@ -91,6 +88,7 @@
     "react-test-renderer": "^16.8.6",
     "rimraf": "^2.6.3",
     "serve": "^11.0.0",
+    "size-limit": "^1.0.1",
     "start-server-and-test": "^1.7.13",
     "styled-components": "^4.2.0",
     "ts-jest": "^24.0.2",
@@ -101,12 +99,9 @@
     "yargs": "^13.2.2"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:js && npm run build:css && cp src/styles.scss lib/",
+    "build": "npm run clean && npm run build:js",
     "build:js": "tsc --outDir lib",
-    "build:css": "node-sass -o lib src/styles.scss",
-    "watch": "npm run watch:ts & npm run watch:scss",
-    "watch:ts": "nodemon -e ts,tsx -w src -x \"npm run build:js\"",
-    "watch:scss": "nodemon -e scss -w src -x \"npm run build:css && cp src/styles.scss lib/\"",
+    "watch": "npm run build:js -- -w",
     "clean": "rimraf lib",
     "test": "is-ci \"test:coverage\" \"test:watch\"",
     "test:coverage": "jest --bail --coverage",
@@ -115,8 +110,8 @@
     "lint:js": "eslint --ext .js --ext .jsx test tools",
     "lint:ts": "tslint -p tsconfig.json",
     "format": "prettier \"**/*.{js,jsx,json,yml,yaml,css,less,scss,ts,tsx,md,graphql,mdx}\" --write",
-    "validate": "npm run lint && npm run test:coverage && npm run build && npm run bundlesize",
-    "bundlesize": "bundlesize",
+    "validate": "npm run lint && npm run test:coverage && npm run build && npm run size",
+    "size": "size-limit",
     "prepublishOnly": "npm run validate"
   },
   "browserslist": [
@@ -154,10 +149,10 @@
       "**/lib/*"
     ]
   },
-  "bundlesize": [
+  "size-limit": [
     {
       "path": "./lib/index.js",
-      "maxSize": "7 kB"
+      "limit": "15 KB"
     }
   ],
   "husky": {
