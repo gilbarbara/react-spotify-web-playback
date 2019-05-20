@@ -1,18 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SpotifyWebPlayer should render properly 1`] = `
+exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = `
 <SpotifyWebPlayer
-  callback={[Function]}
+  callback={[MockFunction]}
   name="Spotify Web Player"
   showSaveIcon={false}
   syncExternalDeviceInterval={5}
+  token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+  uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
 >
   <Player
     styles={
       Object {
         "bgColor": "#fff",
         "color": "#333",
-        "errorColor": "#d7d300",
+        "errorColor": "#a60000",
         "height": 48,
         "loaderSize": 32,
         "rangeColor": "#666",
@@ -27,12 +29,12 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
       }
     }
   >
-    <Component
+    <style(PlayerRSWP)
       styles={
         Object {
           "bgColor": "#fff",
           "color": "#333",
-          "errorColor": "#d7d300",
+          "errorColor": "#a60000",
           "height": 48,
           "loaderSize": 32,
           "rangeColor": "#666",
@@ -48,12 +50,12 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
       }
     >
       <div
-        className=" __1v705to __1v1a1mw"
+        className=" _PlayerRSWP __1v1a1mw"
         styles={
           Object {
             "bgColor": "#fff",
             "color": "#333",
-            "errorColor": "#d7d300",
+            "errorColor": "#a60000",
             "height": 48,
             "loaderSize": 32,
             "rangeColor": "#666",
@@ -73,7 +75,7 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
             Object {
               "bgColor": "#fff",
               "color": "#333",
-              "errorColor": "#d7d300",
+              "errorColor": "#a60000",
               "height": 48,
               "loaderSize": 32,
               "rangeColor": "#666",
@@ -88,12 +90,12 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
             }
           }
         >
-          <Component
+          <style(ContentRSWP)
             styles={
               Object {
                 "bgColor": "#fff",
                 "color": "#333",
-                "errorColor": "#d7d300",
+                "errorColor": "#a60000",
                 "height": 48,
                 "loaderSize": 32,
                 "rangeColor": "#666",
@@ -109,12 +111,1460 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
             }
           >
             <div
-              className=" __12uxyx4 __1xc0f9k"
+              className=" _ContentRSWP __1xc0f9k"
               styles={
                 Object {
                   "bgColor": "#fff",
                   "color": "#333",
-                  "errorColor": "#d7d300",
+                  "errorColor": "#a60000",
+                  "height": 48,
+                  "loaderSize": 32,
+                  "rangeColor": "#666",
+                  "rangeHandleBorderRadius": "50%",
+                  "rangeHandleColor": "#000",
+                  "rangeHeight": 4,
+                  "rangeTrackBorderRadius": 0,
+                  "rangeTrackColor": "#ccc",
+                  "savedColor": "#1cb954",
+                  "trackArtistColor": "#999",
+                  "trackNameColor": "#333",
+                }
+              }
+            >
+              <Error
+                styles={
+                  Object {
+                    "bgColor": "#fff",
+                    "color": "#333",
+                    "errorColor": "#a60000",
+                    "height": 48,
+                    "loaderSize": 32,
+                    "rangeColor": "#666",
+                    "rangeHandleBorderRadius": "50%",
+                    "rangeHandleColor": "#000",
+                    "rangeHeight": 4,
+                    "rangeTrackBorderRadius": 0,
+                    "rangeTrackColor": "#ccc",
+                    "savedColor": "#1cb954",
+                    "trackArtistColor": "#999",
+                    "trackNameColor": "#333",
+                  }
+                }
+              >
+                <style(ErrorRSWP)
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#a60000",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                >
+                  <p
+                    className=" _ErrorRSWP __1c3vtun"
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#a60000",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    Spotify Web Player
+                    : 
+                    Failed to validate Spotify account
+                  </p>
+                </style(ErrorRSWP)>
+              </Error>
+            </div>
+          </style(ContentRSWP)>
+        </Content>
+      </div>
+    </style(PlayerRSWP)>
+  </Player>
+</SpotifyWebPlayer>
+`;
+
+exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\` 1`] = `
+<SpotifyWebPlayer
+  callback={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "currentDeviceId": "",
+            "deviceId": "",
+            "error": "Failed to authenticate",
+            "errorType": "authentication_error",
+            "isActive": false,
+            "isMagnified": false,
+            "isPlaying": false,
+            "isUnsupported": false,
+            "nextTracks": Array [],
+            "position": 0,
+            "previousTracks": Array [],
+            "status": "ERROR",
+            "track": Object {
+              "artists": "",
+              "durationMs": 0,
+              "id": "",
+              "image": "",
+              "name": "",
+              "uri": "",
+            },
+            "type": "status_update",
+            "volume": 1,
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  name="Spotify Web Player"
+  showSaveIcon={false}
+  syncExternalDeviceInterval={5}
+  token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+  uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
+>
+  <Player
+    styles={
+      Object {
+        "bgColor": "#fff",
+        "color": "#333",
+        "errorColor": "#a60000",
+        "height": 48,
+        "loaderSize": 32,
+        "rangeColor": "#666",
+        "rangeHandleBorderRadius": "50%",
+        "rangeHandleColor": "#000",
+        "rangeHeight": 4,
+        "rangeTrackBorderRadius": 0,
+        "rangeTrackColor": "#ccc",
+        "savedColor": "#1cb954",
+        "trackArtistColor": "#999",
+        "trackNameColor": "#333",
+      }
+    }
+  >
+    <style(PlayerRSWP)
+      styles={
+        Object {
+          "bgColor": "#fff",
+          "color": "#333",
+          "errorColor": "#a60000",
+          "height": 48,
+          "loaderSize": 32,
+          "rangeColor": "#666",
+          "rangeHandleBorderRadius": "50%",
+          "rangeHandleColor": "#000",
+          "rangeHeight": 4,
+          "rangeTrackBorderRadius": 0,
+          "rangeTrackColor": "#ccc",
+          "savedColor": "#1cb954",
+          "trackArtistColor": "#999",
+          "trackNameColor": "#333",
+        }
+      }
+    >
+      <div
+        className=" _PlayerRSWP __1v1a1mw"
+        styles={
+          Object {
+            "bgColor": "#fff",
+            "color": "#333",
+            "errorColor": "#a60000",
+            "height": 48,
+            "loaderSize": 32,
+            "rangeColor": "#666",
+            "rangeHandleBorderRadius": "50%",
+            "rangeHandleColor": "#000",
+            "rangeHeight": 4,
+            "rangeTrackBorderRadius": 0,
+            "rangeTrackColor": "#ccc",
+            "savedColor": "#1cb954",
+            "trackArtistColor": "#999",
+            "trackNameColor": "#333",
+          }
+        }
+      >
+        <Content
+          styles={
+            Object {
+              "bgColor": "#fff",
+              "color": "#333",
+              "errorColor": "#a60000",
+              "height": 48,
+              "loaderSize": 32,
+              "rangeColor": "#666",
+              "rangeHandleBorderRadius": "50%",
+              "rangeHandleColor": "#000",
+              "rangeHeight": 4,
+              "rangeTrackBorderRadius": 0,
+              "rangeTrackColor": "#ccc",
+              "savedColor": "#1cb954",
+              "trackArtistColor": "#999",
+              "trackNameColor": "#333",
+            }
+          }
+        >
+          <style(ContentRSWP)
+            styles={
+              Object {
+                "bgColor": "#fff",
+                "color": "#333",
+                "errorColor": "#a60000",
+                "height": 48,
+                "loaderSize": 32,
+                "rangeColor": "#666",
+                "rangeHandleBorderRadius": "50%",
+                "rangeHandleColor": "#000",
+                "rangeHeight": 4,
+                "rangeTrackBorderRadius": 0,
+                "rangeTrackColor": "#ccc",
+                "savedColor": "#1cb954",
+                "trackArtistColor": "#999",
+                "trackNameColor": "#333",
+              }
+            }
+          >
+            <div
+              className=" _ContentRSWP __1xc0f9k"
+              styles={
+                Object {
+                  "bgColor": "#fff",
+                  "color": "#333",
+                  "errorColor": "#a60000",
+                  "height": 48,
+                  "loaderSize": 32,
+                  "rangeColor": "#666",
+                  "rangeHandleBorderRadius": "50%",
+                  "rangeHandleColor": "#000",
+                  "rangeHeight": 4,
+                  "rangeTrackBorderRadius": 0,
+                  "rangeTrackColor": "#ccc",
+                  "savedColor": "#1cb954",
+                  "trackArtistColor": "#999",
+                  "trackNameColor": "#333",
+                }
+              }
+            >
+              <Error
+                styles={
+                  Object {
+                    "bgColor": "#fff",
+                    "color": "#333",
+                    "errorColor": "#a60000",
+                    "height": 48,
+                    "loaderSize": 32,
+                    "rangeColor": "#666",
+                    "rangeHandleBorderRadius": "50%",
+                    "rangeHandleColor": "#000",
+                    "rangeHeight": 4,
+                    "rangeTrackBorderRadius": 0,
+                    "rangeTrackColor": "#ccc",
+                    "savedColor": "#1cb954",
+                    "trackArtistColor": "#999",
+                    "trackNameColor": "#333",
+                  }
+                }
+              >
+                <style(ErrorRSWP)
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#a60000",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                >
+                  <p
+                    className=" _ErrorRSWP __1c3vtun"
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#a60000",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    Spotify Web Player
+                    : 
+                    Failed to authenticate
+                  </p>
+                </style(ErrorRSWP)>
+              </Error>
+            </div>
+          </style(ContentRSWP)>
+        </Content>
+      </div>
+    </style(PlayerRSWP)>
+  </Player>
+</SpotifyWebPlayer>
+`;
+
+exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\` 1`] = `
+<SpotifyWebPlayer
+  callback={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "currentDeviceId": "",
+            "deviceId": "",
+            "error": "Failed to initialize",
+            "errorType": "initialization_error",
+            "isActive": false,
+            "isMagnified": false,
+            "isPlaying": false,
+            "isUnsupported": true,
+            "nextTracks": Array [],
+            "position": 0,
+            "previousTracks": Array [],
+            "status": "UNSUPPORTED",
+            "track": Object {
+              "artists": "",
+              "durationMs": 0,
+              "id": "",
+              "image": "",
+              "name": "",
+              "uri": "",
+            },
+            "type": "status_update",
+            "volume": 1,
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  name="Spotify Web Player"
+  showSaveIcon={false}
+  syncExternalDeviceInterval={5}
+  token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+  uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
+>
+  <Player
+    styles={
+      Object {
+        "bgColor": "#fff",
+        "color": "#333",
+        "errorColor": "#a60000",
+        "height": 48,
+        "loaderSize": 32,
+        "rangeColor": "#666",
+        "rangeHandleBorderRadius": "50%",
+        "rangeHandleColor": "#000",
+        "rangeHeight": 4,
+        "rangeTrackBorderRadius": 0,
+        "rangeTrackColor": "#ccc",
+        "savedColor": "#1cb954",
+        "trackArtistColor": "#999",
+        "trackNameColor": "#333",
+      }
+    }
+  >
+    <style(PlayerRSWP)
+      styles={
+        Object {
+          "bgColor": "#fff",
+          "color": "#333",
+          "errorColor": "#a60000",
+          "height": 48,
+          "loaderSize": 32,
+          "rangeColor": "#666",
+          "rangeHandleBorderRadius": "50%",
+          "rangeHandleColor": "#000",
+          "rangeHeight": 4,
+          "rangeTrackBorderRadius": 0,
+          "rangeTrackColor": "#ccc",
+          "savedColor": "#1cb954",
+          "trackArtistColor": "#999",
+          "trackNameColor": "#333",
+        }
+      }
+    >
+      <div
+        className=" _PlayerRSWP __1v1a1mw"
+        styles={
+          Object {
+            "bgColor": "#fff",
+            "color": "#333",
+            "errorColor": "#a60000",
+            "height": 48,
+            "loaderSize": 32,
+            "rangeColor": "#666",
+            "rangeHandleBorderRadius": "50%",
+            "rangeHandleColor": "#000",
+            "rangeHeight": 4,
+            "rangeTrackBorderRadius": 0,
+            "rangeTrackColor": "#ccc",
+            "savedColor": "#1cb954",
+            "trackArtistColor": "#999",
+            "trackNameColor": "#333",
+          }
+        }
+      >
+        <Slider
+          isMagnified={false}
+          onChangeRange={[Function]}
+          onToggleMagnify={[Function]}
+          position={0}
+          styles={
+            Object {
+              "bgColor": "#fff",
+              "color": "#333",
+              "errorColor": "#a60000",
+              "height": 48,
+              "loaderSize": 32,
+              "rangeColor": "#666",
+              "rangeHandleBorderRadius": "50%",
+              "rangeHandleColor": "#000",
+              "rangeHeight": 4,
+              "rangeTrackBorderRadius": 0,
+              "rangeTrackColor": "#ccc",
+              "savedColor": "#1cb954",
+              "trackArtistColor": "#999",
+              "trackNameColor": "#333",
+            }
+          }
+        >
+          <style(SliderRSWP)
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            styles={
+              Object {
+                "bgColor": "#fff",
+                "color": "#333",
+                "errorColor": "#a60000",
+                "height": 48,
+                "loaderSize": 32,
+                "rangeColor": "#666",
+                "rangeHandleBorderRadius": "50%",
+                "rangeHandleColor": "#000",
+                "rangeHeight": 4,
+                "rangeTrackBorderRadius": 0,
+                "rangeTrackColor": "#ccc",
+                "savedColor": "#1cb954",
+                "trackArtistColor": "#999",
+                "trackNameColor": "#333",
+              }
+            }
+          >
+            <div
+              className=" _SliderRSWP __181lube"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              styles={
+                Object {
+                  "bgColor": "#fff",
+                  "color": "#333",
+                  "errorColor": "#a60000",
+                  "height": 48,
+                  "loaderSize": 32,
+                  "rangeColor": "#666",
+                  "rangeHandleBorderRadius": "50%",
+                  "rangeHandleColor": "#000",
+                  "rangeHeight": 4,
+                  "rangeTrackBorderRadius": 0,
+                  "rangeTrackColor": "#ccc",
+                  "savedColor": "#1cb954",
+                  "trackArtistColor": "#999",
+                  "trackNameColor": "#333",
+                }
+              }
+            >
+              <RangeSlider
+                axis="x"
+                onChange={[Function]}
+                styles={
+                  Object {
+                    "options": Object {
+                      "handleBorder": 0,
+                      "handleBorderRadius": "50%",
+                      "handleColor": "#000",
+                      "handleSize": 10,
+                      "height": 4,
+                      "padding": 0,
+                      "rangeColor": "#666",
+                      "trackBorderRadius": 0,
+                      "trackColor": "#ccc",
+                    },
+                  }
+                }
+                x={0}
+                xMax={100}
+                xMin={0}
+                xStep={0.1}
+                y={0}
+                yMax={100}
+                yMin={0}
+                yStep={1}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "display": "inline-block",
+                      "height": 4,
+                      "padding": 0,
+                      "transition": "height 0.4s, width 0.4s",
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "backgroundColor": "#ccc",
+                        "borderRadius": 0,
+                        "boxSizing": "border-box",
+                        "height": 4,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "backgroundColor": "#666",
+                          "borderRadius": 0,
+                          "height": "100%",
+                          "position": "absolute",
+                          "top": 0,
+                          "width": "0%",
+                        }
+                      }
+                    />
+                    <div
+                      onMouseDown={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "bottom": "0%",
+                          "boxSizing": "border-box",
+                          "height": 4,
+                          "left": "0%",
+                          "position": "absolute",
+                          "transition": "height 0.4s, width 0.4s",
+                          "width": "20px",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "backgroundColor": "#000",
+                            "border": 0,
+                            "borderRadius": "50%",
+                            "boxSizing": "border-box",
+                            "display": "block",
+                            "height": 10,
+                            "left": -5,
+                            "position": "absolute",
+                            "top": -3,
+                            "transition": "height 0.4s, width 0.4s",
+                            "width": 10,
+                          }
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </RangeSlider>
+            </div>
+          </style(SliderRSWP)>
+        </Slider>
+        <Content
+          styles={
+            Object {
+              "bgColor": "#fff",
+              "color": "#333",
+              "errorColor": "#a60000",
+              "height": 48,
+              "loaderSize": 32,
+              "rangeColor": "#666",
+              "rangeHandleBorderRadius": "50%",
+              "rangeHandleColor": "#000",
+              "rangeHeight": 4,
+              "rangeTrackBorderRadius": 0,
+              "rangeTrackColor": "#ccc",
+              "savedColor": "#1cb954",
+              "trackArtistColor": "#999",
+              "trackNameColor": "#333",
+            }
+          }
+        >
+          <style(ContentRSWP)
+            styles={
+              Object {
+                "bgColor": "#fff",
+                "color": "#333",
+                "errorColor": "#a60000",
+                "height": 48,
+                "loaderSize": 32,
+                "rangeColor": "#666",
+                "rangeHandleBorderRadius": "50%",
+                "rangeHandleColor": "#000",
+                "rangeHeight": 4,
+                "rangeTrackBorderRadius": 0,
+                "rangeTrackColor": "#ccc",
+                "savedColor": "#1cb954",
+                "trackArtistColor": "#999",
+                "trackNameColor": "#333",
+              }
+            }
+          >
+            <div
+              className=" _ContentRSWP __1xc0f9k"
+              styles={
+                Object {
+                  "bgColor": "#fff",
+                  "color": "#333",
+                  "errorColor": "#a60000",
+                  "height": 48,
+                  "loaderSize": 32,
+                  "rangeColor": "#666",
+                  "rangeHandleBorderRadius": "50%",
+                  "rangeHandleColor": "#000",
+                  "rangeHeight": 4,
+                  "rangeTrackBorderRadius": 0,
+                  "rangeTrackColor": "#ccc",
+                  "savedColor": "#1cb954",
+                  "trackArtistColor": "#999",
+                  "trackNameColor": "#333",
+                }
+              }
+            >
+              <div>
+                <Info
+                  isActive={false}
+                  showSaveIcon={false}
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#a60000",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                  token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+                  track={
+                    Object {
+                      "artists": "",
+                      "durationMs": 0,
+                      "id": "",
+                      "image": "",
+                      "name": "",
+                      "uri": "",
+                    }
+                  }
+                >
+                  <style(InfoRSWP)
+                    className=""
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#a60000",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    <div
+                      className=" _InfoRSWP __17c6fmt"
+                      styles={
+                        Object {
+                          "bgColor": "#fff",
+                          "color": "#333",
+                          "errorColor": "#a60000",
+                          "height": 48,
+                          "loaderSize": 32,
+                          "rangeColor": "#666",
+                          "rangeHandleBorderRadius": "50%",
+                          "rangeHandleColor": "#000",
+                          "rangeHeight": 4,
+                          "rangeTrackBorderRadius": 0,
+                          "rangeTrackColor": "#ccc",
+                          "savedColor": "#1cb954",
+                          "trackArtistColor": "#999",
+                          "trackNameColor": "#333",
+                        }
+                      }
+                    >
+                      <img
+                        alt=""
+                        src=""
+                      />
+                      <Component
+                        styles={
+                          Object {
+                            "bgColor": "#fff",
+                            "color": "#333",
+                            "errorColor": "#a60000",
+                            "height": 48,
+                            "loaderSize": 32,
+                            "rangeColor": "#666",
+                            "rangeHandleBorderRadius": "50%",
+                            "rangeHandleColor": "#000",
+                            "rangeHeight": 4,
+                            "rangeTrackBorderRadius": 0,
+                            "rangeTrackColor": "#ccc",
+                            "savedColor": "#1cb954",
+                            "trackArtistColor": "#999",
+                            "trackNameColor": "#333",
+                          }
+                        }
+                      >
+                        <div
+                          className=" __3hmsj __m0jum"
+                          styles={
+                            Object {
+                              "bgColor": "#fff",
+                              "color": "#333",
+                              "errorColor": "#a60000",
+                              "height": 48,
+                              "loaderSize": 32,
+                              "rangeColor": "#666",
+                              "rangeHandleBorderRadius": "50%",
+                              "rangeHandleColor": "#000",
+                              "rangeHeight": 4,
+                              "rangeTrackBorderRadius": 0,
+                              "rangeTrackColor": "#ccc",
+                              "savedColor": "#1cb954",
+                              "trackArtistColor": "#999",
+                              "trackNameColor": "#333",
+                            }
+                          }
+                        >
+                          <p>
+                            <span />
+                          </p>
+                          <p />
+                        </div>
+                      </Component>
+                    </div>
+                  </style(InfoRSWP)>
+                </Info>
+              </div>
+              <Controls
+                isExternalDevice={true}
+                isPlaying={false}
+                nextTracks={Array []}
+                onClickNext={[Function]}
+                onClickPrevious={[Function]}
+                onClickTogglePlay={[Function]}
+                previousTracks={Array []}
+                styles={
+                  Object {
+                    "bgColor": "#fff",
+                    "color": "#333",
+                    "errorColor": "#a60000",
+                    "height": 48,
+                    "loaderSize": 32,
+                    "rangeColor": "#666",
+                    "rangeHandleBorderRadius": "50%",
+                    "rangeHandleColor": "#000",
+                    "rangeHeight": 4,
+                    "rangeTrackBorderRadius": 0,
+                    "rangeTrackColor": "#ccc",
+                    "savedColor": "#1cb954",
+                    "trackArtistColor": "#999",
+                    "trackNameColor": "#333",
+                  }
+                }
+              >
+                <style(ControlsRSWP)
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#a60000",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                >
+                  <div
+                    className=" _ControlsRSWP __1g1kf0v"
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#a60000",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    <div>
+                      <button
+                        aria-label="Previous Track"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <Previous>
+                          <svg
+                            height="1em"
+                            preserveAspectRatio="xMidYMid"
+                            viewBox="0 0 128 128"
+                            width="1em"
+                          >
+                            <path
+                              d="M29.09 53.749V5.819H5.819v116.363h23.273v-47.93L122.18 128V0z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </Previous>
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        aria-label="Play"
+                        className="rswp__toggle"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <Play>
+                          <svg
+                            height="1em"
+                            preserveAspectRatio="xMidYMid"
+                            viewBox="0 0 128 128"
+                            width="1em"
+                          >
+                            <path
+                              d="M119.351 64L8.65 0v128z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </Play>
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        aria-label="Next Track"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <Next>
+                          <svg
+                            height="1em"
+                            preserveAspectRatio="xMidYMid"
+                            viewBox="0 0 128 128"
+                            width="1em"
+                          >
+                            <path
+                              d="M98.91 53.749L5.817 0v128L98.91 74.251v47.93h23.273V5.819H98.909z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </Next>
+                      </button>
+                    </div>
+                  </div>
+                </style(ControlsRSWP)>
+              </Controls>
+              <Actions
+                currentDeviceId=""
+                isDevicesOpen={true}
+                onClickDevice={[Function]}
+                setVolume={[Function]}
+                styles={
+                  Object {
+                    "bgColor": "#fff",
+                    "color": "#333",
+                    "errorColor": "#a60000",
+                    "height": 48,
+                    "loaderSize": 32,
+                    "rangeColor": "#666",
+                    "rangeHandleBorderRadius": "50%",
+                    "rangeHandleColor": "#000",
+                    "rangeHeight": 4,
+                    "rangeTrackBorderRadius": 0,
+                    "rangeTrackColor": "#ccc",
+                    "savedColor": "#1cb954",
+                    "trackArtistColor": "#999",
+                    "trackNameColor": "#333",
+                  }
+                }
+                token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+                volume={1}
+              >
+                <style(ActionsRSWP)
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#a60000",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                >
+                  <div
+                    className=" _ActionsRSWP __hrnxs2"
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#a60000",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    <Devices
+                      deviceId=""
+                      onClickDevice={[Function]}
+                      open={true}
+                      styles={
+                        Object {
+                          "bgColor": "#fff",
+                          "color": "#333",
+                          "errorColor": "#a60000",
+                          "height": 48,
+                          "loaderSize": 32,
+                          "rangeColor": "#666",
+                          "rangeHandleBorderRadius": "50%",
+                          "rangeHandleColor": "#000",
+                          "rangeHeight": 4,
+                          "rangeTrackBorderRadius": 0,
+                          "rangeTrackColor": "#ccc",
+                          "savedColor": "#1cb954",
+                          "trackArtistColor": "#999",
+                          "trackNameColor": "#333",
+                        }
+                      }
+                      token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+                    >
+                      <style(DevicesRSWP)
+                        styles={
+                          Object {
+                            "bgColor": "#fff",
+                            "color": "#333",
+                            "errorColor": "#a60000",
+                            "height": 48,
+                            "loaderSize": 32,
+                            "rangeColor": "#666",
+                            "rangeHandleBorderRadius": "50%",
+                            "rangeHandleColor": "#000",
+                            "rangeHeight": 4,
+                            "rangeTrackBorderRadius": 0,
+                            "rangeTrackColor": "#ccc",
+                            "savedColor": "#1cb954",
+                            "trackArtistColor": "#999",
+                            "trackNameColor": "#333",
+                          }
+                        }
+                      >
+                        <div
+                          className=" _DevicesRSWP __djl5c0"
+                          styles={
+                            Object {
+                              "bgColor": "#fff",
+                              "color": "#333",
+                              "errorColor": "#a60000",
+                              "height": 48,
+                              "loaderSize": 32,
+                              "rangeColor": "#666",
+                              "rangeHandleBorderRadius": "50%",
+                              "rangeHandleColor": "#000",
+                              "rangeHeight": 4,
+                              "rangeTrackBorderRadius": 0,
+                              "rangeTrackColor": "#ccc",
+                              "savedColor": "#1cb954",
+                              "trackArtistColor": "#999",
+                              "trackNameColor": "#333",
+                            }
+                          }
+                        />
+                      </style(DevicesRSWP)>
+                    </Devices>
+                  </div>
+                </style(ActionsRSWP)>
+              </Actions>
+            </div>
+          </style(ContentRSWP)>
+        </Content>
+      </div>
+    </style(PlayerRSWP)>
+  </Player>
+</SpotifyWebPlayer>
+`;
+
+exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] = `
+<SpotifyWebPlayer
+  callback={[MockFunction]}
+  name="Spotify Web Player"
+  showSaveIcon={false}
+  syncExternalDeviceInterval={5}
+  token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+  uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
+>
+  <Player
+    styles={
+      Object {
+        "bgColor": "#fff",
+        "color": "#333",
+        "errorColor": "#a60000",
+        "height": 48,
+        "loaderSize": 32,
+        "rangeColor": "#666",
+        "rangeHandleBorderRadius": "50%",
+        "rangeHandleColor": "#000",
+        "rangeHeight": 4,
+        "rangeTrackBorderRadius": 0,
+        "rangeTrackColor": "#ccc",
+        "savedColor": "#1cb954",
+        "trackArtistColor": "#999",
+        "trackNameColor": "#333",
+      }
+    }
+  >
+    <style(PlayerRSWP)
+      styles={
+        Object {
+          "bgColor": "#fff",
+          "color": "#333",
+          "errorColor": "#a60000",
+          "height": 48,
+          "loaderSize": 32,
+          "rangeColor": "#666",
+          "rangeHandleBorderRadius": "50%",
+          "rangeHandleColor": "#000",
+          "rangeHeight": 4,
+          "rangeTrackBorderRadius": 0,
+          "rangeTrackColor": "#ccc",
+          "savedColor": "#1cb954",
+          "trackArtistColor": "#999",
+          "trackNameColor": "#333",
+        }
+      }
+    >
+      <div
+        className=" _PlayerRSWP __1v1a1mw"
+        styles={
+          Object {
+            "bgColor": "#fff",
+            "color": "#333",
+            "errorColor": "#a60000",
+            "height": 48,
+            "loaderSize": 32,
+            "rangeColor": "#666",
+            "rangeHandleBorderRadius": "50%",
+            "rangeHandleColor": "#000",
+            "rangeHeight": 4,
+            "rangeTrackBorderRadius": 0,
+            "rangeTrackColor": "#ccc",
+            "savedColor": "#1cb954",
+            "trackArtistColor": "#999",
+            "trackNameColor": "#333",
+          }
+        }
+      >
+        <Content
+          styles={
+            Object {
+              "bgColor": "#fff",
+              "color": "#333",
+              "errorColor": "#a60000",
+              "height": 48,
+              "loaderSize": 32,
+              "rangeColor": "#666",
+              "rangeHandleBorderRadius": "50%",
+              "rangeHandleColor": "#000",
+              "rangeHeight": 4,
+              "rangeTrackBorderRadius": 0,
+              "rangeTrackColor": "#ccc",
+              "savedColor": "#1cb954",
+              "trackArtistColor": "#999",
+              "trackNameColor": "#333",
+            }
+          }
+        >
+          <style(ContentRSWP)
+            styles={
+              Object {
+                "bgColor": "#fff",
+                "color": "#333",
+                "errorColor": "#a60000",
+                "height": 48,
+                "loaderSize": 32,
+                "rangeColor": "#666",
+                "rangeHandleBorderRadius": "50%",
+                "rangeHandleColor": "#000",
+                "rangeHeight": 4,
+                "rangeTrackBorderRadius": 0,
+                "rangeTrackColor": "#ccc",
+                "savedColor": "#1cb954",
+                "trackArtistColor": "#999",
+                "trackNameColor": "#333",
+              }
+            }
+          >
+            <div
+              className=" _ContentRSWP __1xc0f9k"
+              styles={
+                Object {
+                  "bgColor": "#fff",
+                  "color": "#333",
+                  "errorColor": "#a60000",
+                  "height": 48,
+                  "loaderSize": 32,
+                  "rangeColor": "#666",
+                  "rangeHandleBorderRadius": "50%",
+                  "rangeHandleColor": "#000",
+                  "rangeHeight": 4,
+                  "rangeTrackBorderRadius": 0,
+                  "rangeTrackColor": "#ccc",
+                  "savedColor": "#1cb954",
+                  "trackArtistColor": "#999",
+                  "trackNameColor": "#333",
+                }
+              }
+            >
+              <Error
+                styles={
+                  Object {
+                    "bgColor": "#fff",
+                    "color": "#333",
+                    "errorColor": "#a60000",
+                    "height": 48,
+                    "loaderSize": 32,
+                    "rangeColor": "#666",
+                    "rangeHandleBorderRadius": "50%",
+                    "rangeHandleColor": "#000",
+                    "rangeHeight": 4,
+                    "rangeTrackBorderRadius": 0,
+                    "rangeTrackColor": "#ccc",
+                    "savedColor": "#1cb954",
+                    "trackArtistColor": "#999",
+                    "trackNameColor": "#333",
+                  }
+                }
+              >
+                <style(ErrorRSWP)
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#a60000",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                >
+                  <p
+                    className=" _ErrorRSWP __1c3vtun"
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#a60000",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    Spotify Web Player
+                    : 
+                    Failed to perform playback
+                  </p>
+                </style(ErrorRSWP)>
+              </Error>
+            </div>
+          </style(ContentRSWP)>
+        </Content>
+      </div>
+    </style(PlayerRSWP)>
+  </Player>
+</SpotifyWebPlayer>
+`;
+
+exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
+<SpotifyWebPlayer
+  autoPlay={true}
+  callback={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "currentDeviceId": "",
+            "deviceId": "",
+            "error": "",
+            "errorType": "",
+            "isActive": false,
+            "isMagnified": false,
+            "isPlaying": false,
+            "isUnsupported": false,
+            "nextTracks": Array [],
+            "position": 0,
+            "previousTracks": Array [],
+            "status": "INITIALIZING",
+            "track": Object {
+              "artists": "",
+              "durationMs": 0,
+              "id": "",
+              "image": "",
+              "name": "",
+              "uri": "",
+            },
+            "type": "status_update",
+            "volume": 1,
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  name="Spotify Web Player"
+  showSaveIcon={true}
+  syncExternalDeviceInterval={5}
+  token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+  uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
+>
+  <Player
+    styles={
+      Object {
+        "bgColor": "#fff",
+        "color": "#333",
+        "errorColor": "#a60000",
+        "height": 48,
+        "loaderSize": 32,
+        "rangeColor": "#666",
+        "rangeHandleBorderRadius": "50%",
+        "rangeHandleColor": "#000",
+        "rangeHeight": 4,
+        "rangeTrackBorderRadius": 0,
+        "rangeTrackColor": "#ccc",
+        "savedColor": "#1cb954",
+        "trackArtistColor": "#999",
+        "trackNameColor": "#333",
+      }
+    }
+  >
+    <style(PlayerRSWP)
+      styles={
+        Object {
+          "bgColor": "#fff",
+          "color": "#333",
+          "errorColor": "#a60000",
+          "height": 48,
+          "loaderSize": 32,
+          "rangeColor": "#666",
+          "rangeHandleBorderRadius": "50%",
+          "rangeHandleColor": "#000",
+          "rangeHeight": 4,
+          "rangeTrackBorderRadius": 0,
+          "rangeTrackColor": "#ccc",
+          "savedColor": "#1cb954",
+          "trackArtistColor": "#999",
+          "trackNameColor": "#333",
+        }
+      }
+    >
+      <div
+        className=" _PlayerRSWP __1v1a1mw"
+        styles={
+          Object {
+            "bgColor": "#fff",
+            "color": "#333",
+            "errorColor": "#a60000",
+            "height": 48,
+            "loaderSize": 32,
+            "rangeColor": "#666",
+            "rangeHandleBorderRadius": "50%",
+            "rangeHandleColor": "#000",
+            "rangeHeight": 4,
+            "rangeTrackBorderRadius": 0,
+            "rangeTrackColor": "#ccc",
+            "savedColor": "#1cb954",
+            "trackArtistColor": "#999",
+            "trackNameColor": "#333",
+          }
+        }
+      >
+        <Content
+          styles={
+            Object {
+              "bgColor": "#fff",
+              "color": "#333",
+              "errorColor": "#a60000",
+              "height": 48,
+              "loaderSize": 32,
+              "rangeColor": "#666",
+              "rangeHandleBorderRadius": "50%",
+              "rangeHandleColor": "#000",
+              "rangeHeight": 4,
+              "rangeTrackBorderRadius": 0,
+              "rangeTrackColor": "#ccc",
+              "savedColor": "#1cb954",
+              "trackArtistColor": "#999",
+              "trackNameColor": "#333",
+            }
+          }
+        >
+          <style(ContentRSWP)
+            styles={
+              Object {
+                "bgColor": "#fff",
+                "color": "#333",
+                "errorColor": "#a60000",
+                "height": 48,
+                "loaderSize": 32,
+                "rangeColor": "#666",
+                "rangeHandleBorderRadius": "50%",
+                "rangeHandleColor": "#000",
+                "rangeHeight": 4,
+                "rangeTrackBorderRadius": 0,
+                "rangeTrackColor": "#ccc",
+                "savedColor": "#1cb954",
+                "trackArtistColor": "#999",
+                "trackNameColor": "#333",
+              }
+            }
+          >
+            <div
+              className=" _ContentRSWP __1xc0f9k"
+              styles={
+                Object {
+                  "bgColor": "#fff",
+                  "color": "#333",
+                  "errorColor": "#a60000",
                   "height": 48,
                   "loaderSize": 32,
                   "rangeColor": "#666",
@@ -134,7 +1584,7 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
                   Object {
                     "bgColor": "#fff",
                     "color": "#333",
-                    "errorColor": "#d7d300",
+                    "errorColor": "#a60000",
                     "height": 48,
                     "loaderSize": 32,
                     "rangeColor": "#666",
@@ -149,12 +1599,12 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
                   }
                 }
               >
-                <Component
+                <style(LoaderRSWP)
                   styles={
                     Object {
                       "bgColor": "#fff",
                       "color": "#333",
-                      "errorColor": "#d7d300",
+                      "errorColor": "#a60000",
                       "height": 48,
                       "loaderSize": 32,
                       "rangeColor": "#666",
@@ -170,12 +1620,12 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
                   }
                 >
                   <div
-                    className=" __1e1bsbc __seuim4"
+                    className=" _LoaderRSWP __seuim4"
                     styles={
                       Object {
                         "bgColor": "#fff",
                         "color": "#333",
-                        "errorColor": "#d7d300",
+                        "errorColor": "#a60000",
                         "height": 48,
                         "loaderSize": 32,
                         "rangeColor": "#666",
@@ -192,13 +1642,1321 @@ exports[`SpotifyWebPlayer should render properly 1`] = `
                   >
                     <div />
                   </div>
-                </Component>
+                </style(LoaderRSWP)>
               </Loader>
             </div>
-          </Component>
+          </style(ContentRSWP)>
         </Content>
       </div>
-    </Component>
+    </style(PlayerRSWP)>
+  </Player>
+</SpotifyWebPlayer>
+`;
+
+exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = `
+<SpotifyWebPlayer
+  autoPlay={true}
+  callback={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "currentDeviceId": "",
+            "deviceId": "",
+            "error": "",
+            "errorType": "",
+            "isActive": false,
+            "isMagnified": false,
+            "isPlaying": false,
+            "isUnsupported": false,
+            "nextTracks": Array [],
+            "position": 0,
+            "previousTracks": Array [],
+            "status": "INITIALIZING",
+            "track": Object {
+              "artists": "",
+              "durationMs": 0,
+              "id": "",
+              "image": "",
+              "name": "",
+              "uri": "",
+            },
+            "type": "status_update",
+            "volume": 1,
+          },
+        ],
+        Array [
+          Object {
+            "currentDeviceId": "19ks98hfbxc53vh34jd",
+            "deviceId": "19ks98hfbxc53vh34jd",
+            "error": "",
+            "errorType": "",
+            "isActive": true,
+            "isMagnified": false,
+            "isPlaying": false,
+            "isUnsupported": false,
+            "nextTracks": Array [
+              Object {
+                "album": Object {
+                  "images": Array [
+                    Object {
+                      "height": 298,
+                      "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                      "width": 300,
+                    },
+                    Object {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                      "width": 64,
+                    },
+                    Object {
+                      "height": 636,
+                      "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                      "width": 640,
+                    },
+                  ],
+                  "name": "Trouble Man",
+                  "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                },
+                "artists": Array [
+                  Object {
+                    "name": "Marvin Gaye",
+                    "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                  },
+                ],
+                "duration_ms": 151626,
+                "id": "6KUjwoHktuX3du8laPVfO8",
+                "is_playable": true,
+                "linked_from": Object {
+                  "id": null,
+                  "uri": null,
+                },
+                "linked_from_uri": null,
+                "media_type": "audio",
+                "name": "Next Theme From Trouble Man",
+                "type": "track",
+                "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+              },
+            ],
+            "position": 0,
+            "previousTracks": Array [
+              Object {
+                "album": Object {
+                  "images": Array [
+                    Object {
+                      "height": 298,
+                      "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                      "width": 300,
+                    },
+                    Object {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                      "width": 64,
+                    },
+                    Object {
+                      "height": 636,
+                      "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                      "width": 640,
+                    },
+                  ],
+                  "name": "Trouble Man",
+                  "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                },
+                "artists": Array [
+                  Object {
+                    "name": "Marvin Gaye",
+                    "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                  },
+                ],
+                "duration_ms": 151626,
+                "id": "6KUjwoHktuX3du8laPVfO8",
+                "is_playable": true,
+                "linked_from": Object {
+                  "id": null,
+                  "uri": null,
+                },
+                "linked_from_uri": null,
+                "media_type": "audio",
+                "name": "Previous Theme From Trouble Man",
+                "type": "track",
+                "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+              },
+            ],
+            "status": "READY",
+            "track": Object {
+              "artists": "Marvin Gaye",
+              "durationMs": 151626,
+              "id": "6KUjwoHktuX3du8laPVfO8",
+              "image": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+              "name": "Main Theme From Trouble Man",
+              "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+            },
+            "type": "track_update",
+            "volume": 0.8,
+          },
+        ],
+        Array [
+          Object {
+            "currentDeviceId": "19ks98hfbxc53vh34jd",
+            "deviceId": "19ks98hfbxc53vh34jd",
+            "error": "",
+            "errorType": "",
+            "isActive": true,
+            "isMagnified": false,
+            "isPlaying": true,
+            "isUnsupported": false,
+            "nextTracks": Array [
+              Object {
+                "album": Object {
+                  "images": Array [
+                    Object {
+                      "height": 298,
+                      "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                      "width": 300,
+                    },
+                    Object {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                      "width": 64,
+                    },
+                    Object {
+                      "height": 636,
+                      "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                      "width": 640,
+                    },
+                  ],
+                  "name": "Trouble Man",
+                  "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                },
+                "artists": Array [
+                  Object {
+                    "name": "Marvin Gaye",
+                    "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                  },
+                ],
+                "duration_ms": 151626,
+                "id": "6KUjwoHktuX3du8laPVfO8",
+                "is_playable": true,
+                "linked_from": Object {
+                  "id": null,
+                  "uri": null,
+                },
+                "linked_from_uri": null,
+                "media_type": "audio",
+                "name": "Next Theme From Trouble Man",
+                "type": "track",
+                "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+              },
+            ],
+            "position": 0,
+            "previousTracks": Array [
+              Object {
+                "album": Object {
+                  "images": Array [
+                    Object {
+                      "height": 298,
+                      "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                      "width": 300,
+                    },
+                    Object {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                      "width": 64,
+                    },
+                    Object {
+                      "height": 636,
+                      "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                      "width": 640,
+                    },
+                  ],
+                  "name": "Trouble Man",
+                  "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                },
+                "artists": Array [
+                  Object {
+                    "name": "Marvin Gaye",
+                    "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                  },
+                ],
+                "duration_ms": 151626,
+                "id": "6KUjwoHktuX3du8laPVfO8",
+                "is_playable": true,
+                "linked_from": Object {
+                  "id": null,
+                  "uri": null,
+                },
+                "linked_from_uri": null,
+                "media_type": "audio",
+                "name": "Previous Theme From Trouble Man",
+                "type": "track",
+                "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+              },
+            ],
+            "status": "READY",
+            "track": Object {
+              "artists": "Marvin Gaye",
+              "durationMs": 151626,
+              "id": "6KUjwoHktuX3du8laPVfO8",
+              "image": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+              "name": "Main Theme From Trouble Man",
+              "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+            },
+            "type": "status_update",
+            "volume": 0.8,
+          },
+        ],
+        Array [
+          Object {
+            "currentDeviceId": "19ks98hfbxc53vh34jd",
+            "deviceId": "19ks98hfbxc53vh34jd",
+            "error": "",
+            "errorType": "",
+            "isActive": true,
+            "isMagnified": false,
+            "isPlaying": true,
+            "isUnsupported": false,
+            "nextTracks": Array [
+              Object {
+                "album": Object {
+                  "images": Array [
+                    Object {
+                      "height": 298,
+                      "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                      "width": 300,
+                    },
+                    Object {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                      "width": 64,
+                    },
+                    Object {
+                      "height": 636,
+                      "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                      "width": 640,
+                    },
+                  ],
+                  "name": "Trouble Man",
+                  "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                },
+                "artists": Array [
+                  Object {
+                    "name": "Marvin Gaye",
+                    "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                  },
+                ],
+                "duration_ms": 151626,
+                "id": "6KUjwoHktuX3du8laPVfO8",
+                "is_playable": true,
+                "linked_from": Object {
+                  "id": null,
+                  "uri": null,
+                },
+                "linked_from_uri": null,
+                "media_type": "audio",
+                "name": "Next Theme From Trouble Man",
+                "type": "track",
+                "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+              },
+            ],
+            "position": 0,
+            "previousTracks": Array [
+              Object {
+                "album": Object {
+                  "images": Array [
+                    Object {
+                      "height": 298,
+                      "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                      "width": 300,
+                    },
+                    Object {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                      "width": 64,
+                    },
+                    Object {
+                      "height": 636,
+                      "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                      "width": 640,
+                    },
+                  ],
+                  "name": "Trouble Man",
+                  "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                },
+                "artists": Array [
+                  Object {
+                    "name": "Marvin Gaye",
+                    "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                  },
+                ],
+                "duration_ms": 151626,
+                "id": "6KUjwoHktuX3du8laPVfO8",
+                "is_playable": true,
+                "linked_from": Object {
+                  "id": null,
+                  "uri": null,
+                },
+                "linked_from_uri": null,
+                "media_type": "audio",
+                "name": "Previous Theme From Trouble Man",
+                "type": "track",
+                "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+              },
+            ],
+            "status": "READY",
+            "track": Object {
+              "artists": "Marvin Gaye",
+              "durationMs": 151626,
+              "id": "6KUjwoHktuX3du8laPVfO8",
+              "image": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+              "name": "Main Theme From Trouble Man",
+              "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+            },
+            "type": "player_update",
+            "volume": 0.8,
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  name="Spotify Web Player"
+  showSaveIcon={true}
+  syncExternalDeviceInterval={5}
+  token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+  uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
+>
+  <Player
+    styles={
+      Object {
+        "bgColor": "#fff",
+        "color": "#333",
+        "errorColor": "#a60000",
+        "height": 48,
+        "loaderSize": 32,
+        "rangeColor": "#666",
+        "rangeHandleBorderRadius": "50%",
+        "rangeHandleColor": "#000",
+        "rangeHeight": 4,
+        "rangeTrackBorderRadius": 0,
+        "rangeTrackColor": "#ccc",
+        "savedColor": "#1cb954",
+        "trackArtistColor": "#999",
+        "trackNameColor": "#333",
+      }
+    }
+  >
+    <style(PlayerRSWP)
+      styles={
+        Object {
+          "bgColor": "#fff",
+          "color": "#333",
+          "errorColor": "#a60000",
+          "height": 48,
+          "loaderSize": 32,
+          "rangeColor": "#666",
+          "rangeHandleBorderRadius": "50%",
+          "rangeHandleColor": "#000",
+          "rangeHeight": 4,
+          "rangeTrackBorderRadius": 0,
+          "rangeTrackColor": "#ccc",
+          "savedColor": "#1cb954",
+          "trackArtistColor": "#999",
+          "trackNameColor": "#333",
+        }
+      }
+    >
+      <div
+        className=" _PlayerRSWP __1v1a1mw"
+        styles={
+          Object {
+            "bgColor": "#fff",
+            "color": "#333",
+            "errorColor": "#a60000",
+            "height": 48,
+            "loaderSize": 32,
+            "rangeColor": "#666",
+            "rangeHandleBorderRadius": "50%",
+            "rangeHandleColor": "#000",
+            "rangeHeight": 4,
+            "rangeTrackBorderRadius": 0,
+            "rangeTrackColor": "#ccc",
+            "savedColor": "#1cb954",
+            "trackArtistColor": "#999",
+            "trackNameColor": "#333",
+          }
+        }
+      >
+        <Slider
+          isMagnified={false}
+          onChangeRange={[Function]}
+          onToggleMagnify={[Function]}
+          position={0}
+          styles={
+            Object {
+              "bgColor": "#fff",
+              "color": "#333",
+              "errorColor": "#a60000",
+              "height": 48,
+              "loaderSize": 32,
+              "rangeColor": "#666",
+              "rangeHandleBorderRadius": "50%",
+              "rangeHandleColor": "#000",
+              "rangeHeight": 4,
+              "rangeTrackBorderRadius": 0,
+              "rangeTrackColor": "#ccc",
+              "savedColor": "#1cb954",
+              "trackArtistColor": "#999",
+              "trackNameColor": "#333",
+            }
+          }
+        >
+          <style(SliderRSWP)
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            styles={
+              Object {
+                "bgColor": "#fff",
+                "color": "#333",
+                "errorColor": "#a60000",
+                "height": 48,
+                "loaderSize": 32,
+                "rangeColor": "#666",
+                "rangeHandleBorderRadius": "50%",
+                "rangeHandleColor": "#000",
+                "rangeHeight": 4,
+                "rangeTrackBorderRadius": 0,
+                "rangeTrackColor": "#ccc",
+                "savedColor": "#1cb954",
+                "trackArtistColor": "#999",
+                "trackNameColor": "#333",
+              }
+            }
+          >
+            <div
+              className=" _SliderRSWP __181lube"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              styles={
+                Object {
+                  "bgColor": "#fff",
+                  "color": "#333",
+                  "errorColor": "#a60000",
+                  "height": 48,
+                  "loaderSize": 32,
+                  "rangeColor": "#666",
+                  "rangeHandleBorderRadius": "50%",
+                  "rangeHandleColor": "#000",
+                  "rangeHeight": 4,
+                  "rangeTrackBorderRadius": 0,
+                  "rangeTrackColor": "#ccc",
+                  "savedColor": "#1cb954",
+                  "trackArtistColor": "#999",
+                  "trackNameColor": "#333",
+                }
+              }
+            >
+              <RangeSlider
+                axis="x"
+                onChange={[Function]}
+                styles={
+                  Object {
+                    "options": Object {
+                      "handleBorder": 0,
+                      "handleBorderRadius": "50%",
+                      "handleColor": "#000",
+                      "handleSize": 10,
+                      "height": 4,
+                      "padding": 0,
+                      "rangeColor": "#666",
+                      "trackBorderRadius": 0,
+                      "trackColor": "#ccc",
+                    },
+                  }
+                }
+                x={0}
+                xMax={100}
+                xMin={0}
+                xStep={0.1}
+                y={0}
+                yMax={100}
+                yMin={0}
+                yStep={1}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "display": "inline-block",
+                      "height": 4,
+                      "padding": 0,
+                      "transition": "height 0.4s, width 0.4s",
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "backgroundColor": "#ccc",
+                        "borderRadius": 0,
+                        "boxSizing": "border-box",
+                        "height": 4,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "backgroundColor": "#666",
+                          "borderRadius": 0,
+                          "height": "100%",
+                          "position": "absolute",
+                          "top": 0,
+                          "width": "0%",
+                        }
+                      }
+                    />
+                    <div
+                      onMouseDown={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "bottom": "0%",
+                          "boxSizing": "border-box",
+                          "height": 4,
+                          "left": "0%",
+                          "position": "absolute",
+                          "transition": "height 0.4s, width 0.4s",
+                          "width": "20px",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "backgroundColor": "#000",
+                            "border": 0,
+                            "borderRadius": "50%",
+                            "boxSizing": "border-box",
+                            "display": "block",
+                            "height": 10,
+                            "left": -5,
+                            "position": "absolute",
+                            "top": -3,
+                            "transition": "height 0.4s, width 0.4s",
+                            "width": 10,
+                          }
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </RangeSlider>
+            </div>
+          </style(SliderRSWP)>
+        </Slider>
+        <Content
+          styles={
+            Object {
+              "bgColor": "#fff",
+              "color": "#333",
+              "errorColor": "#a60000",
+              "height": 48,
+              "loaderSize": 32,
+              "rangeColor": "#666",
+              "rangeHandleBorderRadius": "50%",
+              "rangeHandleColor": "#000",
+              "rangeHeight": 4,
+              "rangeTrackBorderRadius": 0,
+              "rangeTrackColor": "#ccc",
+              "savedColor": "#1cb954",
+              "trackArtistColor": "#999",
+              "trackNameColor": "#333",
+            }
+          }
+        >
+          <style(ContentRSWP)
+            styles={
+              Object {
+                "bgColor": "#fff",
+                "color": "#333",
+                "errorColor": "#a60000",
+                "height": 48,
+                "loaderSize": 32,
+                "rangeColor": "#666",
+                "rangeHandleBorderRadius": "50%",
+                "rangeHandleColor": "#000",
+                "rangeHeight": 4,
+                "rangeTrackBorderRadius": 0,
+                "rangeTrackColor": "#ccc",
+                "savedColor": "#1cb954",
+                "trackArtistColor": "#999",
+                "trackNameColor": "#333",
+              }
+            }
+          >
+            <div
+              className=" _ContentRSWP __1xc0f9k"
+              styles={
+                Object {
+                  "bgColor": "#fff",
+                  "color": "#333",
+                  "errorColor": "#a60000",
+                  "height": 48,
+                  "loaderSize": 32,
+                  "rangeColor": "#666",
+                  "rangeHandleBorderRadius": "50%",
+                  "rangeHandleColor": "#000",
+                  "rangeHeight": 4,
+                  "rangeTrackBorderRadius": 0,
+                  "rangeTrackColor": "#ccc",
+                  "savedColor": "#1cb954",
+                  "trackArtistColor": "#999",
+                  "trackNameColor": "#333",
+                }
+              }
+            >
+              <div>
+                <Info
+                  isActive={true}
+                  showSaveIcon={true}
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#a60000",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                  token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+                  track={
+                    Object {
+                      "artists": "Marvin Gaye",
+                      "durationMs": 151626,
+                      "id": "6KUjwoHktuX3du8laPVfO8",
+                      "image": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                      "name": "Main Theme From Trouble Man",
+                      "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+                    }
+                  }
+                >
+                  <style(InfoRSWP)
+                    className="rswp__active"
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#a60000",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    <div
+                      className="rswp__active _InfoRSWP __17c6fmt"
+                      styles={
+                        Object {
+                          "bgColor": "#fff",
+                          "color": "#333",
+                          "errorColor": "#a60000",
+                          "height": 48,
+                          "loaderSize": 32,
+                          "rangeColor": "#666",
+                          "rangeHandleBorderRadius": "50%",
+                          "rangeHandleColor": "#000",
+                          "rangeHeight": 4,
+                          "rangeTrackBorderRadius": 0,
+                          "rangeTrackColor": "#ccc",
+                          "savedColor": "#1cb954",
+                          "trackArtistColor": "#999",
+                          "trackNameColor": "#333",
+                        }
+                      }
+                    >
+                      <img
+                        alt="Main Theme From Trouble Man"
+                        src="https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3"
+                      />
+                      <Component
+                        styles={
+                          Object {
+                            "bgColor": "#fff",
+                            "color": "#333",
+                            "errorColor": "#a60000",
+                            "height": 48,
+                            "loaderSize": 32,
+                            "rangeColor": "#666",
+                            "rangeHandleBorderRadius": "50%",
+                            "rangeHandleColor": "#000",
+                            "rangeHeight": 4,
+                            "rangeTrackBorderRadius": 0,
+                            "rangeTrackColor": "#ccc",
+                            "savedColor": "#1cb954",
+                            "trackArtistColor": "#999",
+                            "trackNameColor": "#333",
+                          }
+                        }
+                      >
+                        <div
+                          className=" __3hmsj __m0jum"
+                          styles={
+                            Object {
+                              "bgColor": "#fff",
+                              "color": "#333",
+                              "errorColor": "#a60000",
+                              "height": 48,
+                              "loaderSize": 32,
+                              "rangeColor": "#666",
+                              "rangeHandleBorderRadius": "50%",
+                              "rangeHandleColor": "#000",
+                              "rangeHeight": 4,
+                              "rangeTrackBorderRadius": 0,
+                              "rangeTrackColor": "#ccc",
+                              "savedColor": "#1cb954",
+                              "trackArtistColor": "#999",
+                              "trackNameColor": "#333",
+                            }
+                          }
+                        >
+                          <p>
+                            <span>
+                              Main Theme From Trouble Man
+                            </span>
+                            <button
+                              className="rswp__active"
+                              onClick={[Function]}
+                            >
+                              <Favorite>
+                                <svg
+                                  height="1em"
+                                  preserveAspectRatio="xMidYMid"
+                                  viewBox="0 0 128 128"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M117.686 16.288c-4.297-4.297-9.22-7.266-14.924-8.907-11.33-3.36-23.518-.86-32.582 6.72l-.781.546c-.938.703-3.282 1.641-5.392 1.641-2.187 0-4.688-1.172-5.313-1.64-.39-.235-.625-.391-.86-.548-9.063-7.579-21.252-10.08-32.582-6.72C13.922 10.74 4.39 19.96 1.187 32.072c-3.204 12.19.156 25.082 9.142 34.145L54.24 117.63c2.579 2.97 5.782 4.454 9.767 4.454 3.985 0 7.189-1.485 9.767-4.454l43.912-51.413C124.484 59.42 128 50.121 128 41.213c0-8.907-3.516-18.127-10.314-24.925z"
+                                    fill="currentColor"
+                                  />
+                                </svg>
+                              </Favorite>
+                            </button>
+                          </p>
+                          <p>
+                            Marvin Gaye
+                          </p>
+                        </div>
+                      </Component>
+                    </div>
+                  </style(InfoRSWP)>
+                </Info>
+              </div>
+              <Controls
+                isExternalDevice={false}
+                isPlaying={true}
+                nextTracks={
+                  Array [
+                    Object {
+                      "album": Object {
+                        "images": Array [
+                          Object {
+                            "height": 298,
+                            "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                            "width": 300,
+                          },
+                          Object {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                            "width": 64,
+                          },
+                          Object {
+                            "height": 636,
+                            "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                            "width": 640,
+                          },
+                        ],
+                        "name": "Trouble Man",
+                        "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                      },
+                      "artists": Array [
+                        Object {
+                          "name": "Marvin Gaye",
+                          "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                        },
+                      ],
+                      "duration_ms": 151626,
+                      "id": "6KUjwoHktuX3du8laPVfO8",
+                      "is_playable": true,
+                      "linked_from": Object {
+                        "id": null,
+                        "uri": null,
+                      },
+                      "linked_from_uri": null,
+                      "media_type": "audio",
+                      "name": "Next Theme From Trouble Man",
+                      "type": "track",
+                      "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+                    },
+                  ]
+                }
+                onClickNext={[Function]}
+                onClickPrevious={[Function]}
+                onClickTogglePlay={[Function]}
+                previousTracks={
+                  Array [
+                    Object {
+                      "album": Object {
+                        "images": Array [
+                          Object {
+                            "height": 298,
+                            "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                            "width": 300,
+                          },
+                          Object {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                            "width": 64,
+                          },
+                          Object {
+                            "height": 636,
+                            "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                            "width": 640,
+                          },
+                        ],
+                        "name": "Trouble Man",
+                        "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                      },
+                      "artists": Array [
+                        Object {
+                          "name": "Marvin Gaye",
+                          "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                        },
+                      ],
+                      "duration_ms": 151626,
+                      "id": "6KUjwoHktuX3du8laPVfO8",
+                      "is_playable": true,
+                      "linked_from": Object {
+                        "id": null,
+                        "uri": null,
+                      },
+                      "linked_from_uri": null,
+                      "media_type": "audio",
+                      "name": "Previous Theme From Trouble Man",
+                      "type": "track",
+                      "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+                    },
+                  ]
+                }
+                styles={
+                  Object {
+                    "bgColor": "#fff",
+                    "color": "#333",
+                    "errorColor": "#a60000",
+                    "height": 48,
+                    "loaderSize": 32,
+                    "rangeColor": "#666",
+                    "rangeHandleBorderRadius": "50%",
+                    "rangeHandleColor": "#000",
+                    "rangeHeight": 4,
+                    "rangeTrackBorderRadius": 0,
+                    "rangeTrackColor": "#ccc",
+                    "savedColor": "#1cb954",
+                    "trackArtistColor": "#999",
+                    "trackNameColor": "#333",
+                  }
+                }
+              >
+                <style(ControlsRSWP)
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#a60000",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                >
+                  <div
+                    className=" _ControlsRSWP __1g1kf0v"
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#a60000",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    <div>
+                      <button
+                        aria-label="Previous Track"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <Previous>
+                          <svg
+                            height="1em"
+                            preserveAspectRatio="xMidYMid"
+                            viewBox="0 0 128 128"
+                            width="1em"
+                          >
+                            <path
+                              d="M29.09 53.749V5.819H5.819v116.363h23.273v-47.93L122.18 128V0z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </Previous>
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        aria-label="Pause"
+                        className="rswp__toggle"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <Pause>
+                          <svg
+                            height="1em"
+                            preserveAspectRatio="xMidYMid"
+                            viewBox="0 0 128 128"
+                            width="1em"
+                          >
+                            <path
+                              d="M41.86 128V0H8.648v128h33.21zm77.491 0V0h-33.21v128h33.21z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </Pause>
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        aria-label="Next Track"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <Next>
+                          <svg
+                            height="1em"
+                            preserveAspectRatio="xMidYMid"
+                            viewBox="0 0 128 128"
+                            width="1em"
+                          >
+                            <path
+                              d="M98.91 53.749L5.817 0v128L98.91 74.251v47.93h23.273V5.819H98.909z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </Next>
+                      </button>
+                    </div>
+                  </div>
+                </style(ControlsRSWP)>
+              </Controls>
+              <Actions
+                currentDeviceId="19ks98hfbxc53vh34jd"
+                isDevicesOpen={false}
+                onClickDevice={[Function]}
+                setVolume={[Function]}
+                styles={
+                  Object {
+                    "bgColor": "#fff",
+                    "color": "#333",
+                    "errorColor": "#a60000",
+                    "height": 48,
+                    "loaderSize": 32,
+                    "rangeColor": "#666",
+                    "rangeHandleBorderRadius": "50%",
+                    "rangeHandleColor": "#000",
+                    "rangeHeight": 4,
+                    "rangeTrackBorderRadius": 0,
+                    "rangeTrackColor": "#ccc",
+                    "savedColor": "#1cb954",
+                    "trackArtistColor": "#999",
+                    "trackNameColor": "#333",
+                  }
+                }
+                token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+                volume={0.8}
+              >
+                <style(ActionsRSWP)
+                  styles={
+                    Object {
+                      "bgColor": "#fff",
+                      "color": "#333",
+                      "errorColor": "#a60000",
+                      "height": 48,
+                      "loaderSize": 32,
+                      "rangeColor": "#666",
+                      "rangeHandleBorderRadius": "50%",
+                      "rangeHandleColor": "#000",
+                      "rangeHeight": 4,
+                      "rangeTrackBorderRadius": 0,
+                      "rangeTrackColor": "#ccc",
+                      "savedColor": "#1cb954",
+                      "trackArtistColor": "#999",
+                      "trackNameColor": "#333",
+                    }
+                  }
+                >
+                  <div
+                    className=" _ActionsRSWP __hrnxs2"
+                    styles={
+                      Object {
+                        "bgColor": "#fff",
+                        "color": "#333",
+                        "errorColor": "#a60000",
+                        "height": 48,
+                        "loaderSize": 32,
+                        "rangeColor": "#666",
+                        "rangeHandleBorderRadius": "50%",
+                        "rangeHandleColor": "#000",
+                        "rangeHeight": 4,
+                        "rangeTrackBorderRadius": 0,
+                        "rangeTrackColor": "#ccc",
+                        "savedColor": "#1cb954",
+                        "trackArtistColor": "#999",
+                        "trackNameColor": "#333",
+                      }
+                    }
+                  >
+                    <Volume
+                      setVolume={[Function]}
+                      styles={
+                        Object {
+                          "bgColor": "#fff",
+                          "color": "#333",
+                          "errorColor": "#a60000",
+                          "height": 48,
+                          "loaderSize": 32,
+                          "rangeColor": "#666",
+                          "rangeHandleBorderRadius": "50%",
+                          "rangeHandleColor": "#000",
+                          "rangeHeight": 4,
+                          "rangeTrackBorderRadius": 0,
+                          "rangeTrackColor": "#ccc",
+                          "savedColor": "#1cb954",
+                          "trackArtistColor": "#999",
+                          "trackNameColor": "#333",
+                        }
+                      }
+                      volume={0.8}
+                    >
+                      <style(VolumeRSWP)
+                        styles={
+                          Object {
+                            "bgColor": "#fff",
+                            "color": "#333",
+                            "errorColor": "#a60000",
+                            "height": 48,
+                            "loaderSize": 32,
+                            "rangeColor": "#666",
+                            "rangeHandleBorderRadius": "50%",
+                            "rangeHandleColor": "#000",
+                            "rangeHeight": 4,
+                            "rangeTrackBorderRadius": 0,
+                            "rangeTrackColor": "#ccc",
+                            "savedColor": "#1cb954",
+                            "trackArtistColor": "#999",
+                            "trackNameColor": "#333",
+                          }
+                        }
+                      >
+                        <div
+                          className=" _VolumeRSWP __djl5c0"
+                          styles={
+                            Object {
+                              "bgColor": "#fff",
+                              "color": "#333",
+                              "errorColor": "#a60000",
+                              "height": 48,
+                              "loaderSize": 32,
+                              "rangeColor": "#666",
+                              "rangeHandleBorderRadius": "50%",
+                              "rangeHandleColor": "#000",
+                              "rangeHeight": 4,
+                              "rangeTrackBorderRadius": 0,
+                              "rangeTrackColor": "#ccc",
+                              "savedColor": "#1cb954",
+                              "trackArtistColor": "#999",
+                              "trackNameColor": "#333",
+                            }
+                          }
+                        >
+                          <button
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <VolumeHigh>
+                              <svg
+                                height="1em"
+                                preserveAspectRatio="xMidYMid"
+                                viewBox="0 0 128 128"
+                                width="1em"
+                              >
+                                <path
+                                  d="M0 85.869V40.38h21.24l39.41-22.743v90.974L21.24 85.87H0zm53.069 9.627V30.754L23.285 47.963H7.581v30.324h15.704L53.07 95.496zM92.355 18.86l4.889-5.723c13.772 12.64 21.94 30.407 21.94 49.724 0 19.318-8.168 37.085-21.94 49.725l-4.89-5.724c12.104-11.208 19.318-26.89 19.318-44 0-17.112-7.214-32.793-19.317-44.002zM75.303 38.835l4.889-5.724c5.246 5.008 9.062 11.209 11.149 18.542a41.69 41.69 0 0 1 1.55 11.21c0 11.506-4.77 22.12-12.7 29.75l-4.888-5.723c6.26-6.26 10.076-14.786 10.076-24.028 0-9.241-3.697-17.767-10.076-24.027z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </VolumeHigh>
+                          </button>
+                        </div>
+                      </style(VolumeRSWP)>
+                    </Volume>
+                    <Devices
+                      deviceId="19ks98hfbxc53vh34jd"
+                      onClickDevice={[Function]}
+                      open={false}
+                      styles={
+                        Object {
+                          "bgColor": "#fff",
+                          "color": "#333",
+                          "errorColor": "#a60000",
+                          "height": 48,
+                          "loaderSize": 32,
+                          "rangeColor": "#666",
+                          "rangeHandleBorderRadius": "50%",
+                          "rangeHandleColor": "#000",
+                          "rangeHeight": 4,
+                          "rangeTrackBorderRadius": 0,
+                          "rangeTrackColor": "#ccc",
+                          "savedColor": "#1cb954",
+                          "trackArtistColor": "#999",
+                          "trackNameColor": "#333",
+                        }
+                      }
+                      token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
+                    >
+                      <style(DevicesRSWP)
+                        styles={
+                          Object {
+                            "bgColor": "#fff",
+                            "color": "#333",
+                            "errorColor": "#a60000",
+                            "height": 48,
+                            "loaderSize": 32,
+                            "rangeColor": "#666",
+                            "rangeHandleBorderRadius": "50%",
+                            "rangeHandleColor": "#000",
+                            "rangeHeight": 4,
+                            "rangeTrackBorderRadius": 0,
+                            "rangeTrackColor": "#ccc",
+                            "savedColor": "#1cb954",
+                            "trackArtistColor": "#999",
+                            "trackNameColor": "#333",
+                          }
+                        }
+                      >
+                        <div
+                          className=" _DevicesRSWP __djl5c0"
+                          styles={
+                            Object {
+                              "bgColor": "#fff",
+                              "color": "#333",
+                              "errorColor": "#a60000",
+                              "height": 48,
+                              "loaderSize": 32,
+                              "rangeColor": "#666",
+                              "rangeHandleBorderRadius": "50%",
+                              "rangeHandleColor": "#000",
+                              "rangeHeight": 4,
+                              "rangeTrackBorderRadius": 0,
+                              "rangeTrackColor": "#ccc",
+                              "savedColor": "#1cb954",
+                              "trackArtistColor": "#999",
+                              "trackNameColor": "#333",
+                            }
+                          }
+                        >
+                          <button
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <DevicesIcon>
+                              <svg
+                                height="1em"
+                                preserveAspectRatio="xMidYMid"
+                                viewBox="0 0 128 128"
+                                width="1em"
+                              >
+                                <path
+                                  d="M6.765 89.483h40.412v6.765H6.269C2.765 96.248 0 93.483 0 89.978V20.703c0-3.504 2.765-6.27 6.27-6.27h40.907v6.766H6.765v68.285zm16.327 20.702a3.4 3.4 0 0 1 3.383-3.383h20.702v6.765H26.475c-.915 0-1.72-.347-2.344-1.038a3.064 3.064 0 0 1-1.039-2.344zm46.681-95.752h51.958c3.504 0 6.269 2.765 6.269 6.269v86.596c0 3.504-2.765 6.27-6.27 6.27H69.774c-3.504 0-6.27-2.766-6.27-6.27V20.702c0-3.504 2.766-6.27 6.27-6.27zm-.496 5.842l.07 87.52 52.88-.07-.07-87.45h-52.88zm13.89 45.573c3.464-3.462 7.714-5.23 12.585-5.23 9.827 0 17.815 7.988 17.815 17.815 0 9.827-7.988 17.815-17.815 17.815-9.827 0-17.815-7.988-17.815-17.815 0-4.87 1.768-9.122 5.23-12.585zm4.124 21.045c2.381 2.381 5.195 3.582 8.46 3.582 6.598 0 12.043-5.445 12.043-12.042 0-6.597-5.445-12.043-12.042-12.043-6.597 0-12.042 5.446-12.042 12.043 0 3.266 1.2 6.08 3.581 8.46zm12.935-44.466c-1.247 1.247-2.741 1.863-4.474 1.863-3.504 0-6.27-2.765-6.27-6.269s2.766-6.27 6.27-6.27c3.504 0 6.27 2.766 6.27 6.27 0 1.72-.608 3.218-1.796 4.406z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </DevicesIcon>
+                          </button>
+                        </div>
+                      </style(DevicesRSWP)>
+                    </Devices>
+                  </div>
+                </style(ActionsRSWP)>
+              </Actions>
+            </div>
+          </style(ContentRSWP)>
+        </Content>
+      </div>
+    </style(PlayerRSWP)>
   </Player>
 </SpotifyWebPlayer>
 `;

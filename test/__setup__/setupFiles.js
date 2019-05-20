@@ -1,13 +1,14 @@
 import Enzyme, { shallow, mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import fetch from 'node-fetch';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-global.fetch = fetch;
 global.shallow = shallow;
 global.mount = mount;
 global.render = render;
+global.skipEventLoop = () => {
+  return new Promise(resolve => setImmediate(resolve));
+};
 
 const react = document.createElement('div');
 react.id = 'react';
