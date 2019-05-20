@@ -14,6 +14,7 @@ const Wrapper = styled('p')(
     height: px(styles.height),
     lineHeight: px(styles.height),
   }),
+  'ErrorRSWP',
 );
 
 const Error = ({ children, styles }: StyledComponentProps) => {

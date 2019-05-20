@@ -45,7 +45,7 @@ export function getMergedStyles(styles: StylesProps | undefined): StylesOptions 
   return {
     bgColor: '#fff',
     color: '#333',
-    errorColor: '#d7d300',
+    errorColor: '#a60000',
     height: 48,
     loaderSize: 32,
     rangeColor: '#666',

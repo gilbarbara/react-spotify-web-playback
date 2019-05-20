@@ -1,5 +1,47 @@
 import { PlayOptions } from './types/spotify';
 
+export async function checkTracksStatus(tracks: string | string[], token: string) {
+  const ids = Array.isArray(tracks) ? tracks : [tracks];
+
+  return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function getDevices(token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player/devices`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function getPlayerStatus(token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function pause(token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player/pause`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+  });
+}
+
 export async function play(
   { context_uri, deviceId, offset = 0, uris }: PlayOptions,
   token: string,
@@ -29,16 +71,6 @@ export async function play(
   });
 }
 
-export async function pause(token: string) {
-  return fetch(`https://api.spotify.com/v1/me/player/pause`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'PUT',
-  });
-}
-
 export async function previous(token: string) {
   return fetch(`https://api.spotify.com/v1/me/player/previous`, {
     headers: {
@@ -59,26 +91,17 @@ export async function next(token: string) {
   });
 }
 
-export async function getPlayerStatus(token: string) {
-  return fetch(`https://api.spotify.com/v1/me/player`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'GET',
-  }).then(d => d.json());
-}
-
-export async function checkTracksStatus(tracks: string | string[], token: string) {
+export async function removeTracks(tracks: string | string[], token: string) {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
-  return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`, {
+  return fetch(`https://api.spotify.com/v1/me/tracks`, {
+    body: JSON.stringify(ids),
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    method: 'GET',
-  }).then(d => d.json());
+    method: 'DELETE',
+  });
 }
 
 export async function saveTracks(tracks: string | string[], token: string) {
@@ -94,19 +117,6 @@ export async function saveTracks(tracks: string | string[], token: string) {
   });
 }
 
-export async function removeTracks(tracks: string | string[], token: string) {
-  const ids = Array.isArray(tracks) ? tracks : [tracks];
-
-  return fetch(`https://api.spotify.com/v1/me/tracks`, {
-    body: JSON.stringify(ids),
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'DELETE',
-  });
-}
-
 export async function seek(position: number, token: string) {
   return fetch(`https://api.spotify.com/v1/me/player/seek?position_ms=${position}`, {
     headers: {
@@ -117,8 +127,9 @@ export async function seek(position: number, token: string) {
   });
 }
 
-export async function setVolume(volume: number, token: string) {
-  return fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
+export async function setDevice(deviceId: string, token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player`, {
+    body: JSON.stringify({ device_ids: [deviceId], play: true }),
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -127,19 +138,8 @@ export async function setVolume(volume: number, token: string) {
   });
 }
 
-export async function getDevices(token: string) {
-  return fetch(`https://api.spotify.com/v1/me/player/devices`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'GET',
-  }).then(d => d.json());
-}
-
-export async function setDevice(deviceId: string, token: string) {
-  return fetch(`https://api.spotify.com/v1/me/player`, {
-    body: JSON.stringify({ device_ids: [deviceId], play: true }),
+export async function setVolume(volume: number, token: string) {
+  return fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',

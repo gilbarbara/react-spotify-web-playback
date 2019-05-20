@@ -57,11 +57,10 @@ const Wrapper = styled('div')(
       color: styles.color,
     },
   }),
+  'DevicesRSWP',
 );
 
 export default class Devices extends PureComponent<Props, State> {
-  private timeout: any;
-
   constructor(props: Props) {
     super(props);
 
@@ -71,12 +70,16 @@ export default class Devices extends PureComponent<Props, State> {
     };
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
     const { token } = this.props;
 
-    getDevices(token).then(({ devices }) => {
+    try {
+      const { devices } = await getDevices(token);
       this.setState({ devices: devices || [] });
-    });
+    } catch (error) {
+      // tslint:disable-next-line:no-console
+      console.error('getDevices', error);
+    }
   }
 
   private handleClickSetDevice = (e: React.MouseEvent<HTMLElement>) => {
@@ -93,11 +96,7 @@ export default class Devices extends PureComponent<Props, State> {
   private handleClickToggleDevices = () => {
     const { isOpen } = this.state;
 
-    clearTimeout(this.timeout);
-
-    this.timeout = setTimeout(() => {
-      this.setState({ isOpen: !isOpen });
-    }, 100);
+    this.setState({ isOpen: !isOpen });
   };
 
   public render() {

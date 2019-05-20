@@ -25,6 +25,12 @@ export const TYPE = {
   TRACK: 'track_update',
 };
 
+export function getSpotifyURIType(uri: string): string {
+  const [, type = ''] = uri.split(':');
+
+  return type;
+}
+
 export function isEqualArray(A?: any, B?: any) {
   if (!Array.isArray(A) || !Array.isArray(B) || A.length !== B.length) {
     return false;
@@ -66,4 +72,20 @@ export function loadScript(attributes: ScriptAttributes): Promise<any> {
 
     document.head.appendChild(script);
   });
+}
+
+export function validateURI(input: string): boolean {
+  let isValid = false;
+
+  /* istanbul ignore else */
+  if (input && input.indexOf(':') > -1) {
+    const [key, type, id] = input.split(':');
+
+    /* istanbul ignore else */
+    if (key && type && type !== 'user' && id && id.length === 22) {
+      isValid = true;
+    }
+  }
+
+  return isValid;
 }

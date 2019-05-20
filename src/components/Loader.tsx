@@ -51,6 +51,7 @@ const Wrapper = styled('div')(
       },
     };
   },
+  'LoaderRSWP',
 );
 
 const Loader = ({ styles }: StyledComponentProps) => {

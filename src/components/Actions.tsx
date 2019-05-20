@@ -37,9 +37,10 @@ const Wrapper = styled('div')(
   ({ styles }: StyledComponentProps) => ({
     height: px(styles.height),
   }),
+  'ActionsRSWP',
 );
 
-const Loader = ({
+const Actions = ({
   currentDeviceId,
   isDevicesOpen,
   onClickDevice,
@@ -62,4 +63,4 @@ const Loader = ({
   );
 };
 
-export default Loader;
+export default Actions;

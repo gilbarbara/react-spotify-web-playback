@@ -50,11 +50,10 @@ const Wrapper = styled('div')(
       color: styles.color,
     },
   }),
+  'VolumeRSWP',
 );
 
 export default class Volume extends PureComponent<Props, State> {
-  private timeout?: any;
-
   constructor(props: Props) {
     super(props);
 
@@ -66,11 +65,7 @@ export default class Volume extends PureComponent<Props, State> {
   private handleClick = () => {
     const { isOpen } = this.state;
 
-    clearTimeout(this.timeout);
-
-    this.timeout = setTimeout(() => {
-      this.setState({ isOpen: !isOpen });
-    }, 100);
+    this.setState({ isOpen: !isOpen });
   };
 
   private handleChangeSlider = ({ y }: RangeSliderPosition) => {
@@ -90,7 +85,7 @@ export default class Volume extends PureComponent<Props, State> {
 
     if (volume === 0) {
       icon = <VolumeMute />;
-    } else if (volume < 0.5) {
+    } else if (volume <= 0.5) {
       icon = <VolumeLow />;
     }
 
@@ -100,6 +95,7 @@ export default class Volume extends PureComponent<Props, State> {
           <ClickOutside onClick={this.handleClick}>
             <RangeSlider
               axis="y"
+              classNamePrefix="rrs"
               styles={{
                 options: {
                   handleBorderRadius: 12,

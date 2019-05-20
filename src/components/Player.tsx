@@ -37,6 +37,7 @@ const Wrapper = styled('div')(
     backgroundColor: styles.bgColor,
     minHeight: px(styles.height),
   }),
+  'PlayerRSWP',
 );
 
 const Player = ({ children, styles }: StyledComponentProps) => {

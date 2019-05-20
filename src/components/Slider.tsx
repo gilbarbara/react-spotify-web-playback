@@ -23,6 +23,7 @@ const Wrapper = styled('div')(
   ({ styles }: StyledComponentProps) => ({
     height: px(styles.rangeHeight),
   }),
+  'SliderRSWP',
 );
 
 export default class Slider extends PureComponent<Props> {

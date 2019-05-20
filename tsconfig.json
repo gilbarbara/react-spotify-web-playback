@@ -10,10 +10,12 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./lib",
+    "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es5"
+    "target": "es5",
+    "types": ["node", "react"]
   },
   "include": ["src/**/*"]
 }

@@ -20,49 +20,53 @@ interface State {
   isSaved: boolean;
 }
 
-const Wrapper = styled('div')({}, ({ styles }: StyledComponentProps) => ({
-  alignItems: 'center',
-  display: 'flex',
-  height: px(styles.height),
-  textAlign: 'left',
-
-  '@media (max-width: 599px)': {
-    borderBottom: '1px solid #ccc',
-    display: 'none',
-    width: '100%',
-  },
-
-  '&.rswp__active': {
-    '@media (max-width: 599px)': {
-      display: 'flex',
-    },
-  },
-
-  img: {
+const Wrapper = styled('div')(
+  {},
+  ({ styles }: StyledComponentProps) => ({
+    alignItems: 'center',
+    display: 'flex',
     height: px(styles.height),
-    width: px(styles.height),
-  },
+    textAlign: 'left',
 
-  p: {
-    '&:first-child': {
-      alignItems: 'center',
-      display: 'inline-flex',
+    '@media (max-width: 599px)': {
+      borderBottom: '1px solid #ccc',
+      display: 'none',
+      width: '100%',
+    },
 
-      button: {
-        fontSize: '110%',
-        marginLeft: px(5),
+    '&.rswp__active': {
+      '@media (max-width: 599px)': {
+        display: 'flex',
+      },
+    },
 
-        '&:focus': {
-          outline: 'none',
-        },
+    img: {
+      height: px(styles.height),
+      width: px(styles.height),
+    },
 
-        '&.rswp__active': {
-          color: styles.savedColor,
+    p: {
+      '&:first-child': {
+        alignItems: 'center',
+        display: 'inline-flex',
+
+        button: {
+          fontSize: '110%',
+          marginLeft: px(5),
+
+          '&:focus': {
+            outline: 'none',
+          },
+
+          '&.rswp__active': {
+            color: styles.savedColor,
+          },
         },
       },
     },
-  },
-}));
+  }),
+  'InfoRSWP',
+);
 
 const Title = styled('div')({}, ({ styles }: StyledComponentProps) => ({
   marginLeft: px(10),
@@ -84,6 +88,9 @@ const Title = styled('div')({}, ({ styles }: StyledComponentProps) => ({
 }));
 
 export default class Info extends PureComponent<Props, State> {
+  // tslint:disable-next-line:variable-name
+  private _isMounted = false;
+
   constructor(props: Props) {
     super(props);
 
@@ -93,11 +100,13 @@ export default class Info extends PureComponent<Props, State> {
   }
 
   public async componentDidMount() {
+    this._isMounted = true;
+
     const { token, track } = this.props;
 
     if (track.id) {
       await checkTracksStatus(track.id, token).then(d => {
-        const [isSaved] = d;
+        const [isSaved = false] = d || [];
 
         this.setState({ isSaved });
       });
@@ -107,15 +116,26 @@ export default class Info extends PureComponent<Props, State> {
   public async componentDidUpdate(prevProps: Props) {
     const { token, track } = this.props;
 
+    if (!this._isMounted) {
+      return;
+    }
+
     if (prevProps.track.id !== track.id && track.id) {
       this.setState({ isSaved: false });
 
-      await checkTracksStatus(track.id, token).then(d => {
-        const [isSaved] = d;
+      const status = await checkTracksStatus(track.id, token);
+      const [isSaved] = status || [false];
 
-        this.setState({ isSaved });
-      });
+      if (!this._isMounted) {
+        return;
+      }
+
+      this.setState({ isSaved });
     }
+  }
+
+  public componentWillUnmount() {
+    this._isMounted = false;
   }
 
   private handleClickIcon = async () => {

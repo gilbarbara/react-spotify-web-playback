@@ -26,6 +26,7 @@ const Wrapper = styled('div')(
   ({ styles }: StyledComponentProps) => ({
     minHeight: px(styles.height),
   }),
+  'ContentRSWP',
 );
 
 const Content = ({ children, styles }: StyledComponentProps) => {
