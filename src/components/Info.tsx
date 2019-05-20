@@ -21,11 +21,9 @@ interface State {
 }
 
 const Wrapper = styled('div')(
-  {},
-  ({ styles }: StyledComponentProps) => ({
+  {
     alignItems: 'center',
     display: 'flex',
-    height: px(styles.height),
     textAlign: 'left',
 
     '@media (max-width: 599px)': {
@@ -40,52 +38,62 @@ const Wrapper = styled('div')(
       },
     },
 
-    img: {
-      height: px(styles.height),
-      width: px(styles.height),
-    },
-
     p: {
       '&:first-child': {
         alignItems: 'center',
         display: 'inline-flex',
-
-        button: {
-          fontSize: '110%',
-          marginLeft: px(5),
-
-          '&:focus': {
-            outline: 'none',
-          },
-
-          '&.rswp__active': {
-            color: styles.savedColor,
-          },
-        },
       },
+    },
+  },
+  ({ styles }: StyledComponentProps) => ({
+    height: px(styles.height),
+
+    img: {
+      height: px(styles.height),
+      width: px(styles.height),
     },
   }),
   'InfoRSWP',
 );
 
-const Title = styled('div')({}, ({ styles }: StyledComponentProps) => ({
-  marginLeft: px(10),
-  whiteSpace: 'nowrap',
-
-  p: {
-    color: styles.trackNameColor,
-    fontSize: px(14),
-    lineHeight: 1.3,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+const Title = styled('div')(
+  {
     whiteSpace: 'nowrap',
-    width: '100%',
 
-    '&:last-child': {
-      color: styles.trackArtistColor,
+    p: {
+      fontSize: px(14),
+      lineHeight: 1.3,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      width: '100%',
+    },
+
+    button: {
+      fontSize: '110%',
+      marginLeft: px(5),
     },
   },
-}));
+  ({ styles }: StyledComponentProps) => ({
+    marginLeft: px(10),
+
+    p: {
+      color: styles.trackNameColor,
+
+      '&:last-child': {
+        color: styles.trackArtistColor,
+      },
+    },
+
+    button: {
+      color: styles.color,
+
+      '&.rswp__active': {
+        color: styles.savedColor,
+      },
+    },
+  }),
+);
 
 export default class Info extends PureComponent<Props, State> {
   // tslint:disable-next-line:variable-name

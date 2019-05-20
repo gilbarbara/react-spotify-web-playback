@@ -28,9 +28,7 @@ const Wrapper = styled('div')(
     zIndex: 20,
 
     '> div': {
-      backgroundColor: '#fff',
       bottom: '120%',
-      boxShadow: '1px 1px 10px #ccc',
       display: 'flex',
       flexDirection: 'column',
       padding: px(8),
@@ -55,6 +53,13 @@ const Wrapper = styled('div')(
   ({ styles }: StyledComponentProps) => ({
     '> button': {
       color: styles.color,
+    },
+    '> div': {
+      backgroundColor: styles.bgColor,
+      boxShadow: styles.altColor ? `1px 1px 10px ${styles.altColor}` : 'none',
+      button: {
+        color: styles.color,
+      },
     },
   }),
   'DevicesRSWP',

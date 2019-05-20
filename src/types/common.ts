@@ -42,10 +42,12 @@ export interface PlayOptions {
 }
 
 export interface StylesOptions {
+  altColor: string;
   bgColor: string;
   color: string;
   errorColor: string;
   height: number | string;
+  loaderColor: string;
   loaderSize: number | string;
   rangeHandleColor: string;
   rangeHandleBorderRadius: number | string;

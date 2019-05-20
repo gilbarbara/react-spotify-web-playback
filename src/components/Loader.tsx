@@ -9,8 +9,9 @@ const Wrapper = styled('div')(
     position: 'relative',
 
     '> div': {
-      border: '0 solid #ccc',
       borderRadius: '50%',
+      borderStyle: 'solid',
+      borderWidth: 0,
       boxSizing: 'border-box',
       height: 0,
       left: '50%',
@@ -48,6 +49,7 @@ const Wrapper = styled('div')(
 
       '> div': {
         animation: `${pulse} 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1)`,
+        borderColor: styles.loaderColor,
       },
     };
   },

@@ -18,6 +18,7 @@ const Wrapper = styled('div')(
       backgroundColor: 'transparent',
       border: 0,
       borderRadius: 0,
+      color: 'inherit',
       cursor: 'pointer',
       display: 'inline-flex',
       lineHeight: 1,

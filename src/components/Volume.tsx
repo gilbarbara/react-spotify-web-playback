@@ -27,9 +27,7 @@ const Wrapper = styled('div')(
     zIndex: 20,
 
     '> div': {
-      backgroundColor: '#fff',
       bottom: '120%',
-      boxShadow: '1px 1px 10px #ccc',
       display: 'flex',
       flexDirection: 'column',
       padding: px(12),
@@ -48,6 +46,10 @@ const Wrapper = styled('div')(
   ({ styles }: StyledComponentProps) => ({
     '> button': {
       color: styles.color,
+    },
+    '> div': {
+      backgroundColor: styles.bgColor,
+      boxShadow: styles.altColor ? `1px 1px 10px ${styles.altColor}` : 'none',
     },
   }),
   'VolumeRSWP',
@@ -98,11 +100,13 @@ export default class Volume extends PureComponent<Props, State> {
               classNamePrefix="rrs"
               styles={{
                 options: {
+                  handleBorder: `2px solid ${styles.color}`,
                   handleBorderRadius: 12,
+                  handleColor: styles.bgColor,
                   handleSize: 12,
                   padding: 0,
-                  rangeColor: '#ccc',
-                  trackColor: '#000',
+                  rangeColor: styles.altColor || '#ccc',
+                  trackColor: styles.color,
                   width: 6,
                 },
               }}

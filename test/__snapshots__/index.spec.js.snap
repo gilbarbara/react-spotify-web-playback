@@ -12,10 +12,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
   <Player
     styles={
       Object {
+        "altColor": "#ccc",
         "bgColor": "#fff",
         "color": "#333",
         "errorColor": "#a60000",
         "height": 48,
+        "loaderColor": "#ccc",
         "loaderSize": 32,
         "rangeColor": "#666",
         "rangeHandleBorderRadius": "50%",
@@ -32,10 +34,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
     <style(PlayerRSWP)
       styles={
         Object {
+          "altColor": "#ccc",
           "bgColor": "#fff",
           "color": "#333",
           "errorColor": "#a60000",
           "height": 48,
+          "loaderColor": "#ccc",
           "loaderSize": 32,
           "rangeColor": "#666",
           "rangeHandleBorderRadius": "50%",
@@ -53,10 +57,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
         className=" _PlayerRSWP __1v1a1mw"
         styles={
           Object {
+            "altColor": "#ccc",
             "bgColor": "#fff",
             "color": "#333",
             "errorColor": "#a60000",
             "height": 48,
+            "loaderColor": "#ccc",
             "loaderSize": 32,
             "rangeColor": "#666",
             "rangeHandleBorderRadius": "50%",
@@ -73,10 +79,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
         <Content
           styles={
             Object {
+              "altColor": "#ccc",
               "bgColor": "#fff",
               "color": "#333",
               "errorColor": "#a60000",
               "height": 48,
+              "loaderColor": "#ccc",
               "loaderSize": 32,
               "rangeColor": "#666",
               "rangeHandleBorderRadius": "50%",
@@ -93,10 +101,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
           <style(ContentRSWP)
             styles={
               Object {
+                "altColor": "#ccc",
                 "bgColor": "#fff",
                 "color": "#333",
                 "errorColor": "#a60000",
                 "height": 48,
+                "loaderColor": "#ccc",
                 "loaderSize": 32,
                 "rangeColor": "#666",
                 "rangeHandleBorderRadius": "50%",
@@ -114,10 +124,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
               className=" _ContentRSWP __1xc0f9k"
               styles={
                 Object {
+                  "altColor": "#ccc",
                   "bgColor": "#fff",
                   "color": "#333",
                   "errorColor": "#a60000",
                   "height": 48,
+                  "loaderColor": "#ccc",
                   "loaderSize": 32,
                   "rangeColor": "#666",
                   "rangeHandleBorderRadius": "50%",
@@ -134,10 +146,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
               <Error
                 styles={
                   Object {
+                    "altColor": "#ccc",
                     "bgColor": "#fff",
                     "color": "#333",
                     "errorColor": "#a60000",
                     "height": 48,
+                    "loaderColor": "#ccc",
                     "loaderSize": 32,
                     "rangeColor": "#666",
                     "rangeHandleBorderRadius": "50%",
@@ -154,10 +168,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
                 <style(ErrorRSWP)
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -175,10 +191,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
                     className=" _ErrorRSWP __1c3vtun"
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -256,10 +274,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
   <Player
     styles={
       Object {
+        "altColor": "#ccc",
         "bgColor": "#fff",
         "color": "#333",
         "errorColor": "#a60000",
         "height": 48,
+        "loaderColor": "#ccc",
         "loaderSize": 32,
         "rangeColor": "#666",
         "rangeHandleBorderRadius": "50%",
@@ -276,10 +296,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
     <style(PlayerRSWP)
       styles={
         Object {
+          "altColor": "#ccc",
           "bgColor": "#fff",
           "color": "#333",
           "errorColor": "#a60000",
           "height": 48,
+          "loaderColor": "#ccc",
           "loaderSize": 32,
           "rangeColor": "#666",
           "rangeHandleBorderRadius": "50%",
@@ -297,10 +319,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
         className=" _PlayerRSWP __1v1a1mw"
         styles={
           Object {
+            "altColor": "#ccc",
             "bgColor": "#fff",
             "color": "#333",
             "errorColor": "#a60000",
             "height": 48,
+            "loaderColor": "#ccc",
             "loaderSize": 32,
             "rangeColor": "#666",
             "rangeHandleBorderRadius": "50%",
@@ -317,10 +341,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
         <Content
           styles={
             Object {
+              "altColor": "#ccc",
               "bgColor": "#fff",
               "color": "#333",
               "errorColor": "#a60000",
               "height": 48,
+              "loaderColor": "#ccc",
               "loaderSize": 32,
               "rangeColor": "#666",
               "rangeHandleBorderRadius": "50%",
@@ -337,10 +363,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
           <style(ContentRSWP)
             styles={
               Object {
+                "altColor": "#ccc",
                 "bgColor": "#fff",
                 "color": "#333",
                 "errorColor": "#a60000",
                 "height": 48,
+                "loaderColor": "#ccc",
                 "loaderSize": 32,
                 "rangeColor": "#666",
                 "rangeHandleBorderRadius": "50%",
@@ -358,10 +386,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
               className=" _ContentRSWP __1xc0f9k"
               styles={
                 Object {
+                  "altColor": "#ccc",
                   "bgColor": "#fff",
                   "color": "#333",
                   "errorColor": "#a60000",
                   "height": 48,
+                  "loaderColor": "#ccc",
                   "loaderSize": 32,
                   "rangeColor": "#666",
                   "rangeHandleBorderRadius": "50%",
@@ -378,10 +408,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
               <Error
                 styles={
                   Object {
+                    "altColor": "#ccc",
                     "bgColor": "#fff",
                     "color": "#333",
                     "errorColor": "#a60000",
                     "height": 48,
+                    "loaderColor": "#ccc",
                     "loaderSize": 32,
                     "rangeColor": "#666",
                     "rangeHandleBorderRadius": "50%",
@@ -398,10 +430,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
                 <style(ErrorRSWP)
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -419,10 +453,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
                     className=" _ErrorRSWP __1c3vtun"
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -500,10 +536,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
   <Player
     styles={
       Object {
+        "altColor": "#ccc",
         "bgColor": "#fff",
         "color": "#333",
         "errorColor": "#a60000",
         "height": 48,
+        "loaderColor": "#ccc",
         "loaderSize": 32,
         "rangeColor": "#666",
         "rangeHandleBorderRadius": "50%",
@@ -520,10 +558,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
     <style(PlayerRSWP)
       styles={
         Object {
+          "altColor": "#ccc",
           "bgColor": "#fff",
           "color": "#333",
           "errorColor": "#a60000",
           "height": 48,
+          "loaderColor": "#ccc",
           "loaderSize": 32,
           "rangeColor": "#666",
           "rangeHandleBorderRadius": "50%",
@@ -541,10 +581,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         className=" _PlayerRSWP __1v1a1mw"
         styles={
           Object {
+            "altColor": "#ccc",
             "bgColor": "#fff",
             "color": "#333",
             "errorColor": "#a60000",
             "height": 48,
+            "loaderColor": "#ccc",
             "loaderSize": 32,
             "rangeColor": "#666",
             "rangeHandleBorderRadius": "50%",
@@ -565,10 +607,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
           position={0}
           styles={
             Object {
+              "altColor": "#ccc",
               "bgColor": "#fff",
               "color": "#333",
               "errorColor": "#a60000",
               "height": 48,
+              "loaderColor": "#ccc",
               "loaderSize": 32,
               "rangeColor": "#666",
               "rangeHandleBorderRadius": "50%",
@@ -587,10 +631,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
             onMouseLeave={[Function]}
             styles={
               Object {
+                "altColor": "#ccc",
                 "bgColor": "#fff",
                 "color": "#333",
                 "errorColor": "#a60000",
                 "height": 48,
+                "loaderColor": "#ccc",
                 "loaderSize": 32,
                 "rangeColor": "#666",
                 "rangeHandleBorderRadius": "50%",
@@ -610,10 +656,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
               onMouseLeave={[Function]}
               styles={
                 Object {
+                  "altColor": "#ccc",
                   "bgColor": "#fff",
                   "color": "#333",
                   "errorColor": "#a60000",
                   "height": 48,
+                  "loaderColor": "#ccc",
                   "loaderSize": 32,
                   "rangeColor": "#666",
                   "rangeHandleBorderRadius": "50%",
@@ -733,10 +781,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         <Content
           styles={
             Object {
+              "altColor": "#ccc",
               "bgColor": "#fff",
               "color": "#333",
               "errorColor": "#a60000",
               "height": 48,
+              "loaderColor": "#ccc",
               "loaderSize": 32,
               "rangeColor": "#666",
               "rangeHandleBorderRadius": "50%",
@@ -753,10 +803,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
           <style(ContentRSWP)
             styles={
               Object {
+                "altColor": "#ccc",
                 "bgColor": "#fff",
                 "color": "#333",
                 "errorColor": "#a60000",
                 "height": 48,
+                "loaderColor": "#ccc",
                 "loaderSize": 32,
                 "rangeColor": "#666",
                 "rangeHandleBorderRadius": "50%",
@@ -774,10 +826,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
               className=" _ContentRSWP __1xc0f9k"
               styles={
                 Object {
+                  "altColor": "#ccc",
                   "bgColor": "#fff",
                   "color": "#333",
                   "errorColor": "#a60000",
                   "height": 48,
+                  "loaderColor": "#ccc",
                   "loaderSize": 32,
                   "rangeColor": "#666",
                   "rangeHandleBorderRadius": "50%",
@@ -797,10 +851,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                   showSaveIcon={false}
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -829,10 +885,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                     className=""
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -847,13 +905,15 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                     }
                   >
                     <div
-                      className=" _InfoRSWP __17c6fmt"
+                      className=" _InfoRSWP __mvqn38"
                       styles={
                         Object {
+                          "altColor": "#ccc",
                           "bgColor": "#fff",
                           "color": "#333",
                           "errorColor": "#a60000",
                           "height": 48,
+                          "loaderColor": "#ccc",
                           "loaderSize": 32,
                           "rangeColor": "#666",
                           "rangeHandleBorderRadius": "50%",
@@ -874,10 +934,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                       <Component
                         styles={
                           Object {
+                            "altColor": "#ccc",
                             "bgColor": "#fff",
                             "color": "#333",
                             "errorColor": "#a60000",
                             "height": 48,
+                            "loaderColor": "#ccc",
                             "loaderSize": 32,
                             "rangeColor": "#666",
                             "rangeHandleBorderRadius": "50%",
@@ -892,13 +954,15 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                         }
                       >
                         <div
-                          className=" __3hmsj __m0jum"
+                          className=" __3rjnua __378pd"
                           styles={
                             Object {
+                              "altColor": "#ccc",
                               "bgColor": "#fff",
                               "color": "#333",
                               "errorColor": "#a60000",
                               "height": 48,
+                              "loaderColor": "#ccc",
                               "loaderSize": 32,
                               "rangeColor": "#666",
                               "rangeHandleBorderRadius": "50%",
@@ -932,10 +996,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                 previousTracks={Array []}
                 styles={
                   Object {
+                    "altColor": "#ccc",
                     "bgColor": "#fff",
                     "color": "#333",
                     "errorColor": "#a60000",
                     "height": 48,
+                    "loaderColor": "#ccc",
                     "loaderSize": 32,
                     "rangeColor": "#666",
                     "rangeHandleBorderRadius": "50%",
@@ -952,10 +1018,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                 <style(ControlsRSWP)
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -973,10 +1041,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                     className=" _ControlsRSWP __1g1kf0v"
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -1064,10 +1134,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                 setVolume={[Function]}
                 styles={
                   Object {
+                    "altColor": "#ccc",
                     "bgColor": "#fff",
                     "color": "#333",
                     "errorColor": "#a60000",
                     "height": 48,
+                    "loaderColor": "#ccc",
                     "loaderSize": 32,
                     "rangeColor": "#666",
                     "rangeHandleBorderRadius": "50%",
@@ -1086,10 +1158,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                 <style(ActionsRSWP)
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -1107,10 +1181,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                     className=" _ActionsRSWP __hrnxs2"
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -1130,10 +1206,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                       open={true}
                       styles={
                         Object {
+                          "altColor": "#ccc",
                           "bgColor": "#fff",
                           "color": "#333",
                           "errorColor": "#a60000",
                           "height": 48,
+                          "loaderColor": "#ccc",
                           "loaderSize": 32,
                           "rangeColor": "#666",
                           "rangeHandleBorderRadius": "50%",
@@ -1151,10 +1229,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                       <style(DevicesRSWP)
                         styles={
                           Object {
+                            "altColor": "#ccc",
                             "bgColor": "#fff",
                             "color": "#333",
                             "errorColor": "#a60000",
                             "height": 48,
+                            "loaderColor": "#ccc",
                             "loaderSize": 32,
                             "rangeColor": "#666",
                             "rangeHandleBorderRadius": "50%",
@@ -1169,13 +1249,15 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                         }
                       >
                         <div
-                          className=" _DevicesRSWP __djl5c0"
+                          className=" _DevicesRSWP __1asngec"
                           styles={
                             Object {
+                              "altColor": "#ccc",
                               "bgColor": "#fff",
                               "color": "#333",
                               "errorColor": "#a60000",
                               "height": 48,
+                              "loaderColor": "#ccc",
                               "loaderSize": 32,
                               "rangeColor": "#666",
                               "rangeHandleBorderRadius": "50%",
@@ -1215,10 +1297,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
   <Player
     styles={
       Object {
+        "altColor": "#ccc",
         "bgColor": "#fff",
         "color": "#333",
         "errorColor": "#a60000",
         "height": 48,
+        "loaderColor": "#ccc",
         "loaderSize": 32,
         "rangeColor": "#666",
         "rangeHandleBorderRadius": "50%",
@@ -1235,10 +1319,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
     <style(PlayerRSWP)
       styles={
         Object {
+          "altColor": "#ccc",
           "bgColor": "#fff",
           "color": "#333",
           "errorColor": "#a60000",
           "height": 48,
+          "loaderColor": "#ccc",
           "loaderSize": 32,
           "rangeColor": "#666",
           "rangeHandleBorderRadius": "50%",
@@ -1256,10 +1342,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
         className=" _PlayerRSWP __1v1a1mw"
         styles={
           Object {
+            "altColor": "#ccc",
             "bgColor": "#fff",
             "color": "#333",
             "errorColor": "#a60000",
             "height": 48,
+            "loaderColor": "#ccc",
             "loaderSize": 32,
             "rangeColor": "#666",
             "rangeHandleBorderRadius": "50%",
@@ -1276,10 +1364,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
         <Content
           styles={
             Object {
+              "altColor": "#ccc",
               "bgColor": "#fff",
               "color": "#333",
               "errorColor": "#a60000",
               "height": 48,
+              "loaderColor": "#ccc",
               "loaderSize": 32,
               "rangeColor": "#666",
               "rangeHandleBorderRadius": "50%",
@@ -1296,10 +1386,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
           <style(ContentRSWP)
             styles={
               Object {
+                "altColor": "#ccc",
                 "bgColor": "#fff",
                 "color": "#333",
                 "errorColor": "#a60000",
                 "height": 48,
+                "loaderColor": "#ccc",
                 "loaderSize": 32,
                 "rangeColor": "#666",
                 "rangeHandleBorderRadius": "50%",
@@ -1317,10 +1409,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
               className=" _ContentRSWP __1xc0f9k"
               styles={
                 Object {
+                  "altColor": "#ccc",
                   "bgColor": "#fff",
                   "color": "#333",
                   "errorColor": "#a60000",
                   "height": 48,
+                  "loaderColor": "#ccc",
                   "loaderSize": 32,
                   "rangeColor": "#666",
                   "rangeHandleBorderRadius": "50%",
@@ -1337,10 +1431,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
               <Error
                 styles={
                   Object {
+                    "altColor": "#ccc",
                     "bgColor": "#fff",
                     "color": "#333",
                     "errorColor": "#a60000",
                     "height": 48,
+                    "loaderColor": "#ccc",
                     "loaderSize": 32,
                     "rangeColor": "#666",
                     "rangeHandleBorderRadius": "50%",
@@ -1357,10 +1453,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
                 <style(ErrorRSWP)
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -1378,10 +1476,12 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
                     className=" _ErrorRSWP __1c3vtun"
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -1460,10 +1560,12 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
   <Player
     styles={
       Object {
+        "altColor": "#ccc",
         "bgColor": "#fff",
         "color": "#333",
         "errorColor": "#a60000",
         "height": 48,
+        "loaderColor": "#ccc",
         "loaderSize": 32,
         "rangeColor": "#666",
         "rangeHandleBorderRadius": "50%",
@@ -1480,10 +1582,12 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
     <style(PlayerRSWP)
       styles={
         Object {
+          "altColor": "#ccc",
           "bgColor": "#fff",
           "color": "#333",
           "errorColor": "#a60000",
           "height": 48,
+          "loaderColor": "#ccc",
           "loaderSize": 32,
           "rangeColor": "#666",
           "rangeHandleBorderRadius": "50%",
@@ -1501,10 +1605,12 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
         className=" _PlayerRSWP __1v1a1mw"
         styles={
           Object {
+            "altColor": "#ccc",
             "bgColor": "#fff",
             "color": "#333",
             "errorColor": "#a60000",
             "height": 48,
+            "loaderColor": "#ccc",
             "loaderSize": 32,
             "rangeColor": "#666",
             "rangeHandleBorderRadius": "50%",
@@ -1521,10 +1627,12 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
         <Content
           styles={
             Object {
+              "altColor": "#ccc",
               "bgColor": "#fff",
               "color": "#333",
               "errorColor": "#a60000",
               "height": 48,
+              "loaderColor": "#ccc",
               "loaderSize": 32,
               "rangeColor": "#666",
               "rangeHandleBorderRadius": "50%",
@@ -1541,10 +1649,12 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
           <style(ContentRSWP)
             styles={
               Object {
+                "altColor": "#ccc",
                 "bgColor": "#fff",
                 "color": "#333",
                 "errorColor": "#a60000",
                 "height": 48,
+                "loaderColor": "#ccc",
                 "loaderSize": 32,
                 "rangeColor": "#666",
                 "rangeHandleBorderRadius": "50%",
@@ -1562,10 +1672,12 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
               className=" _ContentRSWP __1xc0f9k"
               styles={
                 Object {
+                  "altColor": "#ccc",
                   "bgColor": "#fff",
                   "color": "#333",
                   "errorColor": "#a60000",
                   "height": 48,
+                  "loaderColor": "#ccc",
                   "loaderSize": 32,
                   "rangeColor": "#666",
                   "rangeHandleBorderRadius": "50%",
@@ -1582,10 +1694,12 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
               <Loader
                 styles={
                   Object {
+                    "altColor": "#ccc",
                     "bgColor": "#fff",
                     "color": "#333",
                     "errorColor": "#a60000",
                     "height": 48,
+                    "loaderColor": "#ccc",
                     "loaderSize": 32,
                     "rangeColor": "#666",
                     "rangeHandleBorderRadius": "50%",
@@ -1602,10 +1716,12 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
                 <style(LoaderRSWP)
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -1620,13 +1736,15 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
                   }
                 >
                   <div
-                    className=" _LoaderRSWP __seuim4"
+                    className=" _LoaderRSWP __xl1qxn"
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -2045,10 +2163,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
   <Player
     styles={
       Object {
+        "altColor": "#ccc",
         "bgColor": "#fff",
         "color": "#333",
         "errorColor": "#a60000",
         "height": 48,
+        "loaderColor": "#ccc",
         "loaderSize": 32,
         "rangeColor": "#666",
         "rangeHandleBorderRadius": "50%",
@@ -2065,10 +2185,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
     <style(PlayerRSWP)
       styles={
         Object {
+          "altColor": "#ccc",
           "bgColor": "#fff",
           "color": "#333",
           "errorColor": "#a60000",
           "height": 48,
+          "loaderColor": "#ccc",
           "loaderSize": 32,
           "rangeColor": "#666",
           "rangeHandleBorderRadius": "50%",
@@ -2086,10 +2208,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         className=" _PlayerRSWP __1v1a1mw"
         styles={
           Object {
+            "altColor": "#ccc",
             "bgColor": "#fff",
             "color": "#333",
             "errorColor": "#a60000",
             "height": 48,
+            "loaderColor": "#ccc",
             "loaderSize": 32,
             "rangeColor": "#666",
             "rangeHandleBorderRadius": "50%",
@@ -2110,10 +2234,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           position={0}
           styles={
             Object {
+              "altColor": "#ccc",
               "bgColor": "#fff",
               "color": "#333",
               "errorColor": "#a60000",
               "height": 48,
+              "loaderColor": "#ccc",
               "loaderSize": 32,
               "rangeColor": "#666",
               "rangeHandleBorderRadius": "50%",
@@ -2132,10 +2258,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             onMouseLeave={[Function]}
             styles={
               Object {
+                "altColor": "#ccc",
                 "bgColor": "#fff",
                 "color": "#333",
                 "errorColor": "#a60000",
                 "height": 48,
+                "loaderColor": "#ccc",
                 "loaderSize": 32,
                 "rangeColor": "#666",
                 "rangeHandleBorderRadius": "50%",
@@ -2155,10 +2283,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
               onMouseLeave={[Function]}
               styles={
                 Object {
+                  "altColor": "#ccc",
                   "bgColor": "#fff",
                   "color": "#333",
                   "errorColor": "#a60000",
                   "height": 48,
+                  "loaderColor": "#ccc",
                   "loaderSize": 32,
                   "rangeColor": "#666",
                   "rangeHandleBorderRadius": "50%",
@@ -2278,10 +2408,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <Content
           styles={
             Object {
+              "altColor": "#ccc",
               "bgColor": "#fff",
               "color": "#333",
               "errorColor": "#a60000",
               "height": 48,
+              "loaderColor": "#ccc",
               "loaderSize": 32,
               "rangeColor": "#666",
               "rangeHandleBorderRadius": "50%",
@@ -2298,10 +2430,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           <style(ContentRSWP)
             styles={
               Object {
+                "altColor": "#ccc",
                 "bgColor": "#fff",
                 "color": "#333",
                 "errorColor": "#a60000",
                 "height": 48,
+                "loaderColor": "#ccc",
                 "loaderSize": 32,
                 "rangeColor": "#666",
                 "rangeHandleBorderRadius": "50%",
@@ -2319,10 +2453,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
               className=" _ContentRSWP __1xc0f9k"
               styles={
                 Object {
+                  "altColor": "#ccc",
                   "bgColor": "#fff",
                   "color": "#333",
                   "errorColor": "#a60000",
                   "height": 48,
+                  "loaderColor": "#ccc",
                   "loaderSize": 32,
                   "rangeColor": "#666",
                   "rangeHandleBorderRadius": "50%",
@@ -2342,10 +2478,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                   showSaveIcon={true}
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -2374,10 +2512,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                     className="rswp__active"
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -2392,13 +2532,15 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                     }
                   >
                     <div
-                      className="rswp__active _InfoRSWP __17c6fmt"
+                      className="rswp__active _InfoRSWP __mvqn38"
                       styles={
                         Object {
+                          "altColor": "#ccc",
                           "bgColor": "#fff",
                           "color": "#333",
                           "errorColor": "#a60000",
                           "height": 48,
+                          "loaderColor": "#ccc",
                           "loaderSize": 32,
                           "rangeColor": "#666",
                           "rangeHandleBorderRadius": "50%",
@@ -2419,10 +2561,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                       <Component
                         styles={
                           Object {
+                            "altColor": "#ccc",
                             "bgColor": "#fff",
                             "color": "#333",
                             "errorColor": "#a60000",
                             "height": 48,
+                            "loaderColor": "#ccc",
                             "loaderSize": 32,
                             "rangeColor": "#666",
                             "rangeHandleBorderRadius": "50%",
@@ -2437,13 +2581,15 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                         }
                       >
                         <div
-                          className=" __3hmsj __m0jum"
+                          className=" __3rjnua __378pd"
                           styles={
                             Object {
+                              "altColor": "#ccc",
                               "bgColor": "#fff",
                               "color": "#333",
                               "errorColor": "#a60000",
                               "height": 48,
+                              "loaderColor": "#ccc",
                               "loaderSize": 32,
                               "rangeColor": "#666",
                               "rangeHandleBorderRadius": "50%",
@@ -2587,10 +2733,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                 }
                 styles={
                   Object {
+                    "altColor": "#ccc",
                     "bgColor": "#fff",
                     "color": "#333",
                     "errorColor": "#a60000",
                     "height": 48,
+                    "loaderColor": "#ccc",
                     "loaderSize": 32,
                     "rangeColor": "#666",
                     "rangeHandleBorderRadius": "50%",
@@ -2607,10 +2755,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                 <style(ControlsRSWP)
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -2628,10 +2778,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                     className=" _ControlsRSWP __1g1kf0v"
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -2719,10 +2871,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                 setVolume={[Function]}
                 styles={
                   Object {
+                    "altColor": "#ccc",
                     "bgColor": "#fff",
                     "color": "#333",
                     "errorColor": "#a60000",
                     "height": 48,
+                    "loaderColor": "#ccc",
                     "loaderSize": 32,
                     "rangeColor": "#666",
                     "rangeHandleBorderRadius": "50%",
@@ -2741,10 +2895,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                 <style(ActionsRSWP)
                   styles={
                     Object {
+                      "altColor": "#ccc",
                       "bgColor": "#fff",
                       "color": "#333",
                       "errorColor": "#a60000",
                       "height": 48,
+                      "loaderColor": "#ccc",
                       "loaderSize": 32,
                       "rangeColor": "#666",
                       "rangeHandleBorderRadius": "50%",
@@ -2762,10 +2918,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                     className=" _ActionsRSWP __hrnxs2"
                     styles={
                       Object {
+                        "altColor": "#ccc",
                         "bgColor": "#fff",
                         "color": "#333",
                         "errorColor": "#a60000",
                         "height": 48,
+                        "loaderColor": "#ccc",
                         "loaderSize": 32,
                         "rangeColor": "#666",
                         "rangeHandleBorderRadius": "50%",
@@ -2783,10 +2941,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                       setVolume={[Function]}
                       styles={
                         Object {
+                          "altColor": "#ccc",
                           "bgColor": "#fff",
                           "color": "#333",
                           "errorColor": "#a60000",
                           "height": 48,
+                          "loaderColor": "#ccc",
                           "loaderSize": 32,
                           "rangeColor": "#666",
                           "rangeHandleBorderRadius": "50%",
@@ -2804,10 +2964,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                       <style(VolumeRSWP)
                         styles={
                           Object {
+                            "altColor": "#ccc",
                             "bgColor": "#fff",
                             "color": "#333",
                             "errorColor": "#a60000",
                             "height": 48,
+                            "loaderColor": "#ccc",
                             "loaderSize": 32,
                             "rangeColor": "#666",
                             "rangeHandleBorderRadius": "50%",
@@ -2822,13 +2984,15 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                         }
                       >
                         <div
-                          className=" _VolumeRSWP __djl5c0"
+                          className=" _VolumeRSWP __uxt179"
                           styles={
                             Object {
+                              "altColor": "#ccc",
                               "bgColor": "#fff",
                               "color": "#333",
                               "errorColor": "#a60000",
                               "height": 48,
+                              "loaderColor": "#ccc",
                               "loaderSize": 32,
                               "rangeColor": "#666",
                               "rangeHandleBorderRadius": "50%",
@@ -2869,10 +3033,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                       open={false}
                       styles={
                         Object {
+                          "altColor": "#ccc",
                           "bgColor": "#fff",
                           "color": "#333",
                           "errorColor": "#a60000",
                           "height": 48,
+                          "loaderColor": "#ccc",
                           "loaderSize": 32,
                           "rangeColor": "#666",
                           "rangeHandleBorderRadius": "50%",
@@ -2890,10 +3056,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                       <style(DevicesRSWP)
                         styles={
                           Object {
+                            "altColor": "#ccc",
                             "bgColor": "#fff",
                             "color": "#333",
                             "errorColor": "#a60000",
                             "height": 48,
+                            "loaderColor": "#ccc",
                             "loaderSize": 32,
                             "rangeColor": "#666",
                             "rangeHandleBorderRadius": "50%",
@@ -2908,13 +3076,15 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                         }
                       >
                         <div
-                          className=" _DevicesRSWP __djl5c0"
+                          className=" _DevicesRSWP __1asngec"
                           styles={
                             Object {
+                              "altColor": "#ccc",
                               "bgColor": "#fff",
                               "color": "#333",
                               "errorColor": "#a60000",
                               "height": 48,
+                              "loaderColor": "#ccc",
                               "loaderSize": 32,
                               "rangeColor": "#666",
                               "rangeHandleBorderRadius": "50%",

@@ -43,10 +43,12 @@ export const px = (val: string | number): string => (typeof val === 'number' ? `
 
 export function getMergedStyles(styles: StylesProps | undefined): StylesOptions {
   return {
+    altColor: '#ccc',
     bgColor: '#fff',
     color: '#333',
     errorColor: '#a60000',
     height: 48,
+    loaderColor: '#ccc',
     loaderSize: 32,
     rangeColor: '#666',
     rangeHandleBorderRadius: '50%',
