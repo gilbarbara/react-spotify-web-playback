@@ -60,17 +60,23 @@ export function loadScript(attributes: ScriptAttributes): Promise<any> {
       ...attributes,
     };
 
-    const script = document.createElement('script');
+    const scriptTag = document.getElementById('spotify-player');
 
-    script.id = id || '';
-    script.type = 'text/javascript';
-    script.async = async;
-    script.defer = defer;
-    script.src = source;
-    script.onload = () => resolve(undefined);
-    script.onerror = (error: any) => reject(`createScript: ${error.message}`);
+    if (!scriptTag) {
+      const script = document.createElement('script');
 
-    document.head.appendChild(script);
+      script.id = id || '';
+      script.type = 'text/javascript';
+      script.async = async;
+      script.defer = defer;
+      script.src = source;
+      script.onload = () => resolve(undefined);
+      script.onerror = (error: any) => reject(`createScript: ${error.message}`);
+
+      document.head.appendChild(script);
+    } else {
+      resolve();
+    }
   });
 }
 

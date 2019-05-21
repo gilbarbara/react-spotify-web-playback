@@ -475,12 +475,13 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     return thumb.url;
   }
 
-  private setVolume = (volume: number) => {
+  private setVolume = async (volume: number) => {
     const { token } = this.props;
 
     /* istanbul ignore else */
     if (this.isExternalPlayer) {
-      setVolume(Math.round(volume * 100), token);
+      await setVolume(Math.round(volume * 100), token);
+      await this.syncDevice();
     } else if (this.player) {
       this.player.setVolume(volume);
     }
@@ -521,7 +522,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         progressMs: player.item ? player.progress_ms : 0,
         status: STATUS.READY,
         track,
-        volume: player.device.volume_percent,
+        volume: player.device.volume_percent / 100,
       });
     } catch (error) {
       this.updateState({
@@ -552,6 +553,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           );
         } else {
           this.updateState({ isPlaying: false });
+
           return pause(token);
         }
       } else if (this.player) {

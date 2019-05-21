@@ -19,6 +19,7 @@ interface Props {
 
 interface State {
   isOpen: boolean;
+  volume: number;
 }
 
 const Wrapper = styled('div')(
@@ -56,24 +57,41 @@ const Wrapper = styled('div')(
 );
 
 export default class Volume extends PureComponent<Props, State> {
+  private timeout: number | undefined;
+
   constructor(props: Props) {
     super(props);
 
     this.state = {
       isOpen: false,
+      volume: props.volume,
     };
   }
 
-  private handleClick = () => {
-    const { isOpen } = this.state;
+  public componentDidUpdate(prevProps: Props) {
+    const { volume: volumeState } = this.state;
+    const { volume } = this.props;
 
-    this.setState({ isOpen: !isOpen });
+    if (prevProps.volume !== volume && volume !== volumeState) {
+      this.setState({ volume });
+    }
+  }
+
+  private handleClick = () => {
+    this.setState(state => ({ isOpen: !state.isOpen }));
   };
 
   private handleChangeSlider = ({ y }: RangeSliderPosition) => {
     const { setVolume } = this.props;
+    const volume = Math.round(y) / 100;
 
-    setVolume(Math.round(y) / 100);
+    clearTimeout(this.timeout);
+
+    this.timeout = window.setTimeout(() => {
+      setVolume(volume);
+    }, 250);
+
+    this.setState({ volume });
   };
 
   private handleDragEndSlider = () => {
@@ -81,8 +99,8 @@ export default class Volume extends PureComponent<Props, State> {
   };
 
   public render() {
-    const { isOpen } = this.state;
-    const { styles, volume } = this.props;
+    const { isOpen, volume } = this.state;
+    const { styles } = this.props;
     let icon = <VolumeHigh />;
 
     if (volume === 0) {

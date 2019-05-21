@@ -66,6 +66,9 @@ const Wrapper = styled('div')(
 );
 
 export default class Devices extends PureComponent<Props, State> {
+  // tslint:disable-next-line:variable-name
+  private _isMounted = false;
+
   constructor(props: Props) {
     super(props);
 
@@ -76,15 +79,23 @@ export default class Devices extends PureComponent<Props, State> {
   }
 
   public async componentDidMount() {
+    this._isMounted = true;
     const { token } = this.props;
 
     try {
       const { devices } = await getDevices(token);
-      this.setState({ devices: devices || [] });
+
+      if (this._isMounted) {
+        this.setState({ devices: devices || [] });
+      }
     } catch (error) {
       // tslint:disable-next-line:no-console
       console.error('getDevices', error);
     }
+  }
+
+  public componentWillUnmount() {
+    this._isMounted = false;
   }
 
   private handleClickSetDevice = (e: React.MouseEvent<HTMLElement>) => {
@@ -94,14 +105,13 @@ export default class Devices extends PureComponent<Props, State> {
     if (dataset.id) {
       onClickDevice(dataset.id);
       setDevice(dataset.id, token);
+
       this.setState({ isOpen: false });
     }
   };
 
   private handleClickToggleDevices = () => {
-    const { isOpen } = this.state;
-
-    this.setState({ isOpen: !isOpen });
+    this.setState(state => ({ isOpen: !state.isOpen }));
   };
 
   public render() {

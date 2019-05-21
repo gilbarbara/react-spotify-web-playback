@@ -14,6 +14,7 @@ process.on('unhandledRejection', (reason, p) => {
 });
 
 let playerStateResponse = playerState;
+let playerStatusResponse = playerStatus;
 
 const mockAddListener = jest.fn();
 
@@ -28,7 +29,7 @@ const mockConnect = jest.fn();
 const mockDisconnect = jest.fn();
 const mockGetCurrentState = jest.fn(() => playerStateResponse);
 const mockGetOAuthToken = jest.fn();
-const mockGetVolume = jest.fn(() => 0.8);
+const mockGetVolume = jest.fn(() => 1);
 const mockNextTrack = jest.fn(updatePlayer);
 const mockPreviousTrack = jest.fn(updatePlayer);
 const mockSetVolume = jest.fn();
@@ -93,7 +94,7 @@ describe('SpotifyWebPlayer', () => {
         },
       ],
     });
-    fetchMock.get('https://api.spotify.com/v1/me/player', playerStatus);
+    fetchMock.get('https://api.spotify.com/v1/me/player', () => playerStatusResponse);
     fetchMock.delete('https://api.spotify.com/v1/me/tracks', 200);
     fetchMock.put('*', 204);
     fetchMock.post('*', 204);
@@ -258,11 +259,10 @@ describe('SpotifyWebPlayer', () => {
 
     it('should render the full UI', async () => {
       const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
-
       readyFn({ device_id: deviceId });
+
       await updatePlayer();
       await skipEventLoop();
-
       wrapper.update();
 
       expect(wrapper).toMatchSnapshot();
@@ -274,6 +274,9 @@ describe('SpotifyWebPlayer', () => {
       wrapper
         .find('.rrs__track')
         .simulate('click', { clientX: 910, clientY: 25, currentTarget: {} });
+      jest.runOnlyPendingTimers();
+
+      wrapper.update();
 
       expect(wrapper.state('volume')).toBe(0.5);
       expect(mockSetVolume).toHaveBeenCalledWith(0.5);
@@ -284,6 +287,9 @@ describe('SpotifyWebPlayer', () => {
       wrapper
         .find('.rrs__track')
         .simulate('click', { clientX: 910, clientY: 50, currentTarget: {} });
+      jest.runOnlyPendingTimers();
+
+      wrapper.update();
 
       expect(wrapper.state('volume')).toBe(0);
       expect(mockSetVolume).toHaveBeenCalledWith(0);
@@ -321,10 +327,10 @@ describe('SpotifyWebPlayer', () => {
     });
   });
 
-  describe('with an external device', () => {
+  describe('With an external device', () => {
     let wrapper;
 
-    beforeAll(() => {
+    beforeAll(async () => {
       fetchMock.resetHistory();
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 6,
@@ -342,14 +348,16 @@ describe('SpotifyWebPlayer', () => {
 
       const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
       readyFn({ device_id: deviceId });
+
+      await skipEventLoop();
+      wrapper.update();
     });
 
     afterAll(() => {
       wrapper.unmount();
     });
 
-    it('should handle Device selection', () => {
-      wrapper.update();
+    it('should handle Device selection', async () => {
       wrapper.find('Devices button').simulate('click');
       expect(wrapper.find('ClickOutside button')).toHaveText('Jest Player');
 
@@ -359,22 +367,37 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper.state('deviceId')).toBe('19ks98hfbxc53vh34jd');
     });
 
-    it('should handle Volume changes', () => {
+    it('should handle Volume changes', async () => {
+      playerStatusResponse = {
+        ...playerStatus,
+        device: {
+          ...playerStatus.device,
+          volume_percent: 60,
+        },
+      };
       wrapper.find('Volume button').simulate('click');
 
       wrapper
         .find('.rrs__track')
-        .simulate('click', { clientX: 910, clientY: 25, currentTarget: {} });
+        .simulate('click', { clientX: 910, clientY: 20, currentTarget: {} });
 
-      expect(wrapper.state('volume')).toBe(0.5);
-      expect(fetchMock.lastCall()[0]).toBe(
-        'https://api.spotify.com/v1/me/player/volume?volume_percent=50',
-      );
+      jest.runOnlyPendingTimers();
+      await skipEventLoop();
+
+      expect(wrapper.state('volume')).toBe(0.6);
+      expect(fetchMock.calls(d => d.endsWith('volume_percent=60'))).toBeTruthy();
     });
 
     it('should handle Control clicks', async () => {
+      // reset the response (playing)
+      playerStatusResponse = {
+        ...playerStatus,
+        is_playing: true,
+      };
+
       wrapper.find('[aria-label="Play"]').simulate('click');
-      jest.runOnlyPendingTimers();
+      expect(fetchMock.calls(d => d.indexOf('/play?') > 0)).toBeTruthy();
+
       await skipEventLoop();
 
       expect(wrapper.state('isPlaying')).toBe(true);
@@ -382,14 +405,34 @@ describe('SpotifyWebPlayer', () => {
       // Play the previous track
       wrapper.find('[aria-label="Previous Track"]').simulate('click');
       expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player/previous');
+
       jest.runOnlyPendingTimers();
+      await skipEventLoop();
+
+      // it should have called a player update
+      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player');
 
       // Play the next track
       wrapper.find('[aria-label="Next Track"]').simulate('click');
       expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player/next');
+
       jest.runOnlyPendingTimers();
+      await skipEventLoop();
+
+      // it should have called a player update
+      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player');
 
       wrapper.find('[aria-label="Pause"]').simulate('click');
+      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player/pause');
+
+      // reset the response again (paused)
+      playerStatusResponse = playerStatus;
+
+      jest.runOnlyPendingTimers();
+      await skipEventLoop();
+
+      // it should have called a player update
+      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player');
 
       expect(wrapper.state('isPlaying')).toBe(false);
     });

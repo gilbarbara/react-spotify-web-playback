@@ -190,7 +190,7 @@ export const playerStatus = {
       skipping_prev: true,
     },
   },
-  is_playing: true,
+  is_playing: false,
 };
 
 export const player = {};

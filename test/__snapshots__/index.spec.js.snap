@@ -1910,7 +1910,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
               "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
             },
             "type": "track_update",
-            "volume": 0.8,
+            "volume": 1,
           },
         ],
         Array [
@@ -2020,7 +2020,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
               "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
             },
             "type": "status_update",
-            "volume": 0.8,
+            "volume": 1,
           },
         ],
         Array [
@@ -2130,7 +2130,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
               "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
             },
             "type": "player_update",
-            "volume": 0.8,
+            "volume": 1,
           },
         ],
       ],
@@ -2890,7 +2890,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                   }
                 }
                 token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
-                volume={0.8}
+                volume={1}
               >
                 <style(ActionsRSWP)
                   styles={
@@ -2959,7 +2959,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                           "trackNameColor": "#333",
                         }
                       }
-                      volume={0.8}
+                      volume={1}
                     >
                       <style(VolumeRSWP)
                         styles={
