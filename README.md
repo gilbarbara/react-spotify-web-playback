@@ -42,6 +42,9 @@ The position of the list/tracks you want to start the player.
 **persistDeviceSelection** `boolean`  
 Save the device selection.
 
+**play** `boolean`  
+Control the player status
+
 **showSaveIcon** `boolean`  
 Display a Favorite button. Needs additional scopes in your token!
 

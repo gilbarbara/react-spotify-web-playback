@@ -11,6 +11,7 @@ export interface Props {
   name?: string;
   offset?: number;
   persistDeviceSelection?: boolean;
+  play?: boolean;
   showSaveIcon?: boolean;
   syncExternalDeviceInterval?: number;
   token: string;

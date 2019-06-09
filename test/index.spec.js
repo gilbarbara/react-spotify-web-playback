@@ -398,6 +398,11 @@ describe('SpotifyWebPlayer', () => {
       wrapper.find('[aria-label="Play"]').simulate('click');
       expect(fetchMock.calls(d => d.indexOf('/play?') > 0)).toBeTruthy();
 
+      // waits for the play request
+      await skipEventLoop();
+      // runs the sync timeout
+      jest.runOnlyPendingTimers();
+      // waits for the sync request
       await skipEventLoop();
 
       expect(wrapper.state('isPlaying')).toBe(true);
@@ -435,6 +440,47 @@ describe('SpotifyWebPlayer', () => {
       expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player');
 
       expect(wrapper.state('isPlaying')).toBe(false);
+    });
+  });
+
+  describe('with control props', () => {
+    let wrapper;
+
+    beforeAll(async () => {
+      fetchMock.resetHistory();
+      Element.prototype.getBoundingClientRect = jest.fn(() => ({
+        width: 6,
+        height: 50,
+        top: 0,
+        left: 900,
+        bottom: 50,
+        right: 0,
+      }));
+
+      wrapper = setup({
+        play: true,
+      });
+
+      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+      readyFn({ device_id: deviceId });
+
+      await skipEventLoop();
+      wrapper.update();
+    });
+
+    afterAll(() => {
+      wrapper.unmount();
+    });
+
+    it('should honor the play props ', () => {
+      expect(wrapper.state('isPlaying')).toBeTrue();
+    });
+
+    it('should respond to play prop change', async () => {
+      wrapper.setProps({ play: false });
+      await skipEventLoop();
+
+      expect(wrapper.state('isPlaying')).toBeFalse();
     });
   });
 });
