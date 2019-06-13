@@ -343,14 +343,14 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
   }
 
-  private handlePlayerErrors = (type: string, message: string) => {
+  private handlePlayerErrors = async (type: string, message: string) => {
     const { status } = this.state;
     const isPlaybackError = type === 'playback_error';
     const isInitializationError = type === 'initialization_error';
     let nextStatus = status;
 
     if (this.player && !isPlaybackError) {
-      this.player.disconnect();
+      await this.player.disconnect();
     }
 
     if (isInitializationError) {

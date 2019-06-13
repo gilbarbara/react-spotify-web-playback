@@ -117,11 +117,13 @@ describe('SpotifyWebPlayer', () => {
       wrapper.unmount();
     });
 
-    it('should handle `authentication_error`', () => {
+    it('should handle `authentication_error`', async () => {
       const [authenticationType, authenticationFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'authentication_error',
       );
       authenticationFn({ type: authenticationType, message: 'Failed to authenticate' });
+
+      await skipEventLoop();
 
       expect(wrapper.state().status).toBe(STATUS.ERROR);
       expect(wrapper.state().error).toBe('Failed to authenticate');
@@ -132,11 +134,12 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should handle `account_error`', () => {
+    it('should handle `account_error`', async () => {
       const [accountType, accountFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'account_error',
       );
       accountFn({ type: accountType, message: 'Failed to validate Spotify account' });
+      await skipEventLoop();
 
       expect(wrapper.state().status).toBe(STATUS.ERROR);
       expect(wrapper.state().error).toBe('Failed to validate Spotify account');
@@ -147,11 +150,13 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should handle `playback_error`', () => {
+    it('should handle `playback_error`', async () => {
       const [playbackType, playbackFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'playback_error',
       );
       playbackFn({ type: playbackType, message: 'Failed to perform playback' });
+
+      await skipEventLoop();
 
       expect(wrapper.state().status).toBe(STATUS.ERROR);
       expect(wrapper.state().error).toBe('Failed to perform playback');
@@ -161,11 +166,13 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should handle `initialization_error`', () => {
+    it('should handle `initialization_error`', async () => {
       const [initializationType, initializationFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'initialization_error',
       );
       initializationFn({ type: initializationType, message: 'Failed to initialize' });
+
+      await skipEventLoop();
 
       expect(wrapper.state().status).toBe(STATUS.UNSUPPORTED);
       expect(wrapper.state().error).toBe('Failed to initialize');
