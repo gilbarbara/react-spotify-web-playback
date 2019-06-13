@@ -105,16 +105,16 @@ export interface SpotifyPlayerStatus {
   is_playing: boolean;
 }
 
-export type WebPlaybackStatusEvents = 'ready' | 'not_ready';
-export type WebPlaybackStateEvent = 'player_state_changed';
-export type WebPlaybackErrorsEvents =
+export type WebPlaybackStatuses = 'ready' | 'not_ready';
+export type WebPlaybackStates = 'player_state_changed';
+export type WebPlaybackErrors =
   | 'initialization_error'
   | 'authentication_error'
   | 'account_error'
   | 'playback_error';
 
 export interface WebPlaybackError {
-  message: WebPlaybackErrorsEvents;
+  message: WebPlaybackErrors;
 }
 
 export interface WebPlaybackPlayer {
@@ -125,9 +125,9 @@ export interface WebPlaybackPlayer {
     volume: number;
   };
   addListener: {
-    (event: WebPlaybackErrorsEvents, callback: (d: WebPlaybackError) => void): boolean;
-    (event: WebPlaybackStateEvent, callback: (d: WebPlaybackState | null) => void): boolean;
-    (event: WebPlaybackStatusEvents, callback: (d: WebPlaybackReady) => void): boolean;
+    (event: WebPlaybackErrors, callback: (d: WebPlaybackError) => void): boolean;
+    (event: WebPlaybackStates, callback: (d: WebPlaybackState | null) => void): boolean;
+    (event: WebPlaybackStatuses, callback: (d: WebPlaybackReady) => void): boolean;
   };
   connect: () => Promise<void>;
   disconnect: () => void;
@@ -137,7 +137,7 @@ export interface WebPlaybackPlayer {
   pause: () => Promise<void>;
   previousTrack: () => Promise<void>;
   removeListener: (
-    event: WebPlaybackErrorsEvents | WebPlaybackStateEvent | WebPlaybackStatusEvents,
+    event: WebPlaybackErrors | WebPlaybackStates | WebPlaybackStatuses,
     callback?: () => void,
   ) => boolean;
   resume: () => Promise<void>;
