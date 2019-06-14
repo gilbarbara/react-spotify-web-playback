@@ -9,11 +9,13 @@ import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
 
 interface Props {
+  handleFavoriteStatusChange: (status: boolean) => any;
   isActive: boolean;
   showSaveIcon: boolean;
   track: PlayerTrack;
   token: string;
   styles: StylesOptions;
+  updateSavedStatus?: (fn: (status: boolean) => any) => any;
 }
 
 interface State {
@@ -110,35 +112,20 @@ export default class Info extends PureComponent<Props, State> {
   public async componentDidMount() {
     this._isMounted = true;
 
-    const { token, track } = this.props;
+    const { showSaveIcon, track } = this.props;
 
-    if (track.id) {
-      await checkTracksStatus(track.id, token).then(d => {
-        const [isSaved = false] = d || [];
-
-        this.setState({ isSaved });
-      });
+    if (showSaveIcon && track.id) {
+      this.setStatus();
     }
   }
 
-  public async componentDidUpdate(prevProps: Props) {
-    const { token, track } = this.props;
+  public async componentDidUpdate(prevProps: Props, prevState: State) {
+    const { showSaveIcon, track } = this.props;
 
-    if (!this._isMounted) {
-      return;
-    }
+    if (showSaveIcon && prevProps.track.id !== track.id && track.id) {
+      this.updateState({ isSaved: false });
 
-    if (prevProps.track.id !== track.id && track.id) {
-      this.setState({ isSaved: false });
-
-      const status = await checkTracksStatus(track.id, token);
-      const [isSaved] = status || [false];
-
-      if (!this._isMounted) {
-        return;
-      }
-
-      this.setState({ isSaved });
+      await this.setStatus();
     }
   }
 
@@ -148,17 +135,45 @@ export default class Info extends PureComponent<Props, State> {
 
   private handleClickIcon = async () => {
     const { isSaved } = this.state;
-    const { token, track } = this.props;
+    const { handleFavoriteStatusChange, token, track } = this.props;
 
     if (isSaved) {
-      await removeTracks(track.id, token).then(() => {
-        this.setState({ isSaved: false });
-      });
+      await removeTracks(track.id, token);
+      this.updateState({ isSaved: false });
     } else {
-      await saveTracks(track.id, token).then(() => {
-        this.setState({ isSaved: true });
+      await saveTracks(track.id, token);
+      this.updateState({ isSaved: true });
+    }
+
+    handleFavoriteStatusChange(!isSaved);
+  };
+
+  private setStatus = async () => {
+    if (!this._isMounted) {
+      return;
+    }
+
+    const { handleFavoriteStatusChange, token, track, updateSavedStatus } = this.props;
+
+    if (updateSavedStatus && track.id) {
+      updateSavedStatus((newStatus: boolean) => {
+        this.updateState({ isSaved: newStatus });
       });
     }
+
+    const status = await checkTracksStatus(track.id, token);
+    const [isSaved] = status || [false];
+
+    this.updateState({ isSaved });
+    handleFavoriteStatusChange(isSaved);
+  };
+
+  private updateState = (state: {}) => {
+    if (!this._isMounted) {
+      return;
+    }
+
+    this.setState(state);
   };
 
   public render() {

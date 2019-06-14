@@ -241,6 +241,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
             "isInitializing": false,
             "isMagnified": false,
             "isPlaying": false,
+            "isSaved": false,
             "isUnsupported": false,
             "nextTracks": Array [],
             "position": 0,
@@ -505,6 +506,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
             "isInitializing": false,
             "isMagnified": false,
             "isPlaying": false,
+            "isSaved": false,
             "isUnsupported": true,
             "nextTracks": Array [],
             "position": 0,
@@ -852,6 +854,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
             >
               <div>
                 <Info
+                  handleFavoriteStatusChange={[Function]}
                   isActive={false}
                   showSaveIcon={false}
                   styles={
@@ -1565,6 +1568,7 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
             "isInitializing": false,
             "isMagnified": false,
             "isPlaying": false,
+            "isSaved": false,
             "isUnsupported": false,
             "nextTracks": Array [],
             "position": 0,
@@ -1828,6 +1832,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "isInitializing": false,
             "isMagnified": false,
             "isPlaying": false,
+            "isSaved": false,
             "isUnsupported": false,
             "nextTracks": Array [],
             "position": 0,
@@ -1855,6 +1860,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "isInitializing": false,
             "isMagnified": false,
             "isPlaying": false,
+            "isSaved": false,
             "isUnsupported": false,
             "nextTracks": Array [
               Object {
@@ -1966,6 +1972,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "isInitializing": false,
             "isMagnified": false,
             "isPlaying": true,
+            "isSaved": false,
             "isUnsupported": false,
             "nextTracks": Array [
               Object {
@@ -2077,6 +2084,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "isInitializing": false,
             "isMagnified": false,
             "isPlaying": true,
+            "isSaved": false,
             "isUnsupported": false,
             "nextTracks": Array [
               Object {
@@ -2178,8 +2186,124 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "volume": 1,
           },
         ],
+        Array [
+          Object {
+            "currentDeviceId": "19ks98hfbxc53vh34jd",
+            "deviceId": "19ks98hfbxc53vh34jd",
+            "error": "",
+            "errorType": "",
+            "isActive": true,
+            "isInitializing": false,
+            "isMagnified": false,
+            "isPlaying": true,
+            "isSaved": true,
+            "isUnsupported": false,
+            "nextTracks": Array [
+              Object {
+                "album": Object {
+                  "images": Array [
+                    Object {
+                      "height": 298,
+                      "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                      "width": 300,
+                    },
+                    Object {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                      "width": 64,
+                    },
+                    Object {
+                      "height": 636,
+                      "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                      "width": 640,
+                    },
+                  ],
+                  "name": "Trouble Man",
+                  "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                },
+                "artists": Array [
+                  Object {
+                    "name": "Marvin Gaye",
+                    "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                  },
+                ],
+                "duration_ms": 151626,
+                "id": "6KUjwoHktuX3du8laPVfO8",
+                "is_playable": true,
+                "linked_from": Object {
+                  "id": null,
+                  "uri": null,
+                },
+                "linked_from_uri": null,
+                "media_type": "audio",
+                "name": "Next Theme From Trouble Man",
+                "type": "track",
+                "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+              },
+            ],
+            "position": 0,
+            "previousTracks": Array [
+              Object {
+                "album": Object {
+                  "images": Array [
+                    Object {
+                      "height": 298,
+                      "url": "https://i.scdn.co/image/177f29ea8006359bd70784a803a21fea0360ca3e",
+                      "width": 300,
+                    },
+                    Object {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+                      "width": 64,
+                    },
+                    Object {
+                      "height": 636,
+                      "url": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+                      "width": 640,
+                    },
+                  ],
+                  "name": "Trouble Man",
+                  "uri": "spotify:album:7KvKuWUxxNPEU80c4i5AQk",
+                },
+                "artists": Array [
+                  Object {
+                    "name": "Marvin Gaye",
+                    "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+                  },
+                ],
+                "duration_ms": 151626,
+                "id": "6KUjwoHktuX3du8laPVfO8",
+                "is_playable": true,
+                "linked_from": Object {
+                  "id": null,
+                  "uri": null,
+                },
+                "linked_from_uri": null,
+                "media_type": "audio",
+                "name": "Previous Theme From Trouble Man",
+                "type": "track",
+                "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+              },
+            ],
+            "status": "READY",
+            "track": Object {
+              "artists": "Marvin Gaye",
+              "durationMs": 151626,
+              "id": "6KUjwoHktuX3du8laPVfO8",
+              "image": "https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3",
+              "name": "Main Theme From Trouble Man",
+              "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+            },
+            "type": "track_update",
+            "volume": 1,
+          },
+        ],
       ],
       "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
         Object {
           "type": "return",
           "value": undefined,
@@ -2520,6 +2644,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             >
               <div>
                 <Info
+                  handleFavoriteStatusChange={[Function]}
                   isActive={true}
                   showSaveIcon={true}
                   styles={

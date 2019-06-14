@@ -63,6 +63,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       isInitializing: false,
       isMagnified: false,
       isPlaying: false,
+      isSaved: false,
       isUnsupported: false,
       nextTracks: [],
       position: 0,
@@ -97,6 +98,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       offset,
       persistDeviceSelection,
       play: playProp,
+      showSaveIcon,
       token,
       uris,
     } = this.props;
@@ -133,6 +135,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         ...this.state,
         type: TYPE.TRACK,
       });
+
+      if (showSaveIcon) {
+        this.updateState({ isSaved: false });
+      }
     }
 
     if (prevState.currentDeviceId !== currentDeviceId && currentDeviceId) {
@@ -363,6 +369,19 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
   }
 
+  private handleFavoriteStatusChange = (isSaved: boolean) => {
+    const { callback } = this.props;
+
+    this.updateState({ isSaved });
+    callback!({
+      ...{
+        ...this.state,
+        isSaved,
+      },
+      type: TYPE.TRACK,
+    });
+  };
+
   private handlePlayerErrors = async (type: string, message: string) => {
     const { status } = this.state;
     const isPlaybackError = type === 'playback_error';
@@ -398,7 +417,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         const { album, artists, duration_ms, id, name, uri } = state.track_window.current_track;
         const volume = await this.player!.getVolume();
         const track = {
-          artists: artists.map(d => d.name).join(' / '),
+          artists: artists.map(d => d.name).join(', '),
           durationMs: duration_ms,
           id,
           image: this.setAlbumImage(album),
@@ -547,7 +566,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       /* istanbul ignore else */
       if (player.item) {
         track = {
-          artists: player.item.artists.map(d => d.name).join(' / '),
+          artists: player.item.artists.map(d => d.name).join(', '),
           durationMs: player.item.duration_ms,
           id: player.item.id,
           image: this.setAlbumImage(player.item.album),
@@ -690,7 +709,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       track,
       volume,
     } = this.state;
-    const { name, showSaveIcon, token } = this.props;
+    const { name, showSaveIcon, token, updateSavedStatus } = this.props;
     const isReady = [STATUS.READY, STATUS.UNSUPPORTED].indexOf(status) >= 0;
     const isPlaybackError = errorType === 'playback_error';
     let output = <Loader styles={this.styles!} />;
@@ -705,11 +724,13 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       if (!info) {
         info = (
           <Info
+            handleFavoriteStatusChange={this.handleFavoriteStatusChange}
             showSaveIcon={showSaveIcon!}
             isActive={isActive}
             styles={this.styles}
             token={token}
             track={track}
+            updateSavedStatus={updateSavedStatus}
           />
         );
       }

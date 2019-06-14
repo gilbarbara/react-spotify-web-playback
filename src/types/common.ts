@@ -14,9 +14,10 @@ export interface Props {
   persistDeviceSelection?: boolean;
   play?: boolean;
   showSaveIcon?: boolean;
+  styles?: StylesProps;
   syncExternalDeviceInterval?: number;
   token: string;
-  styles?: StylesProps;
+  updateSavedStatus?: (fn: (status: boolean) => any) => any;
   uris?: string | string[];
 }
 
@@ -29,6 +30,7 @@ export interface State {
   isInitializing: boolean;
   isMagnified: boolean;
   isPlaying: boolean;
+  isSaved: boolean;
   isUnsupported: boolean;
   nextTracks: WebPlaybackTrack[];
   position: number;
