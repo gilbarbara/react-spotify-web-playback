@@ -27,6 +27,7 @@ import Slider from './components/Slider';
 class SpotifyWebPlayer extends PureComponent<Props, State> {
   private static defaultProps = {
     callback: () => undefined,
+    magnifySliderOnHover: false,
     name: 'Spotify Web Player',
     showSaveIcon: false,
     syncExternalDeviceInterval: 5,
@@ -448,9 +449,13 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   };
 
   private handleToggleMagnify = () => {
-    this.updateState((prevState: State) => {
-      return { isMagnified: !prevState.isMagnified };
-    });
+    const { magnifySliderOnHover } = this.props;
+
+    if (magnifySliderOnHover) {
+      this.updateState((prevState: State) => {
+        return { isMagnified: !prevState.isMagnified };
+      });
+    }
   };
 
   private initializePlayer = () => {

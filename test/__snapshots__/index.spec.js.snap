@@ -3,6 +3,7 @@
 exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = `
 <SpotifyWebPlayer
   callback={[MockFunction]}
+  magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={false}
   syncExternalDeviceInterval={5}
@@ -265,6 +266,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
       ],
     }
   }
+  magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={false}
   syncExternalDeviceInterval={5}
@@ -527,6 +529,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
       ],
     }
   }
+  magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={false}
   syncExternalDeviceInterval={5}
@@ -1321,6 +1324,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
 exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] = `
 <SpotifyWebPlayer
   callback={[MockFunction]}
+  magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={false}
   syncExternalDeviceInterval={5}
@@ -1584,6 +1588,7 @@ exports[`SpotifyWebPlayer With the local player should render a loader 1`] = `
       ],
     }
   }
+  magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={true}
   syncExternalDeviceInterval={5}
@@ -2187,6 +2192,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
       ],
     }
   }
+  magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={true}
   syncExternalDeviceInterval={5}

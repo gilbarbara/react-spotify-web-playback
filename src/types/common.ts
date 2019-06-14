@@ -8,6 +8,7 @@ export interface CallbackState extends State {
 export interface Props {
   autoPlay?: boolean;
   callback?: (state: CallbackState) => any;
+  magnifySliderOnHover: boolean;
   name?: string;
   offset?: number;
   persistDeviceSelection?: boolean;
