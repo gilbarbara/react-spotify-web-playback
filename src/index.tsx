@@ -43,6 +43,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     name: '',
     uri: '',
   };
+  private hasNewToken = false;
   private player?: WebPlaybackPlayer;
   private playerProgressInterval?: number;
   private playerSyncInterval?: number;
@@ -59,6 +60,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       error: '',
       errorType: '',
       isActive: false,
+      isInitializing: false,
       isMagnified: false,
       isPlaying: false,
       isUnsupported: false,
@@ -88,7 +90,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   }
 
   public async componentDidUpdate(prevProps: Props, prevState: State) {
-    const { currentDeviceId, isPlaying, status, track } = this.state;
+    const { currentDeviceId, error, isInitializing, isPlaying, status, track } = this.state;
     const {
       autoPlay,
       callback,
@@ -156,6 +158,23 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         ...this.state,
         type: TYPE.PLAYER,
       });
+    }
+
+    if (prevState.isInitializing && !isInitializing) {
+      if (error === 'authentication_error' && this.hasNewToken) {
+        this.hasNewToken = false;
+        this.initializePlayer();
+      }
+    }
+
+    if (prevProps.token && prevProps.token !== token) {
+      this.hasNewToken = true;
+
+      if (!isInitializing) {
+        this.initializePlayer();
+      } else {
+        this.hasNewToken = true;
+      }
     }
 
     if (prevProps.play !== playProp && playProp !== isPlaying) {
@@ -365,6 +384,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     this.updateState({
       error: message,
       errorType: type,
+      isInitializing: false,
       isUnsupported: isInitializationError,
       status: nextStatus,
     });
@@ -444,6 +464,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     this.updateState({
       currentDeviceId,
       deviceId: device_id,
+      isInitializing: false,
       status: device_id ? STATUS.READY : STATUS.IDLE,
     });
   };
@@ -460,6 +481,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
   private initializePlayer = () => {
     const { name, token } = this.props;
+
+    this.updateState({ isInitializing: true });
 
     // @ts-ignore
     this.player = new window.Spotify.Player({

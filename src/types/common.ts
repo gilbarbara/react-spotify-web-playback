@@ -26,6 +26,7 @@ export interface State {
   error: string;
   errorType: string;
   isActive: boolean;
+  isInitializing: boolean;
   isMagnified: boolean;
   isPlaying: boolean;
   isUnsupported: boolean;
