@@ -36,6 +36,7 @@ const mockSetVolume = jest.fn();
 const mockTogglePlay = jest.fn(updatePlayer);
 
 const deviceId = '19ks98hfbxc53vh34jd';
+const externalDeviceId = 'df17372ghs982js892js';
 const token =
   'BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg';
 
@@ -59,7 +60,6 @@ const setup = props => {
       uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
       {...props}
     />,
-    // { attachTo: document.getElementById('react') },
   );
 
   window.onSpotifyWebPlaybackSDKReady();
@@ -89,7 +89,7 @@ describe('SpotifyWebPlayer', () => {
     fetchMock.get('https://api.spotify.com/v1/me/player/devices', {
       devices: [
         {
-          id: 'df17372ghs982js892js',
+          id: externalDeviceId,
           name: 'Jest Player',
         },
       ],
@@ -132,6 +132,15 @@ describe('SpotifyWebPlayer', () => {
 
       wrapper.update();
       expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should ', async () => {
+      wrapper.setProps({ token: `${token}_AA` });
+
+      expect(wrapper.instance().hasNewToken).toBeTrue();
+      expect(wrapper.state('isInitializing')).toBeTrue();
+
+      wrapper.setProps({ token: `${token}` });
     });
 
     it('should handle `account_error`', async () => {
@@ -260,7 +269,8 @@ describe('SpotifyWebPlayer', () => {
       expect(mockGetOAuthToken).toHaveBeenCalledWith(token);
     });
 
-    it('should render a loader', () => {
+    it('should render a loader while initializing', () => {
+      expect(wrapper.state('isInitializing')).toBeTrue();
       expect(wrapper).toMatchSnapshot();
     });
 
@@ -272,6 +282,7 @@ describe('SpotifyWebPlayer', () => {
       await skipEventLoop();
       wrapper.update();
 
+      expect(wrapper.state('isInitializing')).toBeFalse();
       expect(wrapper).toMatchSnapshot();
     });
 
@@ -321,16 +332,12 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle Info clicks', async () => {
       wrapper.find('Info button').simulate('click');
-      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/tracks');
-      expect(fetchMock.lastCall()[1].body).toBe('["6KUjwoHktuX3du8laPVfO8"]');
-      expect(fetchMock.lastCall()[1].method).toBe('DELETE');
+      expect(fetchMock.lastCall()).toMatchSnapshot();
 
       await skipEventLoop();
 
       wrapper.find('Info button').simulate('click');
-      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/tracks');
-      expect(fetchMock.lastCall()[1].body).toEqual('{"ids":["6KUjwoHktuX3du8laPVfO8"]}');
-      expect(fetchMock.lastCall()[1].method).toBe('PUT');
+      expect(fetchMock.lastCall()).toMatchSnapshot();
     });
   });
 
@@ -370,7 +377,7 @@ describe('SpotifyWebPlayer', () => {
 
       wrapper.find('ClickOutside button').simulate('click');
 
-      expect(wrapper.state('currentDeviceId')).toBe('df17372ghs982js892js');
+      expect(wrapper.state('currentDeviceId')).toBe(externalDeviceId);
       expect(wrapper.state('deviceId')).toBe('19ks98hfbxc53vh34jd');
     });
 
@@ -416,26 +423,26 @@ describe('SpotifyWebPlayer', () => {
 
       // Play the previous track
       wrapper.find('[aria-label="Previous Track"]').simulate('click');
-      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player/previous');
+      expect(fetchMock.lastCall()).toMatchSnapshot();
 
       jest.runOnlyPendingTimers();
       await skipEventLoop();
 
       // it should have called a player update
-      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player');
+      expect(fetchMock.lastCall()).toMatchSnapshot();
 
       // Play the next track
       wrapper.find('[aria-label="Next Track"]').simulate('click');
-      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player/next');
+      expect(fetchMock.lastCall()).toMatchSnapshot();
 
       jest.runOnlyPendingTimers();
       await skipEventLoop();
 
       // it should have called a player update
-      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player');
+      expect(fetchMock.lastCall()).toMatchSnapshot();
 
       wrapper.find('[aria-label="Pause"]').simulate('click');
-      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player/pause');
+      expect(fetchMock.lastCall()).toMatchSnapshot();
 
       // reset the response again (paused)
       playerStatusResponse = playerStatus;
@@ -444,7 +451,7 @@ describe('SpotifyWebPlayer', () => {
       await skipEventLoop();
 
       // it should have called a player update
-      expect(fetchMock.lastCall()[0]).toBe('https://api.spotify.com/v1/me/player');
+      expect(fetchMock.lastCall()).toMatchSnapshot();
 
       expect(wrapper.state('isPlaying')).toBe(false);
     });
@@ -453,7 +460,7 @@ describe('SpotifyWebPlayer', () => {
   describe('with control props', () => {
     let wrapper;
 
-    beforeAll(async () => {
+    beforeAll(() => {
       fetchMock.resetHistory();
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 6,
@@ -466,21 +473,37 @@ describe('SpotifyWebPlayer', () => {
 
       wrapper = setup({
         play: true,
+        uris: ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'],
       });
-
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
-      readyFn({ device_id: deviceId });
-
-      await skipEventLoop();
-      wrapper.update();
     });
 
     afterAll(() => {
       wrapper.unmount();
     });
 
-    it('should honor the play props ', () => {
+    it('should honor the play props ', async () => {
+      playerStatusResponse = {
+        ...playerStatus,
+        is_playing: true,
+      };
+
+      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+      readyFn({ device_id: deviceId });
+
+      wrapper.setState({ currentDeviceId: externalDeviceId });
+
+      await skipEventLoop();
+      jest.runOnlyPendingTimers();
+
       expect(wrapper.state('isPlaying')).toBeTrue();
+    });
+
+    it('should handle offset changes', async () => {
+      wrapper.setProps({ offset: 3 });
+
+      await skipEventLoop();
+
+      expect(fetchMock.lastCall()).toMatchSnapshot();
     });
 
     it('should respond to play prop change', async () => {
