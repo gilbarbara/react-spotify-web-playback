@@ -22,14 +22,20 @@ export async function getDevices(token: string) {
   }).then(d => d.json());
 }
 
-export async function getPlayerStatus(token: string) {
+export async function getPlaybackState(token: string) {
   return fetch(`https://api.spotify.com/v1/me/player`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     method: 'GET',
-  }).then(d => d.json());
+  }).then(d => {
+    if (d.status === 204) {
+      return;
+    }
+
+    return d.json();
+  });
 }
 
 export async function pause(token: string) {

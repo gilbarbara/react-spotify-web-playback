@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import { getPlayerStatus, next, pause, play, previous, seek, setVolume } from './spotify';
+import { getPlaybackState, next, pause, play, previous, seek, setVolume } from './spotify';
 import { getMergedStyles } from './styles';
 import { getSpotifyURIType, isEqualArray, loadScript, validateURI, STATUS, TYPE } from './utils';
 
@@ -18,7 +18,7 @@ import {
 import Actions from './components/Actions';
 import Content from './components/Content';
 import Controls from './components/Controls';
-import Error from './components/Error';
+import ErrorMessage from './components/ErrorMessage';
 import Info from './components/Info';
 import Loader from './components/Loader';
 import Player from './components/Player';
@@ -91,7 +91,15 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   }
 
   public async componentDidUpdate(prevProps: Props, prevState: State) {
-    const { currentDeviceId, error, isInitializing, isPlaying, status, track } = this.state;
+    const {
+      currentDeviceId,
+      deviceId,
+      error,
+      isInitializing,
+      isPlaying,
+      status,
+      track,
+    } = this.state;
     const {
       autoPlay,
       callback,
@@ -189,6 +197,14 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     if (prevProps.offset !== offset) {
       await this.toggleOffset();
+    }
+
+    if (error === 'No player') {
+      this.updateState({
+        currentDeviceId: deviceId,
+        error: '',
+        errorType: '',
+      });
     }
   }
 
@@ -548,8 +564,12 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const { token } = this.props;
 
     try {
-      const player: SpotifyPlayerStatus = await getPlayerStatus(token);
+      const player: SpotifyPlayerStatus = await getPlaybackState(token);
       let track = this.emptyTrack;
+
+      if (!player) {
+        throw new Error('No player');
+      }
 
       /* istanbul ignore else */
       if (player.item) {
@@ -751,9 +771,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     if (status === STATUS.ERROR) {
       output = (
-        <Error styles={this.styles}>
+        <ErrorMessage styles={this.styles}>
           {name}: {error}
-        </Error>
+        </ErrorMessage>
       );
     }
 

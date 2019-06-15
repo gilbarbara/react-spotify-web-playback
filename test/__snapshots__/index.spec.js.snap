@@ -144,7 +144,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
                 }
               }
             >
-              <Error
+              <ErrorMessage
                 styles={
                   Object {
                     "altColor": "#ccc",
@@ -216,7 +216,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
                     Failed to validate Spotify account
                   </p>
                 </style(ErrorRSWP)>
-              </Error>
+              </ErrorMessage>
             </div>
           </style(ContentRSWP)>
         </Content>
@@ -409,7 +409,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
                 }
               }
             >
-              <Error
+              <ErrorMessage
                 styles={
                   Object {
                     "altColor": "#ccc",
@@ -481,7 +481,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
                     Failed to authenticate
                   </p>
                 </style(ErrorRSWP)>
-              </Error>
+              </ErrorMessage>
             </div>
           </style(ContentRSWP)>
         </Content>
@@ -1470,7 +1470,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
                 }
               }
             >
-              <Error
+              <ErrorMessage
                 styles={
                   Object {
                     "altColor": "#ccc",
@@ -1542,7 +1542,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
                     Failed to perform playback
                   </p>
                 </style(ErrorRSWP)>
-              </Error>
+              </ErrorMessage>
             </div>
           </style(ContentRSWP)>
         </Content>
