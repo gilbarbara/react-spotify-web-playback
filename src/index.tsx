@@ -468,18 +468,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       currentDeviceId = sessionStorage.getItem('rswpDeviceId') as string;
     }
 
-    // TODO: remove this hack after it is fixed in the Web Playback SDK
-    const iframe = document.querySelector(
-      'iframe[src="https://sdk.scdn.co/embedded/index.html"]',
-    ) as HTMLElement;
-
-    if (iframe) {
-      iframe.style.display = 'block';
-      iframe.style.position = 'absolute';
-      iframe.style.top = '-1000px';
-      iframe.style.left = '-1000px';
-    }
-
     this.updateState({
       currentDeviceId,
       deviceId: device_id,
