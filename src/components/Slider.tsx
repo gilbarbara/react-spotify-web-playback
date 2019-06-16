@@ -54,7 +54,7 @@ export default class Slider extends PureComponent<Props> {
               handleSize: isMagnified ? handleSize + 4 : handleSize,
               height: isMagnified ? styles.sliderHeight! + 4 : styles.sliderHeight,
               padding: 0,
-              sliderColor: styles.sliderColor,
+              rangeColor: styles.sliderColor,
               trackBorderRadius: styles.sliderTrackBorderRadius,
               trackColor: styles.sliderTrackColor,
             },
