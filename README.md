@@ -91,7 +91,7 @@ You can customize the UI with a `styles` prop. Check all the available options [
     bgColor: '#333',
     color: '#fff',
     loaderColor: '#fff',
-    rangeColor: '#1cb954',
+    sliderColor: '#1cb954',
     savedColor: '#fff',
     trackArtistColor: '#ccc',
     trackNameColor: '#fff',

@@ -54,13 +54,13 @@ export interface StylesOptions {
   height: number | string;
   loaderColor: string;
   loaderSize: number | string;
-  rangeHandleColor: string;
-  rangeHandleBorderRadius: number | string;
-  rangeHeight: number;
-  rangeColor: string;
-  rangeTrackBorderRadius: number | string;
-  rangeTrackColor: string;
   savedColor: string;
+  sliderHandleColor: string;
+  sliderHandleBorderRadius: number | string;
+  sliderHeight: number;
+  sliderColor: string;
+  sliderTrackBorderRadius: number | string;
+  sliderTrackColor: string;
   trackArtistColor: string;
   trackNameColor: string;
 }

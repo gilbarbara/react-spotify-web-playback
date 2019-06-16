@@ -21,7 +21,7 @@ const Wrapper = styled('div')(
     zIndex: 10,
   },
   ({ styles }: StyledComponentProps) => ({
-    height: px(styles.rangeHeight),
+    height: px(styles.sliderHeight),
   }),
   'SliderRSWP',
 );
@@ -37,9 +37,9 @@ export default class Slider extends PureComponent<Props> {
     const { isMagnified, onToggleMagnify, position, styles } = this.props;
     const nextStyles = {
       ...styles,
-      rangeHeight: isMagnified ? styles.rangeHeight! + 4 : styles.rangeHeight,
+      sliderHeight: isMagnified ? styles.sliderHeight! + 4 : styles.sliderHeight,
     };
-    const handleSize = styles.rangeHeight + 6;
+    const handleSize = styles.sliderHeight + 6;
 
     return (
       <Wrapper onMouseEnter={onToggleMagnify} onMouseLeave={onToggleMagnify} styles={nextStyles}>
@@ -49,14 +49,14 @@ export default class Slider extends PureComponent<Props> {
           styles={{
             options: {
               handleBorder: 0,
-              handleBorderRadius: styles.rangeHandleBorderRadius,
-              handleColor: styles.rangeHandleColor,
+              handleBorderRadius: styles.sliderHandleBorderRadius,
+              handleColor: styles.sliderHandleColor,
               handleSize: isMagnified ? handleSize + 4 : handleSize,
-              height: isMagnified ? styles.rangeHeight! + 4 : styles.rangeHeight,
+              height: isMagnified ? styles.sliderHeight! + 4 : styles.sliderHeight,
               padding: 0,
-              rangeColor: styles.rangeColor,
-              trackBorderRadius: styles.rangeTrackBorderRadius,
-              trackColor: styles.rangeTrackColor,
+              sliderColor: styles.sliderColor,
+              trackBorderRadius: styles.sliderTrackBorderRadius,
+              trackColor: styles.sliderTrackColor,
             },
           }}
           x={position}
