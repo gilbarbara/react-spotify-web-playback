@@ -33,6 +33,9 @@ Start the player immediately.
 **callback**: `(state) => any`  
 Get status updates from the player. Check `CallbackState` in the [types](src/types/common.ts) for the `state` structure.
 
+**magnifySliderOnHover**: `boolean`  
+Magnify the player's slider on hover.
+
 **name** `string` _default: Spotify Web Player_  
 The name of the player.
 
@@ -48,14 +51,18 @@ Control the player status
 **showSaveIcon** `boolean`  
 Display a Favorite button. Needs additional scopes in your token!
 
+**styles** `object`  
+Customize the player appearance. Check `StylesOptions` in the [types](src/types/common.ts).
+
 **syncExternalDeviceInterval** `number` _default: 5_  
 The time in seconds that the player will sync with external devices
 
 **token** `string` **REQUIRED**  
 A Spotify token. More info below.
 
-**styles** `object`  
-Customize the player appearance. Check `StylesOptions` in the [types](src/types/common.ts).
+**updateSavedStatus** `(fn: (status: boolean) => any) => any`  
+Provide you with a function to sync the track saved status in the player.  
+_This works in addition to the **showSaveIcon** prop and it is only needed if you keep the track saved status in your app._
 
 **uris** `string | string[]`  
 A list of Spotify [URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
@@ -98,6 +105,8 @@ You can customize the UI with a `styles` prop. Check all the available options [
   }}
 />
 ```
+
+![rswp-styles](https://gilbarbara.com/files/rswp-styles.png)
 
 ## Issues
 
