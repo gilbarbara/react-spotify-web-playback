@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { keyframes, px, styled } from '../styles';
 
-import { StyledComponentProps } from '../types/common';
+import { IStyledComponentProps } from '../types/common';
 
 const Wrapper = styled('div')(
   {
@@ -21,7 +21,7 @@ const Wrapper = styled('div')(
       width: 0,
     },
   },
-  ({ styles }: StyledComponentProps) => {
+  ({ styles }: IStyledComponentProps) => {
     const pulse = keyframes!({
       '0%': {
         height: 0,
@@ -56,7 +56,7 @@ const Wrapper = styled('div')(
   'LoaderRSWP',
 );
 
-const Loader = ({ styles }: StyledComponentProps) => {
+const Loader = ({ styles }: IStyledComponentProps) => {
   return (
     <Wrapper styles={styles}>
       <div />

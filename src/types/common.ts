@@ -1,27 +1,27 @@
-import React from 'react';
-import { PlayerTrack, WebPlaybackTrack } from './spotify';
+import * as React from 'react';
+import { IPlayerTrack, IWebPlaybackTrack } from './spotify';
 
-export interface CallbackState extends State {
+export interface ICallbackState extends IState {
   type: string;
 }
 
-export interface Props {
+export interface IProps {
   autoPlay?: boolean;
-  callback?: (state: CallbackState) => any;
-  magnifySliderOnHover: boolean;
+  callback?: (state: ICallbackState) => any;
+  magnifySliderOnHover?: boolean;
   name?: string;
   offset?: number;
   persistDeviceSelection?: boolean;
   play?: boolean;
   showSaveIcon?: boolean;
-  styles?: StylesProps;
+  styles?: IStylesProps;
   syncExternalDeviceInterval?: number;
   token: string;
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
   uris?: string | string[];
 }
 
-export interface State {
+export interface IState {
   currentDeviceId: string;
   deviceId: string;
   error: string;
@@ -32,21 +32,21 @@ export interface State {
   isPlaying: boolean;
   isSaved: boolean;
   isUnsupported: boolean;
-  nextTracks: WebPlaybackTrack[];
+  nextTracks: IWebPlaybackTrack[];
   position: number;
-  previousTracks: WebPlaybackTrack[];
+  previousTracks: IWebPlaybackTrack[];
   progressMs?: number;
   status: string;
-  track: PlayerTrack;
+  track: IPlayerTrack;
   volume: number;
 }
 
-export interface PlayOptions {
+export interface IPlayOptions {
   context_uri?: string;
   uris?: string[];
 }
 
-export interface StylesOptions {
+export interface IStylesOptions {
   altColor: string;
   bgColor: string;
   color: string;
@@ -65,10 +65,10 @@ export interface StylesOptions {
   trackNameColor: string;
 }
 
-export interface StylesProps extends Partial<StylesOptions> {}
+export interface IStylesProps extends Partial<IStylesOptions> {}
 
-export interface StyledComponentProps {
+export interface IStyledComponentProps {
   children?: React.ReactNode;
-  styles: StylesOptions;
+  styles: IStylesOptions;
   [key: string]: any;
 }

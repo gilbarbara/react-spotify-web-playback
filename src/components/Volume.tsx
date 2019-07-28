@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import RangeSlider from '@gilbarbara/react-range-slider';
 import { px, styled } from '../styles';
 
 import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
-import { StylesOptions, StyledComponentProps } from '../types/common';
+import { IStylesOptions, IStyledComponentProps } from '../types/common';
 
 import ClickOutside from './ClickOutside';
 
@@ -11,13 +11,13 @@ import VolumeHigh from './icons/VolumeHigh';
 import VolumeLow from './icons/VolumeLow';
 import VolumeMute from './icons/VolumeMute';
 
-interface Props {
+interface IProps {
   setVolume: (volume: number) => any;
-  styles: StylesOptions;
+  styles: IStylesOptions;
   volume: number;
 }
 
-interface State {
+interface IState {
   isOpen: boolean;
   volume: number;
 }
@@ -44,7 +44,7 @@ const Wrapper = styled('div')(
       display: 'none',
     },
   },
-  ({ styles }: StyledComponentProps) => ({
+  ({ styles }: IStyledComponentProps) => ({
     '> button': {
       color: styles.color,
     },
@@ -56,10 +56,10 @@ const Wrapper = styled('div')(
   'VolumeRSWP',
 );
 
-export default class Volume extends PureComponent<Props, State> {
+export default class Volume extends React.PureComponent<IProps, IState> {
   private timeout: number | undefined;
 
-  constructor(props: Props) {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -68,7 +68,7 @@ export default class Volume extends PureComponent<Props, State> {
     };
   }
 
-  public componentDidUpdate(prevProps: Props) {
+  public componentDidUpdate(prevProps: IProps) {
     const { volume: volumeState } = this.state;
     const { volume } = this.props;
 

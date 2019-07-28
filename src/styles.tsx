@@ -1,5 +1,5 @@
 /* tslint:disable:object-literal-sort-keys */
-import React, { createElement as h } from 'react';
+import * as React from 'react';
 import { create, NanoRenderer } from 'nano-css';
 
 import { addon as addonAtoms } from 'nano-css/addon/atoms';
@@ -15,19 +15,19 @@ import { addon as addonStyle } from 'nano-css/addon/style';
 import { addon as addonStyled } from 'nano-css/addon/styled';
 
 import { CssLikeObject } from 'nano-css/types/common';
-import { StyledComponentProps, StylesOptions, StylesProps } from './types/common';
+import { IStyledComponentProps, IStylesOptions, IStylesProps } from './types/common';
 
-interface NanoExtended extends NanoRenderer {
+interface INanoExtended extends NanoRenderer {
   styled: (
     tag: string,
   ) => (
     styles: CssLikeObject,
-    dynamicTemplate?: (props: StyledComponentProps) => CssLikeObject,
+    dynamicTemplate?: (props: IStyledComponentProps) => CssLikeObject,
     block?: string,
-  ) => React.FunctionComponent<StyledComponentProps>;
+  ) => React.FunctionComponent<IStyledComponentProps>;
 }
 
-const nano = create({ h });
+const nano = create({ h: React.createElement });
 
 addonRule(nano);
 addonAtoms(nano);
@@ -37,11 +37,11 @@ addonStyle(nano);
 addonStyled(nano);
 addonNesting(nano);
 
-const { keyframes, styled } = nano as NanoExtended;
+const { keyframes, styled } = nano as INanoExtended;
 
 export const px = (val: string | number): string => (typeof val === 'number' ? `${val}px` : val);
 
-export function getMergedStyles(styles: StylesProps | undefined): StylesOptions {
+export function getMergedStyles(styles: IStylesProps | undefined): IStylesOptions {
   return {
     altColor: '#ccc',
     bgColor: '#fff',

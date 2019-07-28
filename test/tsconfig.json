@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "esnext"
+  },
+  "include": ["**/*"]
+}

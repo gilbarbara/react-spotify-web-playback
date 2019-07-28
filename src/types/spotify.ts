@@ -1,11 +1,11 @@
-export interface PlayOptions {
+export interface IPlayOptions {
   context_uri?: string;
   deviceId: string;
   offset?: number;
   uris?: string[];
 }
 
-export interface PlayerTrack {
+export interface IPlayerTrack {
   artists: string;
   durationMs: number;
   id: string;
@@ -14,7 +14,7 @@ export interface PlayerTrack {
   uri: string;
 }
 
-export interface SpotifyDevice {
+export interface ISpotifyDevice {
   id: string;
   is_active: boolean;
   is_private_session: boolean;
@@ -24,7 +24,7 @@ export interface SpotifyDevice {
   volume_percent: number;
 }
 
-export interface SpotifyArtist {
+export interface ISpotifyArtist {
   external_urls: {
     spotify: string;
   };
@@ -35,13 +35,13 @@ export interface SpotifyArtist {
   uri: string;
 }
 
-export interface SpotifyImage {
+export interface ISpotifyImage {
   height: number;
   url: string;
   width: number;
 }
 
-export interface SpotifyPlayerStatus {
+export interface ISpotifyPlayerStatus {
   device: {
     id: string;
     is_active: boolean;
@@ -59,14 +59,14 @@ export interface SpotifyPlayerStatus {
   item: {
     album: {
       album_type: string;
-      artists: SpotifyArtist[];
+      artists: ISpotifyArtist[];
       available_markets: string[];
       external_urls: {
         spotify: string;
       };
       href: string;
       id: string;
-      images: SpotifyImage[];
+      images: ISpotifyImage[];
       name: string;
       release_date: string;
       release_date_precision: string;
@@ -74,7 +74,7 @@ export interface SpotifyPlayerStatus {
       type: string;
       uri: string;
     };
-    artists: SpotifyArtist[];
+    artists: ISpotifyArtist[];
     available_markets: string[];
     disc_number: number;
     duration_ms: number;
@@ -113,11 +113,11 @@ export type WebPlaybackErrors =
   | 'account_error'
   | 'playback_error';
 
-export interface WebPlaybackError {
+export interface IWebPlaybackError {
   message: WebPlaybackErrors;
 }
 
-export interface WebPlaybackPlayer {
+export interface IWebPlaybackPlayer {
   _options: {
     getOAuthToken: () => () => void;
     name: string;
@@ -125,13 +125,13 @@ export interface WebPlaybackPlayer {
     volume: number;
   };
   addListener: {
-    (event: WebPlaybackErrors, callback: (d: WebPlaybackError) => void): boolean;
-    (event: WebPlaybackStates, callback: (d: WebPlaybackState | null) => void): boolean;
-    (event: WebPlaybackStatuses, callback: (d: WebPlaybackReady) => void): boolean;
+    (event: WebPlaybackErrors, callback: (d: IWebPlaybackError) => void): boolean;
+    (event: WebPlaybackStates, callback: (d: IWebPlaybackState | null) => void): boolean;
+    (event: WebPlaybackStatuses, callback: (d: IWebPlaybackReady) => void): boolean;
   };
   connect: () => Promise<void>;
   disconnect: () => void;
-  getCurrentState: () => Promise<WebPlaybackState | null>;
+  getCurrentState: () => Promise<IWebPlaybackState | null>;
   getVolume: () => Promise<number>;
   nextTrack: () => Promise<void>;
   pause: () => Promise<void>;
@@ -147,11 +147,11 @@ export interface WebPlaybackPlayer {
   togglePlay: () => Promise<void>;
 }
 
-export interface WebPlaybackReady {
+export interface IWebPlaybackReady {
   device_id: string;
 }
 
-export interface WebPlaybackState {
+export interface IWebPlaybackState {
   context: {
     uri: null;
     metadata: object;
@@ -163,9 +163,9 @@ export interface WebPlaybackState {
   shuffle: boolean;
   repeat_mode: number;
   track_window: {
-    current_track: WebPlaybackTrack;
-    next_tracks: WebPlaybackTrack[];
-    previous_tracks: WebPlaybackTrack[];
+    current_track: IWebPlaybackTrack;
+    next_tracks: IWebPlaybackTrack[];
+    previous_tracks: IWebPlaybackTrack[];
   };
   timestamp: number;
   restrictions: {
@@ -178,24 +178,24 @@ export interface WebPlaybackState {
   };
 }
 
-export interface WebPlaybackAlbum {
+export interface IWebPlaybackAlbum {
   uri: string;
   name: string;
-  images: WebPlaybackImage[];
+  images: IWebPlaybackImage[];
 }
 
-export interface WebPlaybackArtist {
+export interface IWebPlaybackArtist {
   name: string;
   uri: string;
 }
 
-export interface WebPlaybackImage {
+export interface IWebPlaybackImage {
   height: number;
   url: string;
   width: number;
 }
 
-export interface WebPlaybackTrack {
+export interface IWebPlaybackTrack {
   id: string;
   uri: string;
   type: string;
@@ -207,7 +207,7 @@ export interface WebPlaybackTrack {
   media_type: string;
   name: string;
   duration_ms: number;
-  artists: WebPlaybackArtist[];
-  album: WebPlaybackAlbum;
+  artists: IWebPlaybackArtist[];
+  album: IWebPlaybackAlbum;
   is_playable: boolean;
 }

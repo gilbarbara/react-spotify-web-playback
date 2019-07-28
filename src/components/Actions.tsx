@@ -1,17 +1,17 @@
-import React from 'react';
+import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { StyledComponentProps, StylesOptions } from '../types/common';
+import { IStyledComponentProps, IStylesOptions } from '../types/common';
 
 import Devices from './Devices';
 import Volume from './Volume';
 
-interface Props {
+interface IProps {
   currentDeviceId: string;
   isDevicesOpen: boolean;
   onClickDevice: (deviceId: string) => any;
   setVolume: (volume: number) => any;
-  styles: StylesOptions;
+  styles: IStylesOptions;
   token: string;
   volume: number;
 }
@@ -34,7 +34,7 @@ const Wrapper = styled('div')(
       width: 'auto',
     },
   },
-  ({ styles }: StyledComponentProps) => ({
+  ({ styles }: IStyledComponentProps) => ({
     height: px(styles.height),
   }),
   'ActionsRSWP',
@@ -48,7 +48,7 @@ const Actions = ({
   styles,
   token,
   volume,
-}: Props) => {
+}: IProps) => {
   return (
     <Wrapper styles={styles}>
       {currentDeviceId && <Volume volume={volume} setVolume={setVolume} styles={styles} />}

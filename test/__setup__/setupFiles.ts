@@ -1,12 +1,10 @@
-import Enzyme, { shallow, mount, render } from 'enzyme';
+declare var window: any;
+import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-global.shallow = shallow;
-global.mount = mount;
-global.render = render;
-global.skipEventLoop = () => {
+window.skipEventLoop = () => {
   return new Promise(resolve => setImmediate(resolve));
 };
 
@@ -15,7 +13,7 @@ react.id = 'react';
 react.style.height = '100vh';
 document.body.appendChild(react);
 
-window.requestAnimationFrame = callback => {
+window.requestAnimationFrame = (callback: () => void) => {
   setTimeout(callback, 0);
 };
 

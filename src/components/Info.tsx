@@ -1,24 +1,24 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import { checkTracksStatus, saveTracks, removeTracks } from '../spotify';
 import { px, styled } from '../styles';
 
-import { StyledComponentProps, StylesOptions } from '../types/common';
-import { PlayerTrack } from '../types/spotify';
+import { IStyledComponentProps, IStylesOptions } from '../types/common';
+import { IPlayerTrack } from '../types/spotify';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
 
-interface Props {
+interface IProps {
   handleFavoriteStatusChange: (status: boolean) => any;
   isActive: boolean;
   showSaveIcon: boolean;
-  track: PlayerTrack;
+  track: IPlayerTrack;
   token: string;
-  styles: StylesOptions;
+  styles: IStylesOptions;
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
 }
 
-interface State {
+interface IState {
   isSaved: boolean;
 }
 
@@ -47,7 +47,7 @@ const Wrapper = styled('div')(
       },
     },
   },
-  ({ styles }: StyledComponentProps) => ({
+  ({ styles }: IStyledComponentProps) => ({
     height: px(styles.height),
 
     img: {
@@ -76,7 +76,7 @@ const Title = styled('div')(
       marginLeft: px(5),
     },
   },
-  ({ styles }: StyledComponentProps) => ({
+  ({ styles }: IStyledComponentProps) => ({
     marginLeft: px(10),
 
     p: {
@@ -97,11 +97,11 @@ const Title = styled('div')(
   }),
 );
 
-export default class Info extends PureComponent<Props, State> {
+export default class Info extends React.PureComponent<IProps, IState> {
   // tslint:disable-next-line:variable-name
   private _isMounted = false;
 
-  constructor(props: Props) {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -119,7 +119,7 @@ export default class Info extends PureComponent<Props, State> {
     }
   }
 
-  public async componentDidUpdate(prevProps: Props, prevState: State) {
+  public async componentDidUpdate(prevProps: IProps, prevState: IState) {
     const { showSaveIcon, track } = this.props;
 
     if (showSaveIcon && prevProps.track.id !== track.id && track.id) {

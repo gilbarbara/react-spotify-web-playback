@@ -1,18 +1,18 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 
 import { getPlaybackState, next, pause, play, previous, seek, setVolume } from './spotify';
 import { getMergedStyles } from './styles';
 import { getSpotifyURIType, isEqualArray, loadScript, validateURI, STATUS, TYPE } from './utils';
 
-import { PlayOptions, Props, State, StylesOptions } from './types/common';
+import { IPlayOptions, IProps, IState, IStylesOptions } from './types/common';
 import {
-  SpotifyPlayerStatus,
-  WebPlaybackAlbum,
-  WebPlaybackError,
-  WebPlaybackImage,
-  WebPlaybackPlayer,
-  WebPlaybackReady,
-  WebPlaybackState,
+  ISpotifyPlayerStatus,
+  IWebPlaybackAlbum,
+  IWebPlaybackError,
+  IWebPlaybackImage,
+  IWebPlaybackPlayer,
+  IWebPlaybackReady,
+  IWebPlaybackState,
 } from './types/spotify';
 
 import Actions from './components/Actions';
@@ -24,7 +24,7 @@ import Loader from './components/Loader';
 import Player from './components/Player';
 import Slider from './components/Slider';
 
-class SpotifyWebPlayer extends PureComponent<Props, State> {
+class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
   private static defaultProps = {
     callback: () => undefined,
     magnifySliderOnHover: false,
@@ -44,14 +44,14 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     uri: '',
   };
   private hasNewToken = false;
-  private player?: WebPlaybackPlayer;
+  private player?: IWebPlaybackPlayer;
   private playerProgressInterval?: number;
   private playerSyncInterval?: number;
   private syncTimeout?: number;
   private seekUpdateInterval = 100;
-  private readonly styles: StylesOptions;
+  private readonly styles: IStylesOptions;
 
-  constructor(props: Props) {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -90,7 +90,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     });
   }
 
-  public async componentDidUpdate(prevProps: Props, prevState: State) {
+  public async componentDidUpdate(prevProps: IProps, prevState: IState) {
     const {
       currentDeviceId,
       deviceId,
@@ -227,10 +227,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     return (currentDeviceId && currentDeviceId !== deviceId) || status === STATUS.UNSUPPORTED;
   }
 
-  private get playOptions(): PlayOptions {
+  private get playOptions(): IPlayOptions {
     const { uris } = this.props;
 
-    const response: PlayOptions = {
+    const response: IPlayOptions = {
       context_uri: undefined,
       uris: undefined,
     };
@@ -264,7 +264,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           progressMs: Math.round(track.durationMs * percentage),
         });
       } else if (this.player) {
-        const state = (await this.player.getCurrentState()) as WebPlaybackState;
+        const state = (await this.player.getCurrentState()) as IWebPlaybackState;
 
         if (state) {
           this.player.seek(Math.round(state.track_window.current_track.duration_ms * percentage));
@@ -425,7 +425,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     });
   };
 
-  private handlePlayerStateChanges = async (state: WebPlaybackState | null) => {
+  private handlePlayerStateChanges = async (state: IWebPlaybackState | null) => {
     try {
       /* istanbul ignore else */
       if (state) {
@@ -476,7 +476,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
   };
 
-  private handlePlayerStatus = ({ device_id }: WebPlaybackReady) => {
+  private handlePlayerStatus = ({ device_id }: IWebPlaybackReady) => {
     const { persistDeviceSelection } = this.props;
     let currentDeviceId: string = device_id;
 
@@ -496,7 +496,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const { magnifySliderOnHover } = this.props;
 
     if (magnifySliderOnHover) {
-      this.updateState((prevState: State) => {
+      this.updateState((prevState: IState) => {
         return { isMagnified: !prevState.isMagnified };
       });
     }
@@ -513,31 +513,31 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         cb(token);
       },
       name,
-    }) as WebPlaybackPlayer;
+    }) as IWebPlaybackPlayer;
 
     this.player.addListener('ready', this.handlePlayerStatus);
     this.player.addListener('not_ready', this.handlePlayerStatus);
     this.player.addListener('player_state_changed', this.handlePlayerStateChanges);
-    this.player.addListener('initialization_error', (error: WebPlaybackError) =>
+    this.player.addListener('initialization_error', (error: IWebPlaybackError) =>
       this.handlePlayerErrors('initialization_error', error.message),
     );
-    this.player.addListener('authentication_error', (error: WebPlaybackError) =>
+    this.player.addListener('authentication_error', (error: IWebPlaybackError) =>
       this.handlePlayerErrors('authentication_error', error.message),
     );
-    this.player.addListener('account_error', (error: WebPlaybackError) =>
+    this.player.addListener('account_error', (error: IWebPlaybackError) =>
       this.handlePlayerErrors('account_error', error.message),
     );
-    this.player.addListener('playback_error', (error: WebPlaybackError) =>
+    this.player.addListener('playback_error', (error: IWebPlaybackError) =>
       this.handlePlayerErrors('playback_error', error.message),
     );
 
     this.player.connect();
   };
 
-  private setAlbumImage(album: WebPlaybackAlbum): string {
+  private setAlbumImage(album: IWebPlaybackAlbum): string {
     const width = Math.min(...album.images.map(d => d.width));
-    const thumb: WebPlaybackImage =
-      album.images.find(d => d.width === width) || ({} as WebPlaybackImage);
+    const thumb: IWebPlaybackImage =
+      album.images.find(d => d.width === width) || ({} as IWebPlaybackImage);
 
     return thumb.url;
   }
@@ -564,7 +564,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const { token } = this.props;
 
     try {
-      const player: SpotifyPlayerStatus = await getPlaybackState(token);
+      const player: ISpotifyPlayerStatus = await getPlaybackState(token);
       let track = this.emptyTrack;
 
       if (!player) {
@@ -676,7 +676,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
             progressMs: progressMs! + this.seekUpdateInterval,
           });
         } else if (this.player) {
-          const state = (await this.player.getCurrentState()) as WebPlaybackState;
+          const state = (await this.player.getCurrentState()) as IWebPlaybackState;
 
           /* istanbul ignore else */
           if (state) {

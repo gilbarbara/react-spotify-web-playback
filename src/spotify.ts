@@ -1,4 +1,4 @@
-import { PlayOptions } from './types/spotify';
+import { IPlayOptions } from './types/spotify';
 
 export async function checkTracksStatus(tracks: string | string[], token: string) {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
@@ -49,7 +49,7 @@ export async function pause(token: string) {
 }
 
 export async function play(
-  { context_uri, deviceId, offset = 0, uris }: PlayOptions,
+  { context_uri, deviceId, offset = 0, uris }: IPlayOptions,
   token: string,
 ) {
   let body;

@@ -1,28 +1,28 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { StyledComponentProps, StylesOptions } from '../types/common';
-import { WebPlaybackTrack } from '../types/spotify';
+import { IStyledComponentProps, IStylesOptions } from '../types/common';
+import { IWebPlaybackTrack } from '../types/spotify';
 
 import Next from './icons/Next';
 import Pause from './icons/Pause';
 import Play from './icons/Play';
 import Previous from './icons/Previous';
 
-interface Props {
+interface IProps {
   isExternalDevice: boolean;
   isPlaying: boolean;
   onClickNext: () => void;
   onClickPrevious: () => void;
   onClickTogglePlay: () => void;
-  nextTracks: WebPlaybackTrack[];
-  previousTracks: WebPlaybackTrack[];
-  styles: StylesOptions;
+  nextTracks: IWebPlaybackTrack[];
+  previousTracks: IWebPlaybackTrack[];
+  styles: IStylesOptions;
 }
 
 const Wrapper = styled('div')(
   {},
-  ({ styles }: StyledComponentProps) => ({
+  ({ styles }: IStyledComponentProps) => ({
     alignItems: 'center',
     display: 'flex',
     height: px(styles.height),
@@ -49,7 +49,7 @@ const Wrapper = styled('div')(
   'ControlsRSWP',
 );
 
-export default class Controls extends PureComponent<Props> {
+export default class Controls extends React.PureComponent<IProps> {
   public render() {
     const {
       isExternalDevice,

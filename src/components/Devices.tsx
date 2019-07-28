@@ -1,24 +1,24 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import { getDevices, setDevice } from '../spotify';
 import { px, styled } from '../styles';
 
-import { StyledComponentProps, StylesOptions } from '../types/common';
-import { SpotifyDevice } from '../types/spotify';
+import { IStyledComponentProps, IStylesOptions } from '../types/common';
+import { ISpotifyDevice } from '../types/spotify';
 
 import ClickOutside from './ClickOutside';
 
 import DevicesIcon from './icons/Devices';
 
-interface Props {
+interface IProps {
   deviceId?: string;
   onClickDevice: (deviceId: string) => any;
   open: boolean;
   token: string;
-  styles: StylesOptions;
+  styles: IStylesOptions;
 }
 
-export interface State {
-  devices: SpotifyDevice[];
+export interface IState {
+  devices: ISpotifyDevice[];
   isOpen: boolean;
 }
 
@@ -50,7 +50,7 @@ const Wrapper = styled('div')(
       fontSize: px(26),
     },
   },
-  ({ styles }: StyledComponentProps) => ({
+  ({ styles }: IStyledComponentProps) => ({
     '> button': {
       color: styles.color,
     },
@@ -65,11 +65,11 @@ const Wrapper = styled('div')(
   'DevicesRSWP',
 );
 
-export default class Devices extends PureComponent<Props, State> {
+export default class Devices extends React.PureComponent<IProps, IState> {
   // tslint:disable-next-line:variable-name
   private _isMounted = false;
 
-  constructor(props: Props) {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -124,7 +124,7 @@ export default class Devices extends PureComponent<Props, State> {
           <React.Fragment>
             {isOpen && (
               <ClickOutside onClick={this.handleClickToggleDevices}>
-                {devices.map((d: SpotifyDevice) => (
+                {devices.map((d: ISpotifyDevice) => (
                   <button
                     key={d.id}
                     className={d.id === deviceId ? 'rswp__devices__active' : undefined}

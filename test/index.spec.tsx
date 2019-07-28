@@ -1,15 +1,24 @@
+/* tslint:disable:no-console */
+declare var window: any;
 import React from 'react';
-
+import { mount, ReactWrapper } from 'enzyme';
 import fetchMock from 'fetch-mock';
-import SpotifyWebPlayer, { STATUS } from '../src'; // eslint-disable-line import/no-unresolved
+
+import SpotifyWebPlayer, { STATUS } from '../src';
+import { IProps, IState } from '../src/types/common';
 
 import { playerState, playerStatus } from './fixtures/data';
+
+const { skipEventLoop } = window;
+
+interface IObject {
+  [key: string]: any;
+}
 
 fetchMock.config.overwriteRoutes = false;
 jest.useFakeTimers();
 
 process.on('unhandledRejection', (reason, p) => {
-  // eslint-disable-next-line no-console
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
 
@@ -40,7 +49,7 @@ const externalDeviceId = 'df17372ghs982js892js';
 const token =
   'BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg';
 
-const setup = props => {
+const setup = (props?: IObject): ReactWrapper<IProps, IState> => {
   mockAddListener.mockClear();
   mockCallback.mockClear();
   mockConnect.mockClear();
@@ -53,7 +62,7 @@ const setup = props => {
   mockSetVolume.mockClear();
   mockTogglePlay.mockClear();
 
-  const wrapper = mount(
+  const wrapper = mount<IProps, IState>(
     <SpotifyWebPlayer
       callback={mockCallback}
       token={token}
@@ -70,7 +79,7 @@ const setup = props => {
 describe('SpotifyWebPlayer', () => {
   beforeAll(async () => {
     window.Spotify = {
-      Player: function Player({ getOAuthToken }) {
+      Player: function Player({ getOAuthToken }: IObject) {
         this.addListener = mockAddListener;
         this.connect = mockConnect;
         this.disconnect = mockDisconnect;
@@ -102,7 +111,7 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('Error listeners', () => {
-    let wrapper;
+    let wrapper: ReactWrapper<IProps, IState>;
 
     beforeAll(() => {
       fetchMock.resetHistory();
@@ -137,6 +146,7 @@ describe('SpotifyWebPlayer', () => {
     it('should ', async () => {
       wrapper.setProps({ token: `${token}_AA` });
 
+      // @ts-ignore
       expect(wrapper.instance().hasNewToken).toBeTrue();
       expect(wrapper.state('isInitializing')).toBeTrue();
 
@@ -194,7 +204,7 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('Device listeners', () => {
-    let wrapper;
+    let wrapper: ReactWrapper<IProps, IState>;
 
     beforeAll(() => {
       fetchMock.resetHistory();
@@ -245,17 +255,17 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('With the local player', () => {
-    let wrapper;
+    let wrapper: ReactWrapper<IProps, IState>;
 
     beforeAll(() => {
       fetchMock.resetHistory();
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
-        width: 6,
-        height: 50,
-        top: 0,
-        left: 900,
         bottom: 50,
+        height: 50,
+        left: 900,
         right: 0,
+        top: 0,
+        width: 6,
       }));
 
       wrapper = setup({ autoPlay: true, showSaveIcon: true });
@@ -342,22 +352,22 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('With an external device', () => {
-    let wrapper;
+    let wrapper: ReactWrapper<IProps, IState>;
 
     beforeAll(async () => {
       fetchMock.resetHistory();
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
-        width: 6,
-        height: 50,
-        top: 0,
-        left: 900,
         bottom: 50,
+        height: 50,
+        left: 900,
         right: 0,
+        top: 0,
+        width: 6,
       }));
 
       wrapper = setup({
-        uris: ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'],
         persistDeviceSelection: true,
+        uris: ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'],
       });
 
       const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
@@ -458,17 +468,17 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('with control props', () => {
-    let wrapper;
+    let wrapper: ReactWrapper<IProps, IState>;
 
     beforeAll(() => {
       fetchMock.resetHistory();
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
-        width: 6,
-        height: 50,
-        top: 0,
-        left: 900,
         bottom: 50,
+        height: 50,
+        left: 900,
         right: 0,
+        top: 0,
+        width: 6,
       }));
 
       wrapper = setup({
