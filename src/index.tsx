@@ -65,6 +65,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
       isPlaying: false,
       isSaved: false,
       isUnsupported: false,
+      needsUpdate: false,
       nextTracks: [],
       position: 0,
       previousTracks: [],
@@ -129,6 +130,8 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
           this.syncDevice();
         }, 600);
       }
+    } else if (changedURIs && !isPlaying) {
+      this.updateState({ needsUpdate: true });
     }
 
     if (prevState.status !== status) {
@@ -267,7 +270,9 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         const state = (await this.player.getCurrentState()) as IWebPlaybackState;
 
         if (state) {
-          this.player.seek(Math.round(state.track_window.current_track.duration_ms * percentage));
+          await this.player.seek(
+            Math.round(state.track_window.current_track.duration_ms * percentage),
+          );
         } else {
           this.updateState({ position: 0 });
         }
@@ -550,7 +555,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
       await setVolume(Math.round(volume * 100), token);
       await this.syncDevice();
     } else if (this.player) {
-      this.player.setVolume(volume);
+      await this.player.setVolume(volume);
     }
 
     this.updateState({ volume });
@@ -613,9 +618,10 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     }
   };
 
-  private togglePlay = async (init?: boolean) => {
-    const { currentDeviceId, isPlaying } = this.state;
+  private togglePlay = async (init: boolean = false) => {
+    const { currentDeviceId, isPlaying, needsUpdate } = this.state;
     const { offset, token } = this.props;
+    const shouldInitialize = init || needsUpdate;
 
     try {
       /* istanbul ignore else */
@@ -625,7 +631,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
             {
               deviceId: currentDeviceId,
               offset,
-              ...(init ? this.playOptions : undefined),
+              ...(shouldInitialize ? this.playOptions : undefined),
             },
             token,
           );
@@ -641,14 +647,25 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
       } else if (this.player) {
         const playerState = await this.player.getCurrentState();
 
-        if (!playerState && !!(this.playOptions.context_uri || this.playOptions.uris)) {
-          return play(
-            { deviceId: currentDeviceId, offset, ...(init ? this.playOptions : undefined) },
+        if (
+          (!playerState && !!(this.playOptions.context_uri || this.playOptions.uris)) ||
+          (shouldInitialize && playerState && playerState.paused)
+        ) {
+          await play(
+            {
+              deviceId: currentDeviceId,
+              offset,
+              ...(shouldInitialize ? this.playOptions : undefined),
+            },
             token,
           );
         } else {
-          this.player.togglePlay();
+          await this.player.togglePlay();
         }
+      }
+
+      if (needsUpdate) {
+        this.updateState({ needsUpdate: false });
       }
     } catch (error) {
       // tslint:disable-next-line:no-console

@@ -296,13 +296,15 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should handle Volume changes', () => {
+    it('should handle Volume changes', async () => {
       wrapper.find('Volume button').simulate('click');
 
       wrapper
         .find('.rrs__track')
         .simulate('click', { clientX: 910, clientY: 25, currentTarget: {} });
+
       jest.runOnlyPendingTimers();
+      await skipEventLoop();
 
       wrapper.update();
 
@@ -315,7 +317,9 @@ describe('SpotifyWebPlayer', () => {
       wrapper
         .find('.rrs__track')
         .simulate('click', { clientX: 910, clientY: 50, currentTarget: {} });
+
       jest.runOnlyPendingTimers();
+      await skipEventLoop();
 
       wrapper.update();
 

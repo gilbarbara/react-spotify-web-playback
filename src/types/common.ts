@@ -32,6 +32,7 @@ export interface IState {
   isPlaying: boolean;
   isSaved: boolean;
   isUnsupported: boolean;
+  needsUpdate: boolean;
   nextTracks: IWebPlaybackTrack[];
   position: number;
   previousTracks: IWebPlaybackTrack[];

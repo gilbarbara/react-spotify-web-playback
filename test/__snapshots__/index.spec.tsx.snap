@@ -243,6 +243,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
             "isPlaying": false,
             "isSaved": false,
             "isUnsupported": false,
+            "needsUpdate": false,
             "nextTracks": Array [],
             "position": 0,
             "previousTracks": Array [],
@@ -508,6 +509,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
             "isPlaying": false,
             "isSaved": false,
             "isUnsupported": true,
+            "needsUpdate": false,
             "nextTracks": Array [],
             "position": 0,
             "previousTracks": Array [],
@@ -1676,6 +1678,7 @@ exports[`SpotifyWebPlayer With the local player should render a loader while ini
             "isPlaying": false,
             "isSaved": false,
             "isUnsupported": false,
+            "needsUpdate": false,
             "nextTracks": Array [],
             "position": 0,
             "previousTracks": Array [],
@@ -1940,6 +1943,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "isPlaying": false,
             "isSaved": false,
             "isUnsupported": false,
+            "needsUpdate": false,
             "nextTracks": Array [],
             "position": 0,
             "previousTracks": Array [],
@@ -1968,6 +1972,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "isPlaying": false,
             "isSaved": false,
             "isUnsupported": false,
+            "needsUpdate": false,
             "nextTracks": Array [
               Object {
                 "album": Object {
@@ -2080,6 +2085,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "isPlaying": true,
             "isSaved": false,
             "isUnsupported": false,
+            "needsUpdate": false,
             "nextTracks": Array [
               Object {
                 "album": Object {
@@ -2192,6 +2198,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "isPlaying": true,
             "isSaved": false,
             "isUnsupported": false,
+            "needsUpdate": false,
             "nextTracks": Array [
               Object {
                 "album": Object {
@@ -2304,6 +2311,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             "isPlaying": true,
             "isSaved": true,
             "isUnsupported": false,
+            "needsUpdate": false,
             "nextTracks": Array [
               Object {
                 "album": Object {
