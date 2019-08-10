@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPlayerTrack, IWebPlaybackTrack } from './spotify';
+import { IPlayerTrack, ISpotifyDevice, IWebPlaybackTrack } from './spotify';
 
 export interface ICallbackState extends IState {
   type: string;
@@ -24,6 +24,7 @@ export interface IProps {
 export interface IState {
   currentDeviceId: string;
   deviceId: string;
+  devices: ISpotifyDevice[];
   error: string;
   errorType: string;
   isActive: boolean;

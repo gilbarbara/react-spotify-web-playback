@@ -1,11 +1,22 @@
 import * as React from 'react';
 
-import { getPlaybackState, next, pause, play, previous, seek, setVolume } from './spotify';
+import {
+  getDevices,
+  getPlaybackState,
+  next,
+  pause,
+  play,
+  previous,
+  seek,
+  setDevice,
+  setVolume,
+} from './spotify';
 import { getMergedStyles } from './styles';
 import { getSpotifyURIType, isEqualArray, loadScript, validateURI, STATUS, TYPE } from './utils';
 
 import { IPlayOptions, IProps, IState, IStylesOptions } from './types/common';
 import {
+  ISpotifyDevice,
   ISpotifyPlayerStatus,
   IWebPlaybackAlbum,
   IWebPlaybackError,
@@ -57,6 +68,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     this.state = {
       currentDeviceId: '',
       deviceId: '',
+      devices: [],
       error: '',
       errorType: '',
       isActive: false,
@@ -101,21 +113,12 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
       status,
       track,
     } = this.state;
-    const {
-      autoPlay,
-      callback,
-      offset,
-      persistDeviceSelection,
-      play: playProp,
-      showSaveIcon,
-      token,
-      uris,
-    } = this.props;
+    const { autoPlay, callback, offset, play: playProp, showSaveIcon, token, uris } = this.props;
     const isReady = prevState.status !== STATUS.READY && status === STATUS.READY;
     const changedURIs = Array.isArray(uris) ? !isEqualArray(prevProps.uris, uris) : uris !== uris;
 
-    const canPlay = currentDeviceId && !!(this.playOptions.context_uri || this.playOptions.uris);
-    const shouldPlay = (changedURIs && isPlaying) || (isReady && (autoPlay || play));
+    const canPlay = !!currentDeviceId && !!(this.playOptions.context_uri || this.playOptions.uris);
+    const shouldPlay = !!(changedURIs && isPlaying) || !!(isReady && (autoPlay || playProp));
 
     if (canPlay && shouldPlay) {
       await play({ deviceId: currentDeviceId, offset, ...this.playOptions }, token);
@@ -154,10 +157,6 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
 
     if (prevState.currentDeviceId !== currentDeviceId && currentDeviceId) {
       await this.handleDeviceChange();
-
-      if (persistDeviceSelection) {
-        sessionStorage.setItem('rswpDeviceId', currentDeviceId);
-      }
 
       if (!isReady) {
         callback!({
@@ -332,10 +331,14 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
 
   private handleClickDevice = async (deviceId: string) => {
     const { isUnsupported } = this.state;
+    const { token } = this.props;
 
     this.updateState({ currentDeviceId: deviceId });
 
     try {
+      await setDevice(deviceId, token);
+
+      /* istanbul ignore else */
       if (isUnsupported) {
         await this.togglePlay(true);
         await this.syncDevice();
@@ -370,6 +373,19 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     }
   }
 
+  private handleFavoriteStatusChange = (isSaved: boolean) => {
+    const { callback } = this.props;
+
+    this.updateState({ isSaved });
+    callback!({
+      ...{
+        ...this.state,
+        isSaved,
+      },
+      type: TYPE.TRACK,
+    });
+  };
+
   private handlePlaybackStatus() {
     const { isPlaying } = this.state;
 
@@ -389,19 +405,6 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
       }
     }
   }
-
-  private handleFavoriteStatusChange = (isSaved: boolean) => {
-    const { callback } = this.props;
-
-    this.updateState({ isSaved });
-    callback!({
-      ...{
-        ...this.state,
-        isSaved,
-      },
-      type: TYPE.TRACK,
-    });
-  };
 
   private handlePlayerErrors = async (type: string, message: string) => {
     const { status } = this.state;
@@ -481,17 +484,13 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     }
   };
 
-  private handlePlayerStatus = ({ device_id }: IWebPlaybackReady) => {
-    const { persistDeviceSelection } = this.props;
-    let currentDeviceId: string = device_id;
-
-    if (persistDeviceSelection && sessionStorage.getItem('rswpDeviceId')) {
-      currentDeviceId = sessionStorage.getItem('rswpDeviceId') as string;
-    }
+  private handlePlayerStatus = async ({ device_id }: IWebPlaybackReady) => {
+    const { currentDeviceId, devices } = await this.initializeDevices(device_id);
 
     this.updateState({
       currentDeviceId,
       deviceId: device_id,
+      devices,
       isInitializing: false,
       status: device_id ? STATUS.READY : STATUS.IDLE,
     });
@@ -506,6 +505,24 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
       });
     }
   };
+
+  private async initializeDevices(deviceId: string) {
+    const { persistDeviceSelection, token } = this.props;
+    const { devices } = await getDevices(token);
+    let currentDeviceId = deviceId;
+
+    if (persistDeviceSelection) {
+      const savedDeviceId = sessionStorage.getItem('rswpDeviceId');
+
+      if (!savedDeviceId || !devices.find((d: ISpotifyDevice) => d.id === savedDeviceId)) {
+        sessionStorage.setItem('rswpDeviceId', currentDeviceId);
+      } else {
+        currentDeviceId = savedDeviceId;
+      }
+    }
+
+    return { currentDeviceId, devices };
+  }
 
   private initializePlayer = () => {
     const { name, token } = this.props;
@@ -721,6 +738,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     const {
       currentDeviceId,
       deviceId,
+      devices,
       error,
       errorType,
       isActive,
@@ -775,11 +793,11 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
           />
           <Actions
             currentDeviceId={currentDeviceId}
+            devices={devices}
             isDevicesOpen={isUnsupported && !deviceId}
             onClickDevice={this.handleClickDevice}
             setVolume={this.setVolume}
             styles={this.styles}
-            token={token}
             volume={volume}
           />
         </React.Fragment>

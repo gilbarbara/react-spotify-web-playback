@@ -2,17 +2,18 @@ import * as React from 'react';
 import { px, styled } from '../styles';
 
 import { IStyledComponentProps, IStylesOptions } from '../types/common';
+import { ISpotifyDevice } from '../types/spotify';
 
 import Devices from './Devices';
 import Volume from './Volume';
 
 interface IProps {
   currentDeviceId: string;
+  devices: ISpotifyDevice[];
   isDevicesOpen: boolean;
   onClickDevice: (deviceId: string) => any;
   setVolume: (volume: number) => any;
   styles: IStylesOptions;
-  token: string;
   volume: number;
 }
 
@@ -42,11 +43,11 @@ const Wrapper = styled('div')(
 
 const Actions = ({
   currentDeviceId,
+  devices,
   isDevicesOpen,
   onClickDevice,
   setVolume,
   styles,
-  token,
   volume,
 }: IProps) => {
   return (
@@ -54,10 +55,10 @@ const Actions = ({
       {currentDeviceId && <Volume volume={volume} setVolume={setVolume} styles={styles} />}
       <Devices
         deviceId={currentDeviceId}
+        devices={devices}
         open={isDevicesOpen}
         onClickDevice={onClickDevice}
         styles={styles}
-        token={token}
       />
     </Wrapper>
   );

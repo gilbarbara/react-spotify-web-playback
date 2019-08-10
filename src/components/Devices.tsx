@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { getDevices, setDevice } from '../spotify';
 import { px, styled } from '../styles';
 
 import { IStyledComponentProps, IStylesOptions } from '../types/common';
@@ -11,14 +10,13 @@ import DevicesIcon from './icons/Devices';
 
 interface IProps {
   deviceId?: string;
+  devices: ISpotifyDevice[];
   onClickDevice: (deviceId: string) => any;
   open: boolean;
-  token: string;
   styles: IStylesOptions;
 }
 
 export interface IState {
-  devices: ISpotifyDevice[];
   isOpen: boolean;
 }
 
@@ -66,45 +64,20 @@ const Wrapper = styled('div')(
 );
 
 export default class Devices extends React.PureComponent<IProps, IState> {
-  // tslint:disable-next-line:variable-name
-  private _isMounted = false;
-
   constructor(props: IProps) {
     super(props);
 
     this.state = {
-      devices: [],
       isOpen: props.open,
     };
   }
 
-  public async componentDidMount() {
-    this._isMounted = true;
-    const { token } = this.props;
-
-    try {
-      const { devices } = await getDevices(token);
-
-      if (this._isMounted) {
-        this.setState({ devices: devices || [] });
-      }
-    } catch (error) {
-      // tslint:disable-next-line:no-console
-      console.error('getDevices', error);
-    }
-  }
-
-  public componentWillUnmount() {
-    this._isMounted = false;
-  }
-
   private handleClickSetDevice = (e: React.MouseEvent<HTMLElement>) => {
-    const { onClickDevice, token } = this.props;
+    const { onClickDevice } = this.props;
     const { dataset } = e.currentTarget;
 
     if (dataset.id) {
       onClickDevice(dataset.id);
-      setDevice(dataset.id, token);
 
       this.setState({ isOpen: false });
     }
@@ -115,8 +88,8 @@ export default class Devices extends React.PureComponent<IProps, IState> {
   };
 
   public render() {
-    const { devices, isOpen } = this.state;
-    const { deviceId, styles } = this.props;
+    const { isOpen } = this.state;
+    const { deviceId, devices, styles } = this.props;
 
     return (
       <Wrapper styles={styles}>

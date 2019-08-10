@@ -143,7 +143,7 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should ', async () => {
+    it('should handle token updates', async () => {
       wrapper.setProps({ token: `${token}_AA` });
 
       // @ts-ignore
@@ -215,20 +215,20 @@ describe('SpotifyWebPlayer', () => {
       wrapper.unmount();
     });
 
-    it('should handle `ready`', () => {
+    it('should handle `ready`', async () => {
       const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
 
-      readyFn({ device_id: deviceId });
+      await readyFn({ device_id: deviceId });
 
       expect(wrapper.state().status).toBe(STATUS.READY);
       expect(wrapper.state().error).toBe('');
       expect(wrapper.state().errorType).toBe('');
     });
 
-    it('should handle `not_ready`', () => {
+    it('should handle `not_ready`', async () => {
       const [, notReadyFn] = mockAddListener.mock.calls.find(d => d[0] === 'not_ready');
 
-      notReadyFn({});
+      await notReadyFn({});
 
       expect(wrapper.state().status).toBe(STATUS.IDLE);
       expect(wrapper.state().error).toBe('');
@@ -286,7 +286,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should render the full UI', async () => {
       const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
-      readyFn({ device_id: deviceId });
+      await readyFn({ device_id: deviceId });
 
       await updatePlayer();
       await skipEventLoop();
@@ -342,6 +342,20 @@ describe('SpotifyWebPlayer', () => {
       await skipEventLoop();
 
       expect(wrapper.state('isPlaying')).toBe(false);
+    });
+
+    it('should handle URIs changes', async () => {
+      wrapper.setProps({
+        uris: ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'],
+      });
+
+      expect(wrapper.state('needsUpdate')).toBeTrue();
+
+      wrapper.setProps({ play: true });
+      playerStateResponse = { ...playerState, paused: false };
+      await skipEventLoop();
+
+      expect(wrapper.state('needsUpdate')).toBeFalse();
     });
 
     it('should handle Info clicks', async () => {
@@ -413,7 +427,7 @@ describe('SpotifyWebPlayer', () => {
       await skipEventLoop();
 
       expect(wrapper.state('volume')).toBe(0.6);
-      expect(fetchMock.calls(d => d.endsWith('volume_percent=60'))).toBeTruthy();
+      expect(fetchMock.calls(d => d.endsWith('volume_percent=60'))).toBeDefined();
     });
 
     it('should handle Control clicks', async () => {
@@ -424,7 +438,7 @@ describe('SpotifyWebPlayer', () => {
       };
 
       wrapper.find('[aria-label="Play"]').simulate('click');
-      expect(fetchMock.calls(d => d.indexOf('/play?') > 0)).toBeTruthy();
+      expect(fetchMock.calls(d => d.indexOf('/play?') > 0)).toBeDefined();
 
       // waits for the play request
       await skipEventLoop();
@@ -504,10 +518,7 @@ describe('SpotifyWebPlayer', () => {
       const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
       readyFn({ device_id: deviceId });
 
-      wrapper.setState({ currentDeviceId: externalDeviceId });
-
       await skipEventLoop();
-      jest.runOnlyPendingTimers();
 
       expect(wrapper.state('isPlaying')).toBeTrue();
     });
@@ -521,8 +532,14 @@ describe('SpotifyWebPlayer', () => {
     });
 
     it('should respond to play prop change', async () => {
+      expect(wrapper.state('isPlaying')).toBeTrue();
+
       wrapper.setProps({ play: false });
-      await skipEventLoop();
+      playerStateResponse = {
+        ...playerState,
+        paused: true,
+      };
+      await updatePlayer();
 
       expect(wrapper.state('isPlaying')).toBeFalse();
     });

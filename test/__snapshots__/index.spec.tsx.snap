@@ -235,6 +235,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
           Object {
             "currentDeviceId": "",
             "deviceId": "",
+            "devices": Array [],
             "error": "Failed to authenticate",
             "errorType": "authentication_error",
             "isActive": false,
@@ -501,6 +502,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
           Object {
             "currentDeviceId": "",
             "deviceId": "",
+            "devices": Array [],
             "error": "Failed to initialize",
             "errorType": "initialization_error",
             "isActive": false,
@@ -1139,6 +1141,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
               </Controls>
               <Actions
                 currentDeviceId=""
+                devices={Array []}
                 isDevicesOpen={true}
                 onClickDevice={[Function]}
                 setVolume={[Function]}
@@ -1162,7 +1165,6 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                     "trackNameColor": "#333",
                   }
                 }
-                token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
                 volume={1}
               >
                 <style(ActionsRSWP)
@@ -1212,6 +1214,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                   >
                     <Devices
                       deviceId=""
+                      devices={Array []}
                       onClickDevice={[Function]}
                       open={true}
                       styles={
@@ -1234,7 +1237,6 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                           "trackNameColor": "#333",
                         }
                       }
-                      token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
                     >
                       <style(DevicesRSWP)
                         styles={
@@ -1280,40 +1282,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                               "trackNameColor": "#333",
                             }
                           }
-                        >
-                          <ClickOutside
-                            onClick={[Function]}
-                          >
-                            <div>
-                              <button
-                                data-id="df17372ghs982js892js"
-                                key="df17372ghs982js892js"
-                                onClick={[Function]}
-                                type="button"
-                              >
-                                Jest Player
-                              </button>
-                            </div>
-                          </ClickOutside>
-                          <button
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <DevicesIcon>
-                              <svg
-                                height="1em"
-                                preserveAspectRatio="xMidYMid"
-                                viewBox="0 0 128 128"
-                                width="1em"
-                              >
-                                <path
-                                  d="M6.765 89.483h40.412v6.765H6.269C2.765 96.248 0 93.483 0 89.978V20.703c0-3.504 2.765-6.27 6.27-6.27h40.907v6.766H6.765v68.285zm16.327 20.702a3.4 3.4 0 0 1 3.383-3.383h20.702v6.765H26.475c-.915 0-1.72-.347-2.344-1.038a3.064 3.064 0 0 1-1.039-2.344zm46.681-95.752h51.958c3.504 0 6.269 2.765 6.269 6.269v86.596c0 3.504-2.765 6.27-6.27 6.27H69.774c-3.504 0-6.27-2.766-6.27-6.27V20.702c0-3.504 2.766-6.27 6.27-6.27zm-.496 5.842l.07 87.52 52.88-.07-.07-87.45h-52.88zm13.89 45.573c3.464-3.462 7.714-5.23 12.585-5.23 9.827 0 17.815 7.988 17.815 17.815 0 9.827-7.988 17.815-17.815 17.815-9.827 0-17.815-7.988-17.815-17.815 0-4.87 1.768-9.122 5.23-12.585zm4.124 21.045c2.381 2.381 5.195 3.582 8.46 3.582 6.598 0 12.043-5.445 12.043-12.042 0-6.597-5.445-12.043-12.042-12.043-6.597 0-12.042 5.446-12.042 12.043 0 3.266 1.2 6.08 3.581 8.46zm12.935-44.466c-1.247 1.247-2.741 1.863-4.474 1.863-3.504 0-6.27-2.765-6.27-6.269s2.766-6.27 6.27-6.27c3.504 0 6.27 2.766 6.27 6.27 0 1.72-.608 3.218-1.796 4.406z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </DevicesIcon>
-                          </button>
-                        </div>
+                        />
                       </style(DevicesRSWP)>
                     </Devices>
                   </div>
@@ -1670,6 +1639,7 @@ exports[`SpotifyWebPlayer With the local player should render a loader while ini
           Object {
             "currentDeviceId": "",
             "deviceId": "",
+            "devices": Array [],
             "error": "",
             "errorType": "",
             "isActive": false,
@@ -1935,6 +1905,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           Object {
             "currentDeviceId": "",
             "deviceId": "",
+            "devices": Array [],
             "error": "",
             "errorType": "",
             "isActive": false,
@@ -1964,6 +1935,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           Object {
             "currentDeviceId": "19ks98hfbxc53vh34jd",
             "deviceId": "19ks98hfbxc53vh34jd",
+            "devices": Array [
+              Object {
+                "id": "df17372ghs982js892js",
+                "name": "Jest Player",
+              },
+            ],
             "error": "",
             "errorType": "",
             "isActive": true,
@@ -2077,6 +2054,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           Object {
             "currentDeviceId": "19ks98hfbxc53vh34jd",
             "deviceId": "19ks98hfbxc53vh34jd",
+            "devices": Array [
+              Object {
+                "id": "df17372ghs982js892js",
+                "name": "Jest Player",
+              },
+            ],
             "error": "",
             "errorType": "",
             "isActive": true,
@@ -2190,6 +2173,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           Object {
             "currentDeviceId": "19ks98hfbxc53vh34jd",
             "deviceId": "19ks98hfbxc53vh34jd",
+            "devices": Array [
+              Object {
+                "id": "df17372ghs982js892js",
+                "name": "Jest Player",
+              },
+            ],
             "error": "",
             "errorType": "",
             "isActive": true,
@@ -2303,6 +2292,12 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           Object {
             "currentDeviceId": "19ks98hfbxc53vh34jd",
             "deviceId": "19ks98hfbxc53vh34jd",
+            "devices": Array [
+              Object {
+                "id": "df17372ghs982js892js",
+                "name": "Jest Player",
+              },
+            ],
             "error": "",
             "errorType": "",
             "isActive": true,
@@ -3151,6 +3146,14 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
               </Controls>
               <Actions
                 currentDeviceId="19ks98hfbxc53vh34jd"
+                devices={
+                  Array [
+                    Object {
+                      "id": "df17372ghs982js892js",
+                      "name": "Jest Player",
+                    },
+                  ]
+                }
                 isDevicesOpen={false}
                 onClickDevice={[Function]}
                 setVolume={[Function]}
@@ -3174,7 +3177,6 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                     "trackNameColor": "#333",
                   }
                 }
-                token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
                 volume={1}
               >
                 <style(ActionsRSWP)
@@ -3314,6 +3316,14 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                     </Volume>
                     <Devices
                       deviceId="19ks98hfbxc53vh34jd"
+                      devices={
+                        Array [
+                          Object {
+                            "id": "df17372ghs982js892js",
+                            "name": "Jest Player",
+                          },
+                        ]
+                      }
                       onClickDevice={[Function]}
                       open={false}
                       styles={
@@ -3336,7 +3346,6 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                           "trackNameColor": "#333",
                         }
                       }
-                      token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
                     >
                       <style(DevicesRSWP)
                         styles={
@@ -3418,7 +3427,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
 
 exports[`SpotifyWebPlayer with control props should handle offset changes 1`] = `
 Array [
-  "https://api.spotify.com/v1/me/player/play?device_id=df17372ghs982js892js",
+  "https://api.spotify.com/v1/me/player/play?device_id=19ks98hfbxc53vh34jd",
   Object {
     "body": "{\\"uris\\":[\\"spotify:track:2ViHeieFA3iPmsBya2NDFl\\",\\"spotify:track:5zq709Rk69kjzCDdNthSbK\\"],\\"offset\\":{\\"position\\":3}}",
     "headers": Object {
