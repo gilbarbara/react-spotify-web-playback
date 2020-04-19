@@ -52,20 +52,29 @@ export async function play(
   { context_uri, deviceId, offset = 0, uris }: IPlayOptions,
   token: string,
 ) {
-  let body;
+
+  let body, isArtist, isAlbum, isPlaylist, position;
 
   if (context_uri) {
-    const isArtist = context_uri.indexOf('artist') >= 0;
-    let position;
+      var splitContextURI = context_uri.split(":")
+      isArtist = splitContextURI[1] === "artist";
+      isAlbum = splitContextURI[1] === "album";
+      isPlaylist = splitContextURI[1] === "playlist";
+      position = void 0;
 
-    if (!isArtist) {
-      position = { position: offset };
-    }
-
-    body = JSON.stringify({ context_uri, offset: position });
-  } else if (Array.isArray(uris) && uris.length) {
-    body = JSON.stringify({ uris, offset: { position: offset } });
-  }
+      if (isArtist) {
+          position = { position: offset };
+          body = JSON.stringify({ context_uri: context_uri , offset: position })
+      } else if(isAlbum){
+          position = { position: offset };
+          body = JSON.stringify({ context_uri: context_uri , offset: position })
+      } else if(isPlaylist){
+          position = { position: offset };
+          body = JSON.stringify({ context_uri: context_uri , offset: position })
+      } else{
+          body = JSON.stringify({ uris: uris, offset: { position: offset } });
+      } 
+   }
 
   return fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
     body,
