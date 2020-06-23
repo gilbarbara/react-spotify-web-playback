@@ -14,17 +14,20 @@ import {
 import { getMergedStyles } from './styles';
 import { getSpotifyURIType, isEqualArray, loadScript, validateURI, STATUS, TYPE } from './utils';
 
-import { IPlayOptions, IProps, IState, IStylesOptions } from './types/common';
 import {
-  ISpotifyDevice,
-  ISpotifyPlayerStatus,
-  IWebPlaybackAlbum,
-  IWebPlaybackError,
-  IWebPlaybackImage,
-  IWebPlaybackPlayer,
-  IWebPlaybackReady,
-  IWebPlaybackState,
-} from './types/spotify';
+  PlayOptions,
+  Props,
+  SpotifyDevice,
+  SpotifyPlayerStatus,
+  State,
+  StylesOptions,
+  WebPlaybackAlbum,
+  WebPlaybackError,
+  WebPlaybackImage,
+  WebPlaybackPlayer,
+  WebPlaybackReady,
+  WebPlaybackState,
+} from './types';
 
 import Actions from './components/Actions';
 import Content from './components/Content';
@@ -35,17 +38,8 @@ import Loader from './components/Loader';
 import Player from './components/Player';
 import Slider from './components/Slider';
 
-class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
-  private static defaultProps = {
-    callback: () => undefined,
-    magnifySliderOnHover: false,
-    name: 'Spotify Web Player',
-    showSaveIcon: false,
-    syncExternalDeviceInterval: 5,
-  };
-
-  // tslint:disable-next-line:variable-name
-  private _isMounted = false;
+class SpotifyWebPlayer extends React.PureComponent<Props, State> {
+  private isActive = false;
   private emptyTrack = {
     artists: '',
     durationMs: 0,
@@ -55,14 +49,14 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     uri: '',
   };
   private hasNewToken = false;
-  private player?: IWebPlaybackPlayer;
+  private player?: WebPlaybackPlayer;
   private playerProgressInterval?: number;
   private playerSyncInterval?: number;
   private syncTimeout?: number;
   private seekUpdateInterval = 100;
-  private readonly styles: IStylesOptions;
+  private readonly styles: StylesOptions;
 
-  constructor(props: IProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -89,8 +83,16 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     this.styles = getMergedStyles(props.styles);
   }
 
+  static defaultProps = {
+    callback: () => undefined,
+    magnifySliderOnHover: false,
+    name: 'Spotify Web Player',
+    showSaveIcon: false,
+    syncExternalDeviceInterval: 5,
+  };
+
   public async componentDidMount() {
-    this._isMounted = true;
+    this.isActive = true;
     this.updateState({ status: STATUS.INITIALIZING });
 
     // @ts-ignore
@@ -103,7 +105,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     });
   }
 
-  public async componentDidUpdate(prevProps: IProps, prevState: IState) {
+  public async componentDidUpdate(prevProps: Props, prevState: State) {
     const {
       currentDeviceId,
       deviceId,
@@ -115,16 +117,18 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     } = this.state;
     const { autoPlay, callback, offset, play: playProp, showSaveIcon, token, uris } = this.props;
     const isReady = prevState.status !== STATUS.READY && status === STATUS.READY;
-    const changedURIs = Array.isArray(uris) ? !isEqualArray(prevProps.uris, uris) : uris !== uris;
+    const changedURIs = Array.isArray(uris)
+      ? !isEqualArray(prevProps.uris, uris)
+      : prevProps.uris !== uris;
 
     const canPlay = !!currentDeviceId && !!(this.playOptions.context_uri || this.playOptions.uris);
-    const shouldPlay = !!(changedURIs && isPlaying) || !!(isReady && (autoPlay || playProp));
+    const shouldPlay = (changedURIs && isPlaying) || !!(isReady && (autoPlay || playProp));
 
     if (canPlay && shouldPlay) {
       await play({ deviceId: currentDeviceId, offset, ...this.playOptions }, token);
 
       /* istanbul ignore else */
-      if (!this.state.isPlaying) {
+      if (!isPlaying) {
         this.updateState({ isPlaying: true });
       }
 
@@ -211,7 +215,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
   }
 
   public componentWillUnmount() {
-    this._isMounted = false;
+    this.isActive = false;
 
     /* istanbul ignore else */
     if (this.player) {
@@ -229,10 +233,10 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     return (currentDeviceId && currentDeviceId !== deviceId) || status === STATUS.UNSUPPORTED;
   }
 
-  private get playOptions(): IPlayOptions {
+  private get playOptions(): PlayOptions {
     const { uris } = this.props;
 
-    const response: IPlayOptions = {
+    const response: PlayOptions = {
       context_uri: undefined,
       uris: undefined,
     };
@@ -242,8 +246,9 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
       const ids = Array.isArray(uris) ? uris : [uris];
 
       if (ids.length > 1 && getSpotifyURIType(ids[0]) === 'track') {
-        response.uris = ids.filter(d => validateURI(d) && getSpotifyURIType(d) === 'track');
+        response.uris = ids.filter((d) => validateURI(d) && getSpotifyURIType(d) === 'track');
       } else {
+        // eslint-disable-next-line prefer-destructuring
         response.context_uri = ids[0];
       }
     }
@@ -266,7 +271,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
           progressMs: Math.round(track.durationMs * percentage),
         });
       } else if (this.player) {
-        const state = (await this.player.getCurrentState()) as IWebPlaybackState;
+        const state = (await this.player.getCurrentState()) as WebPlaybackState;
 
         if (state) {
           await this.player.seek(
@@ -277,7 +282,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         }
       }
     } catch (error) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
@@ -286,7 +291,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     try {
       await this.togglePlay();
     } catch (error) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
@@ -305,7 +310,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         await this.player.previousTrack();
       }
     } catch (error) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
@@ -324,7 +329,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         await this.player.nextTrack();
       }
     } catch (error) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
@@ -344,7 +349,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         await this.syncDevice();
       }
     } catch (error) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
@@ -368,7 +373,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         this.playerSyncInterval = undefined;
       }
     } catch (error) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   }
@@ -397,12 +402,9 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
           this.seekUpdateInterval,
         );
       }
-    } else {
-      /* istanbul ignore else */
-      if (this.playerProgressInterval) {
-        clearInterval(this.playerProgressInterval);
-        this.playerProgressInterval = undefined;
-      }
+    } else if (this.playerProgressInterval) {
+      clearInterval(this.playerProgressInterval);
+      this.playerProgressInterval = undefined;
     }
   }
 
@@ -433,7 +435,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     });
   };
 
-  private handlePlayerStateChanges = async (state: IWebPlaybackState | null) => {
+  private handlePlayerStateChanges = async (state: WebPlaybackState | null) => {
     try {
       /* istanbul ignore else */
       if (state) {
@@ -441,7 +443,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         const { album, artists, duration_ms, id, name, uri } = state.track_window.current_track;
         const volume = await this.player!.getVolume();
         const track = {
-          artists: artists.map(d => d.name).join(', '),
+          artists: artists.map((d) => d.name).join(', '),
           durationMs: duration_ms,
           id,
           image: this.setAlbumImage(album),
@@ -479,12 +481,12 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         });
       }
     } catch (error) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
 
-  private handlePlayerStatus = async ({ device_id }: IWebPlaybackReady) => {
+  private handlePlayerStatus = async ({ device_id }: WebPlaybackReady) => {
     const { currentDeviceId, devices } = await this.initializeDevices(device_id);
 
     this.updateState({
@@ -500,7 +502,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     const { magnifySliderOnHover } = this.props;
 
     if (magnifySliderOnHover) {
-      this.updateState((prevState: IState) => {
+      this.updateState((prevState: State) => {
         return { isMagnified: !prevState.isMagnified };
       });
     }
@@ -514,7 +516,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     if (persistDeviceSelection) {
       const savedDeviceId = sessionStorage.getItem('rswpDeviceId');
 
-      if (!savedDeviceId || !devices.find((d: ISpotifyDevice) => d.id === savedDeviceId)) {
+      if (!savedDeviceId || !devices.find((d: SpotifyDevice) => d.id === savedDeviceId)) {
         sessionStorage.setItem('rswpDeviceId', currentDeviceId);
       } else {
         currentDeviceId = savedDeviceId;
@@ -535,34 +537,34 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         cb(token);
       },
       name,
-    }) as IWebPlaybackPlayer;
+    }) as WebPlaybackPlayer;
 
     this.player.addListener('ready', this.handlePlayerStatus);
     this.player.addListener('not_ready', this.handlePlayerStatus);
     this.player.addListener('player_state_changed', this.handlePlayerStateChanges);
-    this.player.addListener('initialization_error', (error: IWebPlaybackError) =>
+    this.player.addListener('initialization_error', (error: WebPlaybackError) =>
       this.handlePlayerErrors('initialization_error', error.message),
     );
-    this.player.addListener('authentication_error', (error: IWebPlaybackError) =>
+    this.player.addListener('authentication_error', (error: WebPlaybackError) =>
       this.handlePlayerErrors('authentication_error', error.message),
     );
-    this.player.addListener('account_error', (error: IWebPlaybackError) =>
+    this.player.addListener('account_error', (error: WebPlaybackError) =>
       this.handlePlayerErrors('account_error', error.message),
     );
-    this.player.addListener('playback_error', (error: IWebPlaybackError) =>
+    this.player.addListener('playback_error', (error: WebPlaybackError) =>
       this.handlePlayerErrors('playback_error', error.message),
     );
 
     this.player.connect();
   };
 
-  private setAlbumImage(album: IWebPlaybackAlbum): string {
-    const width = Math.min(...album.images.map(d => d.width));
-    const thumb: IWebPlaybackImage =
-      album.images.find(d => d.width === width) || ({} as IWebPlaybackImage);
+  private setAlbumImage = (album: WebPlaybackAlbum): string => {
+    const width = Math.min(...album.images.map((d) => d.width));
+    const thumb: WebPlaybackImage =
+      album.images.find((d) => d.width === width) || ({} as WebPlaybackImage);
 
     return thumb.url;
-  }
+  };
 
   private setVolume = async (volume: number) => {
     const { token } = this.props;
@@ -579,14 +581,14 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
   };
 
   private syncDevice = async () => {
-    if (!this._isMounted) {
+    if (!this.isActive) {
       return;
     }
 
     const { token } = this.props;
 
     try {
-      const player: ISpotifyPlayerStatus = await getPlaybackState(token);
+      const player: SpotifyPlayerStatus = await getPlaybackState(token);
       let track = this.emptyTrack;
 
       if (!player) {
@@ -596,7 +598,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
       /* istanbul ignore else */
       if (player.item) {
         track = {
-          artists: player.item.artists.map(d => d.name).join(', '),
+          artists: player.item.artists.map((d) => d.name).join(', '),
           durationMs: player.item.duration_ms,
           id: player.item.id,
           image: this.setAlbumImage(player.item.album),
@@ -635,7 +637,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
     }
   };
 
-  private togglePlay = async (init: boolean = false) => {
+  private togglePlay = async (init = false) => {
     const { currentDeviceId, isPlaying, needsUpdate } = this.state;
     const { offset, token } = this.props;
     const shouldInitialize = init || needsUpdate;
@@ -685,13 +687,13 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         this.updateState({ needsUpdate: false });
       }
     } catch (error) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
 
   private updateSeekBar = async () => {
-    if (!this._isMounted) {
+    if (!this.isActive) {
       return;
     }
 
@@ -710,7 +712,7 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
             progressMs: progressMs! + this.seekUpdateInterval,
           });
         } else if (this.player) {
-          const state = (await this.player.getCurrentState()) as IWebPlaybackState;
+          const state = (await this.player.getCurrentState()) as WebPlaybackState;
 
           /* istanbul ignore else */
           if (state) {
@@ -721,13 +723,13 @@ class SpotifyWebPlayer extends React.PureComponent<IProps, IState> {
         }
       }
     } catch (error) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
 
-  private updateState = (state: {}) => {
-    if (!this._isMounted) {
+  private updateState = (state = {}) => {
+    if (!this.isActive) {
       return;
     }
 

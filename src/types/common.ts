@@ -1,30 +1,30 @@
 import * as React from 'react';
-import { IPlayerTrack, ISpotifyDevice, IWebPlaybackTrack } from './spotify';
+import { SpotifyPlayerTrack, SpotifyDevice, WebPlaybackTrack } from './spotify';
 
-export interface ICallbackState extends IState {
+export interface CallbackState extends State {
   type: string;
 }
 
-export interface IProps {
+export interface Props {
   autoPlay?: boolean;
-  callback?: (state: ICallbackState) => any;
+  callback?: (state: CallbackState) => any;
   magnifySliderOnHover?: boolean;
   name?: string;
   offset?: number;
   persistDeviceSelection?: boolean;
   play?: boolean;
   showSaveIcon?: boolean;
-  styles?: IStylesProps;
+  styles?: StylesProps;
   syncExternalDeviceInterval?: number;
   token: string;
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
   uris?: string | string[];
 }
 
-export interface IState {
+export interface State {
   currentDeviceId: string;
   deviceId: string;
-  devices: ISpotifyDevice[];
+  devices: SpotifyDevice[];
   error: string;
   errorType: string;
   isActive: boolean;
@@ -34,21 +34,21 @@ export interface IState {
   isSaved: boolean;
   isUnsupported: boolean;
   needsUpdate: boolean;
-  nextTracks: IWebPlaybackTrack[];
+  nextTracks: WebPlaybackTrack[];
   position: number;
-  previousTracks: IWebPlaybackTrack[];
+  previousTracks: WebPlaybackTrack[];
   progressMs?: number;
   status: string;
-  track: IPlayerTrack;
+  track: SpotifyPlayerTrack;
   volume: number;
 }
 
-export interface IPlayOptions {
+export interface PlayOptions {
   context_uri?: string;
   uris?: string[];
 }
 
-export interface IStylesOptions {
+export interface StylesOptions {
   altColor: string;
   bgColor: string;
   color: string;
@@ -67,10 +67,10 @@ export interface IStylesOptions {
   trackNameColor: string;
 }
 
-export interface IStylesProps extends Partial<IStylesOptions> {}
+export type StylesProps = Partial<StylesOptions>;
 
-export interface IStyledComponentProps {
+export interface StyledComponentProps {
   children?: React.ReactNode;
-  styles: IStylesOptions;
+  styles: StylesOptions;
   [key: string]: any;
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { IStyledComponentProps } from '../types/common';
+import { StyledComponentProps } from '../types/common';
 
 const Wrapper = styled('div')(
   {
@@ -34,15 +34,15 @@ const Wrapper = styled('div')(
       margin: 0,
     },
   },
-  ({ styles }: IStyledComponentProps) => ({
+  ({ styles }: StyledComponentProps) => ({
     backgroundColor: styles.bgColor,
     minHeight: px(styles.height),
   }),
   'PlayerRSWP',
 );
 
-const Player = ({ children, styles }: IStyledComponentProps) => {
+function Player({ children, styles }: StyledComponentProps) {
   return <Wrapper styles={styles}>{children}</Wrapper>;
-};
+}
 
 export default Player;

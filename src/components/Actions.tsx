@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { IStyledComponentProps, IStylesOptions } from '../types/common';
-import { ISpotifyDevice } from '../types/spotify';
+import { StyledComponentProps, StylesOptions } from '../types/common';
+import { SpotifyDevice } from '../types/spotify';
 
 import Devices from './Devices';
 import Volume from './Volume';
 
-interface IProps {
+interface Props {
   currentDeviceId: string;
-  devices: ISpotifyDevice[];
+  devices: SpotifyDevice[];
   isDevicesOpen: boolean;
   onClickDevice: (deviceId: string) => any;
   setVolume: (volume: number) => any;
-  styles: IStylesOptions;
+  styles: StylesOptions;
   volume: number;
 }
 
@@ -35,21 +35,23 @@ const Wrapper = styled('div')(
       width: 'auto',
     },
   },
-  ({ styles }: IStyledComponentProps) => ({
+  ({ styles }: StyledComponentProps) => ({
     height: px(styles.height),
   }),
   'ActionsRSWP',
 );
 
-const Actions = ({
-  currentDeviceId,
-  devices,
-  isDevicesOpen,
-  onClickDevice,
-  setVolume,
-  styles,
-  volume,
-}: IProps) => {
+function Actions(props: Props) {
+  const {
+    currentDeviceId,
+    devices,
+    isDevicesOpen,
+    onClickDevice,
+    setVolume,
+    styles,
+    volume,
+  } = props;
+
   return (
     <Wrapper styles={styles}>
       {currentDeviceId && <Volume volume={volume} setVolume={setVolume} styles={styles} />}
@@ -62,6 +64,6 @@ const Actions = ({
       />
     </Wrapper>
   );
-};
+}
 
 export default Actions;

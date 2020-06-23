@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { IStyledComponentProps } from '../types/common';
+import { StyledComponentProps } from '../types/common';
 
 const Wrapper = styled('div')(
   {
@@ -23,14 +23,14 @@ const Wrapper = styled('div')(
       flexDirection: 'row',
     },
   },
-  ({ styles }: IStyledComponentProps) => ({
+  ({ styles }: StyledComponentProps) => ({
     minHeight: px(styles.height),
   }),
   'ContentRSWP',
 );
 
-const Content = ({ children, styles }: IStyledComponentProps) => {
+function Content({ children, styles }: StyledComponentProps) {
   return <Wrapper styles={styles}>{children}</Wrapper>;
-};
+}
 
 export default Content;

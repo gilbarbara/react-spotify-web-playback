@@ -1,4 +1,4 @@
-import { IPlayOptions } from './types/spotify';
+import { SpotifyPlayOptions } from './types';
 
 export async function checkTracksStatus(tracks: string | string[], token: string) {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
@@ -9,7 +9,7 @@ export async function checkTracksStatus(tracks: string | string[], token: string
       'Content-Type': 'application/json',
     },
     method: 'GET',
-  }).then(d => d.json());
+  }).then((d) => d.json());
 }
 
 export async function getDevices(token: string) {
@@ -19,7 +19,7 @@ export async function getDevices(token: string) {
       'Content-Type': 'application/json',
     },
     method: 'GET',
-  }).then(d => d.json());
+  }).then((d) => d.json());
 }
 
 export async function getPlaybackState(token: string) {
@@ -29,9 +29,9 @@ export async function getPlaybackState(token: string) {
       'Content-Type': 'application/json',
     },
     method: 'GET',
-  }).then(d => {
+  }).then((d) => {
     if (d.status === 204) {
-      return;
+      return null;
     }
 
     return d.json();
@@ -49,7 +49,7 @@ export async function pause(token: string) {
 }
 
 export async function play(
-  { context_uri, deviceId, offset = 0, uris }: IPlayOptions,
+  { context_uri, deviceId, offset = 0, uris }: SpotifyPlayOptions,
   token: string,
 ) {
   let body;

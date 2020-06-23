@@ -1,6 +1,6 @@
 import { canUseDOM as canUseDOMBool } from 'exenv';
 
-interface IScriptAttributes {
+interface ScriptAttributes {
   async?: boolean;
   defer?: boolean;
   id?: string;
@@ -47,16 +47,15 @@ export function isEqualArray(A?: any, B?: any) {
   return result;
 }
 
-export function loadScript(attributes: IScriptAttributes): Promise<any> {
+export function loadScript(attributes: ScriptAttributes): Promise<any> {
   if (!attributes || !attributes.source) {
     throw new Error('Invalid attributes');
   }
 
   return new Promise((resolve, reject) => {
-    const { async, defer, id, source }: IScriptAttributes = {
+    const { async, defer, id, source }: ScriptAttributes = {
       async: false,
       defer: false,
-      source: '',
       ...attributes,
     };
 
@@ -71,7 +70,7 @@ export function loadScript(attributes: IScriptAttributes): Promise<any> {
       script.defer = defer;
       script.src = source;
       script.onload = () => resolve(undefined);
-      script.onerror = (error: any) => reject(`createScript: ${error.message}`);
+      script.onerror = (error: any) => reject(new Error(`createScript: ${error.message}`));
 
       document.head.appendChild(script);
     } else {

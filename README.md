@@ -31,7 +31,7 @@ import SpotifyPlayer from 'react-spotify-web-playback';
 Start the player immediately.
 
 **callback**: `(state) => any`  
-Get status updates from the player. Check `ICallbackState` in the [types](src/types/common.ts) for the `state` structure.
+Get status updates from the player. Check `CallbackState` in the [types](src/types/common.ts) for the `state` structure.
 
 **magnifySliderOnHover**: `boolean`  
 Magnify the player's slider on hover.
@@ -52,7 +52,7 @@ Control the player status
 Display a Favorite button. Needs additional scopes in your token!
 
 **styles** `object`  
-Customize the player appearance. Check `IStylesOptions` in the [types](src/types/common.ts).
+Customize the player appearance. Check `StylesOptions` in the [types](src/types/common.ts).
 
 **syncExternalDeviceInterval** `number` _default: 5_  
 The time in seconds that the player will sync with external devices

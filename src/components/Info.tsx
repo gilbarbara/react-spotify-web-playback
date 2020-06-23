@@ -2,23 +2,23 @@ import * as React from 'react';
 import { checkTracksStatus, saveTracks, removeTracks } from '../spotify';
 import { px, styled } from '../styles';
 
-import { IStyledComponentProps, IStylesOptions } from '../types/common';
-import { IPlayerTrack } from '../types/spotify';
+import { StyledComponentProps, StylesOptions } from '../types/common';
+import { SpotifyPlayerTrack } from '../types/spotify';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
 
-interface IProps {
+interface Props {
   handleFavoriteStatusChange: (status: boolean) => any;
   isActive: boolean;
   showSaveIcon: boolean;
-  track: IPlayerTrack;
+  track: SpotifyPlayerTrack;
   token: string;
-  styles: IStylesOptions;
+  styles: StylesOptions;
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
 }
 
-interface IState {
+interface State {
   isSaved: boolean;
 }
 
@@ -47,7 +47,7 @@ const Wrapper = styled('div')(
       },
     },
   },
-  ({ styles }: IStyledComponentProps) => ({
+  ({ styles }: StyledComponentProps) => ({
     height: px(styles.height),
 
     img: {
@@ -76,7 +76,7 @@ const Title = styled('div')(
       marginLeft: px(5),
     },
   },
-  ({ styles }: IStyledComponentProps) => ({
+  ({ styles }: StyledComponentProps) => ({
     marginLeft: px(10),
 
     p: {
@@ -97,11 +97,10 @@ const Title = styled('div')(
   }),
 );
 
-export default class Info extends React.PureComponent<IProps, IState> {
-  // tslint:disable-next-line:variable-name
-  private _isMounted = false;
+export default class Info extends React.PureComponent<Props, State> {
+  private isActive = false;
 
-  constructor(props: IProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -110,16 +109,16 @@ export default class Info extends React.PureComponent<IProps, IState> {
   }
 
   public async componentDidMount() {
-    this._isMounted = true;
+    this.isActive = true;
 
     const { showSaveIcon, track } = this.props;
 
     if (showSaveIcon && track.id) {
-      this.setStatus();
+      await this.setStatus();
     }
   }
 
-  public async componentDidUpdate(prevProps: IProps, prevState: IState) {
+  public async componentDidUpdate(prevProps: Props) {
     const { showSaveIcon, track } = this.props;
 
     if (showSaveIcon && prevProps.track.id !== track.id && track.id) {
@@ -130,7 +129,7 @@ export default class Info extends React.PureComponent<IProps, IState> {
   }
 
   public componentWillUnmount() {
-    this._isMounted = false;
+    this.isActive = false;
   }
 
   private handleClickIcon = async () => {
@@ -149,7 +148,7 @@ export default class Info extends React.PureComponent<IProps, IState> {
   };
 
   private setStatus = async () => {
-    if (!this._isMounted) {
+    if (!this.isActive) {
       return;
     }
 
@@ -168,8 +167,8 @@ export default class Info extends React.PureComponent<IProps, IState> {
     handleFavoriteStatusChange(isSaved);
   };
 
-  private updateState = (state: {}) => {
-    if (!this._isMounted) {
+  private updateState = (state = {}) => {
+    if (!this.isActive) {
       return;
     }
 
@@ -183,7 +182,11 @@ export default class Info extends React.PureComponent<IProps, IState> {
 
     if (showSaveIcon && track.id) {
       icon = (
-        <button onClick={this.handleClickIcon} className={isSaved ? 'rswp__active' : undefined}>
+        <button
+          onClick={this.handleClickIcon}
+          className={isSaved ? 'rswp__active' : undefined}
+          type="button"
+        >
           {isSaved ? <Favorite /> : <FavoriteOutline />}
         </button>
       );

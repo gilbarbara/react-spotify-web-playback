@@ -15,16 +15,16 @@ import { addon as addonStyle } from 'nano-css/addon/style';
 import { addon as addonStyled } from 'nano-css/addon/styled';
 
 import { CssLikeObject } from 'nano-css/types/common';
-import { IStyledComponentProps, IStylesOptions, IStylesProps } from './types/common';
+import { StyledComponentProps, StylesOptions, StylesProps } from './types/common';
 
-interface INanoExtended extends NanoRenderer {
+interface NanoExtended extends NanoRenderer {
   styled: (
     tag: string,
   ) => (
     styles: CssLikeObject,
-    dynamicTemplate?: (props: IStyledComponentProps) => CssLikeObject,
+    dynamicTemplate?: (props: StyledComponentProps) => CssLikeObject,
     block?: string,
-  ) => React.FunctionComponent<IStyledComponentProps>;
+  ) => React.FunctionComponent<StyledComponentProps>;
 }
 
 const nano = create({ h: React.createElement });
@@ -37,11 +37,11 @@ addonStyle(nano);
 addonStyled(nano);
 addonNesting(nano);
 
-const { keyframes, styled } = nano as INanoExtended;
+const { keyframes, styled } = nano as NanoExtended;
 
 export const px = (val: string | number): string => (typeof val === 'number' ? `${val}px` : val);
 
-export function getMergedStyles(styles: IStylesProps | undefined): IStylesOptions {
+export function getMergedStyles(styles: StylesProps | undefined): StylesOptions {
   return {
     altColor: '#ccc',
     bgColor: '#fff',

@@ -1,11 +1,12 @@
-declare var window: any;
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
+declare let window: any;
 
 Enzyme.configure({ adapter: new Adapter() });
 
 window.skipEventLoop = () => {
-  return new Promise(resolve => setImmediate(resolve));
+  return new Promise((resolve) => setImmediate(resolve));
 };
 
 const react = document.createElement('div');
