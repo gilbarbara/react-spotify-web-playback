@@ -13,9 +13,13 @@
   "homepage": "https://github.com/gilbarbara/react-spotify-web-playback#readme",
   "main": "lib/index.js",
   "files": [
-    "lib"
+    "esm",
+    "lib",
+    "src"
   ],
-  "types": "lib/index.d.ts",
+  "types": "lib",
+  "sideEffects": true,
+  "license": "MIT",
   "keywords": [
     "react",
     "react-component",
@@ -23,7 +27,6 @@
     "player",
     "web playback"
   ],
-  "license": "MIT",
   "peerDependencies": {
     "react": "^16.8.0"
   },
@@ -77,24 +80,21 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:ts",
-    "build:ts": "tsc --outDir lib",
-    "watch": "npm run build:ts -- -w",
-    "clean": "rimraf lib",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc",
+    "build:esm": "tsc -m es6 --outDir esm",
+    "clean": "del lib/* && del esm/*",
+    "watch:cjs": "npm run build:cjs -- -w",
+    "watch:esm": "npm run build:esm -- -w",
     "test": "is-ci \"test:coverage\" \"test:watch\"",
     "test:coverage": "jest --bail --coverage",
     "test:watch": "jest --watch --verbose",
     "lint": "eslint --ext .ts,.tsx src test",
     "format": "prettier \"**/*.{js,jsx,json,yml,yaml,css,less,scss,ts,tsx,md,graphql,mdx}\" --write",
-    "validate": "npm run lint && npm run test:coverage && npm run build && npm run bundlesize",
-    "bundlesize": "size-limit",
+    "validate": "npm run lint && npm run test:coverage && npm run build && npm run size",
+    "size": "size-limit",
     "prepublishOnly": "npm run validate"
   },
-  "browserslist": [
-    "> 0.2%",
-    "safari >= 9",
-    "ios >= 9"
-  ],
   "prettier": {
     "jsxBracketSameLine": false,
     "printWidth": 100,
@@ -111,6 +111,10 @@
     ]
   },
   "size-limit": [
+    {
+      "path": "./esm/index.js",
+      "limit": "18 KB"
+    },
     {
       "path": "./lib/index.js",
       "limit": "18 KB"
