@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { IStyledComponentProps } from '../types/common';
+import { StyledComponentProps } from '../types/common';
 
 const Wrapper = styled('p')(
   {
     textAlign: 'center',
     width: '100%',
   },
-  ({ styles }: IStyledComponentProps) => ({
+  ({ styles }: StyledComponentProps) => ({
     borderTop: `1px solid ${styles.errorColor}`,
     color: styles.errorColor,
     height: px(styles.height),
@@ -17,8 +17,8 @@ const Wrapper = styled('p')(
   'ErrorRSWP',
 );
 
-const ErrorMessage = ({ children, styles }: IStyledComponentProps) => {
+function ErrorMessage({ children, styles }: StyledComponentProps) {
   return <Wrapper styles={styles}>{children}</Wrapper>;
-};
+}
 
 export default ErrorMessage;

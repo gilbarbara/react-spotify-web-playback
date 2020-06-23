@@ -1,20 +1,4 @@
-export interface IPlayOptions {
-  context_uri?: string;
-  deviceId: string;
-  offset?: number;
-  uris?: string[];
-}
-
-export interface IPlayerTrack {
-  artists: string;
-  durationMs: number;
-  id: string;
-  name: string;
-  image: string;
-  uri: string;
-}
-
-export interface ISpotifyDevice {
+export interface SpotifyDevice {
   id: string;
   is_active: boolean;
   is_private_session: boolean;
@@ -24,7 +8,7 @@ export interface ISpotifyDevice {
   volume_percent: number;
 }
 
-export interface ISpotifyArtist {
+export interface SpotifyArtist {
   external_urls: {
     spotify: string;
   };
@@ -35,13 +19,28 @@ export interface ISpotifyArtist {
   uri: string;
 }
 
-export interface ISpotifyImage {
+export interface SpotifyImage {
   height: number;
   url: string;
   width: number;
 }
 
-export interface ISpotifyPlayerStatus {
+export interface SpotifyPlayOptions {
+  context_uri?: string;
+  deviceId: string;
+  offset?: number;
+  uris?: string[];
+}
+
+export interface SpotifyPlayerStatus {
+  actions: {
+    disallows: {
+      resuming: boolean;
+      skipping_prev: boolean;
+    };
+  };
+  context: null;
+  currently_playing_type: string;
   device: {
     id: string;
     is_active: boolean;
@@ -51,22 +50,18 @@ export interface ISpotifyPlayerStatus {
     type: string;
     volume_percent: number;
   };
-  shuffle_state: false;
-  repeat_state: string;
-  timestamp: number;
-  context: null;
-  progress_ms: number;
+  is_playing: boolean;
   item: {
     album: {
       album_type: string;
-      artists: ISpotifyArtist[];
+      artists: SpotifyArtist[];
       available_markets: string[];
       external_urls: {
         spotify: string;
       };
       href: string;
       id: string;
-      images: ISpotifyImage[];
+      images: SpotifyImage[];
       name: string;
       release_date: string;
       release_date_precision: string;
@@ -74,7 +69,7 @@ export interface ISpotifyPlayerStatus {
       type: string;
       uri: string;
     };
-    artists: ISpotifyArtist[];
+    artists: SpotifyArtist[];
     available_markets: string[];
     disc_number: number;
     duration_ms: number;
@@ -95,14 +90,19 @@ export interface ISpotifyPlayerStatus {
     type: string;
     uri: string;
   };
-  currently_playing_type: string;
-  actions: {
-    disallows: {
-      resuming: boolean;
-      skipping_prev: boolean;
-    };
-  };
-  is_playing: boolean;
+  progress_ms: number;
+  repeat_state: string;
+  shuffle_state: false;
+  timestamp: number;
+}
+
+export interface SpotifyPlayerTrack {
+  artists: string;
+  durationMs: number;
+  id: string;
+  name: string;
+  image: string;
+  uri: string;
 }
 
 export type WebPlaybackStatuses = 'ready' | 'not_ready';
@@ -113,11 +113,11 @@ export type WebPlaybackErrors =
   | 'account_error'
   | 'playback_error';
 
-export interface IWebPlaybackError {
+export interface WebPlaybackError {
   message: WebPlaybackErrors;
 }
 
-export interface IWebPlaybackPlayer {
+export interface WebPlaybackPlayer {
   _options: {
     getOAuthToken: () => () => void;
     name: string;
@@ -125,13 +125,13 @@ export interface IWebPlaybackPlayer {
     volume: number;
   };
   addListener: {
-    (event: WebPlaybackErrors, callback: (d: IWebPlaybackError) => void): boolean;
-    (event: WebPlaybackStates, callback: (d: IWebPlaybackState | null) => void): boolean;
-    (event: WebPlaybackStatuses, callback: (d: IWebPlaybackReady) => void): boolean;
+    (event: WebPlaybackErrors, callback: (d: WebPlaybackError) => void): boolean;
+    (event: WebPlaybackStates, callback: (d: WebPlaybackState | null) => void): boolean;
+    (event: WebPlaybackStatuses, callback: (d: WebPlaybackReady) => void): boolean;
   };
   connect: () => Promise<void>;
   disconnect: () => void;
-  getCurrentState: () => Promise<IWebPlaybackState | null>;
+  getCurrentState: () => Promise<WebPlaybackState | null>;
   getVolume: () => Promise<number>;
   nextTrack: () => Promise<void>;
   pause: () => Promise<void>;
@@ -147,67 +147,67 @@ export interface IWebPlaybackPlayer {
   togglePlay: () => Promise<void>;
 }
 
-export interface IWebPlaybackReady {
+export interface WebPlaybackReady {
   device_id: string;
 }
 
-export interface IWebPlaybackState {
-  context: {
-    uri: null;
-    metadata: object;
-  };
+export interface WebPlaybackState {
   bitrate: number;
-  position: number;
-  duration: number;
-  paused: boolean;
-  shuffle: boolean;
-  repeat_mode: number;
-  track_window: {
-    current_track: IWebPlaybackTrack;
-    next_tracks: IWebPlaybackTrack[];
-    previous_tracks: IWebPlaybackTrack[];
-  };
-  timestamp: number;
-  restrictions: {
-    disallow_resuming_reasons: [];
-    disallow_skipping_prev_reasons: [];
+  context: {
+    metadata: Record<string, unknown>;
+    uri: null;
   };
   disallows: {
     resuming: boolean;
     skipping_prev: boolean;
   };
+  duration: number;
+  paused: boolean;
+  position: number;
+  repeat_mode: number;
+  restrictions: {
+    disallow_resuming_reasons: [];
+    disallow_skipping_prev_reasons: [];
+  };
+  shuffle: boolean;
+  timestamp: number;
+  track_window: {
+    current_track: WebPlaybackTrack;
+    next_tracks: WebPlaybackTrack[];
+    previous_tracks: WebPlaybackTrack[];
+  };
 }
 
-export interface IWebPlaybackAlbum {
-  uri: string;
+export interface WebPlaybackAlbum {
+  images: WebPlaybackImage[];
   name: string;
-  images: IWebPlaybackImage[];
+  uri: string;
 }
 
-export interface IWebPlaybackArtist {
+export interface WebPlaybackArtist {
   name: string;
   uri: string;
 }
 
-export interface IWebPlaybackImage {
+export interface WebPlaybackImage {
   height: number;
   url: string;
   width: number;
 }
 
-export interface IWebPlaybackTrack {
+export interface WebPlaybackTrack {
+  album: WebPlaybackAlbum;
+  artists: WebPlaybackArtist[];
+  duration_ms: number;
   id: string;
-  uri: string;
-  type: string;
-  linked_from_uri: null | string;
+  is_playable: boolean;
   linked_from: {
     uri: null | string;
     id: null | string;
   };
+  linked_from_uri: null | string;
   media_type: string;
   name: string;
-  duration_ms: number;
-  artists: IWebPlaybackArtist[];
-  album: IWebPlaybackAlbum;
-  is_playable: boolean;
+  type: string;
+  uri: string;
 }

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import RangeSlider from '@gilbarbara/react-range-slider';
+import { IRangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
 import { px, styled } from '../styles';
 
-import { RangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
-import { IStylesOptions, IStyledComponentProps } from '../types/common';
+import { StylesOptions, StyledComponentProps } from '../types/common';
 
 import ClickOutside from './ClickOutside';
 
@@ -11,13 +11,13 @@ import VolumeHigh from './icons/VolumeHigh';
 import VolumeLow from './icons/VolumeLow';
 import VolumeMute from './icons/VolumeMute';
 
-interface IProps {
+interface Props {
   setVolume: (volume: number) => any;
-  styles: IStylesOptions;
+  styles: StylesOptions;
   volume: number;
 }
 
-interface IState {
+interface State {
   isOpen: boolean;
   volume: number;
 }
@@ -44,7 +44,7 @@ const Wrapper = styled('div')(
       display: 'none',
     },
   },
-  ({ styles }: IStyledComponentProps) => ({
+  ({ styles }: StyledComponentProps) => ({
     '> button': {
       color: styles.color,
     },
@@ -56,10 +56,10 @@ const Wrapper = styled('div')(
   'VolumeRSWP',
 );
 
-export default class Volume extends React.PureComponent<IProps, IState> {
+export default class Volume extends React.PureComponent<Props, State> {
   private timeout: number | undefined;
 
-  constructor(props: IProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -68,20 +68,21 @@ export default class Volume extends React.PureComponent<IProps, IState> {
     };
   }
 
-  public componentDidUpdate(prevProps: IProps) {
+  public componentDidUpdate(prevProps: Props) {
     const { volume: volumeState } = this.state;
     const { volume } = this.props;
 
     if (prevProps.volume !== volume && volume !== volumeState) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ volume });
     }
   }
 
   private handleClick = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
+    this.setState((state) => ({ isOpen: !state.isOpen }));
   };
 
-  private handleChangeSlider = ({ y }: RangeSliderPosition) => {
+  private handleChangeSlider = ({ y }: IRangeSliderPosition) => {
     const { setVolume } = this.props;
     const volume = Math.round(y) / 100;
 

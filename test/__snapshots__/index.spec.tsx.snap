@@ -2890,6 +2890,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                             <button
                               className="rswp__active"
                               onClick={[Function]}
+                              type="button"
                             >
                               <Favorite>
                                 <svg

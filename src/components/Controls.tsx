@@ -1,28 +1,28 @@
 import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { IStyledComponentProps, IStylesOptions } from '../types/common';
-import { IWebPlaybackTrack } from '../types/spotify';
+import { StyledComponentProps, StylesOptions } from '../types/common';
+import { WebPlaybackTrack } from '../types/spotify';
 
 import Next from './icons/Next';
 import Pause from './icons/Pause';
 import Play from './icons/Play';
 import Previous from './icons/Previous';
 
-interface IProps {
+interface Props {
   isExternalDevice: boolean;
   isPlaying: boolean;
   onClickNext: () => void;
   onClickPrevious: () => void;
   onClickTogglePlay: () => void;
-  nextTracks: IWebPlaybackTrack[];
-  previousTracks: IWebPlaybackTrack[];
-  styles: IStylesOptions;
+  nextTracks: WebPlaybackTrack[];
+  previousTracks: WebPlaybackTrack[];
+  styles: StylesOptions;
 }
 
 const Wrapper = styled('div')(
   {},
-  ({ styles }: IStyledComponentProps) => ({
+  ({ styles }: StyledComponentProps) => ({
     alignItems: 'center',
     display: 'flex',
     height: px(styles.height),
@@ -49,46 +49,44 @@ const Wrapper = styled('div')(
   'ControlsRSWP',
 );
 
-export default class Controls extends React.PureComponent<IProps> {
-  public render() {
-    const {
-      isExternalDevice,
-      isPlaying,
-      onClickNext,
-      onClickPrevious,
-      onClickTogglePlay,
-      nextTracks,
-      previousTracks,
-      styles,
-    } = this.props;
+export default function Controls(props: Props) {
+  const {
+    isExternalDevice,
+    isPlaying,
+    onClickNext,
+    onClickPrevious,
+    onClickTogglePlay,
+    nextTracks,
+    previousTracks,
+    styles,
+  } = props;
 
-    return (
-      <Wrapper styles={styles}>
-        <div>
-          {(!!previousTracks.length || isExternalDevice) && (
-            <button type="button" onClick={onClickPrevious} aria-label="Previous Track">
-              <Previous />
-            </button>
-          )}
-        </div>
-        <div>
-          <button
-            type="button"
-            className="rswp__toggle"
-            onClick={onClickTogglePlay}
-            aria-label={isPlaying ? 'Pause' : 'Play'}
-          >
-            {isPlaying ? <Pause /> : <Play />}
+  return (
+    <Wrapper styles={styles}>
+      <div>
+        {(!!previousTracks.length || isExternalDevice) && (
+          <button type="button" onClick={onClickPrevious} aria-label="Previous Track">
+            <Previous />
           </button>
-        </div>
-        <div>
-          {(!!nextTracks.length || isExternalDevice) && (
-            <button type="button" onClick={onClickNext} aria-label="Next Track">
-              <Next />
-            </button>
-          )}
-        </div>
-      </Wrapper>
-    );
-  }
+        )}
+      </div>
+      <div>
+        <button
+          type="button"
+          className="rswp__toggle"
+          onClick={onClickTogglePlay}
+          aria-label={isPlaying ? 'Pause' : 'Play'}
+        >
+          {isPlaying ? <Pause /> : <Play />}
+        </button>
+      </div>
+      <div>
+        {(!!nextTracks.length || isExternalDevice) && (
+          <button type="button" onClick={onClickNext} aria-label="Next Track">
+            <Next />
+          </button>
+        )}
+      </div>
+    </Wrapper>
+  );
 }

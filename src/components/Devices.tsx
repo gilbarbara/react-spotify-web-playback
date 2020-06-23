@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { IStyledComponentProps, IStylesOptions } from '../types/common';
-import { ISpotifyDevice } from '../types/spotify';
+import { StyledComponentProps, StylesOptions } from '../types/common';
+import { SpotifyDevice } from '../types/spotify';
 
 import ClickOutside from './ClickOutside';
 
 import DevicesIcon from './icons/Devices';
 
-interface IProps {
+interface Props {
   deviceId?: string;
-  devices: ISpotifyDevice[];
+  devices: SpotifyDevice[];
   onClickDevice: (deviceId: string) => any;
   open: boolean;
-  styles: IStylesOptions;
+  styles: StylesOptions;
 }
 
-export interface IState {
+export interface State {
   isOpen: boolean;
 }
 
@@ -48,7 +48,7 @@ const Wrapper = styled('div')(
       fontSize: px(26),
     },
   },
-  ({ styles }: IStyledComponentProps) => ({
+  ({ styles }: StyledComponentProps) => ({
     '> button': {
       color: styles.color,
     },
@@ -63,8 +63,8 @@ const Wrapper = styled('div')(
   'DevicesRSWP',
 );
 
-export default class Devices extends React.PureComponent<IProps, IState> {
-  constructor(props: IProps) {
+export default class Devices extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -84,7 +84,7 @@ export default class Devices extends React.PureComponent<IProps, IState> {
   };
 
   private handleClickToggleDevices = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
+    this.setState((state) => ({ isOpen: !state.isOpen }));
   };
 
   public render() {
@@ -97,7 +97,7 @@ export default class Devices extends React.PureComponent<IProps, IState> {
           <React.Fragment>
             {isOpen && (
               <ClickOutside onClick={this.handleClickToggleDevices}>
-                {devices.map((d: ISpotifyDevice) => (
+                {devices.map((d: SpotifyDevice) => (
                   <button
                     key={d.id}
                     className={d.id === deviceId ? 'rswp__devices__active' : undefined}

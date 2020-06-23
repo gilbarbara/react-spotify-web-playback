@@ -1,13 +1,14 @@
 /* tslint:disable:no-console */
-declare var window: any;
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import fetchMock from 'fetch-mock';
 
 import SpotifyWebPlayer, { STATUS } from '../src';
-import { IProps, IState } from '../src/types/common';
+import { Props, State } from '../src/types/common';
 
 import { playerState, playerStatus } from './fixtures/data';
+
+declare let window: any;
 
 const { skipEventLoop } = window;
 
@@ -28,7 +29,7 @@ let playerStatusResponse = playerStatus;
 const mockAddListener = jest.fn();
 
 const updatePlayer = async () => {
-  const [, stateChangeFn] = mockAddListener.mock.calls.find(d => d[0] === 'player_state_changed');
+  const [, stateChangeFn] = mockAddListener.mock.calls.find((d) => d[0] === 'player_state_changed');
 
   await stateChangeFn(playerStateResponse);
 };
@@ -49,7 +50,7 @@ const externalDeviceId = 'df17372ghs982js892js';
 const token =
   'BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg';
 
-const setup = (props?: IObject): ReactWrapper<IProps, IState> => {
+const setup = (props?: IObject): ReactWrapper<Props, State> => {
   mockAddListener.mockClear();
   mockCallback.mockClear();
   mockConnect.mockClear();
@@ -62,7 +63,7 @@ const setup = (props?: IObject): ReactWrapper<IProps, IState> => {
   mockSetVolume.mockClear();
   mockTogglePlay.mockClear();
 
-  const wrapper = mount<IProps, IState>(
+  const wrapper = mount<Props, State>(
     <SpotifyWebPlayer
       callback={mockCallback}
       token={token}
@@ -111,7 +112,7 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('Error listeners', () => {
-    let wrapper: ReactWrapper<IProps, IState>;
+    let wrapper: ReactWrapper<Props, State>;
 
     beforeAll(() => {
       fetchMock.resetHistory();
@@ -128,7 +129,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `authentication_error`', async () => {
       const [authenticationType, authenticationFn] = mockAddListener.mock.calls.find(
-        d => d[0] === 'authentication_error',
+        (d) => d[0] === 'authentication_error',
       );
       authenticationFn({ type: authenticationType, message: 'Failed to authenticate' });
 
@@ -155,7 +156,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `account_error`', async () => {
       const [accountType, accountFn] = mockAddListener.mock.calls.find(
-        d => d[0] === 'account_error',
+        (d) => d[0] === 'account_error',
       );
       accountFn({ type: accountType, message: 'Failed to validate Spotify account' });
       await skipEventLoop();
@@ -171,7 +172,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `playback_error`', async () => {
       const [playbackType, playbackFn] = mockAddListener.mock.calls.find(
-        d => d[0] === 'playback_error',
+        (d) => d[0] === 'playback_error',
       );
       playbackFn({ type: playbackType, message: 'Failed to perform playback' });
 
@@ -187,7 +188,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `initialization_error`', async () => {
       const [initializationType, initializationFn] = mockAddListener.mock.calls.find(
-        d => d[0] === 'initialization_error',
+        (d) => d[0] === 'initialization_error',
       );
       initializationFn({ type: initializationType, message: 'Failed to initialize' });
 
@@ -204,7 +205,7 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('Device listeners', () => {
-    let wrapper: ReactWrapper<IProps, IState>;
+    let wrapper: ReactWrapper<Props, State>;
 
     beforeAll(() => {
       fetchMock.resetHistory();
@@ -216,7 +217,7 @@ describe('SpotifyWebPlayer', () => {
     });
 
     it('should handle `ready`', async () => {
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
 
       await readyFn({ device_id: deviceId });
 
@@ -226,7 +227,7 @@ describe('SpotifyWebPlayer', () => {
     });
 
     it('should handle `not_ready`', async () => {
-      const [, notReadyFn] = mockAddListener.mock.calls.find(d => d[0] === 'not_ready');
+      const [, notReadyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'not_ready');
 
       await notReadyFn({});
 
@@ -237,7 +238,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `player_state_changed`', async () => {
       const [, stateChangeFn] = mockAddListener.mock.calls.find(
-        d => d[0] === 'player_state_changed',
+        (d) => d[0] === 'player_state_changed',
       );
 
       await stateChangeFn({
@@ -255,10 +256,11 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('With the local player', () => {
-    let wrapper: ReactWrapper<IProps, IState>;
+    let wrapper: ReactWrapper<Props, State>;
 
     beforeAll(() => {
       fetchMock.resetHistory();
+      // @ts-ignore
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         bottom: 50,
         height: 50,
@@ -285,7 +287,7 @@ describe('SpotifyWebPlayer', () => {
     });
 
     it('should render the full UI', async () => {
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
       await readyFn({ device_id: deviceId });
 
       await updatePlayer();
@@ -370,10 +372,11 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('With an external device', () => {
-    let wrapper: ReactWrapper<IProps, IState>;
+    let wrapper: ReactWrapper<Props, State>;
 
     beforeAll(async () => {
       fetchMock.resetHistory();
+      // @ts-ignore
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         bottom: 50,
         height: 50,
@@ -388,7 +391,7 @@ describe('SpotifyWebPlayer', () => {
         uris: ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'],
       });
 
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
       readyFn({ device_id: deviceId });
 
       await skipEventLoop();
@@ -427,7 +430,7 @@ describe('SpotifyWebPlayer', () => {
       await skipEventLoop();
 
       expect(wrapper.state('volume')).toBe(0.6);
-      expect(fetchMock.calls(d => d.endsWith('volume_percent=60'))).toBeDefined();
+      expect(fetchMock.calls((d) => d.endsWith('volume_percent=60'))).toBeDefined();
     });
 
     it('should handle Control clicks', async () => {
@@ -438,7 +441,7 @@ describe('SpotifyWebPlayer', () => {
       };
 
       wrapper.find('[aria-label="Play"]').simulate('click');
-      expect(fetchMock.calls(d => d.indexOf('/play?') > 0)).toBeDefined();
+      expect(fetchMock.calls((d) => d.indexOf('/play?') > 0)).toBeDefined();
 
       // waits for the play request
       await skipEventLoop();
@@ -486,10 +489,11 @@ describe('SpotifyWebPlayer', () => {
   });
 
   describe('with control props', () => {
-    let wrapper: ReactWrapper<IProps, IState>;
+    let wrapper: ReactWrapper<Props, State>;
 
     beforeAll(() => {
       fetchMock.resetHistory();
+      // @ts-ignore
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         bottom: 50,
         height: 50,
@@ -515,7 +519,7 @@ describe('SpotifyWebPlayer', () => {
         is_playing: true,
       };
 
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
       readyFn({ device_id: deviceId });
 
       await skipEventLoop();
