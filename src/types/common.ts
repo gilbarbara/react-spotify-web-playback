@@ -16,6 +16,7 @@ export interface Props {
   showSaveIcon?: boolean;
   styles?: StylesProps;
   syncExternalDeviceInterval?: number;
+  syncExternalDevice?: boolean;
   token: string;
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
   uris?: string | string[];

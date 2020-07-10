@@ -6,6 +6,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
   magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={false}
+  syncExternalDevice={false}
   syncExternalDeviceInterval={5}
   token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
   uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
@@ -273,6 +274,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
   magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={false}
+  syncExternalDevice={false}
   syncExternalDeviceInterval={5}
   token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
   uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
@@ -540,6 +542,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
   magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={false}
+  syncExternalDevice={false}
   syncExternalDeviceInterval={5}
   token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
   uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
@@ -1303,6 +1306,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
   magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={false}
+  syncExternalDevice={false}
   syncExternalDeviceInterval={5}
   token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
   uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
@@ -1601,6 +1605,20 @@ Array [
 ]
 `;
 
+exports[`SpotifyWebPlayer With control props should handle offset changes 1`] = `
+Array [
+  "https://api.spotify.com/v1/me/player/play?device_id=19ks98hfbxc53vh34jd",
+  Object {
+    "body": "{\\"uris\\":[\\"spotify:track:2ViHeieFA3iPmsBya2NDFl\\",\\"spotify:track:5zq709Rk69kjzCDdNthSbK\\"],\\"offset\\":{\\"position\\":3}}",
+    "headers": Object {
+      "Authorization": "Bearer BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg",
+      "Content-Type": "application/json",
+    },
+    "method": "PUT",
+  },
+]
+`;
+
 exports[`SpotifyWebPlayer With the local player should handle Info clicks 1`] = `
 Array [
   "https://api.spotify.com/v1/me/tracks",
@@ -1677,6 +1695,7 @@ exports[`SpotifyWebPlayer With the local player should render a loader while ini
   magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={true}
+  syncExternalDevice={false}
   syncExternalDeviceInterval={5}
   token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
   uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
@@ -2435,6 +2454,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
   magnifySliderOnHover={false}
   name="Spotify Web Player"
   showSaveIcon={true}
+  syncExternalDevice={false}
   syncExternalDeviceInterval={5}
   token="BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg"
   uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
@@ -3424,18 +3444,4 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
     </style(PlayerRSWP)>
   </Player>
 </SpotifyWebPlayer>
-`;
-
-exports[`SpotifyWebPlayer with control props should handle offset changes 1`] = `
-Array [
-  "https://api.spotify.com/v1/me/player/play?device_id=19ks98hfbxc53vh34jd",
-  Object {
-    "body": "{\\"uris\\":[\\"spotify:track:2ViHeieFA3iPmsBya2NDFl\\",\\"spotify:track:5zq709Rk69kjzCDdNthSbK\\"],\\"offset\\":{\\"position\\":3}}",
-    "headers": Object {
-      "Authorization": "Bearer BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg",
-      "Content-Type": "application/json",
-    },
-    "method": "PUT",
-  },
-]
 `;

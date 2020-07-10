@@ -54,6 +54,9 @@ Display a Favorite button. Needs additional scopes in your token!
 **styles** `object`  
 Customize the player appearance. Check `StylesOptions` in the [types](src/types/common.ts).
 
+**syncExternalDevice** `boolean`
+If there are no URIs and an external device is playing, use the external player context.
+
 **syncExternalDeviceInterval** `number` _default: 5_  
 The time in seconds that the player will sync with external devices
 
