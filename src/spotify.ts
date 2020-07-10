@@ -1,6 +1,6 @@
 import { SpotifyPlayOptions } from './types';
 
-export async function checkTracksStatus(tracks: string | string[], token: string) {
+export async function checkTracksStatus(token: string, tracks: string | string[]) {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
   return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`, {
@@ -49,8 +49,8 @@ export async function pause(token: string) {
 }
 
 export async function play(
-  { context_uri, deviceId, offset = 0, uris }: SpotifyPlayOptions,
   token: string,
+  { context_uri, deviceId, offset = 0, uris }: SpotifyPlayOptions,
 ) {
   let body;
 
@@ -97,7 +97,7 @@ export async function next(token: string) {
   });
 }
 
-export async function removeTracks(tracks: string | string[], token: string) {
+export async function removeTracks(token: string, tracks: string | string[]) {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
   return fetch(`https://api.spotify.com/v1/me/tracks`, {
@@ -110,7 +110,7 @@ export async function removeTracks(tracks: string | string[], token: string) {
   });
 }
 
-export async function saveTracks(tracks: string | string[], token: string) {
+export async function saveTracks(token: string, tracks: string | string[]) {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
   return fetch(`https://api.spotify.com/v1/me/tracks`, {
@@ -123,7 +123,7 @@ export async function saveTracks(tracks: string | string[], token: string) {
   });
 }
 
-export async function seek(position: number, token: string) {
+export async function seek(token: string, position: number) {
   return fetch(`https://api.spotify.com/v1/me/player/seek?position_ms=${position}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -133,9 +133,9 @@ export async function seek(position: number, token: string) {
   });
 }
 
-export async function setDevice(deviceId: string, token: string) {
+export async function setDevice(token: string, deviceId: string, shouldPlay = false) {
   return fetch(`https://api.spotify.com/v1/me/player`, {
-    body: JSON.stringify({ device_ids: [deviceId], play: true }),
+    body: JSON.stringify({ device_ids: [deviceId], play: shouldPlay }),
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ export async function setDevice(deviceId: string, token: string) {
   });
 }
 
-export async function setVolume(volume: number, token: string) {
+export async function setVolume(token: string, volume: number) {
   return fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
     headers: {
       Authorization: `Bearer ${token}`,
