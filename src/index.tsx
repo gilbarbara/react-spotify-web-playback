@@ -306,8 +306,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   };
 
   private handleClickTogglePlay = async () => {
+    const { isActive } = this.state;
+
     try {
-      await this.togglePlay();
+      await this.togglePlay(!this.isExternalPlayer && !isActive);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
