@@ -137,10 +137,10 @@ export default class Info extends React.PureComponent<Props, State> {
     const { handleFavoriteStatusChange, token, track } = this.props;
 
     if (isSaved) {
-      await removeTracks(track.id, token);
+      await removeTracks(token, track.id);
       this.updateState({ isSaved: false });
     } else {
-      await saveTracks(track.id, token);
+      await saveTracks(token, track.id);
       this.updateState({ isSaved: true });
     }
 
@@ -160,7 +160,7 @@ export default class Info extends React.PureComponent<Props, State> {
       });
     }
 
-    const status = await checkTracksStatus(track.id, token);
+    const status = await checkTracksStatus(token, track.id);
     const [isSaved] = status || [false];
 
     this.updateState({ isSaved });
