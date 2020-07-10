@@ -89,6 +89,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     name: 'Spotify Web Player',
     showSaveIcon: false,
     syncExternalDeviceInterval: 5,
+    syncExternalDevice: false,
   };
 
   public async componentDidMount() {
@@ -115,7 +116,16 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       status,
       track,
     } = this.state;
-    const { autoPlay, callback, offset, play: playProp, showSaveIcon, token, uris } = this.props;
+    const {
+      autoPlay,
+      callback,
+      offset,
+      play: playProp,
+      showSaveIcon,
+      syncExternalDevice,
+      token,
+      uris,
+    } = this.props;
     const isReady = prevState.status !== STATUS.READY && status === STATUS.READY;
     const changedURIs = Array.isArray(uris)
       ? !isEqualArray(prevProps.uris, uris)
@@ -148,6 +158,17 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       });
     }
 
+    if (prevState.currentDeviceId !== currentDeviceId && currentDeviceId) {
+      if (!isReady) {
+        callback!({
+          ...this.state,
+          type: TYPE.DEVICE,
+        });
+      }
+
+      await this.handleDeviceChange();
+    }
+
     if (prevState.track.id !== track.id && track.id) {
       callback!({
         ...this.state,
@@ -159,17 +180,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       }
     }
 
-    if (prevState.currentDeviceId !== currentDeviceId && currentDeviceId) {
-      await this.handleDeviceChange();
-
-      if (!isReady) {
-        callback!({
-          ...this.state,
-          type: TYPE.DEVICE,
-        });
-      }
-    }
-
     if (prevState.isPlaying !== isPlaying) {
       this.handlePlaybackStatus();
       await this.handleDeviceChange();
@@ -178,13 +188,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         ...this.state,
         type: TYPE.PLAYER,
       });
-    }
-
-    if (prevState.isInitializing && !isInitializing) {
-      if (error === 'authentication_error' && this.hasNewToken) {
-        this.hasNewToken = false;
-        this.initializePlayer();
-      }
     }
 
     if (prevProps.token && prevProps.token !== token) {
@@ -211,6 +214,21 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         error: '',
         errorType: '',
       });
+    }
+
+    if (prevState.isInitializing && !isInitializing) {
+      if (error === 'authentication_error' && this.hasNewToken) {
+        this.hasNewToken = false;
+        this.initializePlayer();
+      }
+
+      if (syncExternalDevice && !uris) {
+        const player: SpotifyPlayerStatus = await getPlaybackState(token);
+
+        if (player && player.is_playing && player.device.id !== deviceId) {
+          this.setExternalDevice(player.device.id);
+        }
+      }
     }
   }
 
@@ -508,10 +526,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
   };
 
-  private async initializeDevices(deviceId: string) {
+  private async initializeDevices(id: string) {
     const { persistDeviceSelection, token } = this.props;
     const { devices } = await getDevices(token);
-    let currentDeviceId = deviceId;
+    let currentDeviceId = id;
 
     if (persistDeviceSelection) {
       const savedDeviceId = sessionStorage.getItem('rswpDeviceId');
@@ -564,6 +582,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       album.images.find((d) => d.width === width) || ({} as WebPlaybackImage);
 
     return thumb.url;
+  };
+
+  private setExternalDevice = (id: string) => {
+    this.updateState({ currentDeviceId: id, isPlaying: true });
   };
 
   private setVolume = async (volume: number) => {

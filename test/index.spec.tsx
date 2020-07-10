@@ -12,10 +12,6 @@ declare let window: any;
 
 const { skipEventLoop } = window;
 
-interface IObject {
-  [key: string]: any;
-}
-
 fetchMock.config.overwriteRoutes = false;
 jest.useFakeTimers();
 
@@ -50,7 +46,7 @@ const externalDeviceId = 'df17372ghs982js892js';
 const token =
   'BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg';
 
-const setup = (props?: IObject): ReactWrapper<Props, State> => {
+const setup = (props?: Record<string, any>): ReactWrapper<Props, State> => {
   mockAddListener.mockClear();
   mockCallback.mockClear();
   mockConnect.mockClear();
@@ -80,7 +76,7 @@ const setup = (props?: IObject): ReactWrapper<Props, State> => {
 describe('SpotifyWebPlayer', () => {
   beforeAll(async () => {
     window.Spotify = {
-      Player: function Player({ getOAuthToken }: IObject) {
+      Player: function Player({ getOAuthToken }: Record<string, any>) {
         this.addListener = mockAddListener;
         this.connect = mockConnect;
         this.disconnect = mockDisconnect;
@@ -488,7 +484,46 @@ describe('SpotifyWebPlayer', () => {
     });
   });
 
-  describe('with control props', () => {
+  describe('With "syncExternalDevice"', () => {
+    let wrapper: ReactWrapper<Props, State>;
+
+    beforeAll(async () => {
+      fetchMock.resetHistory();
+      // @ts-ignore
+      Element.prototype.getBoundingClientRect = jest.fn(() => ({
+        bottom: 50,
+        height: 50,
+        left: 900,
+        right: 0,
+        top: 0,
+        width: 6,
+      }));
+
+      playerStatusResponse = {
+        ...playerStatus,
+        is_playing: true,
+      };
+
+      wrapper = setup({ syncExternalDevice: true, uris: undefined });
+
+      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
+      readyFn({ device_id: deviceId });
+
+      await skipEventLoop();
+      wrapper.update();
+    });
+
+    afterAll(() => {
+      wrapper.unmount();
+    });
+
+    it('should match the external device options', () => {
+      expect(wrapper.state('isPlaying')).toBeTrue();
+      expect(wrapper.state('currentDeviceId')).toBe(playerStatus.device.id);
+    });
+  });
+
+  describe('With control props', () => {
     let wrapper: ReactWrapper<Props, State>;
 
     beforeAll(() => {
