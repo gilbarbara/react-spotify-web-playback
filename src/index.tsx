@@ -166,7 +166,8 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         });
       }
 
-      await this.handleDeviceChange();
+      await this.toggleSyncInterval(this.isExternalPlayer);
+      await this.updateSeekBar();
     }
 
     if (prevState.track.id !== track.id && track.id) {
@@ -181,8 +182,8 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
 
     if (prevState.isPlaying !== isPlaying) {
-      this.handlePlaybackStatus();
-      await this.handleDeviceChange();
+      this.toggleProgressBar();
+      await this.toggleSyncInterval(this.isExternalPlayer);
 
       callback!({
         ...this.state,
@@ -206,14 +207,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
     if (prevProps.offset !== offset) {
       await this.toggleOffset();
-    }
-
-    if (error === 'No player') {
-      this.updateState({
-        currentDeviceId: deviceId,
-        error: '',
-        errorType: '',
-      });
     }
 
     if (prevState.isInitializing && !isInitializing) {
@@ -356,54 +349,32 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   private handleClickDevice = async (deviceId: string) => {
     const { isUnsupported } = this.state;
-    const { token } = this.props;
+    const { autoPlay, persistDeviceSelection, token } = this.props;
 
     this.updateState({ currentDeviceId: deviceId });
 
     try {
       await setDevice(token, deviceId);
 
+      if (persistDeviceSelection) {
+        sessionStorage.setItem('rswpDeviceId', deviceId);
+      }
+
       /* istanbul ignore else */
       if (isUnsupported) {
-        await this.togglePlay(true);
         await this.syncDevice();
+
+        const player: SpotifyPlayerStatus = await getPlaybackState(token);
+
+        if (player && !player.is_playing && autoPlay) {
+          await this.togglePlay(true);
+        }
       }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
     }
   };
-
-  private async handleDeviceChange() {
-    const { isPlaying } = this.state;
-    const { syncExternalDeviceInterval, token } = this.props;
-
-    try {
-      let shouldSync = isPlaying;
-
-      if (this.isExternalPlayer) {
-        const player: SpotifyPlayerStatus = await getPlaybackState(token);
-        shouldSync = player.is_playing;
-      }
-
-      if (this.isExternalPlayer && shouldSync && !this.playerSyncInterval) {
-        await this.syncDevice();
-
-        this.playerSyncInterval = window.setInterval(
-          this.syncDevice,
-          syncExternalDeviceInterval! * 1000,
-        );
-      }
-
-      if ((!shouldSync || !this.isExternalPlayer) && this.playerSyncInterval) {
-        clearInterval(this.playerSyncInterval);
-        this.playerSyncInterval = undefined;
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
-  }
 
   private handleFavoriteStatusChange = (isSaved: boolean) => {
     const { callback } = this.props;
@@ -418,28 +389,12 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     });
   };
 
-  private handlePlaybackStatus() {
-    const { isPlaying } = this.state;
-
-    if (isPlaying) {
-      /* istanbul ignore else */
-      if (!this.playerProgressInterval) {
-        this.playerProgressInterval = window.setInterval(
-          this.updateSeekBar,
-          this.seekUpdateInterval,
-        );
-      }
-    } else if (this.playerProgressInterval) {
-      clearInterval(this.playerProgressInterval);
-      this.playerProgressInterval = undefined;
-    }
-  }
-
   private handlePlayerErrors = async (type: string, message: string) => {
     const { status } = this.state;
     const isPlaybackError = type === 'playback_error';
     const isInitializationError = type === 'initialization_error';
     let nextStatus = status;
+    let devices: SpotifyDevice[] = [];
 
     if (this.player && !isPlaybackError) {
       await this.player.disconnect();
@@ -447,6 +402,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
     if (isInitializationError) {
       nextStatus = STATUS.UNSUPPORTED;
+
+      const { token } = this.props;
+
+      ({ devices = [] } = await getDevices(token));
     }
 
     if (!isInitializationError && !isPlaybackError) {
@@ -454,6 +413,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
 
     this.updateState({
+      devices,
       error: message,
       errorType: type,
       isInitializing: false,
@@ -616,6 +576,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       return;
     }
 
+    const { deviceId } = this.state;
     const { token } = this.props;
 
     try {
@@ -651,13 +612,71 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         volume: player.device.volume_percent / 100,
       });
     } catch (error) {
+      const state = {
+        isActive: false,
+        isPlaying: false,
+        position: 0,
+        track: this.emptyTrack,
+      };
+
+      if (deviceId) {
+        this.updateState({
+          currentDeviceId: deviceId,
+          ...state,
+        });
+
+        return;
+      }
+
       this.updateState({
         error: error.message,
         errorType: 'player_status',
         status: STATUS.ERROR,
+        ...state,
       });
     }
   };
+
+  private async toggleSyncInterval(shouldSync: boolean) {
+    const { syncExternalDeviceInterval } = this.props;
+
+    try {
+      if (this.isExternalPlayer && shouldSync && !this.playerSyncInterval) {
+        await this.syncDevice();
+
+        clearInterval(this.playerSyncInterval);
+        this.playerSyncInterval = window.setInterval(
+          this.syncDevice,
+          syncExternalDeviceInterval! * 1000,
+        );
+      }
+
+      if ((!shouldSync || !this.isExternalPlayer) && this.playerSyncInterval) {
+        clearInterval(this.playerSyncInterval);
+        this.playerSyncInterval = undefined;
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+  }
+
+  private toggleProgressBar() {
+    const { isPlaying } = this.state;
+
+    if (isPlaying) {
+      /* istanbul ignore else */
+      if (!this.playerProgressInterval) {
+        this.playerProgressInterval = window.setInterval(
+          this.updateSeekBar,
+          this.seekUpdateInterval,
+        );
+      }
+    } else if (this.playerProgressInterval) {
+      clearInterval(this.playerProgressInterval);
+      this.playerProgressInterval = undefined;
+    }
+  }
 
   private toggleOffset = async () => {
     const { currentDeviceId, isPlaying } = this.state;
@@ -722,29 +741,26 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       return;
     }
 
-    const { isPlaying, progressMs, track } = this.state;
+    const { progressMs, track } = this.state;
 
     try {
       /* istanbul ignore else */
-      if (isPlaying) {
+      if (this.isExternalPlayer) {
+        let position = progressMs! / track.durationMs;
+        position = Number.isFinite(position) ? position : 0;
+
+        this.updateState({
+          position: Number((position * 100).toFixed(1)),
+          progressMs: progressMs! + this.seekUpdateInterval,
+        });
+      } else if (this.player) {
+        const state = (await this.player.getCurrentState()) as WebPlaybackState;
+
         /* istanbul ignore else */
-        if (this.isExternalPlayer) {
-          let position = progressMs! / track.durationMs;
-          position = Number.isFinite(position) ? position : 0;
+        if (state) {
+          const position = state.position / state.track_window.current_track.duration_ms;
 
-          this.updateState({
-            position: Number((position * 100).toFixed(1)),
-            progressMs: progressMs! + this.seekUpdateInterval,
-          });
-        } else if (this.player) {
-          const state = (await this.player.getCurrentState()) as WebPlaybackState;
-
-          /* istanbul ignore else */
-          if (state) {
-            const position = state.position / state.track_window.current_track.duration_ms;
-
-            this.updateState({ position: Number((position * 100).toFixed(1)) });
-          }
+          this.updateState({ position: Number((position * 100).toFixed(1)) });
         }
       }
     } catch (error) {
@@ -782,6 +798,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     const { name, showSaveIcon, token, updateSavedStatus } = this.props;
     const isReady = [STATUS.READY, STATUS.UNSUPPORTED].indexOf(status) >= 0;
     const isPlaybackError = errorType === 'playback_error';
+
     let output = <Loader styles={this.styles!} />;
     let info;
 
