@@ -376,10 +376,17 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   private async handleDeviceChange() {
     const { isPlaying } = this.state;
-    const { syncExternalDeviceInterval } = this.props;
+    const { syncExternalDeviceInterval, token } = this.props;
 
     try {
-      if (this.isExternalPlayer && isPlaying && !this.playerSyncInterval) {
+      let shouldSync = isPlaying;
+
+      if (this.isExternalPlayer) {
+        const player: SpotifyPlayerStatus = await getPlaybackState(token);
+        shouldSync = player.is_playing;
+      }
+
+      if (this.isExternalPlayer && shouldSync && !this.playerSyncInterval) {
         await this.syncDevice();
 
         this.playerSyncInterval = window.setInterval(
@@ -388,7 +395,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         );
       }
 
-      if ((!isPlaying || !this.isExternalPlayer) && this.playerSyncInterval) {
+      if ((!shouldSync || !this.isExternalPlayer) && this.playerSyncInterval) {
         clearInterval(this.playerSyncInterval);
         this.playerSyncInterval = undefined;
       }
