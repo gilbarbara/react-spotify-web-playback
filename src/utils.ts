@@ -80,17 +80,17 @@ export function loadScript(attributes: ScriptAttributes): Promise<any> {
 }
 
 export function validateURI(input: string): boolean {
-  let isValid = false;
+  const validTypes = ['album', 'artist', 'playlist', 'show', 'track'];
 
   /* istanbul ignore else */
   if (input && input.indexOf(':') > -1) {
     const [key, type, id] = input.split(':');
 
     /* istanbul ignore else */
-    if (key && type && type !== 'user' && id && id.length === 22) {
-      isValid = true;
+    if (key === 'spotify' && validTypes.indexOf(type) >= 0 && id.length === 22) {
+      return true;
     }
   }
 
-  return isValid;
+  return false;
 }

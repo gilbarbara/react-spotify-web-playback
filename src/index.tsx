@@ -1,4 +1,5 @@
 import * as React from 'react';
+import memoize from 'memoize-one';
 
 import {
   getDevices,
@@ -48,6 +49,45 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     name: '',
     uri: '',
   };
+  private getPlayOptions = memoize(
+    (data): PlayOptions => {
+      const playOptions: PlayOptions = {
+        context_uri: undefined,
+        uris: undefined,
+      };
+
+      /* istanbul ignore else */
+      if (data) {
+        const ids = Array.isArray(data) ? data : [data];
+
+        if (!ids.every((d) => validateURI(d))) {
+          // eslint-disable-next-line no-console
+          console.error('Invalid URI');
+
+          return playOptions;
+        }
+
+        if (ids.some((d) => getSpotifyURIType(d) === 'track')) {
+          if (!ids.every((d) => getSpotifyURIType(d) === 'track')) {
+            // eslint-disable-next-line no-console
+            console.warn("You can't mix tracks URIs with other types");
+          }
+
+          playOptions.uris = ids.filter((d) => validateURI(d) && getSpotifyURIType(d) === 'track');
+        } else {
+          if (ids.length > 1) {
+            // eslint-disable-next-line no-console
+            console.warn("Albums, Artists, Playlists and Podcasts can't have multiple URIs");
+          }
+
+          // eslint-disable-next-line prefer-destructuring
+          playOptions.context_uri = ids[0];
+        }
+      }
+
+      return playOptions;
+    },
+  );
   private hasNewToken = false;
   private player?: WebPlaybackPlayer;
   private playerProgressInterval?: number;
@@ -130,12 +170,13 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     const changedURIs = Array.isArray(uris)
       ? !isEqualArray(prevProps.uris, uris)
       : prevProps.uris !== uris;
+    const playOptions = this.getPlayOptions(uris);
 
-    const canPlay = !!currentDeviceId && !!(this.playOptions.context_uri || this.playOptions.uris);
+    const canPlay = !!currentDeviceId && !!(playOptions.context_uri || playOptions.uris);
     const shouldPlay = (changedURIs && isPlaying) || !!(isReady && (autoPlay || playProp));
 
     if (canPlay && shouldPlay) {
-      await play(token, { deviceId: currentDeviceId, offset, ...this.playOptions });
+      await play(token, { deviceId: currentDeviceId, offset, ...playOptions });
 
       /* istanbul ignore else */
       if (!isPlaying) {
@@ -242,29 +283,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     const { currentDeviceId, deviceId, status } = this.state;
 
     return (currentDeviceId && currentDeviceId !== deviceId) || status === STATUS.UNSUPPORTED;
-  }
-
-  private get playOptions(): PlayOptions {
-    const { uris } = this.props;
-
-    const response: PlayOptions = {
-      context_uri: undefined,
-      uris: undefined,
-    };
-
-    /* istanbul ignore else */
-    if (uris) {
-      const ids = Array.isArray(uris) ? uris : [uris];
-
-      if (ids.length > 1 && getSpotifyURIType(ids[0]) === 'track') {
-        response.uris = ids.filter((d) => validateURI(d) && getSpotifyURIType(d) === 'track');
-      } else {
-        // eslint-disable-next-line prefer-destructuring
-        response.context_uri = ids[0];
-      }
-    }
-
-    return response;
   }
 
   private handleChangeRange = async (position: number) => {
@@ -689,8 +707,9 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   private togglePlay = async (init = false) => {
     const { currentDeviceId, isPlaying, needsUpdate } = this.state;
-    const { offset, token } = this.props;
+    const { offset, token, uris } = this.props;
     const shouldInitialize = init || needsUpdate;
+    const playOptions = this.getPlayOptions(uris);
 
     try {
       /* istanbul ignore else */
@@ -699,7 +718,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
           await play(token, {
             deviceId: currentDeviceId,
             offset,
-            ...(shouldInitialize ? this.playOptions : undefined),
+            ...(shouldInitialize ? playOptions : undefined),
           });
         } else {
           await pause(token);
@@ -714,13 +733,13 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         const playerState = await this.player.getCurrentState();
 
         if (
-          (!playerState && !!(this.playOptions.context_uri || this.playOptions.uris)) ||
+          (!playerState && !!(playOptions.context_uri || playOptions.uris)) ||
           (shouldInitialize && playerState && playerState.paused)
         ) {
           await play(token, {
             deviceId: currentDeviceId,
             offset,
-            ...(shouldInitialize ? this.playOptions : undefined),
+            ...(shouldInitialize ? playOptions : undefined),
           });
         } else {
           await this.player.togglePlay();
