@@ -24,6 +24,7 @@ interface State {
 
 const Wrapper = styled('div')(
   {
+    'pointer-events': 'all',
     position: 'relative',
     zIndex: 20,
 
@@ -40,7 +41,7 @@ const Wrapper = styled('div')(
       fontSize: px(26),
     },
 
-    '@media (max-width: 879px)': {
+    '@media (max-width: 1023px)': {
       display: 'none',
     },
   },

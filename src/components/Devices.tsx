@@ -22,6 +22,7 @@ export interface State {
 
 const Wrapper = styled('div')(
   {
+    'pointer-events': 'all',
     position: 'relative',
     zIndex: 20,
 

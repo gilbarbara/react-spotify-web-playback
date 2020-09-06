@@ -28,22 +28,15 @@ const Wrapper = styled('div')(
     display: 'flex',
     textAlign: 'left',
 
-    '@media (max-width: 599px)': {
+    '@media (max-width: 1023px)': {
       borderBottom: '1px solid #ccc',
       display: 'none',
       width: '100%',
     },
 
     '&.rswp__active': {
-      '@media (max-width: 599px)': {
+      '@media (max-width: 1023px)': {
         display: 'flex',
-      },
-    },
-
-    p: {
-      '&:first-child': {
-        alignItems: 'center',
-        display: 'inline-flex',
       },
     },
   },
@@ -60,15 +53,28 @@ const Wrapper = styled('div')(
 
 const Title = styled('div')(
   {
+    paddingLeft: px(10),
     whiteSpace: 'nowrap',
 
     p: {
       fontSize: px(14),
       lineHeight: 1.3,
+      paddingRight: px(5),
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
       width: '100%',
+
+      '&:first-child': {
+        alignItems: 'center',
+        display: 'inline-flex',
+      },
+    },
+
+    span: {
+      display: 'inline-block',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
 
     button: {
@@ -77,7 +83,7 @@ const Title = styled('div')(
     },
   },
   ({ styles }: StyledComponentProps) => ({
-    marginLeft: px(10),
+    width: `calc(100% - ${px(styles.height)})`,
 
     p: {
       color: styles.trackNameColor,
@@ -200,7 +206,7 @@ export default class Info extends React.PureComponent<Props, State> {
 
     return (
       <Wrapper styles={styles} className={classes.join(' ')}>
-        <img src={track.image} alt={track.name} />
+        {track.image && <img src={track.image} alt={track.name} />}
         <Title styles={styles}>
           <p>
             <span>{track.name}</span>

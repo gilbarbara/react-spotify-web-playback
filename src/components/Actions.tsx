@@ -23,12 +23,13 @@ const Wrapper = styled('div')(
     display: 'flex',
     justifyContent: 'flex-end',
     paddingRight: px(10),
+    'pointer-events': 'none',
 
     '> div + div': {
       marginLeft: px(10),
     },
 
-    '@media (max-width: 599px)': {
+    '@media (max-width: 1023px)': {
       bottom: 0,
       position: 'absolute',
       right: 0,
