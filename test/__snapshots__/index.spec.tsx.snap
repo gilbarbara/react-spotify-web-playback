@@ -947,10 +947,6 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                         }
                       }
                     >
-                      <img
-                        alt=""
-                        src=""
-                      />
                       <Component
                         styles={
                           Object {
@@ -974,7 +970,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                         }
                       >
                         <div
-                          className=" __3rjnua __378pd"
+                          className=" __nnvdcq __j3ulwq"
                           styles={
                             Object {
                               "altColor": "#ccc",
@@ -2933,7 +2929,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
                         }
                       >
                         <div
-                          className=" __3rjnua __378pd"
+                          className=" __nnvdcq __j3ulwq"
                           styles={
                             Object {
                               "altColor": "#ccc",
