@@ -1,3 +1,7 @@
+type SpotifyPlayerMethod<T = void> = () => Promise<T>;
+
+export type SpotifyPlayerCallback = (token: string) => void;
+
 export interface SpotifyDevice {
   id: string;
   is_active: boolean;
@@ -119,7 +123,7 @@ export interface WebPlaybackError {
 
 export interface WebPlaybackPlayer {
   _options: {
-    getOAuthToken: () => () => void;
+    getOAuthToken: SpotifyPlayerCallback;
     name: string;
     id: string;
     volume: number;
@@ -129,22 +133,22 @@ export interface WebPlaybackPlayer {
     (event: WebPlaybackStates, callback: (d: WebPlaybackState | null) => void): boolean;
     (event: WebPlaybackStatuses, callback: (d: WebPlaybackReady) => void): boolean;
   };
-  connect: () => Promise<void>;
+  connect: SpotifyPlayerMethod;
   disconnect: () => void;
   getCurrentState: () => Promise<WebPlaybackState | null>;
-  getVolume: () => Promise<number>;
-  nextTrack: () => Promise<void>;
-  pause: () => Promise<void>;
-  previousTrack: () => Promise<void>;
+  getVolume: SpotifyPlayerMethod<number>;
+  nextTrack: SpotifyPlayerMethod;
+  pause: SpotifyPlayerMethod;
+  previousTrack: SpotifyPlayerMethod;
   removeListener: (
     event: WebPlaybackErrors | WebPlaybackStates | WebPlaybackStatuses,
     callback?: () => void,
   ) => boolean;
-  resume: () => Promise<void>;
+  resume: SpotifyPlayerMethod;
   seek: (positionMS: number) => Promise<void>;
   setName: (n: string) => Promise<void>;
   setVolume: (n: number) => Promise<void>;
-  togglePlay: () => Promise<void>;
+  togglePlay: SpotifyPlayerMethod;
 }
 
 export interface WebPlaybackReady {

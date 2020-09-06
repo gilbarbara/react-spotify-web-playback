@@ -19,6 +19,7 @@ import {
   PlayOptions,
   Props,
   SpotifyDevice,
+  SpotifyPlayerCallback,
   SpotifyPlayerStatus,
   State,
   StylesOptions,
@@ -538,7 +539,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
     // @ts-ignore
     this.player = new window.Spotify.Player({
-      getOAuthToken: (cb: (token: string) => void) => {
+      getOAuthToken: (cb: SpotifyPlayerCallback) => {
         cb(token);
       },
       name,
@@ -893,5 +894,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 }
 
 export { STATUS, TYPE };
+
+export * from './types';
 
 export default SpotifyWebPlayer;
