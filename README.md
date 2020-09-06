@@ -75,7 +75,6 @@ A list of Spotify [URIs](https://developer.spotify.com/documentation/web-api/#sp
 It needs a Spotify token with the following scopes:
 
 - streaming
-- user-read-birthdate
 - user-read-email
 - user-read-private
 - user-read-playback-state (to read other devices' status)
