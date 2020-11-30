@@ -1,6 +1,5 @@
 import * as React from 'react';
-import RangeSlider from '@gilbarbara/react-range-slider';
-import { IRangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
+import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 import { px, styled } from '../styles';
 
 import { StylesOptions, StyledComponentProps } from '../types/common';
@@ -83,7 +82,7 @@ export default class Volume extends React.PureComponent<Props, State> {
     this.setState((state) => ({ isOpen: !state.isOpen }));
   };
 
-  private handleChangeSlider = ({ y }: IRangeSliderPosition) => {
+  private handleChangeSlider = ({ y }: RangeSliderPosition) => {
     const { setVolume } = this.props;
     const volume = Math.round(y) / 100;
 
@@ -96,8 +95,10 @@ export default class Volume extends React.PureComponent<Props, State> {
     this.setState({ volume });
   };
 
-  private handleDragEndSlider = () => {
-    this.setState({ isOpen: false });
+  private handleAfterEnd = () => {
+    setTimeout(() => {
+      this.setState({ isOpen: false });
+    }, 100);
   };
 
   public render() {
@@ -117,22 +118,21 @@ export default class Volume extends React.PureComponent<Props, State> {
           <ClickOutside onClick={this.handleClick}>
             <RangeSlider
               axis="y"
-              classNamePrefix="rrs"
+              className="rrs"
               styles={{
                 options: {
-                  handleBorder: `2px solid ${styles.color}`,
-                  handleBorderRadius: 12,
-                  handleColor: styles.bgColor,
-                  handleSize: 12,
+                  thumbBorder: `2px solid ${styles.color}`,
+                  thumbBorderRadius: 12,
+                  thumbColor: styles.bgColor,
+                  thumbSize: 12,
                   padding: 0,
                   rangeColor: styles.altColor || '#ccc',
                   trackColor: styles.color,
                   width: 6,
                 },
               }}
-              onClick={this.handleClick}
+              onAfterEnd={this.handleAfterEnd}
               onChange={this.handleChangeSlider}
-              onDragEnd={this.handleDragEndSlider}
               y={volume * 100}
               yMin={0}
               yMax={100}

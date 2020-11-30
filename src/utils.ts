@@ -52,7 +52,7 @@ export function loadScript(attributes: ScriptAttributes): Promise<any> {
     throw new Error('Invalid attributes');
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     const { async, defer, id, source }: ScriptAttributes = {
       async: false,
       defer: false,
@@ -69,7 +69,7 @@ export function loadScript(attributes: ScriptAttributes): Promise<any> {
       script.async = async;
       script.defer = defer;
       script.src = source;
-      script.onload = () => resolve(undefined);
+      script.onload = () => resolve();
       script.onerror = (error: any) => reject(new Error(`createScript: ${error.message}`));
 
       document.head.appendChild(script);

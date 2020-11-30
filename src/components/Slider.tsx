@@ -1,6 +1,5 @@
 import * as React from 'react';
-import RangeSlider from '@gilbarbara/react-range-slider';
-import { IRangeSliderPosition } from '@gilbarbara/react-range-slider/lib/types';
+import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 import { px, styled } from '../styles';
 
 import { StyledComponentProps, StylesOptions } from '../types/common';
@@ -27,7 +26,7 @@ const Wrapper = styled('div')(
 );
 
 export default class Slider extends React.PureComponent<Props> {
-  private handleChangeRange = async ({ x }: IRangeSliderPosition) => {
+  private handleChangeRange = async ({ x }: RangeSliderPosition) => {
     const { onChangeRange } = this.props;
 
     onChangeRange(x);
@@ -48,10 +47,10 @@ export default class Slider extends React.PureComponent<Props> {
           onChange={this.handleChangeRange}
           styles={{
             options: {
-              handleBorder: 0,
-              handleBorderRadius: styles.sliderHandleBorderRadius,
-              handleColor: styles.sliderHandleColor,
-              handleSize: isMagnified ? handleSize + 4 : handleSize,
+              thumbBorder: 0,
+              thumbBorderRadius: styles.sliderHandleBorderRadius,
+              thumbColor: styles.sliderHandleColor,
+              thumbSize: isMagnified ? handleSize + 4 : handleSize,
               height: isMagnified ? styles.sliderHeight! + 4 : styles.sliderHeight,
               padding: 0,
               rangeColor: styles.sliderColor,

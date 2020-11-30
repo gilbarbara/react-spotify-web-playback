@@ -104,6 +104,16 @@ describe('SpotifyWebPlayer', () => {
     fetchMock.put('*', 204);
     fetchMock.post('*', 204);
     fetchMock.put('https://api.spotify.com/v1/me/tracks', 200);
+
+    // @ts-ignore
+    Element.prototype.getBoundingClientRect = () => ({
+      bottom: 50,
+      height: 50,
+      left: 900,
+      right: 0,
+      top: 0,
+      width: 6,
+    });
   });
 
   describe('Error listeners', () => {
@@ -137,7 +147,7 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper.state().errorType).toBe('authentication_error');
       expect(mockDisconnect).toHaveBeenCalledTimes(1);
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.html()).toMatchSnapshot();
     });
 
     it('should handle token updates', async () => {
@@ -165,7 +175,7 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper.state().errorType).toBe('account_error');
       expect(mockDisconnect).toHaveBeenCalledTimes(2);
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.html()).toMatchSnapshot();
     });
 
     it('should handle `playback_error`', async () => {
@@ -182,7 +192,7 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper.state().error).toBe('Failed to perform playback');
       expect(wrapper.state().errorType).toBe('playback_error');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.html()).toMatchSnapshot();
     });
 
     it('should handle `initialization_error`', async () => {
@@ -200,7 +210,7 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper.state().errorType).toBe('initialization_error');
       expect(mockDisconnect).toHaveBeenCalledTimes(3);
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.html()).toMatchSnapshot();
     });
   });
 
@@ -261,15 +271,6 @@ describe('SpotifyWebPlayer', () => {
 
     beforeAll(() => {
       fetchMock.resetHistory();
-      // @ts-ignore
-      Element.prototype.getBoundingClientRect = jest.fn(() => ({
-        bottom: 50,
-        height: 50,
-        left: 900,
-        right: 0,
-        top: 0,
-        width: 6,
-      }));
 
       wrapper = setup({ autoPlay: true, showSaveIcon: true });
     });
@@ -284,7 +285,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should render a loader while initializing', () => {
       expect(wrapper.state('isInitializing')).toBeTrue();
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.html()).toMatchSnapshot();
     });
 
     it('should render the full UI', async () => {
@@ -297,7 +298,7 @@ describe('SpotifyWebPlayer', () => {
       wrapper.update();
 
       expect(wrapper.state('isInitializing')).toBeFalse();
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.html()).toMatchSnapshot();
     });
 
     it('should handle Volume changes', async () => {
@@ -380,15 +381,6 @@ describe('SpotifyWebPlayer', () => {
 
     beforeAll(async () => {
       fetchMock.resetHistory();
-      // @ts-ignore
-      Element.prototype.getBoundingClientRect = jest.fn(() => ({
-        bottom: 50,
-        height: 50,
-        left: 900,
-        right: 0,
-        top: 0,
-        width: 6,
-      }));
 
       wrapper = setup({
         persistDeviceSelection: true,
@@ -502,15 +494,6 @@ describe('SpotifyWebPlayer', () => {
 
     beforeAll(async () => {
       fetchMock.resetHistory();
-      // @ts-ignore
-      Element.prototype.getBoundingClientRect = jest.fn(() => ({
-        bottom: 50,
-        height: 50,
-        left: 900,
-        right: 0,
-        top: 0,
-        width: 6,
-      }));
 
       playerStatusResponse = {
         ...playerStatus,
