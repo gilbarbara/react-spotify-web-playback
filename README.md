@@ -33,6 +33,9 @@ Start the player immediately.
 **callback**: `(state) => any`  
 Get status updates from the player. Check `CallbackState` in the [types](src/types/common.ts) for the `state` structure.
 
+**initialVolume** `number` between 0 and 1. _default 1_  
+The initial volume for the player. It's not used for external devices.
+
 **magnifySliderOnHover**: `boolean`  
 Magnify the player's slider on hover.
 

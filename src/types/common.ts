@@ -8,6 +8,7 @@ export interface CallbackState extends State {
 export interface Props {
   autoPlay?: boolean;
   callback?: (state: CallbackState) => any;
+  initialVolume?: number;
   magnifySliderOnHover?: boolean;
   name?: string;
   offset?: number;

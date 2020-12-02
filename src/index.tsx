@@ -13,7 +13,16 @@ import {
   setVolume,
 } from './spotify';
 import { getMergedStyles } from './styles';
-import { getSpotifyURIType, isEqualArray, loadScript, validateURI, STATUS, TYPE } from './utils';
+import {
+  getSpotifyURIType,
+  isEqualArray,
+  loadScript,
+  parseVolume,
+  round,
+  validateURI,
+  STATUS,
+  TYPE,
+} from './utils';
 
 import {
   PlayOptions,
@@ -119,7 +128,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       progressMs: 0,
       status: STATUS.IDLE,
       track: this.emptyTrack,
-      volume: 1,
+      volume: parseVolume(props.initialVolume) || 1,
     };
 
     this.styles = getMergedStyles(props.styles);
@@ -487,7 +496,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
           isActive: true,
           isPlaying,
           progressMs: position,
-          volume,
+          volume: round(volume),
           ...trackState,
         });
       } else if (this.isExternalPlayer) {
@@ -556,6 +565,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   }
 
   private initializePlayer = () => {
+    const { volume } = this.state;
     const { name, token } = this.props;
 
     this.updateState({ isInitializing: true });
@@ -566,6 +576,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         cb(token);
       },
       name,
+      volume,
     }) as WebPlaybackPlayer;
 
     this.player.addListener('ready', this.handlePlayerStatus);
@@ -651,7 +662,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         progressMs: player.item ? player.progress_ms : 0,
         status: STATUS.READY,
         track,
-        volume: player.device.volume_percent / 100,
+        volume: parseVolume(player.device.volume_percent),
       });
     } catch (error) {
       const state = {
