@@ -260,7 +260,7 @@ describe('SpotifyWebPlayer', () => {
         jest.runOnlyPendingTimers();
       });
 
-      expect(wrapper.state('position')).toBe(79.1);
+      expect(wrapper.state('position')).toBe(0);
       expect(wrapper.state('isPlaying')).toBeTrue();
       expect(wrapper.state('isActive')).toBeTrue();
     });

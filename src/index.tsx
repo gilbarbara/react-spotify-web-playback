@@ -116,6 +116,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       nextTracks: [],
       position: 0,
       previousTracks: [],
+      progressMs: 0,
       status: STATUS.IDLE,
       track: this.emptyTrack,
       volume: 1,
@@ -445,8 +446,17 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     try {
       /* istanbul ignore else */
       if (state) {
-        const isPlaying = !state.paused;
-        const { album, artists, duration_ms, id, name, uri } = state.track_window.current_track;
+        const {
+          paused,
+          position,
+          track_window: {
+            current_track: { album, artists, duration_ms, id, name, uri },
+            next_tracks,
+            previous_tracks,
+          },
+        } = state;
+
+        const isPlaying = !paused;
         const volume = await this.player!.getVolume();
         const track = {
           artists: artists.map((d) => d.name).join(', '),
@@ -456,16 +466,25 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
           name,
           uri,
         };
+        let trackState;
+
+        if (position === 0) {
+          trackState = {
+            nextTracks: next_tracks,
+            position: 0,
+            previousTracks: previous_tracks,
+            track,
+          };
+        }
 
         this.updateState({
           error: '',
           errorType: '',
           isActive: true,
           isPlaying,
-          nextTracks: state.track_window.next_tracks,
-          previousTracks: state.track_window.previous_tracks,
-          track,
+          progressMs: position,
           volume,
+          ...trackState,
         });
       } else if (this.isExternalPlayer) {
         await this.syncDevice();
@@ -766,21 +785,27 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     try {
       /* istanbul ignore else */
       if (this.isExternalPlayer) {
-        let position = progressMs! / track.durationMs;
-        position = Number.isFinite(position) ? position : 0;
+        let position = progressMs / track.durationMs;
+        position = Number(((Number.isFinite(position) ? position : 0) * 100).toFixed(1));
 
         this.updateState({
-          position: Number((position * 100).toFixed(1)),
-          progressMs: progressMs! + this.seekUpdateInterval,
+          position,
+          progressMs: progressMs + this.seekUpdateInterval,
         });
       } else if (this.player) {
         const state = (await this.player.getCurrentState()) as WebPlaybackState;
 
         /* istanbul ignore else */
         if (state) {
-          const position = state.position / state.track_window.current_track.duration_ms;
+          const progress = state.position;
+          const position = Number(
+            ((progress / state.track_window.current_track.duration_ms) * 100).toFixed(1),
+          );
 
-          this.updateState({ position: Number((position * 100).toFixed(1)) });
+          this.updateState({
+            position,
+            progressMs: progress + this.seekUpdateInterval,
+          });
         }
       }
     } catch (error) {
