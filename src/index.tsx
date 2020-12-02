@@ -16,7 +16,7 @@ import { getMergedStyles } from './styles';
 import {
   getSpotifyURIType,
   isEqualArray,
-  loadScript,
+  loadSpotifyPlayer,
   parseVolume,
   round,
   validateURI,
@@ -150,11 +150,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     // @ts-ignore
     window.onSpotifyWebPlaybackSDKReady = this.initializePlayer;
 
-    await loadScript({
-      defer: true,
-      id: 'spotify-player',
-      source: 'https://sdk.scdn.co/spotify-player.js',
-    });
+    await loadSpotifyPlayer();
   }
 
   public async componentDidUpdate(prevProps: Props, prevState: State) {
@@ -270,6 +266,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       if (syncExternalDevice && !uris) {
         const player: SpotifyPlayerStatus = await getPlaybackState(token);
 
+        /* istanbul ignore else */
         if (player && player.is_playing && player.device.id !== deviceId) {
           this.setExternalDevice(player.device.id);
         }
@@ -385,6 +382,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     try {
       await setDevice(token, deviceId);
 
+      /* istanbul ignore else */
       if (persistDeviceSelection) {
         sessionStorage.setItem('rswpDeviceId', deviceId);
       }
@@ -411,6 +409,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
     this.updateState({ isSaved: status });
 
+    /* istanbul ignore else */
     if (isSaved !== status) {
       callback!({
         ...{
@@ -554,6 +553,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     if (persistDeviceSelection) {
       const savedDeviceId = sessionStorage.getItem('rswpDeviceId');
 
+      /* istanbul ignore else */
       if (!savedDeviceId || !devices.find((d: SpotifyDevice) => d.id === savedDeviceId)) {
         sessionStorage.setItem('rswpDeviceId', currentDeviceId);
       } else {
@@ -717,6 +717,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   private toggleProgressBar() {
     const { isPlaying } = this.state;
 
+    /* istanbul ignore else */
     if (isPlaying) {
       /* istanbul ignore else */
       if (!this.playerProgressInterval) {

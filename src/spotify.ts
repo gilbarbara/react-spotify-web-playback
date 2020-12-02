@@ -58,6 +58,7 @@ export async function play(
     const isArtist = context_uri.indexOf('artist') >= 0;
     let position;
 
+    /* istanbul ignore else */
     if (!isArtist) {
       position = { position: offset };
     }
