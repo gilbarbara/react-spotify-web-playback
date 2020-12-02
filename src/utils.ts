@@ -48,6 +48,10 @@ export function isEqualArray(A?: any, B?: any) {
   return result;
 }
 
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}
+
 export function loadScript(attributes: ScriptAttributes): Promise<any> {
   if (!attributes || !attributes.source) {
     throw new Error('Invalid attributes');
@@ -78,6 +82,26 @@ export function loadScript(attributes: ScriptAttributes): Promise<any> {
       resolve();
     }
   });
+}
+
+export function parseVolume(value?: unknown): number {
+  if (!isNumber(value)) {
+    return 1;
+  }
+
+  if (value > 1) {
+    return value / 100;
+  }
+
+  return value;
+}
+
+/**
+ * Round decimal numbers
+ */
+export function round(number: number, digits = 2) {
+  const factor = 10 ** digits;
+  return Math.round(number * factor) / factor;
 }
 
 export function validateURI(input: string): boolean {
