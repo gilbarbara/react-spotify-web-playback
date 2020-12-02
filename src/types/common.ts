@@ -38,7 +38,7 @@ export interface State {
   nextTracks: WebPlaybackTrack[];
   position: number;
   previousTracks: WebPlaybackTrack[];
-  progressMs?: number;
+  progressMs: number;
   status: string;
   track: SpotifyPlayerTrack;
   volume: number;

@@ -58,7 +58,7 @@ export const playerState = {
   },
   duration: 151626,
   paused: true,
-  position: 120000,
+  position: 0,
   repeat_mode: 0,
   restrictions: {
     disallow_resuming_reasons: ['not_paused'],
