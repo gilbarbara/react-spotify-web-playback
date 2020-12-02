@@ -295,28 +295,41 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   private handleChangeRange = async (position: number) => {
     const { track } = this.state;
-    const { token } = this.props;
+    const { callback, token } = this.props;
+    let progress = 0;
 
     try {
       const percentage = position / 100;
 
       if (this.isExternalPlayer) {
-        await seek(token, Math.round(track.durationMs * percentage));
+        progress = Math.round(track.durationMs * percentage);
+        await seek(token, progress);
 
         this.updateState({
           position,
-          progressMs: Math.round(track.durationMs * percentage),
+          progressMs: progress,
         });
       } else if (this.player) {
         const state = (await this.player.getCurrentState()) as WebPlaybackState;
 
         if (state) {
-          await this.player.seek(
-            Math.round(state.track_window.current_track.duration_ms * percentage),
-          );
+          progress = Math.round(state.track_window.current_track.duration_ms * percentage);
+          await this.player.seek(progress);
+
+          this.updateState({
+            position,
+            progressMs: progress,
+          });
         } else {
           this.updateState({ position: 0 });
         }
+      }
+
+      if (callback) {
+        callback({
+          ...this.state,
+          type: TYPE.PROGRESS,
+        });
       }
     } catch (error) {
       // eslint-disable-next-line no-console
