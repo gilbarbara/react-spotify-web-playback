@@ -20,6 +20,7 @@ export const STATUS = {
 
 export const TYPE = {
   DEVICE: 'device_update',
+  FAVORITE: 'favorite_update',
   PLAYER: 'player_update',
   STATUS: 'status_update',
   TRACK: 'track_update',

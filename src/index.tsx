@@ -396,17 +396,21 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
   };
 
-  private handleFavoriteStatusChange = (isSaved: boolean) => {
+  private handleFavoriteStatusChange = (status: boolean) => {
+    const { isSaved } = this.state;
     const { callback } = this.props;
 
-    this.updateState({ isSaved });
-    callback!({
-      ...{
-        ...this.state,
-        isSaved,
-      },
-      type: TYPE.TRACK,
-    });
+    this.updateState({ isSaved: status });
+
+    if (isSaved !== status) {
+      callback!({
+        ...{
+          ...this.state,
+          isSaved: status,
+        },
+        type: TYPE.FAVORITE,
+      });
+    }
   };
 
   private handlePlayerErrors = async (type: string, message: string) => {
@@ -856,9 +860,9 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       if (!info) {
         info = (
           <Info
-            handleFavoriteStatusChange={this.handleFavoriteStatusChange}
-            showSaveIcon={showSaveIcon!}
             isActive={isActive}
+            onFavoriteStatusChange={this.handleFavoriteStatusChange}
+            showSaveIcon={showSaveIcon!}
             styles={this.styles}
             token={token}
             track={track}
