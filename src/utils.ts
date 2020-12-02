@@ -1,12 +1,5 @@
 import { canUseDOM as canUseDOMBool } from 'exenv';
 
-interface ScriptAttributes {
-  async?: boolean;
-  defer?: boolean;
-  id?: string;
-  source: string;
-}
-
 export const canUseDOM = () => canUseDOMBool;
 
 export const STATUS = {
@@ -52,30 +45,20 @@ export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
 }
 
-export function loadScript(attributes: ScriptAttributes): Promise<any> {
-  if (!attributes || !attributes.source) {
-    throw new Error('Invalid attributes');
-  }
-
+export function loadSpotifyPlayer(): Promise<any> {
   return new Promise<void>((resolve, reject) => {
-    const { async, defer, id, source }: ScriptAttributes = {
-      async: false,
-      defer: false,
-      ...attributes,
-    };
-
     const scriptTag = document.getElementById('spotify-player');
 
     if (!scriptTag) {
       const script = document.createElement('script');
 
-      script.id = id || '';
+      script.id = 'spotify-player';
       script.type = 'text/javascript';
-      script.async = async;
-      script.defer = defer;
-      script.src = source;
+      script.async = false;
+      script.defer = true;
+      script.src = 'https://sdk.scdn.co/spotify-player.js';
       script.onload = () => resolve();
-      script.onerror = (error: any) => reject(new Error(`createScript: ${error.message}`));
+      script.onerror = (error: any) => reject(new Error(`loadScript: ${error.message}`));
 
       document.head.appendChild(script);
     } else {

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`STATUS should have all options 1`] = `
+Object {
+  "ERROR": "ERROR",
+  "IDLE": "IDLE",
+  "INITIALIZING": "INITIALIZING",
+  "READY": "READY",
+  "RUNNING": "RUNNING",
+  "UNSUPPORTED": "UNSUPPORTED",
+}
+`;
+
+exports[`TYPE should have all options 1`] = `
+Object {
+  "DEVICE": "device_update",
+  "FAVORITE": "favorite_update",
+  "PLAYER": "player_update",
+  "STATUS": "status_update",
+  "TRACK": "track_update",
+}
+`;
