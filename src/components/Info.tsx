@@ -9,7 +9,7 @@ import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
 
 interface Props {
-  handleFavoriteStatusChange: (status: boolean) => any;
+  onFavoriteStatusChange: (status: boolean) => any;
   isActive: boolean;
   showSaveIcon: boolean;
   track: SpotifyPlayerTrack;
@@ -140,7 +140,7 @@ export default class Info extends React.PureComponent<Props, State> {
 
   private handleClickIcon = async () => {
     const { isSaved } = this.state;
-    const { handleFavoriteStatusChange, token, track } = this.props;
+    const { onFavoriteStatusChange, token, track } = this.props;
 
     if (isSaved) {
       await removeTracks(token, track.id);
@@ -150,7 +150,7 @@ export default class Info extends React.PureComponent<Props, State> {
       this.updateState({ isSaved: true });
     }
 
-    handleFavoriteStatusChange(!isSaved);
+    onFavoriteStatusChange(!isSaved);
   };
 
   private setStatus = async () => {
@@ -158,7 +158,7 @@ export default class Info extends React.PureComponent<Props, State> {
       return;
     }
 
-    const { handleFavoriteStatusChange, token, track, updateSavedStatus } = this.props;
+    const { onFavoriteStatusChange, token, track, updateSavedStatus } = this.props;
 
     if (updateSavedStatus && track.id) {
       updateSavedStatus((newStatus: boolean) => {
@@ -170,7 +170,7 @@ export default class Info extends React.PureComponent<Props, State> {
     const [isSaved] = status || [false];
 
     this.updateState({ isSaved });
-    handleFavoriteStatusChange(isSaved);
+    onFavoriteStatusChange(isSaved);
   };
 
   private updateState = (state = {}) => {
