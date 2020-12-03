@@ -2,7 +2,7 @@ import * as React from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 import { px, styled } from '../styles';
 
-import { StylesOptions, StyledComponentProps } from '../types/common';
+import { StylesOptions, StyledProps } from '../types/common';
 
 import ClickOutside from './ClickOutside';
 
@@ -44,13 +44,13 @@ const Wrapper = styled('div')(
       display: 'none',
     },
   },
-  ({ styles }: StyledComponentProps) => ({
+  ({ style }: StyledProps) => ({
     '> button': {
-      color: styles.color,
+      color: style.c,
     },
     '> div': {
-      backgroundColor: styles.bgColor,
-      boxShadow: styles.altColor ? `1px 1px 10px ${styles.altColor}` : 'none',
+      backgroundColor: style.bgColor,
+      boxShadow: style.altColor ? `1px 1px 10px ${style.altColor}` : 'none',
     },
   }),
   'VolumeRSWP',
@@ -103,7 +103,9 @@ export default class Volume extends React.PureComponent<Props, State> {
 
   public render() {
     const { isOpen, volume } = this.state;
-    const { styles } = this.props;
+    const {
+      styles: { altColor, bgColor, color },
+    } = this.props;
     let icon = <VolumeHigh />;
 
     if (volume === 0) {
@@ -113,7 +115,7 @@ export default class Volume extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Wrapper styles={styles}>
+      <Wrapper style={{ altColor, bgColor, c: color }}>
         {isOpen && (
           <ClickOutside onClick={this.handleClick}>
             <RangeSlider
@@ -121,13 +123,13 @@ export default class Volume extends React.PureComponent<Props, State> {
               className="rrs"
               styles={{
                 options: {
-                  thumbBorder: `2px solid ${styles.color}`,
+                  thumbBorder: `2px solid ${color}`,
                   thumbBorderRadius: 12,
-                  thumbColor: styles.bgColor,
+                  thumbColor: bgColor,
                   thumbSize: 12,
                   padding: 0,
-                  rangeColor: styles.altColor || '#ccc',
-                  trackColor: styles.color,
+                  rangeColor: altColor || '#ccc',
+                  trackColor: color,
                   width: 6,
                 },
               }}

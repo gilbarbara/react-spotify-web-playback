@@ -2,7 +2,7 @@ import * as React from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 import { px, styled } from '../styles';
 
-import { StyledComponentProps, StylesOptions } from '../types/common';
+import { StyledProps, StylesOptions } from '../types/common';
 
 interface Props {
   isMagnified: boolean;
@@ -19,8 +19,8 @@ const Wrapper = styled('div')(
     transition: 'height 0.3s',
     zIndex: 10,
   },
-  ({ styles }: StyledComponentProps) => ({
-    height: px(styles.sliderHeight),
+  ({ style }: StyledProps) => ({
+    height: px(style.sliderHeight),
   }),
   'SliderRSWP',
 );
@@ -34,14 +34,14 @@ export default class Slider extends React.PureComponent<Props> {
 
   public render() {
     const { isMagnified, onToggleMagnify, position, styles } = this.props;
-    const nextStyles = {
-      ...styles,
-      sliderHeight: isMagnified ? styles.sliderHeight! + 4 : styles.sliderHeight,
-    };
     const handleSize = styles.sliderHeight + 6;
 
     return (
-      <Wrapper onMouseEnter={onToggleMagnify} onMouseLeave={onToggleMagnify} styles={nextStyles}>
+      <Wrapper
+        onMouseEnter={onToggleMagnify}
+        onMouseLeave={onToggleMagnify}
+        style={{ sliderHeight: isMagnified ? styles.sliderHeight! + 4 : styles.sliderHeight }}
+      >
         <RangeSlider
           axis="x"
           onChange={this.handleChangeRange}

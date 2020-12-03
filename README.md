@@ -100,18 +100,18 @@ You can customize the UI with a `styles` prop. Check all the available options [
 <SpotifyWebPlayer
   ...
   styles={{
+    activeColor: '#fff',
     bgColor: '#333',
     color: '#fff',
     loaderColor: '#fff',
     sliderColor: '#1cb954',
-    savedColor: '#fff',
     trackArtistColor: '#ccc',
     trackNameColor: '#fff',
   }}
 />
 ```
 
-![rswp-styles](https://gilbarbara.com/files/rswp-styles.png)
+![rswp-styles](https://gilbarbara.com/files/rswp-styles-e4060ddf.png)
 
 ## Issues
 

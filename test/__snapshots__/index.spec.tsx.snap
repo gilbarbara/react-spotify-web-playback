@@ -1,15 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = `
-<div styles="[object Object]"
-     class=" _PlayerRSWP __1v1a1mw"
->
-  <div styles="[object Object]"
-       class=" _ContentRSWP __1xc0f9k"
-  >
-    <p styles="[object Object]"
-       class=" _ErrorRSWP __1c3vtun"
-    >
+<div class=" _PlayerRSWP __1v1a1mw">
+  <div class=" _ContentRSWP __1xc0f9k">
+    <p class=" _ErrorRSWP __1c3vtun">
       Spotify Web Player: Failed to validate Spotify account
     </p>
   </div>
@@ -17,15 +11,9 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
 `;
 
 exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\` 1`] = `
-<div styles="[object Object]"
-     class=" _PlayerRSWP __1v1a1mw"
->
-  <div styles="[object Object]"
-       class=" _ContentRSWP __1xc0f9k"
-  >
-    <p styles="[object Object]"
-       class=" _ErrorRSWP __1c3vtun"
-    >
+<div class=" _PlayerRSWP __1v1a1mw">
+  <div class=" _ContentRSWP __1xc0f9k">
+    <p class=" _ErrorRSWP __1c3vtun">
       Spotify Web Player: Failed to authenticate
     </p>
   </div>
@@ -33,12 +21,8 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
 `;
 
 exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\` 1`] = `
-<div styles="[object Object]"
-     class=" _PlayerRSWP __1v1a1mw"
->
-  <div styles="[object Object]"
-       class=" _SliderRSWP __181lube"
-  >
+<div class=" _PlayerRSWP __1v1a1mw">
+  <div class=" _SliderRSWP __181lube">
     <div style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;">
       <div style="background-color: rgb(204, 204, 204); border-radius: 0; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
            role="presentation"
@@ -62,16 +46,10 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
       </div>
     </div>
   </div>
-  <div styles="[object Object]"
-       class=" _ContentRSWP __1xc0f9k"
-  >
+  <div class=" _ContentRSWP __1xc0f9k">
     <div>
-      <div styles="[object Object]"
-           class=" _InfoRSWP __mvqn38"
-      >
-        <div styles="[object Object]"
-             class=" __nnvdcq __j3ulwq"
-        >
+      <div class=" _InfoRSWP __mvqn38">
+        <div class=" __nnvdcq __j3ulwq">
           <p>
             <span>
             </span>
@@ -81,9 +59,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         </div>
       </div>
     </div>
-    <div styles="[object Object]"
-         class=" _ControlsRSWP __1g1kf0v"
-    >
+    <div class=" _ControlsRSWP __1g1kf0v">
       <div>
         <button type="button"
                 aria-label="Previous Track"
@@ -134,12 +110,8 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         </button>
       </div>
     </div>
-    <div styles="[object Object]"
-         class=" _ActionsRSWP __hrnxs2"
-    >
-      <div styles="[object Object]"
-           class=" _DevicesRSWP __1asngec"
-      >
+    <div class=" _ActionsRSWP __hrnxs2">
+      <div class=" _DevicesRSWP __1asngec">
         <div>
           <button data-id="df17372ghs982js892js"
                   type="button"
@@ -166,15 +138,9 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
 `;
 
 exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] = `
-<div styles="[object Object]"
-     class=" _PlayerRSWP __1v1a1mw"
->
-  <div styles="[object Object]"
-       class=" _ContentRSWP __1xc0f9k"
-  >
-    <p styles="[object Object]"
-       class=" _ErrorRSWP __1c3vtun"
-    >
+<div class=" _PlayerRSWP __1v1a1mw">
+  <div class=" _ContentRSWP __1xc0f9k">
+    <p class=" _ErrorRSWP __1c3vtun">
       Spotify Web Player: Failed to perform playback
     </p>
   </div>
@@ -302,15 +268,9 @@ Array [
 `;
 
 exports[`SpotifyWebPlayer With the local player should render a loader while initializing 1`] = `
-<div styles="[object Object]"
-     class=" _PlayerRSWP __1v1a1mw"
->
-  <div styles="[object Object]"
-       class=" _ContentRSWP __1xc0f9k"
-  >
-    <div styles="[object Object]"
-         class=" _LoaderRSWP __xl1qxn"
-    >
+<div class=" _PlayerRSWP __1v1a1mw">
+  <div class=" _ContentRSWP __1xc0f9k">
+    <div class=" _LoaderRSWP __xl1qxn">
       <div>
       </div>
     </div>
@@ -319,12 +279,8 @@ exports[`SpotifyWebPlayer With the local player should render a loader while ini
 `;
 
 exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = `
-<div styles="[object Object]"
-     class=" _PlayerRSWP __1v1a1mw"
->
-  <div styles="[object Object]"
-       class=" _SliderRSWP __181lube"
-  >
+<div class=" _PlayerRSWP __1v1a1mw">
+  <div class=" _SliderRSWP __181lube">
     <div style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;">
       <div style="background-color: rgb(204, 204, 204); border-radius: 0; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
            role="presentation"
@@ -348,19 +304,13 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
       </div>
     </div>
   </div>
-  <div styles="[object Object]"
-       class=" _ContentRSWP __1xc0f9k"
-  >
+  <div class=" _ContentRSWP __1xc0f9k">
     <div>
-      <div styles="[object Object]"
-           class="rswp__active _InfoRSWP __mvqn38"
-      >
+      <div class="rswp__active _InfoRSWP __mvqn38">
         <img src="https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3"
              alt="Main Theme From Trouble Man"
         >
-        <div styles="[object Object]"
-             class=" __nnvdcq __j3ulwq"
-        >
+        <div class=" __nnvdcq __j3ulwq">
           <p>
             <span>
               Main Theme From Trouble Man
@@ -386,9 +336,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         </div>
       </div>
     </div>
-    <div styles="[object Object]"
-         class=" _ControlsRSWP __1g1kf0v"
-    >
+    <div class=" _ControlsRSWP __1g1kf0v">
       <div>
         <button type="button"
                 aria-label="Previous Track"
@@ -439,12 +387,8 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         </button>
       </div>
     </div>
-    <div styles="[object Object]"
-         class=" _ActionsRSWP __hrnxs2"
-    >
-      <div styles="[object Object]"
-           class=" _VolumeRSWP __uxt179"
-      >
+    <div class=" _ActionsRSWP __hrnxs2">
+      <div class=" _VolumeRSWP __uxt179">
         <button type="button">
           <svg width="1em"
                height="1em"
@@ -458,9 +402,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           </svg>
         </button>
       </div>
-      <div styles="[object Object]"
-           class=" _DevicesRSWP __1asngec"
-      >
+      <div class=" _DevicesRSWP __1asngec">
         <button type="button">
           <svg width="1em"
                height="1em"
