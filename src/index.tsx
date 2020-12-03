@@ -154,8 +154,11 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       status: STATUS.INITIALIZING,
     });
 
-    // @ts-ignore
-    window.onSpotifyWebPlaybackSDKReady = this.initializePlayer;
+    if (!window.onSpotifyWebPlaybackSDKReady) {
+      window.onSpotifyWebPlaybackSDKReady = this.initializePlayer;
+    } else {
+      this.initializePlayer();
+    }
 
     await loadSpotifyPlayer();
   }
