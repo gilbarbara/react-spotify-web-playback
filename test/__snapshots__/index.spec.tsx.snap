@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = `
-<div class=" _PlayerRSWP __1v1a1mw">
+<div class="PlayerRSWP"
+     style="background-color: rgb(255, 255, 255); min-height: 48px;"
+>
   <div class=" _ContentRSWP __1xc0f9k">
     <p class=" _ErrorRSWP __1c3vtun">
       Spotify Web Player: Failed to validate Spotify account
@@ -11,7 +13,9 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
 `;
 
 exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\` 1`] = `
-<div class=" _PlayerRSWP __1v1a1mw">
+<div class="PlayerRSWP"
+     style="background-color: rgb(255, 255, 255); min-height: 48px;"
+>
   <div class=" _ContentRSWP __1xc0f9k">
     <p class=" _ErrorRSWP __1c3vtun">
       Spotify Web Player: Failed to authenticate
@@ -21,7 +25,9 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
 `;
 
 exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\` 1`] = `
-<div class=" _PlayerRSWP __1v1a1mw">
+<div class="PlayerRSWP"
+     style="background-color: rgb(255, 255, 255); min-height: 48px;"
+>
   <div class=" _SliderRSWP __181lube">
     <div style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;">
       <div style="background-color: rgb(204, 204, 204); border-radius: 0; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
@@ -111,7 +117,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
       </div>
     </div>
     <div class=" _ActionsRSWP __hrnxs2">
-      <div class=" _DevicesRSWP __1asngec">
+      <div class=" _DevicesRSWP __omb1nz">
         <div>
           <button data-id="df17372ghs982js892js"
                   type="button"
@@ -138,7 +144,9 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
 `;
 
 exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] = `
-<div class=" _PlayerRSWP __1v1a1mw">
+<div class="PlayerRSWP"
+     style="background-color: rgb(255, 255, 255); min-height: 48px;"
+>
   <div class=" _ContentRSWP __1xc0f9k">
     <p class=" _ErrorRSWP __1c3vtun">
       Spotify Web Player: Failed to perform playback
@@ -268,7 +276,9 @@ Array [
 `;
 
 exports[`SpotifyWebPlayer With the local player should render a loader while initializing 1`] = `
-<div class=" _PlayerRSWP __1v1a1mw">
+<div class="PlayerRSWP"
+     style="background-color: rgb(255, 255, 255); min-height: 48px;"
+>
   <div class=" _ContentRSWP __1xc0f9k">
     <div class=" _LoaderRSWP __xl1qxn">
       <div>
@@ -279,7 +289,9 @@ exports[`SpotifyWebPlayer With the local player should render a loader while ini
 `;
 
 exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = `
-<div class=" _PlayerRSWP __1v1a1mw">
+<div class="PlayerRSWP"
+     style="background-color: rgb(255, 255, 255); min-height: 48px;"
+>
   <div class=" _SliderRSWP __181lube">
     <div style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;">
       <div style="background-color: rgb(204, 204, 204); border-radius: 0; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
@@ -388,7 +400,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
       </div>
     </div>
     <div class=" _ActionsRSWP __hrnxs2">
-      <div class=" _VolumeRSWP __uxt179">
+      <div class=" _VolumeRSWP __23rxcu">
         <button type="button">
           <svg width="1em"
                height="1em"
@@ -402,7 +414,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           </svg>
         </button>
       </div>
-      <div class=" _DevicesRSWP __1asngec">
+      <div class=" _DevicesRSWP __omb1nz">
         <button type="button">
           <svg width="1em"
                height="1em"

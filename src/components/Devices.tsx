@@ -14,6 +14,7 @@ interface Props {
   devices: SpotifyDevice[];
   onClickDevice: (deviceId: string) => any;
   open: boolean;
+  playerPosition: string;
   styles: StylesOptions;
 }
 
@@ -28,7 +29,6 @@ const Wrapper = styled('div')(
     zIndex: 20,
 
     '> div': {
-      bottom: '120%',
       display: 'flex',
       flexDirection: 'column',
       padding: px(8),
@@ -57,6 +57,7 @@ const Wrapper = styled('div')(
     '> div': {
       backgroundColor: style.bgColor,
       boxShadow: style.altColor ? `1px 1px 10px ${style.altColor}` : 'none',
+      [style.p]: '120%',
       button: {
         color: style.c,
       },
@@ -96,6 +97,7 @@ export default class Devices extends React.PureComponent<Props, State> {
       currentDeviceId,
       deviceId,
       devices,
+      playerPosition,
       styles: { activeColor, altColor, color, bgColor },
     } = this.props;
 
@@ -105,6 +107,7 @@ export default class Devices extends React.PureComponent<Props, State> {
           altColor,
           bgColor,
           c: currentDeviceId && deviceId && currentDeviceId !== deviceId ? activeColor : color,
+          p: playerPosition,
         }}
       >
         {!!devices.length && (

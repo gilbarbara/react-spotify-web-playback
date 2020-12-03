@@ -39,6 +39,7 @@ export interface State {
   isUnsupported: boolean;
   needsUpdate: boolean;
   nextTracks: WebPlaybackTrack[];
+  playerPosition: 'bottom' | 'top';
   position: number;
   previousTracks: WebPlaybackTrack[];
   progressMs: number;

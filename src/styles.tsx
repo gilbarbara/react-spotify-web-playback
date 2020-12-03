@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { create, NanoRenderer } from 'nano-css';
 
-import { addon as addonAtoms } from 'nano-css/addon/atoms';
 // @ts-ignore
 import { addon as addonJSX } from 'nano-css/addon/jsx';
 import { addon as addonKeyframes } from 'nano-css/addon/keyframes';
@@ -30,14 +29,13 @@ interface NanoExtended extends NanoRenderer {
 const nano = create({ h: React.createElement });
 
 addonRule(nano);
-addonAtoms(nano);
 addonKeyframes(nano);
 addonJSX(nano);
 addonStyle(nano);
 addonStyled(nano);
 addonNesting(nano);
 
-const { keyframes, styled } = nano as NanoExtended;
+const { keyframes, put, styled } = nano as NanoExtended;
 
 export const px = (val: string | number): string => (typeof val === 'number' ? `${val}px` : val);
 
@@ -63,4 +61,4 @@ export function getMergedStyles(styles: StylesProps | undefined): StylesOptions 
   };
 }
 
-export { keyframes, styled };
+export { keyframes, put, styled };
