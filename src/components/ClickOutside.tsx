@@ -17,19 +17,20 @@ export default class ClickOutside extends React.PureComponent<Props> {
   }
 
   public componentDidMount() {
-    document.addEventListener('touchend', this.handle, true);
-    document.addEventListener('click', this.handle, true);
+    document.addEventListener('touchend', this.handleClick, true);
+    document.addEventListener('click', this.handleClick, true);
   }
 
   public componentWillUnmount() {
-    document.removeEventListener('touchend', this.handle, true);
-    document.removeEventListener('click', this.handle, true);
+    document.removeEventListener('touchend', this.handleClick, true);
+    document.removeEventListener('click', this.handleClick, true);
   }
 
-  private handle = (e: MouseEvent | TouchEvent) => {
+  private handleClick = (e: MouseEvent | TouchEvent) => {
     if (e.type === 'touchend') {
       this.isTouch = true;
     }
+
     if (e.type === 'click' && this.isTouch) {
       return;
     }

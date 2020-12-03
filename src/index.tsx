@@ -911,6 +911,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
           />
           <Actions
             currentDeviceId={currentDeviceId}
+            deviceId={deviceId}
             devices={devices}
             isDevicesOpen={isUnsupported && !deviceId}
             onClickDevice={this.handleClickDevice}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { StyledComponentProps, StylesOptions } from '../types/common';
+import { StyledProps, StylesOptions } from '../types/common';
 import { SpotifyDevice } from '../types/spotify';
 
 import Devices from './Devices';
@@ -9,6 +9,7 @@ import Volume from './Volume';
 
 interface Props {
   currentDeviceId: string;
+  deviceId: string;
   devices: SpotifyDevice[];
   isDevicesOpen: boolean;
   onClickDevice: (deviceId: string) => any;
@@ -36,8 +37,8 @@ const Wrapper = styled('div')(
       width: 'auto',
     },
   },
-  ({ styles }: StyledComponentProps) => ({
-    height: px(styles.height),
+  ({ style }: StyledProps) => ({
+    height: px(style.h),
   }),
   'ActionsRSWP',
 );
@@ -45,6 +46,7 @@ const Wrapper = styled('div')(
 function Actions(props: Props) {
   const {
     currentDeviceId,
+    deviceId,
     devices,
     isDevicesOpen,
     onClickDevice,
@@ -54,10 +56,11 @@ function Actions(props: Props) {
   } = props;
 
   return (
-    <Wrapper styles={styles}>
+    <Wrapper style={{ h: styles.height }}>
       {currentDeviceId && <Volume volume={volume} setVolume={setVolume} styles={styles} />}
       <Devices
-        deviceId={currentDeviceId}
+        currentDeviceId={currentDeviceId}
+        deviceId={deviceId}
         devices={devices}
         open={isDevicesOpen}
         onClickDevice={onClickDevice}

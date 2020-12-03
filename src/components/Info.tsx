@@ -2,7 +2,7 @@ import * as React from 'react';
 import { checkTracksStatus, saveTracks, removeTracks } from '../spotify';
 import { px, styled } from '../styles';
 
-import { StyledComponentProps, StylesOptions } from '../types/common';
+import { StyledProps, StylesOptions } from '../types/common';
 import { SpotifyPlayerTrack } from '../types/spotify';
 
 import Favorite from './icons/Favorite';
@@ -40,12 +40,12 @@ const Wrapper = styled('div')(
       },
     },
   },
-  ({ styles }: StyledComponentProps) => ({
-    height: px(styles.height),
+  ({ style }: StyledProps) => ({
+    height: px(style.h),
 
     img: {
-      height: px(styles.height),
-      width: px(styles.height),
+      height: px(style.h),
+      width: px(style.h),
     },
   }),
   'InfoRSWP',
@@ -82,22 +82,22 @@ const Title = styled('div')(
       marginLeft: px(5),
     },
   },
-  ({ styles }: StyledComponentProps) => ({
-    width: `calc(100% - ${px(styles.height)})`,
+  ({ style }: StyledProps) => ({
+    width: `calc(100% - ${px(style.h)})`,
 
     p: {
-      color: styles.trackNameColor,
+      color: style.trackNameColor,
 
       '&:last-child': {
-        color: styles.trackArtistColor,
+        color: style.trackArtistColor,
       },
     },
 
     button: {
-      color: styles.color,
+      color: style.c,
 
       '&.rswp__active': {
-        color: styles.savedColor,
+        color: style.activeColor,
       },
     },
   }),
@@ -183,9 +183,15 @@ export default class Info extends React.PureComponent<Props, State> {
 
   public render() {
     const { isSaved } = this.state;
-    const { isActive, showSaveIcon, styles, track } = this.props;
+    const {
+      isActive,
+      showSaveIcon,
+      styles: { color, height, activeColor, trackArtistColor, trackNameColor },
+      track,
+    } = this.props;
     let icon;
 
+    /* istanbul ignore else */
     if (showSaveIcon && track.id) {
       icon = (
         <button
@@ -205,9 +211,9 @@ export default class Info extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Wrapper styles={styles} className={classes.join(' ')}>
+      <Wrapper style={{ h: height }} className={classes.join(' ')}>
         {track.image && <img src={track.image} alt={track.name} />}
-        <Title styles={styles}>
+        <Title style={{ c: color, h: height, activeColor, trackArtistColor, trackNameColor }}>
           <p>
             <span>{track.name}</span>
             {icon}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { StyledComponentProps, StylesOptions } from '../types/common';
+import { StyledProps, StylesOptions } from '../types/common';
 import { WebPlaybackTrack } from '../types/spotify';
 
 import Next from './icons/Next';
@@ -22,10 +22,10 @@ interface Props {
 
 const Wrapper = styled('div')(
   {},
-  ({ styles }: StyledComponentProps) => ({
+  ({ style }: StyledProps) => ({
     alignItems: 'center',
     display: 'flex',
-    height: px(styles.height),
+    height: px(style.h),
     justifyContent: 'center',
 
     '@media (max-width: 767px)': {
@@ -33,12 +33,12 @@ const Wrapper = styled('div')(
     },
 
     '> div': {
-      minWidth: px(styles.height),
+      minWidth: px(style.h),
       textAlign: 'center',
     },
 
     button: {
-      color: styles.color,
+      color: style.c,
       fontSize: px(16),
 
       '&.rswp__toggle': {
@@ -58,11 +58,11 @@ export default function Controls(props: Props) {
     onClickTogglePlay,
     nextTracks,
     previousTracks,
-    styles,
+    styles: { color, height },
   } = props;
 
   return (
-    <Wrapper styles={styles}>
+    <Wrapper style={{ c: color, h: height }}>
       <div>
         {(!!previousTracks.length || isExternalDevice) && (
           <button type="button" onClick={onClickPrevious} aria-label="Previous Track">

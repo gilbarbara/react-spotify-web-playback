@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { keyframes, px, styled } from '../styles';
 
-import { StyledComponentProps } from '../types/common';
+import { ComponentsProps, StyledProps } from '../types/common';
 
 const Wrapper = styled('div')(
   {
@@ -21,7 +21,7 @@ const Wrapper = styled('div')(
       width: 0,
     },
   },
-  ({ styles }: StyledComponentProps) => {
+  ({ style }: StyledProps) => {
     const pulse = keyframes!({
       '0%': {
         height: 0,
@@ -30,35 +30,35 @@ const Wrapper = styled('div')(
 
       '30%': {
         borderWidth: px(8),
-        height: px(styles.loaderSize),
+        height: px(style.loaderSize),
         opacity: 1,
-        width: px(styles.loaderSize),
+        width: px(style.loaderSize),
       },
 
       '100%': {
         borderWidth: 0,
-        height: px(styles.loaderSize),
+        height: px(style.loaderSize),
         opacity: 0,
-        width: px(styles.loaderSize),
+        width: px(style.loaderSize),
       },
     });
 
     return {
-      height: px(styles.loaderSize),
-      width: px(styles.loaderSize),
+      height: px(style.loaderSize),
+      width: px(style.loaderSize),
 
       '> div': {
         animation: `${pulse} 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1)`,
-        borderColor: styles.loaderColor,
+        borderColor: style.loaderColor,
       },
     };
   },
   'LoaderRSWP',
 );
 
-function Loader({ styles }: StyledComponentProps) {
+function Loader({ styles: { loaderColor, loaderSize } }: ComponentsProps) {
   return (
-    <Wrapper styles={styles}>
+    <Wrapper style={{ loaderColor, loaderSize }}>
       <div />
     </Wrapper>
   );

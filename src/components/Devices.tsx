@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { px, styled } from '../styles';
 
-import { StyledComponentProps, StylesOptions } from '../types/common';
+import { StyledProps, StylesOptions } from '../types/common';
 import { SpotifyDevice } from '../types/spotify';
 
 import ClickOutside from './ClickOutside';
@@ -9,6 +9,7 @@ import ClickOutside from './ClickOutside';
 import DevicesIcon from './icons/Devices';
 
 interface Props {
+  currentDeviceId?: string;
   deviceId?: string;
   devices: SpotifyDevice[];
   onClickDevice: (deviceId: string) => any;
@@ -49,15 +50,15 @@ const Wrapper = styled('div')(
       fontSize: px(26),
     },
   },
-  ({ styles }: StyledComponentProps) => ({
+  ({ style }: StyledProps) => ({
     '> button': {
-      color: styles.color,
+      color: style.c,
     },
     '> div': {
-      backgroundColor: styles.bgColor,
-      boxShadow: styles.altColor ? `1px 1px 10px ${styles.altColor}` : 'none',
+      backgroundColor: style.bgColor,
+      boxShadow: style.altColor ? `1px 1px 10px ${style.altColor}` : 'none',
       button: {
-        color: styles.color,
+        color: style.c,
       },
     },
   }),
@@ -77,6 +78,7 @@ export default class Devices extends React.PureComponent<Props, State> {
     const { onClickDevice } = this.props;
     const { dataset } = e.currentTarget;
 
+    /* istanbul ignore else */
     if (dataset.id) {
       onClickDevice(dataset.id);
 
@@ -90,10 +92,21 @@ export default class Devices extends React.PureComponent<Props, State> {
 
   public render() {
     const { isOpen } = this.state;
-    const { deviceId, devices, styles } = this.props;
+    const {
+      currentDeviceId,
+      deviceId,
+      devices,
+      styles: { activeColor, altColor, color, bgColor },
+    } = this.props;
 
     return (
-      <Wrapper styles={styles}>
+      <Wrapper
+        style={{
+          altColor,
+          bgColor,
+          c: currentDeviceId && deviceId && currentDeviceId !== deviceId ? activeColor : color,
+        }}
+      >
         {!!devices.length && (
           <React.Fragment>
             {isOpen && (
@@ -101,7 +114,7 @@ export default class Devices extends React.PureComponent<Props, State> {
                 {devices.map((d: SpotifyDevice) => (
                   <button
                     key={d.id}
-                    className={d.id === deviceId ? 'rswp__devices__active' : undefined}
+                    className={d.id === currentDeviceId ? 'rswp__devices__active' : undefined}
                     data-id={d.id}
                     onClick={this.handleClickSetDevice}
                     type="button"

@@ -15,16 +15,16 @@ import { addon as addonStyle } from 'nano-css/addon/style';
 import { addon as addonStyled } from 'nano-css/addon/styled';
 
 import { CssLikeObject } from 'nano-css/types/common';
-import { StyledComponentProps, StylesOptions, StylesProps } from './types/common';
+import { StyledProps, StylesOptions, StylesProps } from './types/common';
 
 interface NanoExtended extends NanoRenderer {
   styled: (
     tag: string,
   ) => (
     styles: CssLikeObject,
-    dynamicTemplate?: (props: StyledComponentProps) => CssLikeObject,
+    dynamicTemplate?: (props: StyledProps) => CssLikeObject,
     block?: string,
-  ) => React.FunctionComponent<StyledComponentProps>;
+  ) => React.FunctionComponent<StyledProps>;
 }
 
 const nano = create({ h: React.createElement });
@@ -43,6 +43,7 @@ export const px = (val: string | number): string => (typeof val === 'number' ? `
 
 export function getMergedStyles(styles: StylesProps | undefined): StylesOptions {
   return {
+    activeColor: '#1cb954',
     altColor: '#ccc',
     bgColor: '#fff',
     color: '#333',
@@ -50,7 +51,6 @@ export function getMergedStyles(styles: StylesProps | undefined): StylesOptions 
     height: 48,
     loaderColor: '#ccc',
     loaderSize: 32,
-    savedColor: '#1cb954',
     sliderColor: '#666',
     sliderHandleBorderRadius: '50%',
     sliderHandleColor: '#000',

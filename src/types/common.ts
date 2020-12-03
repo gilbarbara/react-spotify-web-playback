@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { SpotifyPlayerTrack, SpotifyDevice, WebPlaybackTrack } from './spotify';
 
+export type PlainObject<T = any> = Record<string, T>;
+
 export interface CallbackState extends State {
   type: string;
 }
@@ -51,6 +53,7 @@ export interface PlayOptions {
 }
 
 export interface StylesOptions {
+  activeColor: string;
   altColor: string;
   bgColor: string;
   color: string;
@@ -58,7 +61,6 @@ export interface StylesOptions {
   height: number | string;
   loaderColor: string;
   loaderSize: number | string;
-  savedColor: string;
   sliderHandleColor: string;
   sliderHandleBorderRadius: number | string;
   sliderHeight: number;
@@ -71,8 +73,13 @@ export interface StylesOptions {
 
 export type StylesProps = Partial<StylesOptions>;
 
-export interface StyledComponentProps {
+export interface ComponentsProps {
   children?: React.ReactNode;
   styles: StylesOptions;
+  [key: string]: any;
+}
+
+export interface StyledProps {
+  style: Record<string, any>;
   [key: string]: any;
 }
