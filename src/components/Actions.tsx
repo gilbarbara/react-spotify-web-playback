@@ -13,6 +13,7 @@ interface Props {
   devices: SpotifyDevice[];
   isDevicesOpen: boolean;
   onClickDevice: (deviceId: string) => any;
+  playerPosition: string;
   setVolume: (volume: number) => any;
   styles: StylesOptions;
   volume: number;
@@ -50,6 +51,7 @@ function Actions(props: Props) {
     devices,
     isDevicesOpen,
     onClickDevice,
+    playerPosition,
     setVolume,
     styles,
     volume,
@@ -57,13 +59,21 @@ function Actions(props: Props) {
 
   return (
     <Wrapper style={{ h: styles.height }}>
-      {currentDeviceId && <Volume volume={volume} setVolume={setVolume} styles={styles} />}
+      {currentDeviceId && (
+        <Volume
+          playerPosition={playerPosition}
+          volume={volume}
+          setVolume={setVolume}
+          styles={styles}
+        />
+      )}
       <Devices
         currentDeviceId={currentDeviceId}
         deviceId={deviceId}
         devices={devices}
         open={isDevicesOpen}
         onClickDevice={onClickDevice}
+        playerPosition={playerPosition}
         styles={styles}
       />
     </Wrapper>

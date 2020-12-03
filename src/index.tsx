@@ -102,9 +102,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   private player?: WebPlaybackPlayer;
   private playerProgressInterval?: number;
   private playerSyncInterval?: number;
-  private syncTimeout?: number;
+  private ref = React.createRef<HTMLDivElement>();
   private seekUpdateInterval = 100;
   private readonly styles: StylesOptions;
+  private syncTimeout?: number;
 
   constructor(props: Props) {
     super(props);
@@ -123,6 +124,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       isUnsupported: false,
       needsUpdate: false,
       nextTracks: [],
+      playerPosition: 'bottom',
       position: 0,
       previousTracks: [],
       progressMs: 0,
@@ -145,7 +147,12 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   public async componentDidMount() {
     this.isActive = true;
-    this.updateState({ status: STATUS.INITIALIZING });
+    const { top = 0 } = this.ref.current?.getBoundingClientRect() || {};
+
+    this.updateState({
+      playerPosition: top > window.innerHeight / 2 ? 'bottom' : 'top',
+      status: STATUS.INITIALIZING,
+    });
 
     // @ts-ignore
     window.onSpotifyWebPlaybackSDKReady = this.initializePlayer;
@@ -239,7 +246,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       });
     }
 
-    if (prevProps.token && prevProps.token !== token) {
+    if (token && prevProps.token !== token) {
       this.hasNewToken = true;
 
       if (!isInitializing) {
@@ -853,6 +860,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   public render() {
     const {
+      playerPosition,
       currentDeviceId,
       deviceId,
       devices,
@@ -915,6 +923,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
             devices={devices}
             isDevicesOpen={isUnsupported && !deviceId}
             onClickDevice={this.handleClickDevice}
+            playerPosition={playerPosition}
             setVolume={this.setVolume}
             styles={this.styles}
             volume={volume}
@@ -932,7 +941,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Player styles={this.styles}>
+      <Player ref={this.ref} styles={this.styles}>
         {isReady && (
           <Slider
             isMagnified={isMagnified}

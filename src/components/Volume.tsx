@@ -11,6 +11,7 @@ import VolumeLow from './icons/VolumeLow';
 import VolumeMute from './icons/VolumeMute';
 
 interface Props {
+  playerPosition: string;
   setVolume: (volume: number) => any;
   styles: StylesOptions;
   volume: number;
@@ -28,7 +29,6 @@ const Wrapper = styled('div')(
     zIndex: 20,
 
     '> div': {
-      bottom: '120%',
       display: 'flex',
       flexDirection: 'column',
       padding: px(12),
@@ -51,6 +51,7 @@ const Wrapper = styled('div')(
     '> div': {
       backgroundColor: style.bgColor,
       boxShadow: style.altColor ? `1px 1px 10px ${style.altColor}` : 'none',
+      [style.p]: '120%',
     },
   }),
   'VolumeRSWP',
@@ -104,6 +105,7 @@ export default class Volume extends React.PureComponent<Props, State> {
   public render() {
     const { isOpen, volume } = this.state;
     const {
+      playerPosition,
       styles: { altColor, bgColor, color },
     } = this.props;
     let icon = <VolumeHigh />;
@@ -115,7 +117,7 @@ export default class Volume extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Wrapper style={{ altColor, bgColor, c: color }}>
+      <Wrapper style={{ altColor, bgColor, c: color, p: playerPosition }}>
         {isOpen && (
           <ClickOutside onClick={this.handleClick}>
             <RangeSlider
