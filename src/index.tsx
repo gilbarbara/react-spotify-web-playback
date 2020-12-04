@@ -260,7 +260,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
 
     if (prevProps.play !== playProp && playProp !== isPlaying) {
-      await this.togglePlay(true);
+      await this.togglePlay(!track.id);
     }
 
     if (prevProps.offset !== offset) {
