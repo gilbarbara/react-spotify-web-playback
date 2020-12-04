@@ -14,7 +14,7 @@
   },
   "overrides": [
     {
-      "files": ["test/**/*.[j|t]s?(x)"],
+      "files": ["test/**/*.ts?(x)"],
       "rules": {
         "no-console": "off"
       }
