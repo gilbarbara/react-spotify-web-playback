@@ -1,6 +1,15 @@
+/* eslint-disable camelcase */
 import * as React from 'react';
 import memoize from 'memoize-one';
 
+import Actions from './components/Actions';
+import Content from './components/Content';
+import Controls from './components/Controls';
+import ErrorMessage from './components/ErrorMessage';
+import Info from './components/Info';
+import Loader from './components/Loader';
+import Player from './components/Player';
+import Slider from './components/Slider';
 import {
   getDevices,
   getPlaybackState,
@@ -13,17 +22,6 @@ import {
   setVolume,
 } from './spotify';
 import { getMergedStyles } from './styles';
-import {
-  getSpotifyURIType,
-  isEqualArray,
-  loadSpotifyPlayer,
-  parseVolume,
-  round,
-  validateURI,
-  STATUS,
-  TYPE,
-} from './utils';
-
 import {
   PlayOptions,
   Props,
@@ -39,15 +37,16 @@ import {
   WebPlaybackReady,
   WebPlaybackState,
 } from './types';
-
-import Actions from './components/Actions';
-import Content from './components/Content';
-import Controls from './components/Controls';
-import ErrorMessage from './components/ErrorMessage';
-import Info from './components/Info';
-import Loader from './components/Loader';
-import Player from './components/Player';
-import Slider from './components/Slider';
+import {
+  getSpotifyURIType,
+  isEqualArray,
+  loadSpotifyPlayer,
+  parseVolume,
+  round,
+  STATUS,
+  TYPE,
+  validateURI,
+} from './utils';
 
 class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   private isActive = false;
@@ -59,45 +58,45 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     name: '',
     uri: '',
   };
-  private getPlayOptions = memoize(
-    (data): PlayOptions => {
-      const playOptions: PlayOptions = {
-        context_uri: undefined,
-        uris: undefined,
-      };
 
-      /* istanbul ignore else */
-      if (data) {
-        const ids = Array.isArray(data) ? data : [data];
+  private getPlayOptions = memoize((data): PlayOptions => {
+    const playOptions: PlayOptions = {
+      context_uri: undefined,
+      uris: undefined,
+    };
 
-        if (!ids.every((d) => validateURI(d))) {
-          // eslint-disable-next-line no-console
-          console.error('Invalid URI');
+    /* istanbul ignore else */
+    if (data) {
+      const ids = Array.isArray(data) ? data : [data];
 
-          return playOptions;
-        }
+      if (!ids.every(d => validateURI(d))) {
+        // eslint-disable-next-line no-console
+        console.error('Invalid URI');
 
-        if (ids.some((d) => getSpotifyURIType(d) === 'track')) {
-          if (!ids.every((d) => getSpotifyURIType(d) === 'track')) {
-            // eslint-disable-next-line no-console
-            console.warn("You can't mix tracks URIs with other types");
-          }
-
-          playOptions.uris = ids.filter((d) => validateURI(d) && getSpotifyURIType(d) === 'track');
-        } else {
-          if (ids.length > 1) {
-            // eslint-disable-next-line no-console
-            console.warn("Albums, Artists, Playlists and Podcasts can't have multiple URIs");
-          }
-
-          // eslint-disable-next-line prefer-destructuring
-          playOptions.context_uri = ids[0];
-        }
+        return playOptions;
       }
 
-      return playOptions;
-    },
-  );
+      if (ids.some(d => getSpotifyURIType(d) === 'track')) {
+        if (!ids.every(d => getSpotifyURIType(d) === 'track')) {
+          // eslint-disable-next-line no-console
+          console.warn("You can't mix tracks URIs with other types");
+        }
+
+        playOptions.uris = ids.filter(d => validateURI(d) && getSpotifyURIType(d) === 'track');
+      } else {
+        if (ids.length > 1) {
+          // eslint-disable-next-line no-console
+          console.warn("Albums, Artists, Playlists and Podcasts can't have multiple URIs");
+        }
+
+        // eslint-disable-next-line prefer-destructuring
+        playOptions.context_uri = ids[0];
+      }
+    }
+
+    return playOptions;
+  });
+
   private hasNewToken = false;
   private player?: WebPlaybackPlayer;
   private playerProgressInterval?: number;
@@ -136,6 +135,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     this.styles = getMergedStyles(props.styles);
   }
 
+  // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
     callback: () => undefined,
     magnifySliderOnHover: false,
@@ -163,16 +163,9 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     await loadSpotifyPlayer();
   }
 
-  public async componentDidUpdate(prevProps: Props, prevState: State) {
-    const {
-      currentDeviceId,
-      deviceId,
-      error,
-      isInitializing,
-      isPlaying,
-      status,
-      track,
-    } = this.state;
+  public async componentDidUpdate(previousProps: Props, previousState: State) {
+    const { currentDeviceId, deviceId, error, isInitializing, isPlaying, status, track } =
+      this.state;
     const {
       autoPlay,
       callback,
@@ -183,10 +176,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       token,
       uris,
     } = this.props;
-    const isReady = prevState.status !== STATUS.READY && status === STATUS.READY;
+    const isReady = previousState.status !== STATUS.READY && status === STATUS.READY;
     const changedURIs = Array.isArray(uris)
-      ? !isEqualArray(prevProps.uris, uris)
-      : prevProps.uris !== uris;
+      ? !isEqualArray(previousProps.uris, uris)
+      : previousProps.uris !== uris;
     const playOptions = this.getPlayOptions(uris);
 
     const canPlay = !!currentDeviceId && !!(playOptions.context_uri || playOptions.uris);
@@ -209,14 +202,14 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       this.updateState({ needsUpdate: true });
     }
 
-    if (prevState.status !== status) {
+    if (previousState.status !== status) {
       callback!({
         ...this.state,
         type: TYPE.STATUS,
       });
     }
 
-    if (prevState.currentDeviceId !== currentDeviceId && currentDeviceId) {
+    if (previousState.currentDeviceId !== currentDeviceId && currentDeviceId) {
       if (!isReady) {
         callback!({
           ...this.state,
@@ -228,7 +221,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       await this.updateSeekBar();
     }
 
-    if (prevState.track.id !== track.id && track.id) {
+    if (previousState.track.id !== track.id && track.id) {
       callback!({
         ...this.state,
         type: TYPE.TRACK,
@@ -239,7 +232,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       }
     }
 
-    if (prevState.isPlaying !== isPlaying) {
+    if (previousState.isPlaying !== isPlaying) {
       this.toggleProgressBar();
       await this.toggleSyncInterval(this.isExternalPlayer);
 
@@ -249,7 +242,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       });
     }
 
-    if (token && prevProps.token !== token) {
+    if (token && previousProps.token !== token) {
       this.hasNewToken = true;
 
       if (!isInitializing) {
@@ -259,15 +252,15 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       }
     }
 
-    if (prevProps.play !== playProp && playProp !== isPlaying) {
+    if (previousProps.play !== playProp && playProp !== isPlaying) {
       await this.togglePlay(!track.id);
     }
 
-    if (prevProps.offset !== offset) {
+    if (previousProps.offset !== offset) {
       await this.toggleOffset();
     }
 
-    if (prevState.isInitializing && !isInitializing) {
+    if (previousState.isInitializing && !isInitializing) {
       if (error === 'authentication_error' && this.hasNewToken) {
         this.hasNewToken = false;
         this.initializePlayer();
@@ -494,7 +487,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         const isPlaying = !paused;
         const volume = await this.player!.getVolume();
         const track = {
-          artists: artists.map((d) => d.name).join(', '),
+          artists: artists.map(d => d.name).join(', '),
           durationMs: duration_ms,
           id,
           image: this.setAlbumImage(album),
@@ -562,8 +555,8 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     const { magnifySliderOnHover } = this.props;
 
     if (magnifySliderOnHover) {
-      this.updateState((prevState: State) => {
-        return { isMagnified: !prevState.isMagnified };
+      this.updateState((previousState: State) => {
+        return { isMagnified: !previousState.isMagnified };
       });
     }
   };
@@ -577,7 +570,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       const savedDeviceId = sessionStorage.getItem('rswpDeviceId');
 
       /* istanbul ignore else */
-      if (!savedDeviceId || !devices.find((d: SpotifyDevice) => d.id === savedDeviceId)) {
+      if (!savedDeviceId || !devices.some((d: SpotifyDevice) => d.id === savedDeviceId)) {
         sessionStorage.setItem('rswpDeviceId', currentDeviceId);
       } else {
         currentDeviceId = savedDeviceId;
@@ -595,8 +588,8 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
     // @ts-ignore
     this.player = new window.Spotify.Player({
-      getOAuthToken: (cb: SpotifyPlayerCallback) => {
-        cb(token);
+      getOAuthToken: (callback: SpotifyPlayerCallback) => {
+        callback(token);
       },
       name,
       volume,
@@ -622,9 +615,9 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   };
 
   private setAlbumImage = (album: WebPlaybackAlbum): string => {
-    const width = Math.min(...album.images.map((d) => d.width));
+    const width = Math.min(...album.images.map(d => d.width));
     const thumb: WebPlaybackImage =
-      album.images.find((d) => d.width === width) || ({} as WebPlaybackImage);
+      album.images.find(d => d.width === width) || ({} as WebPlaybackImage);
 
     return thumb.url;
   };
@@ -666,7 +659,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       /* istanbul ignore else */
       if (player.item) {
         track = {
-          artists: player.item.artists.map((d) => d.name).join(', '),
+          artists: player.item.artists.map(d => d.name).join(', '),
           durationMs: player.item.duration_ms,
           id: player.item.id,
           image: this.setAlbumImage(player.item.album),
@@ -791,6 +784,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       } else if (this.player) {
         const playerState = await this.player.getCurrentState();
 
+        // eslint-disable-next-line unicorn/prefer-ternary
         if (
           (!playerState && !!(playOptions.context_uri || playOptions.uris)) ||
           (shouldInitialize && playerState && playerState.paused)
@@ -825,6 +819,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       /* istanbul ignore else */
       if (this.isExternalPlayer) {
         let position = progressMs / track.durationMs;
+
         position = Number(((Number.isFinite(position) ? position : 0) * 100).toFixed(1));
 
         this.updateState({
@@ -863,7 +858,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   public render() {
     const {
-      playerPosition,
       currentDeviceId,
       deviceId,
       devices,
@@ -871,9 +865,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       errorType,
       isActive,
       isMagnified,
-      isUnsupported,
       isPlaying,
+      isUnsupported,
       nextTracks,
+      playerPosition,
       position,
       previousTracks,
       status,
@@ -908,15 +903,15 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       }
 
       output = (
-        <React.Fragment>
+        <>
           <div>{info}</div>
           <Controls
             isExternalDevice={this.isExternalPlayer}
             isPlaying={isPlaying}
+            nextTracks={nextTracks}
             onClickNext={this.handleClickNext}
             onClickPrevious={this.handleClickPrevious}
             onClickTogglePlay={this.handleClickTogglePlay}
-            nextTracks={nextTracks}
             previousTracks={previousTracks}
             styles={this.styles}
           />
@@ -931,7 +926,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
             styles={this.styles}
             volume={volume}
           />
-        </React.Fragment>
+        </>
       );
     }
 

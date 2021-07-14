@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { SpotifyPlayOptions } from './types';
 
 export async function checkTracksStatus(token: string, tracks: string | string[]) {
@@ -9,7 +10,7 @@ export async function checkTracksStatus(token: string, tracks: string | string[]
       'Content-Type': 'application/json',
     },
     method: 'GET',
-  }).then((d) => d.json());
+  }).then(d => d.json());
 }
 
 export async function getDevices(token: string) {
@@ -19,7 +20,7 @@ export async function getDevices(token: string) {
       'Content-Type': 'application/json',
     },
     method: 'GET',
-  }).then((d) => d.json());
+  }).then(d => d.json());
 }
 
 export async function getPlaybackState(token: string) {
@@ -29,7 +30,7 @@ export async function getPlaybackState(token: string) {
       'Content-Type': 'application/json',
     },
     method: 'GET',
-  }).then((d) => {
+  }).then(d => {
     if (d.status === 204) {
       return null;
     }

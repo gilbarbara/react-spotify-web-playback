@@ -1,6 +1,4 @@
 import {
-  STATUS,
-  TYPE,
   canUseDOM,
   getSpotifyURIType,
   isEqualArray,
@@ -8,6 +6,8 @@ import {
   loadSpotifyPlayer,
   parseVolume,
   round,
+  STATUS,
+  TYPE,
   validateURI,
 } from '../src/utils';
 
@@ -67,6 +67,7 @@ describe('loadSpotifyPlayer', () => {
     loadSpotifyPlayer();
 
     const scriptTag = document.getElementById('spotify-player') as HTMLScriptElement;
+
     expect(scriptTag.tagName).toBe('SCRIPT');
     expect(scriptTag.src).toBe('https://sdk.scdn.co/spotify-player.js');
   });

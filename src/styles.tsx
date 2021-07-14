@@ -1,7 +1,6 @@
 /* tslint:disable:object-literal-sort-keys */
 import * as React from 'react';
 import { create, NanoRenderer } from 'nano-css';
-
 // @ts-ignore
 import { addon as addonJSX } from 'nano-css/addon/jsx';
 import { addon as addonKeyframes } from 'nano-css/addon/keyframes';
@@ -12,8 +11,8 @@ import { addon as addonRule } from 'nano-css/addon/rule';
 import { addon as addonStyle } from 'nano-css/addon/style';
 // @ts-ignore
 import { addon as addonStyled } from 'nano-css/addon/styled';
-
 import { CssLikeObject } from 'nano-css/types/common';
+
 import { StyledProps, StylesOptions, StylesProps } from './types/common';
 
 interface NanoExtended extends NanoRenderer {
@@ -37,7 +36,8 @@ addonNesting(nano);
 
 const { keyframes, put, styled } = nano as NanoExtended;
 
-export const px = (val: string | number): string => (typeof val === 'number' ? `${val}px` : val);
+export const px = (value: string | number): string =>
+  typeof value === 'number' ? `${value}px` : value;
 
 export function getMergedStyles(styles: StylesProps | undefined): StylesOptions {
   return {

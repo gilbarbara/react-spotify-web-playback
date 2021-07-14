@@ -1,21 +1,21 @@
 import * as React from 'react';
-import { px, styled } from '../styles';
-
-import { StyledProps, StylesOptions } from '../types/common';
-import { WebPlaybackTrack } from '../types/spotify';
 
 import Next from './icons/Next';
 import Pause from './icons/Pause';
 import Play from './icons/Play';
 import Previous from './icons/Previous';
 
+import { px, styled } from '../styles';
+import { StyledProps, StylesOptions } from '../types/common';
+import { WebPlaybackTrack } from '../types/spotify';
+
 interface Props {
   isExternalDevice: boolean;
   isPlaying: boolean;
+  nextTracks: WebPlaybackTrack[];
   onClickNext: () => void;
   onClickPrevious: () => void;
   onClickTogglePlay: () => void;
-  nextTracks: WebPlaybackTrack[];
   previousTracks: WebPlaybackTrack[];
   styles: StylesOptions;
 }
@@ -53,10 +53,10 @@ export default function Controls(props: Props) {
   const {
     isExternalDevice,
     isPlaying,
+    nextTracks,
     onClickNext,
     onClickPrevious,
     onClickTogglePlay,
-    nextTracks,
     previousTracks,
     styles: { color, height },
   } = props;
@@ -65,24 +65,24 @@ export default function Controls(props: Props) {
     <Wrapper style={{ c: color, h: height }}>
       <div>
         {(!!previousTracks.length || isExternalDevice) && (
-          <button type="button" onClick={onClickPrevious} aria-label="Previous Track">
+          <button aria-label="Previous Track" onClick={onClickPrevious} type="button">
             <Previous />
           </button>
         )}
       </div>
       <div>
         <button
-          type="button"
+          aria-label={isPlaying ? 'Pause' : 'Play'}
           className="rswp__toggle"
           onClick={onClickTogglePlay}
-          aria-label={isPlaying ? 'Pause' : 'Play'}
+          type="button"
         >
           {isPlaying ? <Pause /> : <Play />}
         </button>
       </div>
       <div>
         {(!!nextTracks.length || isExternalDevice) && (
-          <button type="button" onClick={onClickNext} aria-label="Next Track">
+          <button aria-label="Next Track" onClick={onClickNext} type="button">
             <Next />
           </button>
         )}

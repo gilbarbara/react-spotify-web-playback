@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 import * as React from 'react';
-import { SpotifyPlayerTrack, SpotifyDevice, WebPlaybackTrack } from './spotify';
+
+import { SpotifyDevice, SpotifyPlayerTrack, WebPlaybackTrack } from './spotify';
 
 export type PlainObject<T = any> = Record<string, T>;
 
@@ -18,8 +20,8 @@ export interface Props {
   play?: boolean;
   showSaveIcon?: boolean;
   styles?: StylesProps;
-  syncExternalDeviceInterval?: number;
   syncExternalDevice?: boolean;
+  syncExternalDeviceInterval?: number;
   token: string;
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
   uris?: string | string[];
@@ -62,10 +64,10 @@ export interface StylesOptions {
   height: number | string;
   loaderColor: string;
   loaderSize: number | string;
-  sliderHandleColor: string;
-  sliderHandleBorderRadius: number | string;
-  sliderHeight: number;
   sliderColor: string;
+  sliderHandleBorderRadius: number | string;
+  sliderHandleColor: string;
+  sliderHeight: number;
   sliderTrackBorderRadius: number | string;
   sliderTrackColor: string;
   trackArtistColor: string;
@@ -75,12 +77,12 @@ export interface StylesOptions {
 export type StylesProps = Partial<StylesOptions>;
 
 export interface ComponentsProps {
+  [key: string]: any;
   children?: React.ReactNode;
   styles: StylesOptions;
-  [key: string]: any;
 }
 
 export interface StyledProps {
-  style: Record<string, any>;
   [key: string]: any;
+  style: Record<string, any>;
 }

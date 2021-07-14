@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { px, styled } from '../styles';
-
-import { StyledProps, StylesOptions } from '../types/common';
-import { SpotifyDevice } from '../types/spotify';
 
 import Devices from './Devices';
 import Volume from './Volume';
+
+import { px, styled } from '../styles';
+import { StyledProps, StylesOptions } from '../types/common';
+import { SpotifyDevice } from '../types/spotify';
 
 interface Props {
   currentDeviceId: string;
@@ -62,17 +62,17 @@ function Actions(props: Props) {
       {currentDeviceId && (
         <Volume
           playerPosition={playerPosition}
-          volume={volume}
           setVolume={setVolume}
           styles={styles}
+          volume={volume}
         />
       )}
       <Devices
         currentDeviceId={currentDeviceId}
         deviceId={deviceId}
         devices={devices}
-        open={isDevicesOpen}
         onClickDevice={onClickDevice}
+        open={isDevicesOpen}
         playerPosition={playerPosition}
         styles={styles}
       />

@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { px, styled } from '../styles';
-
-import { StyledProps, StylesOptions } from '../types/common';
-import { SpotifyDevice } from '../types/spotify';
 
 import ClickOutside from './ClickOutside';
-
 import DevicesIcon from './icons/Devices';
+
+import { px, styled } from '../styles';
+import { StyledProps, StylesOptions } from '../types/common';
+import { SpotifyDevice } from '../types/spotify';
 
 interface Props {
   currentDeviceId?: string;
@@ -75,9 +74,9 @@ export default class Devices extends React.PureComponent<Props, State> {
     };
   }
 
-  private handleClickSetDevice = (e: React.MouseEvent<HTMLElement>) => {
+  private handleClickSetDevice = (event: React.MouseEvent<HTMLElement>) => {
     const { onClickDevice } = this.props;
-    const { dataset } = e.currentTarget;
+    const { dataset } = event.currentTarget;
 
     /* istanbul ignore else */
     if (dataset.id) {
@@ -88,7 +87,7 @@ export default class Devices extends React.PureComponent<Props, State> {
   };
 
   private handleClickToggleDevices = () => {
-    this.setState((state) => ({ isOpen: !state.isOpen }));
+    this.setState(state => ({ isOpen: !state.isOpen }));
   };
 
   public render() {
@@ -98,7 +97,7 @@ export default class Devices extends React.PureComponent<Props, State> {
       deviceId,
       devices,
       playerPosition,
-      styles: { activeColor, altColor, color, bgColor },
+      styles: { activeColor, altColor, bgColor, color },
     } = this.props;
 
     return (
@@ -111,7 +110,7 @@ export default class Devices extends React.PureComponent<Props, State> {
         }}
       >
         {!!devices.length && (
-          <React.Fragment>
+          <>
             {isOpen && (
               <ClickOutside onClick={this.handleClickToggleDevices}>
                 {devices.map((d: SpotifyDevice) => (
@@ -127,10 +126,10 @@ export default class Devices extends React.PureComponent<Props, State> {
                 ))}
               </ClickOutside>
             )}
-            <button type="button" onClick={this.handleClickToggleDevices}>
+            <button onClick={this.handleClickToggleDevices} type="button">
               <DevicesIcon />
             </button>
-          </React.Fragment>
+          </>
         )}
       </Wrapper>
     );
