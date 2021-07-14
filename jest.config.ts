@@ -12,6 +12,9 @@ module.exports = {
   globals: {
     'ts-jest': {
       tsconfig: 'test/tsconfig.json',
+      diagnostics: {
+        ignoreCodes: ['TS151001'],
+      },
     },
   },
   moduleDirectories: ['node_modules', 'src', './'],
@@ -20,6 +23,7 @@ module.exports = {
   setupFiles: ['<rootDir>/test/__setup__/setupFiles.ts'],
   setupFilesAfterEnv: ['<rootDir>/test/__setup__/setupTests.ts'],
   snapshotSerializers: ['jest-serializer-html', 'enzyme-to-json/serializer'],
+  testEnvironment: 'jsdom',
   testMatch: null,
   testRegex: '/test/.*?\\.(test|spec)\\.tsx?$',
   testURL: 'http://localhost:3000/',
