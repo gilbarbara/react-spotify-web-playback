@@ -1,6 +1,6 @@
 {
   "name": "react-spotify-web-playback",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "A React Spotify Web Player",
   "author": "Gil Barbara <gilbarbara@gmail.com>",
   "repository": {
@@ -90,10 +90,14 @@
     "prepublishOnly": "npm run validate"
   },
   "eslintConfig": {
-    "extends": ["@gilbarbara/eslint-config"],
+    "extends": [
+      "@gilbarbara/eslint-config"
+    ],
     "overrides": [
       {
-        "files": ["test/**/*.ts?(x)"],
+        "files": [
+          "test/**/*.ts?(x)"
+        ],
         "rules": {
           "no-console": "off"
         }
@@ -105,7 +109,9 @@
       "unicorn/prefer-includes": "off"
     }
   },
-  "eslintIgnore": ["demo"],
+  "eslintIgnore": [
+    "demo"
+  ],
   "prettier": "@gilbarbara/prettier-config",
   "lint-staged": {
     "*.(ts|tsx)": [
