@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { keyframes, px, styled } from '../styles';
 
+import { keyframes, px, styled } from '../styles';
 import { ComponentsProps, StyledProps } from '../types/common';
 
 const Wrapper = styled('div')(

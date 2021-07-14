@@ -1,13 +1,13 @@
 /* tslint:disable:no-console */
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount, ReactWrapper } from 'enzyme';
 import fetchMock from 'fetch-mock';
-import { act } from 'react-dom/test-utils';
+
+import { playerState, playerStatus } from './fixtures/data';
 
 import SpotifyWebPlayer, { STATUS } from '../src';
 import { Props, State } from '../src/types/common';
-
-import { playerState, playerStatus } from './fixtures/data';
 
 declare let window: any;
 
@@ -24,7 +24,7 @@ let playerStatusResponse = playerStatus;
 const mockAddListener = jest.fn();
 
 const updatePlayer = async () => {
-  const [, stateChangeFn] = mockAddListener.mock.calls.find((d) => d[0] === 'player_state_changed');
+  const [, stateChangeFn] = mockAddListener.mock.calls.find(d => d[0] === 'player_state_changed');
 
   await stateChangeFn(playerStateResponse);
 };
@@ -134,7 +134,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `authentication_error`', async () => {
       const [authenticationType, authenticationFn] = mockAddListener.mock.calls.find(
-        (d) => d[0] === 'authentication_error',
+        d => d[0] === 'authentication_error',
       );
 
       await act(async () => {
@@ -162,7 +162,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `account_error`', async () => {
       const [accountType, accountFn] = mockAddListener.mock.calls.find(
-        (d) => d[0] === 'account_error',
+        d => d[0] === 'account_error',
       );
 
       await act(async () => {
@@ -180,7 +180,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `playback_error`', async () => {
       const [playbackType, playbackFn] = mockAddListener.mock.calls.find(
-        (d) => d[0] === 'playback_error',
+        d => d[0] === 'playback_error',
       );
 
       await act(async () => {
@@ -197,7 +197,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `initialization_error`', async () => {
       const [initializationType, initializationFn] = mockAddListener.mock.calls.find(
-        (d) => d[0] === 'initialization_error',
+        d => d[0] === 'initialization_error',
       );
 
       await act(async () => {
@@ -227,7 +227,7 @@ describe('SpotifyWebPlayer', () => {
     });
 
     it('should handle `ready`', async () => {
-      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
+      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
 
       await readyFn({ device_id: deviceId });
 
@@ -237,7 +237,7 @@ describe('SpotifyWebPlayer', () => {
     });
 
     it('should handle `not_ready`', async () => {
-      const [, notReadyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'not_ready');
+      const [, notReadyFn] = mockAddListener.mock.calls.find(d => d[0] === 'not_ready');
 
       await notReadyFn({});
 
@@ -248,7 +248,7 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle `player_state_changed`', async () => {
       const [, stateChangeFn] = mockAddListener.mock.calls.find(
-        (d) => d[0] === 'player_state_changed',
+        d => d[0] === 'player_state_changed',
       );
 
       await stateChangeFn({
@@ -289,7 +289,7 @@ describe('SpotifyWebPlayer', () => {
     });
 
     it('should render the full UI', async () => {
-      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
+      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
 
       await act(async () => {
         await readyFn({ device_id: deviceId });
@@ -387,7 +387,7 @@ describe('SpotifyWebPlayer', () => {
         uris: ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'],
       });
 
-      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
+      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
 
       await act(async () => {
         readyFn({ device_id: deviceId });
@@ -428,7 +428,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       expect(wrapper.state('volume')).toBe(0.6);
-      expect(fetchMock.calls((d) => d.endsWith('volume_percent=60'))).toBeDefined();
+      expect(fetchMock.calls(d => d.endsWith('volume_percent=60'))).toBeDefined();
     });
 
     it('should handle Control clicks', async () => {
@@ -441,7 +441,7 @@ describe('SpotifyWebPlayer', () => {
       await act(async () => {
         wrapper.find('[aria-label="Play"]').simulate('click');
       });
-      expect(fetchMock.calls((d) => d.indexOf('/play?') > 0)).toBeDefined();
+      expect(fetchMock.calls(d => d.indexOf('/play?') > 0)).toBeDefined();
 
       // runs the sync timeout
       await act(async () => {
@@ -502,7 +502,7 @@ describe('SpotifyWebPlayer', () => {
 
       wrapper = setup({ syncExternalDevice: true, uris: undefined });
 
-      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
+      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
 
       await act(async () => {
         readyFn({ device_id: deviceId });
@@ -544,13 +544,13 @@ describe('SpotifyWebPlayer', () => {
       wrapper.unmount();
     });
 
-    it('should honor the play props ', async () => {
+    it('should honor the play props', async () => {
       playerStatusResponse = {
         ...playerStatus,
         is_playing: true,
       };
 
-      const [, readyFn] = mockAddListener.mock.calls.find((d) => d[0] === 'ready');
+      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
 
       await act(async () => {
         readyFn({ device_id: deviceId });

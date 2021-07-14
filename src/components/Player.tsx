@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { px, put } from '../styles';
 
+import { put, px } from '../styles';
 import { ComponentsProps } from '../types/common';
 
 put('.PlayerRSWP', {

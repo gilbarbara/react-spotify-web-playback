@@ -1,14 +1,13 @@
 import * as React from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
-import { px, styled } from '../styles';
-
-import { StylesOptions, StyledProps } from '../types/common';
 
 import ClickOutside from './ClickOutside';
-
 import VolumeHigh from './icons/VolumeHigh';
 import VolumeLow from './icons/VolumeLow';
 import VolumeMute from './icons/VolumeMute';
+
+import { px, styled } from '../styles';
+import { StyledProps, StylesOptions } from '../types/common';
 
 interface Props {
   playerPosition: string;
@@ -69,18 +68,18 @@ export default class Volume extends React.PureComponent<Props, State> {
     };
   }
 
-  public componentDidUpdate(prevProps: Props) {
+  public componentDidUpdate(previousProps: Props) {
     const { volume: volumeState } = this.state;
     const { volume } = this.props;
 
-    if (prevProps.volume !== volume && volume !== volumeState) {
+    if (previousProps.volume !== volume && volume !== volumeState) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ volume });
     }
   }
 
   private handleClick = () => {
-    this.setState((state) => ({ isOpen: !state.isOpen }));
+    this.setState(state => ({ isOpen: !state.isOpen }));
   };
 
   private handleChangeSlider = ({ y }: RangeSliderPosition) => {
@@ -123,6 +122,8 @@ export default class Volume extends React.PureComponent<Props, State> {
             <RangeSlider
               axis="y"
               className="rrs"
+              onAfterEnd={this.handleAfterEnd}
+              onChange={this.handleChangeSlider}
               styles={{
                 options: {
                   thumbBorder: `2px solid ${color}`,
@@ -135,15 +136,13 @@ export default class Volume extends React.PureComponent<Props, State> {
                   width: 6,
                 },
               }}
-              onAfterEnd={this.handleAfterEnd}
-              onChange={this.handleChangeSlider}
               y={volume * 100}
-              yMin={0}
               yMax={100}
+              yMin={0}
             />
           </ClickOutside>
         )}
-        <button type="button" onClick={!isOpen ? this.handleClick : undefined}>
+        <button onClick={!isOpen ? this.handleClick : undefined} type="button">
           {icon}
         </button>
       </Wrapper>

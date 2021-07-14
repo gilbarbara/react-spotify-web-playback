@@ -1,13 +1,13 @@
 import * as React from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
-import { px, styled } from '../styles';
 
+import { px, styled } from '../styles';
 import { StyledProps, StylesOptions } from '../types/common';
 
 interface Props {
   isMagnified: boolean;
-  onToggleMagnify: () => void;
   onChangeRange: (position: number) => void;
+  onToggleMagnify: () => void;
   position: number;
   styles: StylesOptions;
 }
@@ -59,8 +59,8 @@ export default class Slider extends React.PureComponent<Props> {
             },
           }}
           x={position}
-          xMin={0}
           xMax={100}
+          xMin={0}
           xStep={0.1}
         />
       </Wrapper>

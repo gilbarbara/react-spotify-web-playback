@@ -1,20 +1,20 @@
 import * as React from 'react';
-import { checkTracksStatus, saveTracks, removeTracks } from '../spotify';
-import { px, styled } from '../styles';
-
-import { StyledProps, StylesOptions } from '../types/common';
-import { SpotifyPlayerTrack } from '../types/spotify';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
 
+import { checkTracksStatus, removeTracks, saveTracks } from '../spotify';
+import { px, styled } from '../styles';
+import { StyledProps, StylesOptions } from '../types/common';
+import { SpotifyPlayerTrack } from '../types/spotify';
+
 interface Props {
-  onFavoriteStatusChange: (status: boolean) => any;
   isActive: boolean;
+  onFavoriteStatusChange: (status: boolean) => any;
   showSaveIcon: boolean;
-  track: SpotifyPlayerTrack;
-  token: string;
   styles: StylesOptions;
+  token: string;
+  track: SpotifyPlayerTrack;
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
 }
 
@@ -124,10 +124,10 @@ export default class Info extends React.PureComponent<Props, State> {
     }
   }
 
-  public async componentDidUpdate(prevProps: Props) {
+  public async componentDidUpdate(previousProps: Props) {
     const { showSaveIcon, track } = this.props;
 
-    if (showSaveIcon && prevProps.track.id !== track.id && track.id) {
+    if (showSaveIcon && previousProps.track.id !== track.id && track.id) {
       this.updateState({ isSaved: false });
 
       await this.setStatus();
@@ -186,7 +186,7 @@ export default class Info extends React.PureComponent<Props, State> {
     const {
       isActive,
       showSaveIcon,
-      styles: { color, height, activeColor, trackArtistColor, trackNameColor },
+      styles: { activeColor, color, height, trackArtistColor, trackNameColor },
       track,
     } = this.props;
     let icon;
@@ -195,8 +195,8 @@ export default class Info extends React.PureComponent<Props, State> {
     if (showSaveIcon && track.id) {
       icon = (
         <button
-          onClick={this.handleClickIcon}
           className={isSaved ? 'rswp__active' : undefined}
+          onClick={this.handleClickIcon}
           type="button"
         >
           {isSaved ? <Favorite /> : <FavoriteOutline />}
@@ -211,8 +211,8 @@ export default class Info extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Wrapper style={{ h: height }} className={classes.join(' ')}>
-        {track.image && <img src={track.image} alt={track.name} />}
+      <Wrapper className={classes.join(' ')} style={{ h: height }}>
+        {track.image && <img alt={track.name} src={track.image} />}
         <Title style={{ c: color, h: height, activeColor, trackArtistColor, trackNameColor }}>
           <p>
             <span>{track.name}</span>

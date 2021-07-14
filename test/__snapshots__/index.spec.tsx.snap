@@ -67,13 +67,13 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
     </div>
     <div class=" _ControlsRSWP __1g1kf0v">
       <div>
-        <button type="button"
-                aria-label="Previous Track"
+        <button aria-label="Previous Track"
+                type="button"
         >
-          <svg width="1em"
-               height="1em"
-               viewbox="0 0 128 128"
+          <svg height="1em"
                preserveaspectratio="xMidYMid"
+               viewbox="0 0 128 128"
+               width="1em"
           >
             <path d="M29.09 53.749V5.819H5.819v116.363h23.273v-47.93L122.18 128V0z"
                   fill="currentColor"
@@ -83,14 +83,14 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         </button>
       </div>
       <div>
-        <button type="button"
+        <button aria-label="Play"
                 class="rswp__toggle"
-                aria-label="Play"
+                type="button"
         >
-          <svg width="1em"
-               height="1em"
-               viewbox="0 0 128 128"
+          <svg height="1em"
                preserveaspectratio="xMidYMid"
+               viewbox="0 0 128 128"
+               width="1em"
           >
             <path d="M119.351 64L8.65 0v128z"
                   fill="currentColor"
@@ -100,13 +100,13 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         </button>
       </div>
       <div>
-        <button type="button"
-                aria-label="Next Track"
+        <button aria-label="Next Track"
+                type="button"
         >
-          <svg width="1em"
-               height="1em"
-               viewbox="0 0 128 128"
+          <svg height="1em"
                preserveaspectratio="xMidYMid"
+               viewbox="0 0 128 128"
+               width="1em"
           >
             <path d="M98.91 53.749L5.817 0v128L98.91 74.251v47.93h23.273V5.819H98.909z"
                   fill="currentColor"
@@ -126,10 +126,10 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
           </button>
         </div>
         <button type="button">
-          <svg width="1em"
-               height="1em"
-               viewbox="0 0 128 128"
+          <svg height="1em"
                preserveaspectratio="xMidYMid"
+               viewbox="0 0 128 128"
+               width="1em"
           >
             <path d="M6.765 89.483h40.412v6.765H6.269C2.765 96.248 0 93.483 0 89.978V20.703c0-3.504 2.765-6.27 6.27-6.27h40.907v6.766H6.765v68.285zm16.327 20.702a3.4 3.4 0 0 1 3.383-3.383h20.702v6.765H26.475c-.915 0-1.72-.347-2.344-1.038a3.064 3.064 0 0 1-1.039-2.344zm46.681-95.752h51.958c3.504 0 6.269 2.765 6.269 6.269v86.596c0 3.504-2.765 6.27-6.27 6.27H69.774c-3.504 0-6.27-2.766-6.27-6.27V20.702c0-3.504 2.766-6.27 6.27-6.27zm-.496 5.842l.07 87.52 52.88-.07-.07-87.45h-52.88zm13.89 45.573c3.464-3.462 7.714-5.23 12.585-5.23 9.827 0 17.815 7.988 17.815 17.815 0 9.827-7.988 17.815-17.815 17.815-9.827 0-17.815-7.988-17.815-17.815 0-4.87 1.768-9.122 5.23-12.585zm4.124 21.045c2.381 2.381 5.195 3.582 8.46 3.582 6.598 0 12.043-5.445 12.043-12.042 0-6.597-5.445-12.043-12.042-12.043-6.597 0-12.042 5.446-12.042 12.043 0 3.266 1.2 6.08 3.581 8.46zm12.935-44.466c-1.247 1.247-2.741 1.863-4.474 1.863-3.504 0-6.27-2.765-6.27-6.269s2.766-6.27 6.27-6.27c3.504 0 6.27 2.766 6.27 6.27 0 1.72-.608 3.218-1.796 4.406z"
                   fill="currentColor"
@@ -319,8 +319,8 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
   <div class=" _ContentRSWP __1xc0f9k">
     <div>
       <div class="rswp__active _InfoRSWP __mvqn38">
-        <img src="https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3"
-             alt="Main Theme From Trouble Man"
+        <img alt="Main Theme From Trouble Man"
+             src="https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3"
         >
         <div class=" __nnvdcq __j3ulwq">
           <p>
@@ -330,10 +330,10 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             <button type="button"
                     class="rswp__active"
             >
-              <svg width="1em"
-                   height="1em"
-                   viewbox="0 0 128 128"
+              <svg height="1em"
                    preserveaspectratio="xMidYMid"
+                   viewbox="0 0 128 128"
+                   width="1em"
               >
                 <path d="M117.686 16.288c-4.297-4.297-9.22-7.266-14.924-8.907-11.33-3.36-23.518-.86-32.582 6.72l-.781.546c-.938.703-3.282 1.641-5.392 1.641-2.187 0-4.688-1.172-5.313-1.64-.39-.235-.625-.391-.86-.548-9.063-7.579-21.252-10.08-32.582-6.72C13.922 10.74 4.39 19.96 1.187 32.072c-3.204 12.19.156 25.082 9.142 34.145L54.24 117.63c2.579 2.97 5.782 4.454 9.767 4.454 3.985 0 7.189-1.485 9.767-4.454l43.912-51.413C124.484 59.42 128 50.121 128 41.213c0-8.907-3.516-18.127-10.314-24.925z"
                       fill="currentColor"
@@ -350,13 +350,13 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
     </div>
     <div class=" _ControlsRSWP __1g1kf0v">
       <div>
-        <button type="button"
-                aria-label="Previous Track"
+        <button aria-label="Previous Track"
+                type="button"
         >
-          <svg width="1em"
-               height="1em"
-               viewbox="0 0 128 128"
+          <svg height="1em"
                preserveaspectratio="xMidYMid"
+               viewbox="0 0 128 128"
+               width="1em"
           >
             <path d="M29.09 53.749V5.819H5.819v116.363h23.273v-47.93L122.18 128V0z"
                   fill="currentColor"
@@ -366,14 +366,14 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         </button>
       </div>
       <div>
-        <button type="button"
+        <button aria-label="Pause"
                 class="rswp__toggle"
-                aria-label="Pause"
+                type="button"
         >
-          <svg width="1em"
-               height="1em"
-               viewbox="0 0 128 128"
+          <svg height="1em"
                preserveaspectratio="xMidYMid"
+               viewbox="0 0 128 128"
+               width="1em"
           >
             <path d="M41.86 128V0H8.648v128h33.21zm77.491 0V0h-33.21v128h33.21z"
                   fill="currentColor"
@@ -383,13 +383,13 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         </button>
       </div>
       <div>
-        <button type="button"
-                aria-label="Next Track"
+        <button aria-label="Next Track"
+                type="button"
         >
-          <svg width="1em"
-               height="1em"
-               viewbox="0 0 128 128"
+          <svg height="1em"
                preserveaspectratio="xMidYMid"
+               viewbox="0 0 128 128"
+               width="1em"
           >
             <path d="M98.91 53.749L5.817 0v128L98.91 74.251v47.93h23.273V5.819H98.909z"
                   fill="currentColor"
@@ -402,10 +402,10 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
     <div class=" _ActionsRSWP __hrnxs2">
       <div class=" _VolumeRSWP __23rxcu">
         <button type="button">
-          <svg width="1em"
-               height="1em"
-               viewbox="0 0 128 128"
+          <svg height="1em"
                preserveaspectratio="xMidYMid"
+               viewbox="0 0 128 128"
+               width="1em"
           >
             <path d="M0 85.869V40.38h21.24l39.41-22.743v90.974L21.24 85.87H0zm53.069 9.627V30.754L23.285 47.963H7.581v30.324h15.704L53.07 95.496zM92.355 18.86l4.889-5.723c13.772 12.64 21.94 30.407 21.94 49.724 0 19.318-8.168 37.085-21.94 49.725l-4.89-5.724c12.104-11.208 19.318-26.89 19.318-44 0-17.112-7.214-32.793-19.317-44.002zM75.303 38.835l4.889-5.724c5.246 5.008 9.062 11.209 11.149 18.542a41.69 41.69 0 0 1 1.55 11.21c0 11.506-4.77 22.12-12.7 29.75l-4.888-5.723c6.26-6.26 10.076-14.786 10.076-24.028 0-9.241-3.697-17.767-10.076-24.027z"
                   fill="currentColor"
@@ -416,10 +416,10 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
       </div>
       <div class=" _DevicesRSWP __omb1nz">
         <button type="button">
-          <svg width="1em"
-               height="1em"
-               viewbox="0 0 128 128"
+          <svg height="1em"
                preserveaspectratio="xMidYMid"
+               viewbox="0 0 128 128"
+               width="1em"
           >
             <path d="M6.765 89.483h40.412v6.765H6.269C2.765 96.248 0 93.483 0 89.978V20.703c0-3.504 2.765-6.27 6.27-6.27h40.907v6.766H6.765v68.285zm16.327 20.702a3.4 3.4 0 0 1 3.383-3.383h20.702v6.765H26.475c-.915 0-1.72-.347-2.344-1.038a3.064 3.064 0 0 1-1.039-2.344zm46.681-95.752h51.958c3.504 0 6.269 2.765 6.269 6.269v86.596c0 3.504-2.765 6.27-6.27 6.27H69.774c-3.504 0-6.27-2.766-6.27-6.27V20.702c0-3.504 2.766-6.27 6.27-6.27zm-.496 5.842l.07 87.52 52.88-.07-.07-87.45h-52.88zm13.89 45.573c3.464-3.462 7.714-5.23 12.585-5.23 9.827 0 17.815 7.988 17.815 17.815 0 9.827-7.988 17.815-17.815 17.815-9.827 0-17.815-7.988-17.815-17.815 0-4.87 1.768-9.122 5.23-12.585zm4.124 21.045c2.381 2.381 5.195 3.582 8.46 3.582 6.598 0 12.043-5.445 12.043-12.042 0-6.597-5.445-12.043-12.042-12.043-6.597 0-12.042 5.446-12.042 12.043 0 3.266 1.2 6.08 3.581 8.46zm12.935-44.466c-1.247 1.247-2.741 1.863-4.474 1.863-3.504 0-6.27-2.765-6.27-6.269s2.766-6.27 6.27-6.27c3.504 0 6.27 2.766 6.27 6.27 0 1.72-.608 3.218-1.796 4.406z"
                   fill="currentColor"

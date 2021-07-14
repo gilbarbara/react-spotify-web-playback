@@ -6,10 +6,11 @@ declare let window: any;
 Enzyme.configure({ adapter: new Adapter() });
 
 window.skipEventLoop = () => {
-  return new Promise((resolve) => setImmediate(resolve));
+  return new Promise(resolve => setImmediate(resolve));
 };
 
 const react = document.createElement('div');
+
 react.id = 'react';
 react.style.height = '100vh';
 document.body.appendChild(react);

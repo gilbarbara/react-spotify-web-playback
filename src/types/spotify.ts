@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 type SpotifyPlayerMethod<T = void> = () => Promise<T>;
 
 export type SpotifyPlayerCallback = (token: string) => void;
@@ -104,8 +105,8 @@ export interface SpotifyPlayerTrack {
   artists: string;
   durationMs: number;
   id: string;
-  name: string;
   image: string;
+  name: string;
   uri: string;
 }
 
@@ -124,8 +125,8 @@ export interface WebPlaybackError {
 export interface WebPlaybackPlayer {
   _options: {
     getOAuthToken: SpotifyPlayerCallback;
-    name: string;
     id: string;
+    name: string;
     volume: number;
   };
   addListener: {
@@ -206,8 +207,8 @@ export interface WebPlaybackTrack {
   id: string;
   is_playable: boolean;
   linked_from: {
-    uri: null | string;
     id: null | string;
+    uri: null | string;
   };
   linked_from_uri: null | string;
   media_type: string;

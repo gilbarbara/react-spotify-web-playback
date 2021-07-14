@@ -26,19 +26,19 @@ export default class ClickOutside extends React.PureComponent<Props> {
     document.removeEventListener('click', this.handleClick, true);
   }
 
-  private handleClick = (e: MouseEvent | TouchEvent) => {
-    if (e.type === 'touchend') {
+  private handleClick = (event: MouseEvent | TouchEvent) => {
+    if (event.type === 'touchend') {
       this.isTouch = true;
     }
 
-    if (e.type === 'click' && this.isTouch) {
+    if (event.type === 'click' && this.isTouch) {
       return;
     }
 
     const { onClick } = this.props;
     const el = this.container;
 
-    if (el && !el.contains(e.target as Node)) {
+    if (el && !el.contains(event.target as Node)) {
       onClick();
     }
   };

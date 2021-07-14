@@ -85,6 +85,7 @@ export function parseVolume(value?: unknown): number {
  */
 export function round(number: number, digits = 2) {
   const factor = 10 ** digits;
+
   return Math.round(number * factor) / factor;
 }
 
