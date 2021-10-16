@@ -1,3 +1,2 @@
-import 'jest-enzyme/lib/index.js';
-import 'jest-extended';
-import 'jest-chain';
+import 'jest-enzyme';
+import 'jest-extended/all';

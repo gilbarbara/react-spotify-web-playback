@@ -7,5 +7,5 @@
     "target": "es5",
     "skipLibCheck": true
   },
-  "include": ["src/**/*"]
+  "include": ["global.d.ts", "src/**/*"]
 }
