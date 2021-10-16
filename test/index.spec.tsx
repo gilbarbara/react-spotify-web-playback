@@ -29,6 +29,7 @@ const updatePlayer = async () => {
   await stateChangeFn(playerStateResponse);
 };
 
+const mockActivateElement = jest.fn();
 const mockCallback = jest.fn();
 const mockConnect = jest.fn();
 const mockDisconnect = jest.fn();
@@ -46,6 +47,7 @@ const token =
   'BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg';
 
 const setup = (props?: Record<string, any>): ReactWrapper<Props, State> => {
+  mockActivateElement.mockClear();
   mockAddListener.mockClear();
   mockCallback.mockClear();
   mockConnect.mockClear();
@@ -76,6 +78,7 @@ describe('SpotifyWebPlayer', () => {
   beforeAll(async () => {
     window.Spotify = {
       Player: function Player({ getOAuthToken }: Record<string, any>) {
+        this.activateElement = mockActivateElement;
         this.addListener = mockAddListener;
         this.connect = mockConnect;
         this.disconnect = mockDisconnect;

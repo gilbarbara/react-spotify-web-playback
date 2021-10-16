@@ -129,6 +129,7 @@ export interface WebPlaybackPlayer {
     name: string;
     volume: number;
   };
+  activateElement: () => void;
   addListener: {
     (event: WebPlaybackErrors, callback: (d: WebPlaybackError) => void): boolean;
     (event: WebPlaybackStates, callback: (d: WebPlaybackState | null) => void): boolean;

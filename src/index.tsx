@@ -680,7 +680,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         track,
         volume: parseVolume(player.device.volume_percent),
       });
-    } catch (error) {
+    } catch (error: any) {
       const state = {
         isActive: false,
         isPlaying: false,
@@ -783,6 +783,8 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         }, 300);
       } else if (this.player) {
         const playerState = await this.player.getCurrentState();
+
+        this.player.activateElement();
 
         // eslint-disable-next-line unicorn/prefer-ternary
         if (

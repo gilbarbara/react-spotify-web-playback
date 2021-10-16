@@ -6,7 +6,7 @@
 
 View the [demo](https://react-spotify-web-playback.gilbarbara.dev/)
 
-Check the [supported browser](https://developer.spotify.com/documentation/web-playback-sdk/#supported-browsers) list. This library will try to use the user's devices to work with mobile and unsupported browsers.
+Check the [supported browser](https://developer.spotify.com/documentation/web-playback-sdk/#supported-browsers) list. This library will try to use the user's devices to work with unsupported browsers.
 
 ## Setup
 
