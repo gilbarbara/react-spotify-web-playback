@@ -4,5 +4,5 @@
     "esModuleInterop": true,
     "module": "esnext"
   },
-  "include": ["**/*", "../src/types/globals.d.ts"]
+  "include": ["../global.d.ts", "**/*"]
 }
