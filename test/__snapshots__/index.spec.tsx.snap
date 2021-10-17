@@ -55,7 +55,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
   <div class=" _ContentRSWP __1xc0f9k">
     <div>
       <div class=" _InfoRSWP __mvqn38">
-        <div class=" __nnvdcq __j3ulwq">
+        <div class=" __nnvdcq __edorj9">
           <p>
             <span>
             </span>
@@ -322,7 +322,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <img alt="Main Theme From Trouble Man"
              src="https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3"
         >
-        <div class=" __nnvdcq __j3ulwq">
+        <div class=" __nnvdcq __edorj9">
           <p>
             <span>
               Main Theme From Trouble Man
