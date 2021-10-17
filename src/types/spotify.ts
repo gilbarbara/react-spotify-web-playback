@@ -102,7 +102,7 @@ export interface SpotifyPlayerStatus {
 }
 
 export interface SpotifyPlayerTrack {
-  artists: string;
+  artists: WebPlaybackArtist[];
   durationMs: number;
   id: string;
   image: string;

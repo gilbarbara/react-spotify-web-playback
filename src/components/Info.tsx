@@ -7,6 +7,7 @@ import { checkTracksStatus, removeTracks, saveTracks } from '../spotify';
 import { px, styled } from '../styles';
 import { StyledProps, StylesOptions } from '../types/common';
 import { SpotifyPlayerTrack } from '../types/spotify';
+import { getSpotifyLink } from '../utils';
 
 interface Props {
   isActive: boolean;
@@ -27,6 +28,11 @@ const Wrapper = styled('div')(
     alignItems: 'center',
     display: 'flex',
     textAlign: 'left',
+
+    a: {
+      display: 'inline-block',
+      textDecoration: 'none',
+    },
 
     '@media (max-width: 1023px)': {
       borderBottom: '1px solid #ccc',
@@ -86,10 +92,14 @@ const Title = styled('div')(
     width: `calc(100% - ${px(style.h)})`,
 
     p: {
-      color: style.trackNameColor,
+      a: {
+        color: style.trackNameColor,
+      },
 
       '&:last-child': {
-        color: style.trackArtistColor,
+        a: {
+          color: style.trackArtistColor,
+        },
       },
     },
 
@@ -187,12 +197,12 @@ export default class Info extends React.PureComponent<Props, State> {
       isActive,
       showSaveIcon,
       styles: { activeColor, color, height, trackArtistColor, trackNameColor },
-      track,
+      track: { id, name, uri, image, artists = [] },
     } = this.props;
     let icon;
 
     /* istanbul ignore else */
-    if (showSaveIcon && track.id) {
+    if (showSaveIcon && id) {
       icon = (
         <button
           className={isSaved ? 'rswp__active' : undefined}
@@ -212,14 +222,33 @@ export default class Info extends React.PureComponent<Props, State> {
 
     return (
       <Wrapper className={classes.join(' ')} style={{ h: height }}>
-        {track.image && <img alt={track.name} src={track.image} />}
-        <Title style={{ c: color, h: height, activeColor, trackArtistColor, trackNameColor }}>
-          <p>
-            <span>{track.name}</span>
-            {icon}
-          </p>
-          <p>{track.artists}</p>
-        </Title>
+        {image && (
+          <a href={getSpotifyLink(uri)} rel="noreferrer" target="_blank">
+            <img alt={name} src={image} />
+          </a>
+        )}
+        {!!name && (
+          <Title style={{ c: color, h: height, activeColor, trackArtistColor, trackNameColor }}>
+            <p>
+              <span>
+                <a href={getSpotifyLink(uri)} rel="noreferrer" target="_blank">
+                  {name}
+                </a>
+              </span>
+              {icon}
+            </p>
+            <p>
+              {artists?.map((artist, index) => (
+                <span key={artist.uri}>
+                  {index ? ', ' : ''}
+                  <a href={getSpotifyLink(artist.uri)} rel="noreferrer" target="_blank">
+                    {artist.name}
+                  </a>
+                </span>
+              ))}
+            </p>
+          </Title>
+        )}
       </Wrapper>
     );
   }
