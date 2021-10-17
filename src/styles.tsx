@@ -22,7 +22,7 @@ interface NanoExtended extends NanoRenderer {
     styles: CssLikeObject,
     dynamicTemplate?: (props: StyledProps) => CssLikeObject,
     block?: string,
-  ) => React.FunctionComponent<StyledProps>;
+  ) => React.FunctionComponent<Partial<StyledProps>>;
 }
 
 const nano = create({ h: React.createElement });
@@ -55,7 +55,7 @@ export function getMergedStyles(styles: StylesProps | undefined): StylesOptions 
     sliderHeight: 4,
     sliderTrackBorderRadius: 0,
     sliderTrackColor: '#ccc',
-    trackArtistColor: '#999',
+    trackArtistColor: '#666',
     trackNameColor: '#333',
     ...styles,
   };
