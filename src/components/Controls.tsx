@@ -38,8 +38,13 @@ const Wrapper = styled('div')(
     },
 
     button: {
+      alignItems: 'center',
       color: style.c,
+      display: 'inline-flex',
       fontSize: px(16),
+      height: px(48),
+      justifyContent: 'center',
+      width: px(48),
 
       '&.rswp__toggle': {
         fontSize: px(28),
