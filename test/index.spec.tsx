@@ -128,6 +128,7 @@ describe('SpotifyWebPlayer', () => {
     });
 
     beforeEach(() => {
+      mockDisconnect.mockClear();
       mockCallback.mockClear();
     });
 
@@ -176,7 +177,7 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper.state().status).toBe(STATUS.ERROR);
       expect(wrapper.state().error).toBe('Failed to validate Spotify account');
       expect(wrapper.state().errorType).toBe('account_error');
-      expect(mockDisconnect).toHaveBeenCalledTimes(2);
+      expect(mockDisconnect).toHaveBeenCalledTimes(1);
 
       expect(wrapper.html()).toMatchSnapshot();
     });
@@ -211,7 +212,7 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper.state().status).toBe(STATUS.UNSUPPORTED);
       expect(wrapper.state().error).toBe('Failed to initialize');
       expect(wrapper.state().errorType).toBe('initialization_error');
-      expect(mockDisconnect).toHaveBeenCalledTimes(3);
+      expect(mockDisconnect).toHaveBeenCalledTimes(1);
 
       expect(wrapper.html()).toMatchSnapshot();
     });

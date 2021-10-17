@@ -31,6 +31,7 @@ import {
   State,
   StylesOptions,
   WebPlaybackAlbum,
+  WebPlaybackArtist,
   WebPlaybackError,
   WebPlaybackImage,
   WebPlaybackPlayer,
@@ -51,7 +52,7 @@ import {
 class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   private isActive = false;
   private emptyTrack = {
-    artists: '',
+    artists: [] as WebPlaybackArtist[],
     durationMs: 0,
     id: '',
     image: '',
@@ -487,7 +488,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         const isPlaying = !paused;
         const volume = await this.player!.getVolume();
         const track = {
-          artists: artists.map(d => d.name).join(', '),
+          artists,
           durationMs: duration_ms,
           id,
           image: this.setAlbumImage(album),
@@ -659,7 +660,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       /* istanbul ignore else */
       if (player.item) {
         track = {
-          artists: player.item.artists.map(d => d.name).join(', '),
+          artists: player.item.artists,
           durationMs: player.item.duration_ms,
           id: player.item.id,
           image: this.setAlbumImage(player.item.album),

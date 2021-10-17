@@ -20,6 +20,12 @@ export const TYPE = {
   TRACK: 'track_update',
 };
 
+export function getSpotifyLink(uri: string): string {
+  const [, type = '', id = ''] = uri.split(':');
+
+  return `https://open.spotify.com/${type}/${id}`;
+}
+
 export function getSpotifyURIType(uri: string): string {
   const [, type = ''] = uri.split(':');
 
