@@ -5,12 +5,13 @@ import FavoriteOutline from './icons/FavoriteOutline';
 
 import { checkTracksStatus, removeTracks, saveTracks } from '../spotify';
 import { px, styled } from '../styles';
-import { StyledProps, StylesOptions } from '../types/common';
+import { Locale, StyledProps, StylesOptions } from '../types/common';
 import { SpotifyPlayerTrack } from '../types/spotify';
-import { getSpotifyLink } from '../utils';
+import { getSpotifyLink, getSpotifyLinkTitle } from '../utils';
 
 interface Props {
   isActive: boolean;
+  locale: Locale;
   onFavoriteStatusChange: (status: boolean) => any;
   showSaveIcon: boolean;
   styles: StylesOptions;
@@ -30,7 +31,7 @@ const Wrapper = styled('div')(
     textAlign: 'left',
 
     a: {
-      display: 'inline-block',
+      display: 'inline-flex',
       textDecoration: 'none',
     },
 
@@ -195,10 +196,12 @@ export default class Info extends React.PureComponent<Props, State> {
     const { isSaved } = this.state;
     const {
       isActive,
+      locale,
       showSaveIcon,
       styles: { activeColor, color, height, trackArtistColor, trackNameColor },
       track: { id, name, uri, image, artists = [] },
     } = this.props;
+    const title = getSpotifyLinkTitle(name, locale.title);
     let icon;
 
     /* istanbul ignore else */
@@ -223,7 +226,13 @@ export default class Info extends React.PureComponent<Props, State> {
     return (
       <Wrapper className={classes.join(' ')} style={{ h: height }}>
         {image && (
-          <a href={getSpotifyLink(uri)} rel="noreferrer" target="_blank">
+          <a
+            aria-label={title}
+            href={getSpotifyLink(uri)}
+            rel="noreferrer"
+            target="_blank"
+            title={title}
+          >
             <img alt={name} src={image} />
           </a>
         )}
@@ -231,21 +240,37 @@ export default class Info extends React.PureComponent<Props, State> {
           <Title style={{ c: color, h: height, activeColor, trackArtistColor, trackNameColor }}>
             <p>
               <span>
-                <a href={getSpotifyLink(uri)} rel="noreferrer" target="_blank">
+                <a
+                  aria-label={title}
+                  href={getSpotifyLink(uri)}
+                  rel="noreferrer"
+                  target="_blank"
+                  title={title}
+                >
                   {name}
                 </a>
               </span>
               {icon}
             </p>
-            <p>
-              {artists?.map((artist, index) => (
-                <span key={artist.uri}>
-                  {index ? ', ' : ''}
-                  <a href={getSpotifyLink(artist.uri)} rel="noreferrer" target="_blank">
-                    {artist.name}
-                  </a>
-                </span>
-              ))}
+            <p title={artists.map(d => d.name).join(', ')}>
+              {artists.map((artist, index) => {
+                const artistTitle = getSpotifyLinkTitle(artist.name, locale.title);
+
+                return (
+                  <span key={artist.uri}>
+                    {index ? ', ' : ''}
+                    <a
+                      aria-label={artistTitle}
+                      href={getSpotifyLink(artist.uri)}
+                      rel="noreferrer"
+                      target="_blank"
+                      title={artistTitle}
+                    >
+                      {artist.name}
+                    </a>
+                  </span>
+                );
+              })}
             </p>
           </Title>
         )}

@@ -15,6 +15,7 @@ interface Props {
   open: boolean;
   playerPosition: string;
   styles: StylesOptions;
+  title: string;
 }
 
 export interface State {
@@ -98,6 +99,7 @@ export default class Devices extends React.PureComponent<Props, State> {
       devices,
       playerPosition,
       styles: { activeColor, altColor, bgColor, color },
+      title,
     } = this.props;
 
     return (
@@ -126,7 +128,12 @@ export default class Devices extends React.PureComponent<Props, State> {
                 ))}
               </ClickOutside>
             )}
-            <button onClick={this.handleClickToggleDevices} type="button">
+            <button
+              aria-label={title}
+              onClick={this.handleClickToggleDevices}
+              title={title}
+              type="button"
+            >
               <DevicesIcon />
             </button>
           </>

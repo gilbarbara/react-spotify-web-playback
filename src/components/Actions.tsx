@@ -4,7 +4,7 @@ import Devices from './Devices';
 import Volume from './Volume';
 
 import { px, styled } from '../styles';
-import { StyledProps, StylesOptions } from '../types/common';
+import { Locale, StyledProps, StylesOptions } from '../types/common';
 import { SpotifyDevice } from '../types/spotify';
 
 interface Props {
@@ -12,6 +12,7 @@ interface Props {
   deviceId: string;
   devices: SpotifyDevice[];
   isDevicesOpen: boolean;
+  locale: Locale;
   onClickDevice: (deviceId: string) => any;
   playerPosition: string;
   setVolume: (volume: number) => any;
@@ -50,6 +51,7 @@ function Actions(props: Props) {
     deviceId,
     devices,
     isDevicesOpen,
+    locale,
     onClickDevice,
     playerPosition,
     setVolume,
@@ -64,6 +66,7 @@ function Actions(props: Props) {
           playerPosition={playerPosition}
           setVolume={setVolume}
           styles={styles}
+          title={locale.volume}
           volume={volume}
         />
       )}
@@ -75,6 +78,7 @@ function Actions(props: Props) {
         open={isDevicesOpen}
         playerPosition={playerPosition}
         styles={styles}
+        title={locale.devices}
       />
     </Wrapper>
   );

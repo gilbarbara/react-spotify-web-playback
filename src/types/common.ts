@@ -13,6 +13,7 @@ export interface Props {
   autoPlay?: boolean;
   callback?: (state: CallbackState) => any;
   initialVolume?: number;
+  locale?: Partial<Locale>;
   magnifySliderOnHover?: boolean;
   name?: string;
   offset?: number;
@@ -50,6 +51,22 @@ export interface State {
   volume: number;
 }
 
+export interface ComponentsProps {
+  [key: string]: any;
+  children?: React.ReactNode;
+  styles: StylesOptions;
+}
+
+export interface Locale {
+  devices: string;
+  next: string;
+  pause: string;
+  play: string;
+  previous: string;
+  title: string;
+  volume: string;
+}
+
 export interface PlayOptions {
   context_uri?: string;
   uris?: string[];
@@ -75,12 +92,6 @@ export interface StylesOptions {
 }
 
 export type StylesProps = Partial<StylesOptions>;
-
-export interface ComponentsProps {
-  [key: string]: any;
-  children?: React.ReactNode;
-  styles: StylesOptions;
-}
 
 export interface StyledProps {
   [key: string]: any;
