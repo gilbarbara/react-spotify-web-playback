@@ -36,6 +36,25 @@ Get status updates from the player. Check `CallbackState` in the [types](src/typ
 **initialVolume** `number` between 0 and 1. _default 1_  
 The initial volume for the player. It's not used for external devices.
 
+**locale** `Locale`  
+The strings used for aria-label/title
+
+<details>
+  <summary>Type Definition</summary>
+
+  ```typescript
+interface Locale {
+  devices?: string; // 'Devices'
+  next?: string; // 'Next'
+  pause?: string; // 'Pause'
+  play?: string; // 'Play'
+  previous?: string; // 'Previous'
+  title?: string; // '{name} on SPOTIFY'
+  volume?: string; // 'Volume'
+}
+  ```
+</details>
+
 **magnifySliderOnHover**: `boolean`  
 Magnify the player's slider on hover.
 
@@ -94,11 +113,11 @@ Please refer to Spotify's Web API [docs](https://developer.spotify.com/documenta
 
 ## Styling
 
-You can customize the UI with a `styles` prop. Check all the available options [here](src/types/common.ts#L44).
+You can customize the UI with a `styles` prop. Check all the available options [here](src/types/common.ts#L69).
 
 ```tsx
 <SpotifyWebPlayer
-  ...
+  // ...
   styles={{
     activeColor: '#fff',
     bgColor: '#333',

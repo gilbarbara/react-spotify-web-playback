@@ -59,7 +59,8 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
     </div>
     <div class=" _ControlsRSWP __1q9n52d">
       <div>
-        <button aria-label="Previous Track"
+        <button aria-label="Previous"
+                title="Previous"
                 type="button"
         >
           <svg height="1em"
@@ -77,6 +78,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
       <div>
         <button aria-label="Play"
                 class="rswp__toggle"
+                title="Play"
                 type="button"
         >
           <svg height="1em"
@@ -92,7 +94,8 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         </button>
       </div>
       <div>
-        <button aria-label="Next Track"
+        <button aria-label="Next"
+                title="Next"
                 type="button"
         >
           <svg height="1em"
@@ -117,7 +120,10 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
             Jest Player
           </button>
         </div>
-        <button type="button">
+        <button aria-label="Devices"
+                title="Devices"
+                type="button"
+        >
           <svg height="1em"
                preserveaspectratio="xMidYMid"
                viewbox="0 0 128 128"
@@ -311,9 +317,11 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
   <div class=" _ContentRSWP __1xc0f9k">
     <div>
       <div class="rswp__active _InfoRSWP __mvqn38">
-        <a href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
+        <a aria-label="Main Theme From Trouble Man on SPOTIFY"
+           href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
            rel="noreferrer"
            target="_blank"
+           title="Main Theme From Trouble Man on SPOTIFY"
         >
           <img alt="Main Theme From Trouble Man"
                src="https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3"
@@ -322,9 +330,11 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <div class=" __nnvdcq __77inad">
           <p>
             <span>
-              <a href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
+              <a aria-label="Main Theme From Trouble Man on SPOTIFY"
+                 href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
                  rel="noreferrer"
                  target="_blank"
+                 title="Main Theme From Trouble Man on SPOTIFY"
               >
                 Main Theme From Trouble Man
               </a>
@@ -344,11 +354,13 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
               </svg>
             </button>
           </p>
-          <p>
+          <p title="Marvin Gaye">
             <span>
-              <a href="https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
+              <a aria-label="Marvin Gaye on SPOTIFY"
+                 href="https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
                  rel="noreferrer"
                  target="_blank"
+                 title="Marvin Gaye on SPOTIFY"
               >
                 Marvin Gaye
               </a>
@@ -359,7 +371,8 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
     </div>
     <div class=" _ControlsRSWP __1q9n52d">
       <div>
-        <button aria-label="Previous Track"
+        <button aria-label="Previous"
+                title="Previous"
                 type="button"
         >
           <svg height="1em"
@@ -377,6 +390,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
       <div>
         <button aria-label="Pause"
                 class="rswp__toggle"
+                title="Pause"
                 type="button"
         >
           <svg height="1em"
@@ -392,7 +406,8 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         </button>
       </div>
       <div>
-        <button aria-label="Next Track"
+        <button aria-label="Next"
+                title="Next"
                 type="button"
         >
           <svg height="1em"
@@ -410,7 +425,10 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
     </div>
     <div class=" _ActionsRSWP __hrnxs2">
       <div class=" _VolumeRSWP __23rxcu">
-        <button type="button">
+        <button aria-label="Volume"
+                title="Volume"
+                type="button"
+        >
           <svg height="1em"
                preserveaspectratio="xMidYMid"
                viewbox="0 0 128 128"
@@ -424,7 +442,10 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         </button>
       </div>
       <div class=" _DevicesRSWP __omb1nz">
-        <button type="button">
+        <button aria-label="Devices"
+                title="Devices"
+                type="button"
+        >
           <svg height="1em"
                preserveaspectratio="xMidYMid"
                viewbox="0 0 128 128"

@@ -39,6 +39,7 @@ import {
   WebPlaybackState,
 } from './types';
 import {
+  getLocale,
   getSpotifyURIType,
   isEqualArray,
   loadSpotifyPlayer,
@@ -878,9 +879,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       track,
       volume,
     } = this.state;
-    const { name, showSaveIcon, token, updateSavedStatus } = this.props;
+    const { locale, name, showSaveIcon, token, updateSavedStatus } = this.props;
     const isReady = [STATUS.READY, STATUS.UNSUPPORTED].indexOf(status) >= 0;
     const isPlaybackError = errorType === 'playback_error';
+    const localeMerged = getLocale(locale);
 
     let output = <Loader styles={this.styles!} />;
     let info;
@@ -895,6 +897,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         info = (
           <Info
             isActive={isActive}
+            locale={localeMerged}
             onFavoriteStatusChange={this.handleFavoriteStatusChange}
             showSaveIcon={showSaveIcon!}
             styles={this.styles}
@@ -911,6 +914,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
           <Controls
             isExternalDevice={this.isExternalPlayer}
             isPlaying={isPlaying}
+            locale={localeMerged}
             nextTracks={nextTracks}
             onClickNext={this.handleClickNext}
             onClickPrevious={this.handleClickPrevious}
@@ -923,6 +927,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
             deviceId={deviceId}
             devices={devices}
             isDevicesOpen={isUnsupported && !deviceId}
+            locale={localeMerged}
             onClickDevice={this.handleClickDevice}
             playerPosition={playerPosition}
             setVolume={this.setVolume}

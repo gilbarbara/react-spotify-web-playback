@@ -1,5 +1,7 @@
 import { canUseDOM as canUseDOMBool } from 'exenv';
 
+import { Locale } from './types';
+
 export const canUseDOM = () => canUseDOMBool;
 
 export const STATUS = {
@@ -20,10 +22,27 @@ export const TYPE = {
   TRACK: 'track_update',
 };
 
+export function getLocale(locale?: Partial<Locale>): Locale {
+  return {
+    devices: 'Devices',
+    next: 'Next',
+    pause: 'Pause',
+    play: 'Play',
+    previous: 'Previous',
+    title: '{name} on SPOTIFY',
+    volume: 'Volume',
+    ...locale,
+  };
+}
+
 export function getSpotifyLink(uri: string): string {
   const [, type = '', id = ''] = uri.split(':');
 
   return `https://open.spotify.com/${type}/${id}`;
+}
+
+export function getSpotifyLinkTitle(name: string, locale: string): string {
+  return locale.replace('{name}', name);
 }
 
 export function getSpotifyURIType(uri: string): string {

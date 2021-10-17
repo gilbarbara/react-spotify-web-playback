@@ -306,7 +306,7 @@ describe('SpotifyWebPlayer', () => {
     });
 
     it('should handle Volume changes', async () => {
-      wrapper.find('Volume button').simulate('click');
+      wrapper.find('[aria-label="Volume"]').simulate('click');
 
       wrapper
         .find('.rrs__track')
@@ -321,7 +321,7 @@ describe('SpotifyWebPlayer', () => {
       expect(mockSetVolume).toHaveBeenCalledWith(0.5);
       expect(wrapper.find('VolumeLow')).toExist();
 
-      wrapper.find('Volume button').simulate('click');
+      wrapper.find('[aria-label="Volume"]').simulate('click');
 
       wrapper
         .find('.rrs__track')
@@ -339,11 +339,11 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle Control clicks', async () => {
       // Play the previous track
-      wrapper.find('[aria-label="Previous Track"]').simulate('click');
+      wrapper.find('[aria-label="Previous"]').simulate('click');
       expect(mockPreviousTrack).toHaveBeenCalled();
 
       // Play the next track
-      wrapper.find('[aria-label="Next Track"]').simulate('click');
+      wrapper.find('[aria-label="Next"]').simulate('click');
       expect(mockNextTrack).toHaveBeenCalled();
 
       await act(async () => {
@@ -404,7 +404,7 @@ describe('SpotifyWebPlayer', () => {
     });
 
     it('should handle Device selection', async () => {
-      wrapper.find('Devices button').simulate('click');
+      wrapper.find('[aria-label="Devices"]').simulate('click');
       expect(wrapper.find('ClickOutside button')).toHaveText('Jest Player');
 
       wrapper.find('ClickOutside button').simulate('click');
@@ -421,7 +421,7 @@ describe('SpotifyWebPlayer', () => {
           volume_percent: 60,
         },
       };
-      wrapper.find('Volume button').simulate('click');
+      wrapper.find('[aria-label="Volume"]').simulate('click');
 
       wrapper
         .find('.rrs__track')
@@ -455,7 +455,7 @@ describe('SpotifyWebPlayer', () => {
       expect(wrapper.state('isPlaying')).toBe(true);
 
       // Play the previous track
-      wrapper.find('[aria-label="Previous Track"]').simulate('click');
+      wrapper.find('[aria-label="Previous"]').simulate('click');
       expect(fetchMock.lastCall()).toMatchSnapshot();
 
       await act(async () => {
@@ -466,7 +466,7 @@ describe('SpotifyWebPlayer', () => {
       expect(fetchMock.lastCall()).toMatchSnapshot();
 
       // Play the next track
-      wrapper.find('[aria-label="Next Track"]').simulate('click');
+      wrapper.find('[aria-label="Next"]').simulate('click');
       expect(fetchMock.lastCall()).toMatchSnapshot();
 
       await act(async () => {

@@ -13,6 +13,7 @@ interface Props {
   playerPosition: string;
   setVolume: (volume: number) => any;
   styles: StylesOptions;
+  title: string;
   volume: number;
 }
 
@@ -106,6 +107,7 @@ export default class Volume extends React.PureComponent<Props, State> {
     const {
       playerPosition,
       styles: { altColor, bgColor, color },
+      title,
     } = this.props;
     let icon = <VolumeHigh />;
 
@@ -142,7 +144,12 @@ export default class Volume extends React.PureComponent<Props, State> {
             />
           </ClickOutside>
         )}
-        <button onClick={!isOpen ? this.handleClick : undefined} type="button">
+        <button
+          aria-label={title}
+          onClick={!isOpen ? this.handleClick : undefined}
+          title={title}
+          type="button"
+        >
           {icon}
         </button>
       </Wrapper>

@@ -6,12 +6,13 @@ import Play from './icons/Play';
 import Previous from './icons/Previous';
 
 import { px, styled } from '../styles';
-import { StyledProps, StylesOptions } from '../types/common';
+import { Locale, StyledProps, StylesOptions } from '../types/common';
 import { WebPlaybackTrack } from '../types/spotify';
 
 interface Props {
   isExternalDevice: boolean;
   isPlaying: boolean;
+  locale: Locale;
   nextTracks: WebPlaybackTrack[];
   onClickNext: () => void;
   onClickPrevious: () => void;
@@ -58,6 +59,7 @@ export default function Controls(props: Props) {
   const {
     isExternalDevice,
     isPlaying,
+    locale,
     nextTracks,
     onClickNext,
     onClickPrevious,
@@ -70,16 +72,22 @@ export default function Controls(props: Props) {
     <Wrapper style={{ c: color, h: height }}>
       <div>
         {(!!previousTracks.length || isExternalDevice) && (
-          <button aria-label="Previous Track" onClick={onClickPrevious} type="button">
+          <button
+            aria-label={locale.previous}
+            onClick={onClickPrevious}
+            title={locale.previous}
+            type="button"
+          >
             <Previous />
           </button>
         )}
       </div>
       <div>
         <button
-          aria-label={isPlaying ? 'Pause' : 'Play'}
+          aria-label={isPlaying ? locale.pause : locale.play}
           className="rswp__toggle"
           onClick={onClickTogglePlay}
+          title={isPlaying ? locale.pause : locale.play}
           type="button"
         >
           {isPlaying ? <Pause /> : <Play />}
@@ -87,7 +95,7 @@ export default function Controls(props: Props) {
       </div>
       <div>
         {(!!nextTracks.length || isExternalDevice) && (
-          <button aria-label="Next Track" onClick={onClickNext} type="button">
+          <button aria-label={locale.next} onClick={onClickNext} title={locale.next} type="button">
             <Next />
           </button>
         )}
