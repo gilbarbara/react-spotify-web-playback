@@ -99,7 +99,7 @@ describe('validateURI', () => {
   it.each([
     ['spotify:album:51QBkcL7S3KYdXSSA0zM9R', true],
     ['spotify:artist:7A0awCXkE1FtSU8B0qwOJQ', true],
-    ['spotify:episode:6r8OOleI5xP7qCEipHvdyK', false],
+    ['spotify:episode:6r8OOleI5xP7qCEipHvdyK', true],
     ['spotify:playlist:5kHMGRfZHORA4UrCbhYyad', true],
     ['spotify:show:5huEzXsf133dhbh57Np2tg', true],
     ['spotify:track:0gkVD2tr14wCfJhqhdE94L', true],
