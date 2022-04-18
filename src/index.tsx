@@ -430,10 +430,8 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     /* istanbul ignore else */
     if (isSaved !== status) {
       callback!({
-        ...{
-          ...this.state,
-          isSaved: status,
-        },
+        ...this.state,
+        isSaved: status,
         type: TYPE.FAVORITE,
       });
     }
@@ -616,6 +614,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     this.player.connect();
   };
 
+  // eslint-disable-next-line class-methods-use-this
   private setAlbumImage = (album: WebPlaybackAlbum): string => {
     const width = Math.min(...album.images.map(d => d.width));
     const thumb: WebPlaybackImage =
@@ -963,8 +962,8 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   }
 }
 
-export { STATUS, TYPE };
-
 export * from './types';
 
 export default SpotifyWebPlayer;
+
+export { STATUS, TYPE } from './utils';

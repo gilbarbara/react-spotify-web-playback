@@ -6,6 +6,7 @@ declare let window: any;
 Enzyme.configure({ adapter: new Adapter() });
 
 window.skipEventLoop = () => {
+  // eslint-disable-next-line no-promise-executor-return
   return new Promise(resolve => setImmediate(resolve));
 };
 
