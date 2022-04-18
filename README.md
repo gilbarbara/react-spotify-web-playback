@@ -1,6 +1,6 @@
 # react-spotify-web-playback
 
-[![npm version](https://badge.fury.io/js/react-spotify-web-playback.svg)](https://www.npmjs.com/package/react-spotify-web-playback) [![build status](https://travis-ci.org/gilbarbara/react-spotify-web-playback.svg)](https://travis-ci.org/gilbarbara/react-spotify-web-playback) [![Maintainability](https://api.codeclimate.com/v1/badges/9b6d6817ca7bdfe47f5e/maintainability)](https://codeclimate.com/github/gilbarbara/react-spotify-web-playback/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9b6d6817ca7bdfe47f5e/test_coverage)](https://codeclimate.com/github/gilbarbara/react-spotify-web-playback/test_coverage)
+[![npm version](https://badge.fury.io/js/react-spotify-web-playback.svg)](https://www.npmjs.com/package/react-spotify-web-playback) [![CI](https://github.com/gilbarbara/react-spotify-web-playback/actions/workflows/main.yml/badge.svg)](https://github.com/gilbarbara/react-spotify-web-playback/actions/workflows/main.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/9b6d6817ca7bdfe47f5e/maintainability)](https://codeclimate.com/github/gilbarbara/react-spotify-web-playback/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9b6d6817ca7bdfe47f5e/test_coverage)](https://codeclimate.com/github/gilbarbara/react-spotify-web-playback/test_coverage)
 
 #### A Spotify player with [Spotify's Web Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk/).
 
