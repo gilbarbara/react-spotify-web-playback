@@ -23,6 +23,7 @@ import {
 } from './spotify';
 import { getMergedStyles } from './styles';
 import {
+  CallbackState,
   PlayOptions,
   Props,
   SpotifyDevice,
@@ -134,7 +135,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
-    callback: () => undefined,
     magnifySliderOnHover: false,
     name: 'Spotify Web Player',
     showSaveIcon: false,
@@ -165,7 +165,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       this.state;
     const {
       autoPlay,
-      callback,
       offset,
       play: playProp,
       showSaveIcon,
@@ -200,7 +199,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
 
     if (previousState.status !== status) {
-      callback!({
+      this.handleCallback({
         ...this.state,
         type: TYPE.STATUS,
       });
@@ -208,7 +207,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
     if (previousState.currentDeviceId !== currentDeviceId && currentDeviceId) {
       if (!isReady) {
-        callback!({
+        this.handleCallback({
           ...this.state,
           type: TYPE.DEVICE,
         });
@@ -219,7 +218,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
 
     if (previousState.track.id !== track.id && track.id) {
-      callback!({
+      this.handleCallback({
         ...this.state,
         type: TYPE.TRACK,
       });
@@ -233,7 +232,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       this.toggleProgressBar();
       await this.toggleSyncInterval(this.isExternalPlayer);
 
-      callback!({
+      this.handleCallback({
         ...this.state,
         type: TYPE.PLAYER,
       });
@@ -291,6 +290,14 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     const { currentDeviceId, deviceId, status } = this.state;
 
     return (currentDeviceId && currentDeviceId !== deviceId) || status === STATUS.UNSUPPORTED;
+  }
+
+  private handleCallback(state: CallbackState): void {
+    const { callback } = this.props;
+
+    if (callback) {
+      callback(state);
+    }
   }
 
   private handleChangeRange = async (position: number) => {
@@ -418,13 +425,12 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   private handleFavoriteStatusChange = (status: boolean) => {
     const { isSaved } = this.state;
-    const { callback } = this.props;
 
     this.updateState({ isSaved: status });
 
     /* istanbul ignore else */
     if (isSaved !== status) {
-      callback!({
+      this.handleCallback({
         ...this.state,
         isSaved: status,
         type: TYPE.FAVORITE,
