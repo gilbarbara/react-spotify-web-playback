@@ -273,12 +273,12 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
   }
 
-  public componentWillUnmount() {
+  public async componentWillUnmount() {
     this.isActive = false;
 
     /* istanbul ignore else */
     if (this.player) {
-      this.player.disconnect();
+      await this.player.disconnect();
     }
 
     clearInterval(this.playerSyncInterval);
