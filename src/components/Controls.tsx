@@ -5,19 +5,19 @@ import Pause from './icons/Pause';
 import Play from './icons/Play';
 import Previous from './icons/Previous';
 
+import { Spotify } from '../../global';
 import { px, styled } from '../styles';
-import { Locale, StyledProps, StylesOptions } from '../types/common';
-import { WebPlaybackTrack } from '../types/spotify';
+import { Locale, StyledProps, StylesOptions } from '../types';
 
 interface Props {
   isExternalDevice: boolean;
   isPlaying: boolean;
   locale: Locale;
-  nextTracks: WebPlaybackTrack[];
+  nextTracks: Spotify.Track[];
   onClickNext: () => void;
   onClickPrevious: () => void;
   onClickTogglePlay: () => void;
-  previousTracks: WebPlaybackTrack[];
+  previousTracks: Spotify.Track[];
   styles: StylesOptions;
 }
 
