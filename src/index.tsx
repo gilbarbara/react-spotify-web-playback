@@ -584,6 +584,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     const { volume } = this.state;
     const { name, token } = this.props;
 
+    if (!window.Spotify) {
+      return;
+    }
+
     this.updateState({ isInitializing: true });
 
     // @ts-ignore
