@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import * as React from 'react';
 
-import { SpotifyDevice, SpotifyPlayerTrack, WebPlaybackTrack } from './spotify';
+import { SpotifyDevice, SpotifyPlayerTrack } from './spotify';
 
-export type PlainObject<T = any> = Record<string, T>;
+import { Spotify } from '../../global';
 
 export interface CallbackState extends State {
   type: string;
@@ -41,10 +41,10 @@ export interface State {
   isSaved: boolean;
   isUnsupported: boolean;
   needsUpdate: boolean;
-  nextTracks: WebPlaybackTrack[];
+  nextTracks: Spotify.Track[];
   playerPosition: 'bottom' | 'top';
   position: number;
-  previousTracks: WebPlaybackTrack[];
+  previousTracks: Spotify.Track[];
   progressMs: number;
   status: string;
   track: SpotifyPlayerTrack;

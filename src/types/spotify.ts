@@ -1,16 +1,13 @@
 /* eslint-disable camelcase */
-type SpotifyPlayerMethod<T = void> = () => Promise<T>;
+
+import { Spotify } from '../../global';
 
 export type SpotifyPlayerCallback = (token: string) => void;
 
-export interface SpotifyDevice {
-  id: string;
-  is_active: boolean;
-  is_private_session: boolean;
-  is_restricted: boolean;
+export interface SpotifyAlbum {
+  images: SpotifyImage[];
   name: string;
-  type: string;
-  volume_percent: number;
+  uri: string;
 }
 
 export interface SpotifyArtist {
@@ -22,6 +19,17 @@ export interface SpotifyArtist {
   name: string;
   type: string;
   uri: string;
+  url: string;
+}
+
+export interface SpotifyDevice {
+  id: string;
+  is_active: boolean;
+  is_private_session: boolean;
+  is_restricted: boolean;
+  name: string;
+  type: string;
+  volume_percent: number;
 }
 
 export interface SpotifyImage {
@@ -46,15 +54,7 @@ export interface SpotifyPlayerStatus {
   };
   context: null;
   currently_playing_type: string;
-  device: {
-    id: string;
-    is_active: boolean;
-    is_private_session: false;
-    is_restricted: false;
-    name: string;
-    type: string;
-    volume_percent: number;
-  };
+  device: SpotifyDevice;
   is_playing: boolean;
   item: {
     album: {
@@ -102,7 +102,7 @@ export interface SpotifyPlayerStatus {
 }
 
 export interface SpotifyPlayerTrack {
-  artists: WebPlaybackArtist[];
+  artists: Spotify.Artist[];
   durationMs: number;
   id: string;
   image: string;
@@ -110,110 +110,7 @@ export interface SpotifyPlayerTrack {
   uri: string;
 }
 
-export type WebPlaybackStatuses = 'ready' | 'not_ready';
-export type WebPlaybackStates = 'player_state_changed';
-export type WebPlaybackErrors =
-  | 'initialization_error'
-  | 'authentication_error'
-  | 'account_error'
-  | 'playback_error';
-
-export interface WebPlaybackError {
-  message: WebPlaybackErrors;
-}
-
-export interface WebPlaybackPlayer {
-  _options: {
-    getOAuthToken: SpotifyPlayerCallback;
-    id: string;
-    name: string;
-    volume: number;
-  };
-  activateElement: () => void;
-  addListener: {
-    (event: WebPlaybackErrors, callback: (d: WebPlaybackError) => void): boolean;
-    (event: WebPlaybackStates, callback: (d: WebPlaybackState | null) => void): boolean;
-    (event: WebPlaybackStatuses, callback: (d: WebPlaybackReady) => void): boolean;
-  };
-  connect: SpotifyPlayerMethod;
-  disconnect: () => void;
-  getCurrentState: () => Promise<WebPlaybackState | null>;
-  getVolume: SpotifyPlayerMethod<number>;
-  nextTrack: SpotifyPlayerMethod;
-  pause: SpotifyPlayerMethod;
-  previousTrack: SpotifyPlayerMethod;
-  removeListener: (
-    event: WebPlaybackErrors | WebPlaybackStates | WebPlaybackStatuses,
-    callback?: () => void,
-  ) => boolean;
-  resume: SpotifyPlayerMethod;
-  seek: (positionMS: number) => Promise<void>;
-  setName: (n: string) => Promise<void>;
-  setVolume: (n: number) => Promise<void>;
-  togglePlay: SpotifyPlayerMethod;
-}
-
-export interface WebPlaybackReady {
-  device_id: string;
-}
-
-export interface WebPlaybackState {
-  bitrate: number;
-  context: {
-    metadata: Record<string, unknown>;
-    uri: null;
-  };
-  disallows: {
-    resuming: boolean;
-    skipping_prev: boolean;
-  };
-  duration: number;
-  paused: boolean;
-  position: number;
-  repeat_mode: number;
-  restrictions: {
-    disallow_resuming_reasons: [];
-    disallow_skipping_prev_reasons: [];
-  };
-  shuffle: boolean;
-  timestamp: number;
-  track_window: {
-    current_track: WebPlaybackTrack;
-    next_tracks: WebPlaybackTrack[];
-    previous_tracks: WebPlaybackTrack[];
-  };
-}
-
-export interface WebPlaybackAlbum {
-  images: WebPlaybackImage[];
-  name: string;
-  uri: string;
-}
-
 export interface WebPlaybackArtist {
   name: string;
-  uri: string;
-}
-
-export interface WebPlaybackImage {
-  height: number;
-  url: string;
-  width: number;
-}
-
-export interface WebPlaybackTrack {
-  album: WebPlaybackAlbum;
-  artists: WebPlaybackArtist[];
-  duration_ms: number;
-  id: string;
-  is_playable: boolean;
-  linked_from: {
-    id: null | string;
-    uri: null | string;
-  };
-  linked_from_uri: null | string;
-  media_type: string;
-  name: string;
-  type: string;
   uri: string;
 }
