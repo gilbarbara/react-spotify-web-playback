@@ -1,5 +1,4 @@
 /* tslint:disable:no-console */
-import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount, ReactWrapper } from 'enzyme';
 import fetchMock from 'fetch-mock';

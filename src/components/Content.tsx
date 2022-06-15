@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { px, styled } from '../styles';
 import { ComponentsProps, StyledProps } from '../types/common';
 
@@ -29,8 +27,6 @@ const Wrapper = styled('div')(
   'ContentRSWP',
 );
 
-function Content({ children, styles }: ComponentsProps) {
+export default function Content({ children, styles }: ComponentsProps) {
   return <Wrapper style={{ h: styles.height }}>{children}</Wrapper>;
 }
-
-export default Content;

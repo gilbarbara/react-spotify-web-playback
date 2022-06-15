@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { px, styled } from '../styles';
 import { ComponentsProps, StyledProps } from '../types/common';
 
@@ -17,8 +15,9 @@ const Wrapper = styled('p')(
   'ErrorRSWP',
 );
 
-function ErrorMessage({ children, styles: { errorColor, height } }: ComponentsProps) {
+export default function ErrorMessage({
+  children,
+  styles: { errorColor, height },
+}: ComponentsProps) {
   return <Wrapper style={{ errorColor, h: height }}>{children}</Wrapper>;
 }
-
-export default ErrorMessage;

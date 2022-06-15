@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-function VolumeLow(props: any) {
+export default function VolumeLow(props: any) {
   return (
     <svg height="1em" preserveAspectRatio="xMidYMid" viewBox="0 0 128 128" width="1em" {...props}>
       <path
@@ -10,5 +8,3 @@ function VolumeLow(props: any) {
     </svg>
   );
 }
-
-export default VolumeLow;

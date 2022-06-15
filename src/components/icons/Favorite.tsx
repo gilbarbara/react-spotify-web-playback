@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-function Favorite(props: any) {
+export default function Favorite(props: any) {
   return (
     <svg height="1em" preserveAspectRatio="xMidYMid" viewBox="0 0 128 128" width="1em" {...props}>
       <path
@@ -10,5 +8,3 @@ function Favorite(props: any) {
     </svg>
   );
 }
-
-export default Favorite;

@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-function VolumeHigh(props: any) {
+export default function VolumeHigh(props: any) {
   return (
     <svg height="1em" preserveAspectRatio="xMidYMid" viewBox="0 0 128 128" width="1em" {...props}>
       <path
@@ -10,5 +8,3 @@ function VolumeHigh(props: any) {
     </svg>
   );
 }
-
-export default VolumeHigh;
