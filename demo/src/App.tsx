@@ -1,24 +1,26 @@
-import React, { useCallback, useRef, useState } from 'react';
-import SpotifyWebPlayer, { STATUS, CallbackState } from 'react-spotify-web-playback';
-
-import GitHubRepo from './GitHubRepo';
+import { FormEvent, MouseEvent, useCallback, useRef, useState } from 'react';
+import SpotifyWebPlayer, { CallbackState, STATUS } from 'react-spotify-web-playback';
 import {
+  Anchor,
+  Box,
   Button,
-  Disclaimer,
-  Form,
-  GlobalStyles,
-  Heading,
+  ComponentWrapper,
+  Container,
+  Grid,
+  H1,
+  H4,
+  H6,
+  Icon,
   Input,
-  List,
-  Player,
-  ScopeTitle,
-  Selector,
-} from './component';
+} from '@gilbarbara/components';
+
+import { GlobalStyles, List, Player } from './components';
+import GitHubRepo from './GitHubRepo';
 
 const validateURI = (input: string): boolean => {
   let isValid = false;
 
-  if (input && input.indexOf(':') > -1) {
+  if (input && input.includes(':')) {
     const [key, type, id] = input.split(':');
 
     if (key && type && type !== 'user' && id && id.length === 22) {
@@ -32,10 +34,10 @@ const validateURI = (input: string): boolean => {
 const parseURIs = (input: string): string[] => {
   const ids = input.split(',');
 
-  return ids.every((d) => validateURI(d)) ? ids : [];
+  return ids.every(d => validateURI(d)) ? ids : [];
 };
 
-const App = () => {
+function App() {
   const scopes = [
     'streaming',
     'user-read-email',
@@ -50,39 +52,35 @@ const App = () => {
   const [token, setToken] = useState(savedToken || '');
   const [isPlaying, setIsPlaying] = useState(false);
   const [URIs, setURIs] = useState<string[]>(['spotify:album:51QBkcL7S3KYdXSSA0zM9R']);
-  const [validURI, setValidURI] = useState(false);
 
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback((event: FormEvent) => {
+    event.preventDefault();
 
-    const token = e.target.elements[0].value;
+    const form = event.currentTarget as HTMLFormElement;
+    const formElements = form.elements as typeof form.elements & {
+      token: HTMLInputElement;
+    };
 
-    if (token) {
-      setToken(token);
-      localStorage.setItem('rswp_token', token);
-      e.target.reset();
+    const nextToken = formElements.token.value;
+
+    if (nextToken) {
+      setToken(nextToken);
+      localStorage.setItem('rswp_token', nextToken);
+      form.reset();
     }
   }, []);
 
-  const handleSubmitURIs = useCallback((e) => {
-    e.preventDefault();
+  const handleSubmitURIs = useCallback((event: FormEvent) => {
+    event.preventDefault();
 
     if (URIsInput && URIsInput.current) {
       setURIs(parseURIs(URIsInput.current.value));
     }
   }, []);
 
-  const handleChangeURIs = useCallback((e) => {
-    e.preventDefault();
-
-    if (URIsInput && URIsInput.current) {
-      setValidURI(!!parseURIs(URIsInput.current.value).length);
-    }
-  }, []);
-
-  const handleClickURIs = useCallback((e) => {
-    e.preventDefault();
-    const { uris } = e.currentTarget.dataset;
+  const handleClickURIs = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const { uris = '' } = event.currentTarget.dataset;
 
     setURIs(parseURIs(uris));
     setIsPlaying(true);
@@ -105,101 +103,151 @@ const App = () => {
     }
   }, []);
 
-  return (
-    <div className="App">
-      <GlobalStyles />
-      <Heading>React Spotify Web Playback Demo</Heading>
+  const content: any = {};
 
-      {!token && (
-        <React.Fragment>
-          <Form onSubmit={handleSubmit}>
-            <Input type="text" name="token" placeholder="Enter a Spotify token" />
-            <Button type="submit">✓</Button>
-          </Form>
-          <Disclaimer>
-            <ScopeTitle>Required scopes</ScopeTitle>
-            <List>
-              {scopes.map((d) => (
-                <li key={d}>{d}</li>
-              ))}
-            </List>
-            <p>
-              Get one{' '}
-              <a
-                href={`https://accounts.spotify.com/en/authorize?response_type=token&client_id=adaaf209fb064dfab873a71817029e0d&redirect_uri=https:%2F%2Fdeveloper.spotify.com%2Fdocumentation%2Fweb-playback-sdk%2Fquick-start%2F&scope=${scopes.join(
-                  '%20',
-                )}&show_dialog=true`}
-                rel="noopener noreferrer"
-                target="_blank"
+  if (token) {
+    content.main = (
+      <>
+        <Box as="form" maxWidth={320} mx="auto" onSubmit={handleSubmitURIs} width="100%">
+          <ComponentWrapper
+            suffix={
+              <Button
+                shape="round"
+                style={{ borderBottomLeftRadius: 0, borderTopLeftRadius: 0 }}
+                type="submit"
               >
-                here
-              </a>
-            </p>
-          </Disclaimer>
-        </React.Fragment>
-      )}
-      {token && (
-        <React.Fragment>
-          <Form onSubmit={handleSubmitURIs}>
+                <Icon name="check" size={24} />
+              </Button>
+            }
+          >
             <Input
               ref={URIsInput}
-              name="uris"
+              data-flex={1}
               defaultValue={URIs.join(',')}
+              name="uris"
               placeholder="Enter a Spotify URI"
-              onChange={handleChangeURIs}
+              suffixSpacing={48}
             />
-            <Button type="submit" disabled={!validURI}>
-              ✓
-            </Button>
-          </Form>
-          <Selector>
-            <button onClick={handleClickURIs} data-uris="spotify:artist:7A0awCXkE1FtSU8B0qwOJQ">
-              Play an Artist
-            </button>
-            <button onClick={handleClickURIs} data-uris="spotify:album:51QBkcL7S3KYdXSSA0zM9R">
-              Play an Album
-            </button>
-            <button onClick={handleClickURIs} data-uris="spotify:playlist:5kHMGRfZHORA4UrCbhYyad">
-              Play a Playlist
-            </button>
-            <button
-              onClick={handleClickURIs}
-              data-uris={[
-                'spotify:track:0gkVD2tr14wCfJhqhdE94L',
-                'spotify:track:0E7S1k9M1KshLISVC2EP1M',
-                'spotify:track:2WIUbg8CiAsKuQMw9DzZ1d',
-                'spotify:track:2aJDlirz6v2a4HREki98cP',
-                'spotify:track:6ap5AekhAt3k6e0zAknDyV',
-                'spotify:track:6GNXHie8d6aN0rxFMnj2tx',
-                'spotify:track:3C3VCp0ajmW9timvqBmiHf',
-              ].join(',')}
-            >
-              Play some Tracks
-            </button>
-          </Selector>
-        </React.Fragment>
-      )}
-
+          </ComponentWrapper>
+        </Box>
+        <Grid gap={20} maxWidth={320} mt="xl" mx="auto" templateColumns="repeat(2, 1fr)">
+          <Button
+            data-uris="spotify:artist:7A0awCXkE1FtSU8B0qwOJQ"
+            onClick={handleClickURIs}
+            size="sm"
+          >
+            Play an Artist
+          </Button>
+          <Button
+            data-uris="spotify:album:51QBkcL7S3KYdXSSA0zM9R"
+            onClick={handleClickURIs}
+            size="sm"
+          >
+            Play an Album
+          </Button>
+          <Button
+            data-uris="spotify:playlist:5kHMGRfZHORA4UrCbhYyad"
+            onClick={handleClickURIs}
+            size="sm"
+          >
+            Play a Playlist
+          </Button>
+          <Button
+            data-uris={[
+              'spotify:track:0gkVD2tr14wCfJhqhdE94L',
+              'spotify:track:0E7S1k9M1KshLISVC2EP1M',
+              'spotify:track:2WIUbg8CiAsKuQMw9DzZ1d',
+              'spotify:track:2aJDlirz6v2a4HREki98cP',
+              'spotify:track:6ap5AekhAt3k6e0zAknDyV',
+              'spotify:track:6GNXHie8d6aN0rxFMnj2tx',
+              'spotify:track:3C3VCp0ajmW9timvqBmiHf',
+            ].join(',')}
+            onClick={handleClickURIs}
+            size="sm"
+          >
+            Play some Tracks
+          </Button>
+        </Grid>
+      </>
+    );
+    content.player = (
       <Player key={token}>
-        {token && (
-          <SpotifyWebPlayer
-            autoPlay={false}
-            callback={handleCallback}
-            persistDeviceSelection
-            play={isPlaying}
-            showSaveIcon
-            syncExternalDevice
-            token={token}
-            styles={{
-              sliderColor: '#1cb954',
-            }}
-            uris={URIs}
-          />
-        )}
+        <SpotifyWebPlayer
+          callback={handleCallback}
+          initialVolume={50}
+          persistDeviceSelection
+          play={isPlaying}
+          showSaveIcon
+          styles={{
+            sliderColor: '#1cb954',
+          }}
+          syncExternalDevice
+          token={token}
+          uris={URIs}
+        />
       </Player>
-      <GitHubRepo />
-    </div>
+    );
+  } else {
+    content.main = (
+      <>
+        <Box as="form" maxWidth={320} mx="auto" onSubmit={handleSubmit} width="100%">
+          <ComponentWrapper
+            suffix={
+              <Button
+                shape="round"
+                style={{ borderBottomLeftRadius: 0, borderTopLeftRadius: 0 }}
+                type="submit"
+              >
+                <Icon name="check" size={24} />
+              </Button>
+            }
+          >
+            <Input
+              name="token"
+              placeholder="Enter a Spotify token"
+              suffixSpacing={48}
+              type="text"
+            />
+          </ComponentWrapper>
+        </Box>
+        <Box mt="xl" textAlign="center">
+          <H6>Required scopes</H6>
+          <List>
+            {scopes.map(d => (
+              <li key={d}>{d}</li>
+            ))}
+          </List>
+          <H4 mt="md">
+            Get one{' '}
+            <Anchor
+              external
+              href={`https://accounts.spotify.com/en/authorize?response_type=token&client_id=adaaf209fb064dfab873a71817029e0d&redirect_uri=https:%2F%2Fdeveloper.spotify.com%2Fdocumentation%2Fweb-playback-sdk%2Fquick-start%2F&scope=${scopes.join(
+                '%20',
+              )}&show_dialog=true`}
+            >
+              here
+            </Anchor>
+          </H4>
+        </Box>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <GlobalStyles hasToken={!!token} />
+      <Container fullScreen fullScreenOffset={token ? 100 : 0} verticalAlign="center">
+        <H1 align="center" mb="xl">
+          React Spotify Web Playback
+        </H1>
+
+        {content.main}
+        {content.player}
+
+        <GitHubRepo />
+      </Container>
+    </>
   );
-};
+}
 
 export default App;
