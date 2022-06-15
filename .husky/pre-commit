@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-repo-tools check-remote && lint-staged
+./node_modules/.bin/repo-tools check-remote && lint-staged

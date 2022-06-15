@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import Devices from './Devices';
 import Volume from './Volume';
 
@@ -45,7 +43,7 @@ const Wrapper = styled('div')(
   'ActionsRSWP',
 );
 
-function Actions(props: Props) {
+export default function Actions(props: Props) {
   const {
     currentDeviceId,
     deviceId,
@@ -83,5 +81,3 @@ function Actions(props: Props) {
     </Wrapper>
   );
 }
-
-export default Actions;

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { keyframes, px, styled } from '../styles';
 import { ComponentsProps, StyledProps } from '../types/common';
 
@@ -56,12 +54,10 @@ const Wrapper = styled('div')(
   'LoaderRSWP',
 );
 
-function Loader({ styles: { loaderColor, loaderSize } }: ComponentsProps) {
+export default function Loader({ styles: { loaderColor, loaderSize } }: ComponentsProps) {
   return (
     <Wrapper style={{ loaderColor, loaderSize }}>
       <div />
     </Wrapper>
   );
 }
-
-export default Loader;
