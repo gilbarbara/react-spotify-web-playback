@@ -20,11 +20,10 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-
 **Codesandbox link (Required)**
 Include a codesandbox will help us to investigate the issue quicker.
 
-[Template](https://codesandbox.io/s/github/gilbarbara/react-spotify-web-playback/tree/master/demo)
+[Template](https://codesandbox.io/s/github/gilbarbara/react-spotify-web-playback/tree/main/demo)
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
