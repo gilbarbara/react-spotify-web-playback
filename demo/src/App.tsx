@@ -132,21 +132,21 @@ function App() {
         </Box>
         <Grid gap={20} maxWidth={320} mt="xl" mx="auto" templateColumns="repeat(2, 1fr)">
           <Button
-            data-uris="spotify:artist:7A0awCXkE1FtSU8B0qwOJQ"
+            data-uris="spotify:artist:0b9ukmbg0MO5eMlorcgOwz"
             onClick={handleClickURIs}
             size="sm"
           >
             Play an Artist
           </Button>
           <Button
-            data-uris="spotify:album:51QBkcL7S3KYdXSSA0zM9R"
+            data-uris="spotify:album:79ONNoS4M9tfIA1mYLBYVX"
             onClick={handleClickURIs}
             size="sm"
           >
             Play an Album
           </Button>
           <Button
-            data-uris="spotify:playlist:5kHMGRfZHORA4UrCbhYyad"
+            data-uris="spotify:playlist:1hOzc9GLICCPVMq5xcCRxV"
             onClick={handleClickURIs}
             size="sm"
           >
@@ -154,13 +154,13 @@ function App() {
           </Button>
           <Button
             data-uris={[
-              'spotify:track:0gkVD2tr14wCfJhqhdE94L',
-              'spotify:track:0E7S1k9M1KshLISVC2EP1M',
-              'spotify:track:2WIUbg8CiAsKuQMw9DzZ1d',
-              'spotify:track:2aJDlirz6v2a4HREki98cP',
-              'spotify:track:6ap5AekhAt3k6e0zAknDyV',
-              'spotify:track:6GNXHie8d6aN0rxFMnj2tx',
-              'spotify:track:3C3VCp0ajmW9timvqBmiHf',
+              'spotify:track:4pGxnHLyli1TLkRFHyBxo0',
+              'spotify:track:1cU4jWWFTAiclPWyD3X2KP',
+              'spotify:track:6I6QkE2UVSj9YX48oRrD6e',
+              'spotify:track:2q8EbgPUw6bCQjVyfGoytw',
+              'spotify:track:5B4611SCn4puXahrf7rqkj',
+              'spotify:track:3D93OQLw3qrD3q61uW7vjX',
+              'spotify:track:15TXFTdwGEEL4jH9erTRnK',
             ].join(',')}
             onClick={handleClickURIs}
             size="sm"
@@ -236,7 +236,7 @@ function App() {
   return (
     <>
       <GlobalStyles hasToken={!!token} />
-      <Container fullScreen fullScreenOffset={token ? 100 : 0} verticalAlign="center">
+      <Container fullScreen fullScreenOffset={token ? 100 : 0} justify="center">
         <H1 align="center" mb="xl">
           React Spotify Web Playback
         </H1>
