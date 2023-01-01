@@ -753,10 +753,10 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   }
 
   private toggleOffset = async () => {
-    const { currentDeviceId, isPlaying } = this.state;
+    const { currentDeviceId } = this.state;
     const { offset, token, uris } = this.props;
 
-    if (isPlaying && typeof offset === 'number' && Array.isArray(uris)) {
+    if (typeof offset === 'number' && Array.isArray(uris)) {
       await play(token, { deviceId: currentDeviceId, offset, uris });
     }
   };
