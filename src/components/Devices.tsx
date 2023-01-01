@@ -104,6 +104,7 @@ export default class Devices extends React.PureComponent<Props, State> {
 
     return (
       <Wrapper
+        data-component-name="Devices"
         style={{
           altColor,
           bgColor,

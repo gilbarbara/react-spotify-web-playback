@@ -38,6 +38,7 @@ export default class Slider extends React.PureComponent<Props> {
 
     return (
       <Wrapper
+        data-component-name="Slider"
         onMouseEnter={onToggleMagnify}
         onMouseLeave={onToggleMagnify}
         style={{ sliderHeight: isMagnified ? styles.sliderHeight! + 4 : styles.sliderHeight }}

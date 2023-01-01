@@ -28,5 +28,9 @@ const Wrapper = styled('div')(
 );
 
 export default function Content({ children, styles }: ComponentsProps) {
-  return <Wrapper style={{ h: styles.height }}>{children}</Wrapper>;
+  return (
+    <Wrapper data-component-name="Content" style={{ h: styles.height }}>
+      {children}
+    </Wrapper>
+  );
 }

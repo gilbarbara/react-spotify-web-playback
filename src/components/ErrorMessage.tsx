@@ -19,5 +19,9 @@ export default function ErrorMessage({
   children,
   styles: { errorColor, height },
 }: ComponentsProps) {
-  return <Wrapper style={{ errorColor, h: height }}>{children}</Wrapper>;
+  return (
+    <Wrapper data-component-name="ErrorMessage" style={{ errorColor, h: height }}>
+      {children}
+    </Wrapper>
+  );
 }

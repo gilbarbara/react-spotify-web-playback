@@ -58,7 +58,7 @@ export default function Actions(props: Props) {
   } = props;
 
   return (
-    <Wrapper style={{ h: styles.height }}>
+    <Wrapper data-component-name="Actions" style={{ h: styles.height }}>
       {currentDeviceId && (
         <Volume
           playerPosition={playerPosition}
