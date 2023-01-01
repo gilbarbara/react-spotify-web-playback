@@ -56,7 +56,7 @@ const Wrapper = styled('div')(
 
 export default function Loader({ styles: { loaderColor, loaderSize } }: ComponentsProps) {
   return (
-    <Wrapper style={{ loaderColor, loaderSize }}>
+    <Wrapper data-component-name="Loader" style={{ loaderColor, loaderSize }}>
       <div />
     </Wrapper>
   );

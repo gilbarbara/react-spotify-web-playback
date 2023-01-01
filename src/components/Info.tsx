@@ -224,7 +224,7 @@ export default class Info extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Wrapper className={classes.join(' ')} style={{ h: height }}>
+      <Wrapper className={classes.join(' ')} data-component-name="Info" style={{ h: height }}>
         {image && (
           <a
             aria-label={title}
