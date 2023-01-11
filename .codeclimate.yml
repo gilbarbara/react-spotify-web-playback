@@ -27,7 +27,6 @@ checks:
 exclude_patterns:
   - coverage/**/*
   - demo/**/*
-  - esm/**/*
-  - lib/**/*
+  - dist/**/*
   - node_modules/**/*
   - test/**/*
