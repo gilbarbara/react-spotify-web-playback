@@ -11,14 +11,17 @@
     "url": "https://github.com/gilbarbara/react-spotify-web-playback/issues"
   },
   "homepage": "https://github.com/gilbarbara/react-spotify-web-playback#readme",
-  "main": "lib/index.js",
-  "module": "esm/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js"
+  },
   "files": [
-    "esm",
-    "lib",
+    "dist",
     "src"
   ],
-  "types": "lib",
+  "types": "dist/index.d.ts",
   "sideEffects": true,
   "license": "MIT",
   "keywords": [
@@ -40,10 +43,11 @@
     "react-use": "^17.4.0"
   },
   "devDependencies": {
+    "@gilbarbara/esbuilder": "^0.1.0",
     "@gilbarbara/eslint-config": "^0.3.7",
     "@gilbarbara/prettier-config": "^0.1.0",
     "@gilbarbara/tsconfig": "^0.1.1",
-    "@size-limit/preset-small-lib": "^8.1.1",
+    "@size-limit/file": "^8.1.1",
     "@testing-library/dom": "^8.19.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -71,12 +75,9 @@
     "typescript": "^4.9.4"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:cjs && npm run build:esm",
-    "build:cjs": "tsc",
-    "build:esm": "tsc -m es6 --outDir esm",
-    "clean": "del lib/* && del esm/*",
-    "watch:cjs": "npm run build:cjs -- -w",
-    "watch:esm": "npm run build:esm -- -w",
+    "build": "npm run clean && esbuilder --input ./src/index.tsx --cjs --esm && npm run build:types",
+    "build:types": "tsc",
+    "clean": "del dist/*",
     "test": "is-ci \"test:coverage\" \"test:watch\"",
     "test:coverage": "jest --bail --coverage",
     "test:watch": "jest --watchAll --verbose",
@@ -122,14 +123,14 @@
   },
   "size-limit": [
     {
-      "name": "lib",
-      "path": "./lib/index.js",
-      "limit": "24 KB"
+      "name": "commonjs",
+      "path": "./dist/index.js",
+      "limit": "20 KB"
     },
     {
       "name": "esm",
-      "path": "./esm/index.js",
-      "limit": "22 KB"
+      "path": "./dist/index.mjs",
+      "limit": "20 KB"
     }
   ]
 }

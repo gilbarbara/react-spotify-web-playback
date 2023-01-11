@@ -1,12 +1,8 @@
 {
   "extends": "@gilbarbara/tsconfig",
   "compilerOptions": {
-    "downlevelIteration": true,
-    "jsx": "react-jsx",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "outDir": "./lib",
-    "target": "es5",
-    "skipLibCheck": true
+    "emitDeclarationOnly": true,
+    "outDir": "./dist"
   },
   "include": ["global.d.ts", "src/**/*"]
 }
