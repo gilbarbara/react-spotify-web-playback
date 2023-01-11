@@ -32,6 +32,7 @@
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "dependencies": {
+    "@gilbarbara/deep-equal": "^0.1.2",
     "@gilbarbara/react-range-slider": "^0.7.0",
     "exenv": "^1.2.2",
     "memoize-one": "^6.0.0",

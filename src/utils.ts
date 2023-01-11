@@ -51,22 +51,6 @@ export function getSpotifyURIType(uri: string): string {
   return type;
 }
 
-export function isEqualArray(A?: any, B?: any) {
-  if (!Array.isArray(A) || !Array.isArray(B) || A.length !== B.length) {
-    return false;
-  }
-
-  let result = true;
-
-  A.forEach((a: string) =>
-    B.forEach((b: string) => {
-      result = a === b;
-    }),
-  );
-
-  return result;
-}
-
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
 }
