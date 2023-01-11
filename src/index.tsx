@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import * as React from 'react';
+import isEqual from '@gilbarbara/deep-equal';
 import memoize from 'memoize-one';
 
 import Actions from './components/Actions';
@@ -35,7 +36,6 @@ import {
 import {
   getLocale,
   getSpotifyURIType,
-  isEqualArray,
   loadSpotifyPlayer,
   parseVolume,
   round,
@@ -173,9 +173,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       uris,
     } = this.props;
     const isReady = previousState.status !== STATUS.READY && status === STATUS.READY;
-    const changedURIs = Array.isArray(uris)
-      ? !isEqualArray(previousProps.uris, uris)
-      : previousProps.uris !== uris;
+    const changedURIs = !isEqual(previousProps.uris, uris);
     const playOptions = this.getPlayOptions(uris);
 
     const canPlay = !!currentDeviceId && !!(playOptions.context_uri || playOptions.uris);

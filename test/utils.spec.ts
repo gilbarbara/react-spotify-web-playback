@@ -1,7 +1,6 @@
 import {
   canUseDOM,
   getSpotifyURIType,
-  isEqualArray,
   isNumber,
   loadSpotifyPlayer,
   parseVolume,
@@ -41,13 +40,6 @@ describe('getSpotifyURIType', () => {
     ['spotify', ''],
   ])('%p should return %p', (value, expected) => {
     expect(getSpotifyURIType(value)).toBe(expected);
-  });
-});
-
-describe('isEqualArray', () => {
-  it('should return properly', () => {
-    expect(isEqualArray(['a', 'b'], ['a', 'b'])).toBeTrue();
-    expect(isEqualArray(['a', 'b'], ['a', 'c'])).toBeFalse();
   });
 });
 
