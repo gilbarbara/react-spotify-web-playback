@@ -39,12 +39,14 @@ export default class Slider extends React.PureComponent<Props> {
     return (
       <Wrapper
         data-component-name="Slider"
+        data-position={position}
         onMouseEnter={onToggleMagnify}
         onMouseLeave={onToggleMagnify}
-        style={{ sliderHeight: isMagnified ? styles.sliderHeight! + 4 : styles.sliderHeight }}
+        style={{ sliderHeight: isMagnified ? styles.sliderHeight + 4 : styles.sliderHeight }}
       >
         <RangeSlider
           axis="x"
+          className="slider"
           onChange={this.handleChangeRange}
           styles={{
             options: {
@@ -52,7 +54,7 @@ export default class Slider extends React.PureComponent<Props> {
               thumbBorderRadius: styles.sliderHandleBorderRadius,
               thumbColor: styles.sliderHandleColor,
               thumbSize: isMagnified ? handleSize + 4 : handleSize,
-              height: isMagnified ? styles.sliderHeight! + 4 : styles.sliderHeight,
+              height: isMagnified ? styles.sliderHeight + 4 : styles.sliderHeight,
               padding: 0,
               rangeColor: styles.sliderColor,
               trackBorderRadius: styles.sliderTrackBorderRadius,

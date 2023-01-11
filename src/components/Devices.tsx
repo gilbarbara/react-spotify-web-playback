@@ -105,6 +105,7 @@ export default class Devices extends React.PureComponent<Props, State> {
     return (
       <Wrapper
         data-component-name="Devices"
+        data-device-id={currentDeviceId}
         style={{
           altColor,
           bgColor,
@@ -119,6 +120,7 @@ export default class Devices extends React.PureComponent<Props, State> {
                 {devices.map((d: SpotifyDevice) => (
                   <button
                     key={d.id}
+                    aria-label={d.name}
                     className={d.id === currentDeviceId ? 'rswp__devices__active' : undefined}
                     data-id={d.id}
                     onClick={this.handleClickSetDevice}

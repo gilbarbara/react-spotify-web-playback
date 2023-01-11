@@ -208,8 +208,10 @@ export default class Info extends React.PureComponent<Props, State> {
     if (showSaveIcon && id) {
       icon = (
         <button
+          aria-label={isSaved ? locale.removeTrack : locale.saveTrack}
           className={isSaved ? 'rswp__active' : undefined}
           onClick={this.handleClickIcon}
+          title={isSaved ? locale.removeTrack : locale.saveTrack}
           type="button"
         >
           {isSaved ? <Favorite /> : <FavoriteOutline />}

@@ -120,13 +120,14 @@ export default class Volume extends React.PureComponent<Props, State> {
     return (
       <Wrapper
         data-component-name="Volume"
+        data-value={volume}
         style={{ altColor, bgColor, c: color, p: playerPosition }}
       >
         {isOpen && (
           <ClickOutside onClick={this.handleClick}>
             <RangeSlider
               axis="y"
-              className="rrs"
+              className="volume"
               onAfterEnd={this.handleAfterEnd}
               onChange={this.handleChangeSlider}
               styles={{

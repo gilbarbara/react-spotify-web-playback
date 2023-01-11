@@ -1,33 +1,37 @@
-/* tslint:disable:no-console */
-import { act } from 'react-dom/test-utils';
-import { mount, ReactWrapper } from 'enzyme';
-import fetchMock from 'fetch-mock';
+import React from 'react';
+import { act, configure, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { playerState, playerStatus } from './fixtures/data';
+import { setBoundingClientRect } from './fixtures/helpers';
 
-import SpotifyWebPlayer, { STATUS } from '../src';
-import { Props, State } from '../src/types/common';
+import { Spotify } from '../global';
+import SpotifyWebPlayer, { Props } from '../src';
+import * as utils from '../src/utils';
 
-declare let window: any;
+jest.spyOn(utils, 'loadSpotifyPlayer').mockImplementation(() => Promise.resolve());
 
-fetchMock.config.overwriteRoutes = false;
 jest.useFakeTimers();
 
-process.on('unhandledRejection', (reason, p) => {
-  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
-});
+configure({ testIdAttribute: 'data-component-name' });
 
 let playerStateResponse = playerState;
 let playerStatusResponse = playerStatus;
 
 const mockAddListener = jest.fn();
 
-const updatePlayer = async () => {
-  const [, stateChangeFn] = mockAddListener.mock.calls.find(d => d[0] === 'player_state_changed');
+const initalizePlayer = async () => {
+  const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
 
-  await stateChangeFn(playerStateResponse);
+  await readyFn({ device_id: deviceId });
 };
 
+const updatePlayer = async (state?: Partial<Spotify.PlaybackState>) => {
+  const [, stateChangeFn] = mockAddListener.mock.calls.find(d => d[0] === 'player_state_changed');
+
+  await stateChangeFn({ ...playerState, ...state });
+};
+
+const mockFn = jest.fn();
 const mockActivateElement = jest.fn();
 const mockCallback = jest.fn();
 const mockConnect = jest.fn();
@@ -37,6 +41,8 @@ const mockGetOAuthToken = jest.fn();
 const mockGetVolume = jest.fn(() => 1);
 const mockNextTrack = jest.fn(updatePlayer);
 const mockPreviousTrack = jest.fn(updatePlayer);
+const mockRemoveListener = jest.fn();
+const mockSetName = jest.fn();
 const mockSetVolume = jest.fn();
 const mockTogglePlay = jest.fn(updatePlayer);
 
@@ -44,98 +50,130 @@ const deviceId = '19ks98hfbxc53vh34jd';
 const externalDeviceId = 'df17372ghs982js892js';
 const token =
   'BQDoGCFtLXDAVgphhrRSPFHmhG9ZND3BLzSE5WVE-2qoe7_YZzRcVtZ6F7qEhzTih45GyxZLhp9b53A1YAPObAgV0MDvsbcQg-gZzlrIeQwwsWnz3uulVvPMhqssNP5HnE5SX0P0wTOOta1vneq2dL4Hvdko5WqvRivrEKWXCvJTPAFStfa5V5iLdCSglg';
+const trackUris = ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'];
 
-const setup = (props?: Record<string, any>): ReactWrapper<Props, State> => {
-  mockActivateElement.mockClear();
-  mockAddListener.mockClear();
-  mockCallback.mockClear();
-  mockConnect.mockClear();
-  mockDisconnect.mockClear();
-  mockGetCurrentState.mockClear();
-  mockGetOAuthToken.mockClear();
-  mockGetVolume.mockClear();
-  mockNextTrack.mockClear();
-  mockPreviousTrack.mockClear();
-  mockSetVolume.mockClear();
-  mockTogglePlay.mockClear();
-
-  const wrapper = mount<Props, State>(
-    <SpotifyWebPlayer
-      callback={mockCallback}
-      token={token}
-      uris="spotify:album:7KvKuWUxxNPEU80c4i5AQk"
-      {...props}
-    />,
-  );
-
-  window.onSpotifyWebPlaybackSDKReady();
-
-  return wrapper;
+const baseProps = {
+  callback: mockCallback,
+  token,
+  uris: 'spotify:album:7KvKuWUxxNPEU80c4i5AQk',
 };
+
+interface SetupProps extends Partial<Props> {
+  initialize?: boolean;
+  skipUpdate?: boolean;
+  updateState?: Partial<Spotify.PlaybackState>;
+}
+
+async function setup(props?: SetupProps) {
+  const { initialize = true, skipUpdate = false, updateState, ...rest } = props || {};
+  const view = render(<SpotifyWebPlayer {...baseProps} {...rest} />);
+
+  await act(async () => {
+    window.onSpotifyWebPlaybackSDKReady();
+  });
+
+  if (initialize) {
+    await act(async () => {
+      await initalizePlayer();
+
+      if (!skipUpdate) {
+        await updatePlayer(updateState);
+      }
+    });
+  }
+
+  return view;
+}
+
+function setExternalDevice() {
+  // open the device selector
+  fireEvent.click(screen.getByLabelText('Devices'));
+
+  // select the external device
+  fireEvent.click(screen.getByLabelText('Jest Player'));
+}
+
+class Player {
+  _options: any;
+
+  constructor(options: Record<string, any>) {
+    options.getOAuthToken(mockGetOAuthToken);
+
+    // eslint-disable-next-line no-underscore-dangle
+    this._options = options;
+  }
+
+  activateElement = mockActivateElement;
+  addListener = mockAddListener;
+  connect = mockConnect;
+  disconnect = mockDisconnect;
+  getCurrentState = mockGetCurrentState;
+  getVolume = mockGetVolume;
+  nextTrack = mockNextTrack;
+  on = mockFn;
+  pause = mockFn;
+  previousTrack = mockPreviousTrack;
+  removeListener = mockRemoveListener;
+  resume = mockFn;
+  seek = mockFn;
+  setName = mockSetName;
+  setVolume = mockSetVolume;
+  togglePlay = mockTogglePlay;
+}
 
 describe('SpotifyWebPlayer', () => {
   beforeAll(async () => {
     window.Spotify = {
-      Player: function Player({ getOAuthToken }: Record<string, any>) {
-        this.activateElement = mockActivateElement;
-        this.addListener = mockAddListener;
-        this.connect = mockConnect;
-        this.disconnect = mockDisconnect;
-        this.getCurrentState = mockGetCurrentState;
-        this.getVolume = mockGetVolume;
-        this.previousTrack = mockPreviousTrack;
-        this.nextTrack = mockNextTrack;
-        this.setVolume = mockSetVolume;
-        this.togglePlay = mockTogglePlay;
-
-        getOAuthToken(mockGetOAuthToken);
-      },
+      // @ts-ignore
+      Player,
     };
 
-    fetchMock.get(/contains\?ids=*/, [true]);
-    fetchMock.get('https://api.spotify.com/v1/me/player/devices', {
-      devices: [
-        {
-          id: externalDeviceId,
-          name: 'Jest Player',
-        },
-      ],
-    });
-    fetchMock.get('https://api.spotify.com/v1/me/player', () => playerStatusResponse);
-    fetchMock.delete('https://api.spotify.com/v1/me/tracks', 200);
-    fetchMock.put('*', 204);
-    fetchMock.post('*', 204);
-    fetchMock.put('https://api.spotify.com/v1/me/tracks', 200);
+    fetchMock.mockIf(/.*/, request => {
+      const { method, url } = request;
 
-    // @ts-ignore
-    Element.prototype.getBoundingClientRect = () => ({
-      bottom: 50,
-      height: 50,
-      left: 900,
-      right: 0,
-      top: 0,
-      width: 6,
+      if (url.match(/contains\?ids=*/)) {
+        return Promise.resolve({
+          body: JSON.stringify([false]),
+        });
+      } else if (url === 'https://api.spotify.com/v1/me/player/devices') {
+        return Promise.resolve({
+          body: JSON.stringify({
+            devices: [
+              {
+                id: externalDeviceId,
+                name: 'Jest Player',
+              },
+            ],
+          }),
+        });
+      } else if (url === 'https://api.spotify.com/v1/me/player') {
+        return Promise.resolve({
+          body: JSON.stringify(playerStatusResponse),
+        });
+      } else if (method === 'GET' && url === 'https://api.spotify.com/v1/me/tracks') {
+        return Promise.resolve({ status: 200 });
+      } else if (method === 'PUT' && url === 'https://api.spotify.com/v1/me/tracks') {
+        return Promise.resolve({ status: 200 });
+      } else if (['POST', 'PUT'].includes(request.method)) {
+        return Promise.resolve({ status: 204 });
+      }
+
+      return Promise.resolve({ status: 404 });
     });
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('Error listeners', () => {
-    let wrapper: ReactWrapper<Props, State>;
-
     beforeAll(() => {
-      fetchMock.resetHistory();
-      wrapper = setup();
-    });
-
-    beforeEach(() => {
-      mockDisconnect.mockClear();
-      mockCallback.mockClear();
-    });
-
-    afterAll(() => {
-      wrapper.unmount();
+      jest.clearAllMocks();
     });
 
     it('should handle `authentication_error`', async () => {
+      const { rerender, unmount } = await setup({ initialize: false });
+
       const [authenticationType, authenticationFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'authentication_error',
       );
@@ -143,27 +181,26 @@ describe('SpotifyWebPlayer', () => {
       await act(async () => {
         authenticationFn({ type: authenticationType, message: 'Failed to authenticate' });
       });
-      wrapper.update();
 
-      expect(wrapper.state().status).toBe(STATUS.ERROR);
-      expect(wrapper.state().error).toBe('Failed to authenticate');
-      expect(wrapper.state().errorType).toBe('authentication_error');
+      expect(screen.getByTestId('Player')).toMatchSnapshot('With Error');
       expect(mockDisconnect).toHaveBeenCalledTimes(1);
 
-      expect(wrapper.html()).toMatchSnapshot();
-    });
+      rerender(<SpotifyWebPlayer {...baseProps} token={`${token}BB`} />);
 
-    it('should handle token updates', async () => {
-      wrapper.setProps({ token: `${token}_AA` });
+      expect(mockConnect).toHaveBeenCalledTimes(2);
 
-      // @ts-ignore
-      expect(wrapper.instance().hasNewToken).toBeTrue();
-      expect(wrapper.state('isInitializing')).toBeTrue();
+      await act(async () => {
+        await initalizePlayer();
+      });
 
-      wrapper.setProps({ token: `${token}` });
+      expect(screen.getByTestId('Player')).toHaveAttribute('data-ready', 'true');
+
+      unmount();
     });
 
     it('should handle `account_error`', async () => {
+      await setup({ initialize: false });
+
       const [accountType, accountFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'account_error',
       );
@@ -171,17 +208,14 @@ describe('SpotifyWebPlayer', () => {
       await act(async () => {
         accountFn({ type: accountType, message: 'Failed to validate Spotify account' });
       });
-      wrapper.update();
 
-      expect(wrapper.state().status).toBe(STATUS.ERROR);
-      expect(wrapper.state().error).toBe('Failed to validate Spotify account');
-      expect(wrapper.state().errorType).toBe('account_error');
+      expect(screen.getByTestId('Player')).toMatchSnapshot();
       expect(mockDisconnect).toHaveBeenCalledTimes(1);
-
-      expect(wrapper.html()).toMatchSnapshot();
     });
 
     it('should handle `playback_error`', async () => {
+      const { unmount } = await setup({ initialize: false });
+
       const [playbackType, playbackFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'playback_error',
       );
@@ -189,16 +223,18 @@ describe('SpotifyWebPlayer', () => {
       await act(async () => {
         playbackFn({ type: playbackType, message: 'Failed to perform playback' });
       });
-      wrapper.update();
 
-      expect(wrapper.state().status).toBe(STATUS.ERROR);
-      expect(wrapper.state().error).toBe('Failed to perform playback');
-      expect(wrapper.state().errorType).toBe('playback_error');
+      expect(screen.getByTestId('Player')).toMatchSnapshot();
+      expect(mockDisconnect).not.toHaveBeenCalled();
 
-      expect(wrapper.html()).toMatchSnapshot();
+      unmount();
+
+      expect(mockDisconnect).toHaveBeenCalledTimes(1);
     });
 
     it('should handle `initialization_error`', async () => {
+      await setup({ initialize: false });
+
       const [initializationType, initializationFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'initialization_error',
       );
@@ -206,213 +242,225 @@ describe('SpotifyWebPlayer', () => {
       await act(async () => {
         initializationFn({ type: initializationType, message: 'Failed to initialize' });
       });
-      wrapper.update();
 
-      expect(wrapper.state().status).toBe(STATUS.UNSUPPORTED);
-      expect(wrapper.state().error).toBe('Failed to initialize');
-      expect(wrapper.state().errorType).toBe('initialization_error');
+      expect(screen.getByTestId('Player')).toMatchSnapshot();
       expect(mockDisconnect).toHaveBeenCalledTimes(1);
-
-      expect(wrapper.html()).toMatchSnapshot();
     });
   });
 
   describe('Device listeners', () => {
-    let wrapper: ReactWrapper<Props, State>;
-
     beforeAll(() => {
-      fetchMock.resetHistory();
-      wrapper = setup();
-    });
-
-    afterAll(() => {
-      wrapper.unmount();
+      jest.clearAllMocks();
     });
 
     it('should handle `ready`', async () => {
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+      await setup({ skipUpdate: true });
 
-      await readyFn({ device_id: deviceId });
-
-      expect(wrapper.state().status).toBe(STATUS.READY);
-      expect(wrapper.state().error).toBe('');
-      expect(wrapper.state().errorType).toBe('');
-    });
-
-    it('should handle `not_ready`', async () => {
-      const [, notReadyFn] = mockAddListener.mock.calls.find(d => d[0] === 'not_ready');
-
-      await notReadyFn({});
-
-      expect(wrapper.state().status).toBe(STATUS.IDLE);
-      expect(wrapper.state().error).toBe('');
-      expect(wrapper.state().errorType).toBe('');
+      expect(screen.getByTestId('Player')).toMatchSnapshot();
     });
 
     it('should handle `player_state_changed`', async () => {
-      const [, stateChangeFn] = mockAddListener.mock.calls.find(
-        d => d[0] === 'player_state_changed',
-      );
-
-      await stateChangeFn({
-        ...playerState,
-        paused: false,
+      await setup({
+        updateState: {
+          paused: false,
+        },
       });
 
-      await act(async () => {
-        jest.runOnlyPendingTimers();
+      await waitFor(() => {
+        expect(screen.getByLabelText('Pause')).toBeInTheDocument();
       });
 
-      expect(wrapper.state('position')).toBe(0);
-      expect(wrapper.state('isPlaying')).toBeTrue();
-      expect(wrapper.state('isActive')).toBeTrue();
+      expect(screen.getByTestId('Player')).toMatchSnapshot();
     });
   });
 
   describe('With the local player', () => {
-    let wrapper: ReactWrapper<Props, State>;
+    const props = { autoPlay: true, showSaveIcon: true };
 
     beforeAll(() => {
-      fetchMock.resetHistory();
-
-      wrapper = setup({ autoPlay: true, showSaveIcon: true });
+      jest.clearAllMocks();
     });
 
-    afterAll(() => {
-      wrapper.unmount();
-    });
+    it('should initialize the token', async () => {
+      await setup(props);
 
-    it('should initialize the token', () => {
       expect(mockGetOAuthToken).toHaveBeenCalledWith(token);
     });
 
-    it('should render a loader while initializing', () => {
-      expect(wrapper.state('isInitializing')).toBeTrue();
-      expect(wrapper.html()).toMatchSnapshot();
+    it('should render a loader while initializing', async () => {
+      await setup({ initialize: false });
+
+      expect(screen.getByTestId('Loader')).toBeInTheDocument();
     });
 
     it('should render the full UI', async () => {
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+      await setup(props);
 
-      await act(async () => {
-        await readyFn({ device_id: deviceId });
-        await updatePlayer();
+      expect(screen.getByTestId('Player')).toMatchSnapshot();
+    });
+
+    it('should handle range changes', async () => {
+      setBoundingClientRect('slider');
+      await setup(props);
+      const range = screen.getByTestId('Slider');
+
+      // eslint-disable-next-line testing-library/no-node-access
+      fireEvent.click(range.querySelector('.slider__track')!, {
+        clientX: 410,
+        clientY: 718,
+        currentTarget: {},
       });
-      wrapper.update();
 
-      expect(wrapper.state('isInitializing')).toBeFalse();
-      expect(wrapper.html()).toMatchSnapshot();
+      await waitFor(() => {
+        expect(screen.getByTestId('Slider')).toHaveAttribute('data-position', '40');
+      });
+    });
+
+    it('should handle range magnification', async () => {
+      await setup({ ...props, magnifySliderOnHover: true });
+      const range = screen.getByTestId('Slider');
+
+      expect(screen.getByLabelText('slider handle')).toHaveStyle({
+        height: '10px',
+      });
+
+      // eslint-disable-next-line testing-library/no-node-access
+      fireEvent.mouseEnter(range.querySelector('.slider__track')!);
+
+      expect(screen.getByLabelText('slider handle')).toHaveStyle({
+        height: '14px',
+      });
+
+      // eslint-disable-next-line testing-library/no-node-access
+      fireEvent.mouseLeave(range.querySelector('.slider__track')!);
+
+      expect(screen.getByLabelText('slider handle')).toHaveStyle({
+        height: '10px',
+      });
     });
 
     it('should handle Volume changes', async () => {
-      wrapper.find('[aria-label="Volume"]').simulate('click');
+      setBoundingClientRect('volume');
 
-      wrapper
-        .find('.rrs__track')
-        .simulate('click', { clientX: 910, clientY: 25, currentTarget: {} });
+      await setup(props);
+
+      expect(screen.getByTestId('VolumeHigh')).toBeInTheDocument();
+
+      const volume = screen.getByTestId('Volume');
+      const volumeButton = screen.getByLabelText('Volume');
+
+      fireEvent.click(volumeButton);
+
+      // eslint-disable-next-line testing-library/no-node-access
+      fireEvent.click(volume.querySelector('.volume__track')!, {
+        clientX: 910,
+        clientY: 25,
+        currentTarget: {},
+      });
 
       await act(async () => {
         jest.runOnlyPendingTimers();
       });
-      wrapper.update();
 
-      expect(wrapper.state('volume')).toBe(0.5);
       expect(mockSetVolume).toHaveBeenCalledWith(0.5);
-      expect(wrapper.find('VolumeLow')).toExist();
+      expect(volume).toHaveAttribute('data-value', '0.5');
+      expect(screen.getByTestId('VolumeLow')).toBeInTheDocument();
 
-      wrapper.find('[aria-label="Volume"]').simulate('click');
+      fireEvent.click(volumeButton);
 
-      wrapper
-        .find('.rrs__track')
-        .simulate('click', { clientX: 910, clientY: 50, currentTarget: {} });
+      // eslint-disable-next-line testing-library/no-node-access
+      fireEvent.click(volume.querySelector('.volume__track')!, {
+        clientX: 910,
+        clientY: 50,
+        currentTarget: {},
+      });
 
       await act(async () => {
         jest.runOnlyPendingTimers();
       });
-      wrapper.update();
 
-      expect(wrapper.state('volume')).toBe(0);
       expect(mockSetVolume).toHaveBeenCalledWith(0);
-      expect(wrapper.find('VolumeMute')).toExist();
-    });
-
-    it('should handle Control clicks', async () => {
-      // Play the previous track
-      wrapper.find('[aria-label="Previous"]').simulate('click');
-      expect(mockPreviousTrack).toHaveBeenCalled();
-
-      // Play the next track
-      wrapper.find('[aria-label="Next"]').simulate('click');
-      expect(mockNextTrack).toHaveBeenCalled();
-
-      await act(async () => {
-        wrapper.find('[aria-label="Pause"]').simulate('click');
-      });
-
-      expect(wrapper.state('isPlaying')).toBe(false);
+      expect(volume).toHaveAttribute('data-value', '0');
+      expect(screen.getByTestId('VolumeMute')).toBeInTheDocument();
     });
 
     it('should handle URIs changes', async () => {
-      wrapper.setProps({
-        uris: ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'],
+      const { rerender } = await setup(props);
+
+      rerender(<SpotifyWebPlayer {...baseProps} offset={1} uris={trackUris} />);
+
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        'https://api.spotify.com/v1/me/player/play?device_id=19ks98hfbxc53vh34jd',
+        expect.any(Object),
+      );
+    });
+
+    it('should handle token changes', async () => {
+      const { rerender } = await setup({ ...props });
+
+      expect(mockConnect).toHaveBeenCalledTimes(2);
+
+      rerender(<SpotifyWebPlayer {...baseProps} token={`${token}B`} />);
+
+      expect(mockConnect).toHaveBeenCalledTimes(3);
+    });
+
+    it('should handle Control clicks', async () => {
+      await setup(props);
+
+      // Click the previous track
+      fireEvent.click(screen.getByLabelText('Previous'));
+      expect(mockPreviousTrack).toHaveBeenCalled();
+
+      // Play the next track
+      fireEvent.click(screen.getByLabelText('Next'));
+      expect(mockNextTrack).toHaveBeenCalled();
+
+      fireEvent.click(screen.getByLabelText('Pause'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'false');
       });
-
-      expect(wrapper.state('needsUpdate')).toBeTrue();
-
-      wrapper.setProps({ play: true });
-
-      await act(async () => {
-        playerStateResponse = { ...playerState, paused: false };
-      });
-
-      expect(wrapper.state('needsUpdate')).toBeFalse();
     });
 
     it('should handle Info clicks', async () => {
-      await act(async () => {
-        wrapper.find('Info button').simulate('click');
-      });
-      expect(fetchMock.lastCall()).toMatchSnapshot();
+      await setup(props);
 
-      wrapper.find('Info button').simulate('click');
-      expect(fetchMock.lastCall()).toMatchSnapshot();
+      fireEvent.click(screen.getByLabelText('Save to your favorites'));
+
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        'https://api.spotify.com/v1/me/tracks',
+        expect.objectContaining({ method: 'PUT' }),
+      );
+
+      await waitFor(() => {
+        expect(screen.getByLabelText('Remove from your favorites')).toBeInTheDocument();
+      });
     });
   });
 
   describe('With an external device', () => {
-    let wrapper: ReactWrapper<Props, State>;
-
-    beforeAll(async () => {
-      fetchMock.resetHistory();
-
-      wrapper = setup({
-        persistDeviceSelection: true,
-        uris: ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'],
-      });
-
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
-
-      await act(async () => {
-        readyFn({ device_id: deviceId });
-      });
-      wrapper.update();
-    });
-
-    afterAll(() => {
-      wrapper.unmount();
-    });
+    const props: SetupProps = { autoPlay: true, showSaveIcon: true };
 
     it('should handle Device selection', async () => {
-      wrapper.find('[aria-label="Devices"]').simulate('click');
-      expect(wrapper.find('ClickOutside button')).toHaveText('Jest Player');
+      await setup(props);
 
-      wrapper.find('ClickOutside button').simulate('click');
+      setExternalDevice();
 
-      expect(wrapper.state('currentDeviceId')).toBe(externalDeviceId);
-      expect(wrapper.state('deviceId')).toBe('19ks98hfbxc53vh34jd');
+      expect(screen.getByTestId('Devices')).toHaveAttribute('data-device-id', externalDeviceId);
+
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        'https://api.spotify.com/v1/me/player',
+        expect.objectContaining({ method: 'GET' }),
+      );
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Slider')).toHaveAttribute('data-position', '0.1');
+      });
     });
 
     it('should handle Volume changes', async () => {
+      setBoundingClientRect('volume');
       playerStatusResponse = {
         ...playerStatus,
         device: {
@@ -420,18 +468,30 @@ describe('SpotifyWebPlayer', () => {
           volume_percent: 60,
         },
       };
-      wrapper.find('[aria-label="Volume"]').simulate('click');
+      await setup(props);
 
-      wrapper
-        .find('.rrs__track')
-        .simulate('click', { clientX: 910, clientY: 20, currentTarget: {} });
+      setExternalDevice();
+
+      const volume = screen.getByTestId('Volume');
+
+      fireEvent.click(screen.getByLabelText('Volume'));
+
+      // eslint-disable-next-line testing-library/no-node-access
+      fireEvent.click(volume.querySelector('.volume__track')!, {
+        clientX: 910,
+        clientY: 20,
+        currentTarget: {},
+      });
 
       await act(async () => {
         jest.runOnlyPendingTimers();
       });
 
-      expect(wrapper.state('volume')).toBe(0.6);
-      expect(fetchMock.calls(d => d.endsWith('volume_percent=60'))).toBeDefined();
+      expect(fetchMock).toHaveBeenCalledWith(
+        'https://api.spotify.com/v1/me/player/volume?volume_percent=60',
+        expect.objectContaining({ method: 'PUT' }),
+      );
+      expect(volume).toHaveAttribute('data-value', '0.6');
     });
 
     it('should handle Control clicks', async () => {
@@ -441,42 +501,62 @@ describe('SpotifyWebPlayer', () => {
         is_playing: true,
       };
 
-      await act(async () => {
-        wrapper.find('[aria-label="Play"]').simulate('click');
-      });
-      expect(fetchMock.calls(d => d.indexOf('/play?') > 0)).toBeDefined();
+      await setup({ ...props, autoPlay: false });
 
-      // runs the sync timeout
-      await act(async () => {
-        jest.runOnlyPendingTimers();
-      });
+      setExternalDevice();
 
-      expect(wrapper.state('isPlaying')).toBe(true);
+      fireEvent.click(screen.getByLabelText('Play'));
+
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        `https://api.spotify.com/v1/me/player/play?device_id=${externalDeviceId}`,
+        expect.any(Object),
+      );
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'true');
+      });
 
       // Play the previous track
-      wrapper.find('[aria-label="Previous"]').simulate('click');
-      expect(fetchMock.lastCall()).toMatchSnapshot();
+      fireEvent.click(screen.getByLabelText('Previous'));
+
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        'https://api.spotify.com/v1/me/player/previous',
+        expect.any(Object),
+      );
 
       await act(async () => {
         jest.runOnlyPendingTimers();
       });
 
-      // it should have called a player update
-      expect(fetchMock.lastCall()).toMatchSnapshot();
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        'https://api.spotify.com/v1/me/player',
+        expect.any(Object),
+      );
 
       // Play the next track
-      wrapper.find('[aria-label="Next"]').simulate('click');
-      expect(fetchMock.lastCall()).toMatchSnapshot();
+      fireEvent.click(screen.getByLabelText('Next'));
+
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        'https://api.spotify.com/v1/me/player/next',
+        expect.any(Object),
+      );
 
       await act(async () => {
         jest.runOnlyPendingTimers();
       });
 
-      // it should have called a player update
-      expect(fetchMock.lastCall()).toMatchSnapshot();
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        'https://api.spotify.com/v1/me/player',
+        expect.any(Object),
+      );
 
-      wrapper.find('[aria-label="Pause"]').simulate('click');
-      expect(fetchMock.lastCall()).toMatchSnapshot();
+      // Pause the player
+      fireEvent.click(screen.getByLabelText('Pause'));
+
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        'https://api.spotify.com/v1/me/player/pause',
+        expect.any(Object),
+      );
 
       // reset the response again (paused)
       playerStatusResponse = playerStatus;
@@ -485,100 +565,100 @@ describe('SpotifyWebPlayer', () => {
         jest.runOnlyPendingTimers();
       });
 
-      // it should have called a player update
-      expect(fetchMock.lastCall()).toMatchSnapshot();
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        'https://api.spotify.com/v1/me/player',
+        expect.any(Object),
+      );
 
-      expect(wrapper.state('isPlaying')).toBe(false);
+      expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'false');
+    });
+  });
+
+  describe('With "persistDeviceSelection"', () => {
+    it('should handle "persistDeviceSelection"', async () => {
+      await setup({ persistDeviceSelection: true });
+
+      expect(sessionStorage.getItem('rswpDeviceId')).toBe(deviceId);
+
+      setExternalDevice();
+
+      await waitFor(() => {
+        expect(sessionStorage.getItem('rswpDeviceId')).toBe(externalDeviceId);
+      });
     });
   });
 
   describe('With "syncExternalDevice"', () => {
-    let wrapper: ReactWrapper<Props, State>;
-
-    beforeAll(async () => {
-      fetchMock.resetHistory();
-
+    it('should handle syncExternalDevice changes', async () => {
       playerStatusResponse = {
         ...playerStatus,
         is_playing: true,
       };
 
-      wrapper = setup({ syncExternalDevice: true, uris: undefined });
+      await setup({ syncExternalDevice: true, uris: undefined });
 
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
-
-      await act(async () => {
-        readyFn({ device_id: deviceId });
-      });
-    });
-
-    afterAll(() => {
-      wrapper.unmount();
-    });
-
-    it('should match the external device options', () => {
-      expect(wrapper.state('isPlaying')).toBeTrue();
-      expect(wrapper.state('currentDeviceId')).toBe(playerStatus.device.id);
+      expect(screen.getByTestId('Devices')).toHaveAttribute(
+        'data-device-id',
+        playerStatus.device.id,
+      );
     });
   });
 
   describe('With control props', () => {
-    let wrapper: ReactWrapper<Props, State>;
-
-    beforeAll(() => {
-      fetchMock.resetHistory();
-      // @ts-ignore
-      Element.prototype.getBoundingClientRect = jest.fn(() => ({
-        bottom: 50,
-        height: 50,
-        left: 900,
-        right: 0,
-        top: 0,
-        width: 6,
-      }));
-
-      wrapper = setup({
-        play: true,
-        uris: ['spotify:track:2ViHeieFA3iPmsBya2NDFl', 'spotify:track:5zq709Rk69kjzCDdNthSbK'],
-      });
-    });
-
-    afterAll(() => {
-      wrapper.unmount();
-    });
-
-    it('should honor the play props', async () => {
+    it('should honor the "play" prop', async () => {
       playerStatusResponse = {
         ...playerStatus,
         is_playing: true,
       };
 
-      const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+      const { rerender } = await setup({ play: true });
 
-      await act(async () => {
-        readyFn({ device_id: deviceId });
-      });
+      expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'true');
 
-      expect(wrapper.state('isPlaying')).toBeTrue();
-    });
-
-    it('should handle offset changes', async () => {
-      wrapper.setProps({ offset: 3 });
-
-      expect(fetchMock.lastCall()).toMatchSnapshot();
-    });
-
-    it('should respond to play prop change', async () => {
-      expect(wrapper.state('isPlaying')).toBeTrue();
-
-      wrapper.setProps({ play: false });
       playerStateResponse = {
         ...playerState,
         paused: true,
       };
-      await updatePlayer();
 
-      expect(wrapper.state('isPlaying')).toBeFalse();
+      rerender(<SpotifyWebPlayer {...baseProps} play={false} />);
+
+      await act(async () => {
+        jest.runOnlyPendingTimers();
+      });
+
+      expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'false');
+    });
+
+    it('should handle "offset" updates', async () => {
+      const props = {
+        autoPlay: true,
+        uris: trackUris,
+      };
+
+      const { rerender } = await setup(props);
+
+      expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'true');
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+        expect.objectContaining({
+          body: JSON.stringify({
+            uris: trackUris,
+            offset: { position: 0 },
+          }),
+        }),
+      );
+
+      rerender(<SpotifyWebPlayer {...baseProps} {...props} offset={1} />);
+
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+        expect.objectContaining({
+          body: JSON.stringify({
+            uris: trackUris,
+            offset: { position: 1 },
+          }),
+        }),
+      );
     });
   });
 });

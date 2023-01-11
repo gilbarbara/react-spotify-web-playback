@@ -57,6 +57,16 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     uri: '',
   };
 
+  private hasNewToken = false;
+  private player?: Spotify.Player;
+  private playerProgressInterval?: number;
+  private playerSyncInterval?: number;
+  private ref = React.createRef<HTMLDivElement>();
+  private seekUpdateInterval = 100;
+  private readonly styles: StylesOptions;
+  private syncTimeout?: number;
+
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   private getPlayOptions = memoize((data): PlayOptions => {
     const playOptions: PlayOptions = {
       context_uri: undefined,
@@ -94,15 +104,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
     return playOptions;
   });
-
-  private hasNewToken = false;
-  private player?: Spotify.Player;
-  private playerProgressInterval?: number;
-  private playerSyncInterval?: number;
-  private ref = React.createRef<HTMLDivElement>();
-  private seekUpdateInterval = 100;
-  private readonly styles: StylesOptions;
-  private syncTimeout?: number;
 
   constructor(props: Props) {
     super(props);
@@ -164,7 +165,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   }
 
   public async componentDidUpdate(previousProps: Props, previousState: State) {
-    const { currentDeviceId, deviceId, error, isInitializing, isPlaying, status, track } =
+    const { currentDeviceId, deviceId, errorType, isInitializing, isPlaying, status, track } =
       this.state;
     const {
       autoPlay,
@@ -240,8 +241,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
 
     if (token && previousProps.token !== token) {
-      this.hasNewToken = true;
-
       if (!isInitializing) {
         this.initializePlayer();
       } else {
@@ -258,11 +257,6 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
 
     if (previousState.isInitializing && !isInitializing) {
-      if (error === 'authentication_error' && this.hasNewToken) {
-        this.hasNewToken = false;
-        this.initializePlayer();
-      }
-
       if (syncExternalDevice && !uris) {
         const player: SpotifyPlayerStatus = await getPlaybackState(token);
 
@@ -272,6 +266,11 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         }
       }
     }
+
+    if (errorType === 'authentication_error' && this.hasNewToken) {
+      this.hasNewToken = false;
+      this.initializePlayer();
+    }
   }
 
   public async componentWillUnmount() {
@@ -279,7 +278,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
     /* istanbul ignore else */
     if (this.player) {
-      await this.player.disconnect();
+      this.player.disconnect();
     }
 
     clearInterval(this.playerSyncInterval);
@@ -448,12 +447,13 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
     if (this.player && !isPlaybackError) {
       await this.player.disconnect();
+      this.player = undefined;
     }
 
     if (isInitializationError) {
-      nextStatus = STATUS.UNSUPPORTED;
-
       const { token } = this.props;
+
+      nextStatus = STATUS.UNSUPPORTED;
 
       ({ devices = [] } = await getDevices(token));
     }
@@ -487,7 +487,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
         } = state;
 
         const isPlaying = !paused;
-        const volume = await this.player!.getVolume();
+        const volume = (await this.player?.getVolume()) || 100;
         const track = {
           artists,
           durationMs: duration_ms,
@@ -590,7 +590,11 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
       return;
     }
 
-    this.updateState({ isInitializing: true });
+    this.updateState({
+      error: '',
+      errorType: '',
+      isInitializing: true,
+    });
 
     this.player = new window.Spotify.Player({
       getOAuthToken: (callback: SpotifyPlayerCallback) => {
@@ -887,7 +891,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     const isPlaybackError = errorType === 'playback_error';
     const localeMerged = getLocale(locale);
 
-    let output = <Loader styles={this.styles!} />;
+    let output = <Loader styles={this.styles} />;
     let info;
 
     if (isPlaybackError) {
@@ -913,7 +917,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
       output = (
         <>
-          <div>{info}</div>
+          {info}
           <Controls
             isExternalDevice={this.isExternalPlayer}
             isPlaying={isPlaying}
@@ -939,6 +943,8 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
           />
         </>
       );
+    } else if (info) {
+      output = info;
     }
 
     if (status === STATUS.ERROR) {
@@ -950,7 +956,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Player ref={this.ref} styles={this.styles}>
+      <Player ref={this.ref} data-ready={isReady} styles={this.styles}>
         {isReady && (
           <Slider
             isMagnified={isMagnified}
