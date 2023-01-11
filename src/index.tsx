@@ -135,8 +135,11 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
 
   // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
+    autoPlay: false,
+    initialVolume: 1,
     magnifySliderOnHover: false,
     name: 'Spotify Web Player',
+    persistDeviceSelection: false,
     showSaveIcon: false,
     syncExternalDeviceInterval: 5,
     syncExternalDevice: false,

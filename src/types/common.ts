@@ -10,21 +10,78 @@ export interface CallbackState extends State {
 }
 
 export interface Props {
+  /**
+   * Start the player immediately.
+   * @default false
+   */
   autoPlay?: boolean;
+  /**
+   * Get status updates from the player.
+   */
   callback?: (state: CallbackState) => any;
+  /**
+   * The initial volume for the player. This isn't used for external devices.
+   * @default 1
+   */
   initialVolume?: number;
+  /**
+   * The strings used for aria-label/title attributes.
+   */
   locale?: Partial<Locale>;
+  /**
+   * Magnify the player's slider on hover.
+   * @default false
+   */
   magnifySliderOnHover?: boolean;
+  /**
+   * The name of the player.
+   * @default Spotify Web Player
+   */
   name?: string;
+  /**
+   * The position of the list/tracks you want to start the player.
+   */
   offset?: number;
+  /**
+   * Save the device selection.
+   * @default false
+   */
   persistDeviceSelection?: boolean;
+  /**
+   * Control the player's status.
+   */
   play?: boolean;
+  /**
+   * Display a Favorite button. It needs additional scopes in your token.
+   * @default false
+   */
   showSaveIcon?: boolean;
+  /**
+   * Customize the player's appearance.
+   */
   styles?: StylesProps;
+  /**
+   * If there are no URIs and an external device is playing, use the external player context.
+   *  @default false
+   */
   syncExternalDevice?: boolean;
+  /**
+   * The time in seconds that the player will sync with external devices.
+   * @default 5
+   */
   syncExternalDeviceInterval?: number;
+  /**
+   * A Spotify token.
+   */
   token: string;
+  /**
+   * Provide you with a function to sync the track saved status in the player.
+   * This works in addition to the showSaveIcon prop, and it is only needed if you keep the track's saved status in your app.
+   */
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
+  /**
+   * A list of Spotify URIs.
+   */
   uris?: string | string[];
 }
 
