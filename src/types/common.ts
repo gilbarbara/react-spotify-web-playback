@@ -63,6 +63,8 @@ export interface Locale {
   pause: string;
   play: string;
   previous: string;
+  removeTrack: string;
+  saveTrack: string;
   title: string;
   volume: string;
 }

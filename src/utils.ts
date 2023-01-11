@@ -29,6 +29,8 @@ export function getLocale(locale?: Partial<Locale>): Locale {
     pause: 'Pause',
     play: 'Play',
     previous: 'Previous',
+    removeTrack: 'Remove from your favorites',
+    saveTrack: 'Save to your favorites',
     title: '{name} on SPOTIFY',
     volume: 'Volume',
     ...locale,
