@@ -37,7 +37,7 @@ Get status updates from the player. Check `CallbackState` in the [types](src/typ
 The initial volume for the player. It's not used for external devices.
 
 **locale** `Locale`  
-The strings used for aria-label/title
+The strings used for aria-label/title attributes.
 
 <details>
   <summary>Type Definition</summary>
@@ -49,6 +49,8 @@ interface Locale {
   pause?: string; // 'Pause'
   play?: string; // 'Play'
   previous?: string; // 'Previous'
+  removeTrack?: string; // 'Remove from your favorites'
+  saveTrack?: string; // 'Save to your favorites'
   title?: string; // '{name} on SPOTIFY'
   volume?: string; // 'Volume'
 }
