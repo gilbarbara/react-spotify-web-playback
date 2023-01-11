@@ -42,19 +42,20 @@ The strings used for aria-label/title attributes.
 <details>
   <summary>Type Definition</summary>
 
-  ```typescript
+```typescript
 interface Locale {
-  devices?: string; // 'Devices'
-  next?: string; // 'Next'
-  pause?: string; // 'Pause'
-  play?: string; // 'Play'
-  previous?: string; // 'Previous'
-  removeTrack?: string; // 'Remove from your favorites'
-  saveTrack?: string; // 'Save to your favorites'
-  title?: string; // '{name} on SPOTIFY'
-  volume?: string; // 'Volume'
+  devices?: string; // 'Devices'
+  next?: string; // 'Next'
+  pause?: string; // 'Pause'
+  play?: string; // 'Play'
+  previous?: string; // 'Previous'
+  removeTrack?: string; // 'Remove from your favorites'
+  saveTrack?: string; // 'Save to your favorites'
+  title?: string; // '{name} on SPOTIFY'
+  volume?: string; // 'Volume'
 }
-  ```
+```
+
 </details>
 
 **magnifySliderOnHover**: `boolean`  
@@ -70,26 +71,26 @@ The position of the list/tracks you want to start the player.
 Save the device selection.
 
 **play** `boolean`  
-Control the player status
+Control the player's status
 
 **showSaveIcon** `boolean`  
-Display a Favorite button. Needs additional scopes in your token!
+Display a Favorite button. It needs additional scopes in your token.
 
 **styles** `object`  
-Customize the player appearance. Check `StylesOptions` in the [types](src/types/common.ts).
+Customize the player's appearance. Check `StylesOptions` in the [types](src/types/common.ts).
 
-**syncExternalDevice** `boolean`
+**syncExternalDevice** `boolean`  
 If there are no URIs and an external device is playing, use the external player context.
 
 **syncExternalDeviceInterval** `number` _default: 5_  
-The time in seconds that the player will sync with external devices
+The time in seconds that the player will sync with external devices.
 
 **token** `string` **REQUIRED**  
 A Spotify token. More info below.
 
 **updateSavedStatus** `(fn: (status: boolean) => any) => any`  
 Provide you with a function to sync the track saved status in the player.  
-_This works in addition to the **showSaveIcon** prop and it is only needed if you keep the track saved status in your app._
+_This works in addition to the **showSaveIcon** prop, and it is only needed if you keep track's saved status in your app._
 
 **uris** `string | string[]`  
 A list of Spotify [URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
@@ -104,7 +105,7 @@ It needs a Spotify token with the following scopes:
 - user-read-playback-state (to read other devices' status)
 - user-modify-playback-state (to update other devices)
 
-If you want to show the Favorite button (💚) you'll need the additional scopes:
+If you want to show the Favorite button (💚), you'll need the additional scopes:
 
 - user-library-read
 - user-library-modify
