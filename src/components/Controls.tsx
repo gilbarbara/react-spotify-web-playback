@@ -67,7 +67,11 @@ export default function Controls(props: Props) {
   } = props;
 
   return (
-    <Wrapper data-component-name="Controls" style={{ c: color, h: height }}>
+    <Wrapper
+      data-component-name="Controls"
+      data-playing={isPlaying}
+      style={{ c: color, h: height }}
+    >
       <div>
         {(!!previousTracks.length || isExternalDevice) && (
           <button

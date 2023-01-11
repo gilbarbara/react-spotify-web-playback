@@ -9,25 +9,26 @@ module.exports = {
       statements: 75,
     },
   },
-  globals: {
-    'ts-jest': {
-      tsconfig: 'test/tsconfig.json',
-      diagnostics: {
-        ignoreCodes: ['TS151001'],
-      },
-    },
-  },
   moduleDirectories: ['node_modules', 'src'],
   preset: 'ts-jest',
-  setupFiles: ['<rootDir>/test/__setup__/setupFiles.ts'],
   setupFilesAfterEnv: ['<rootDir>/test/__setup__/setupFilesAfterEnv.ts'],
-  snapshotSerializers: ['jest-serializer-html', 'enzyme-to-json/serializer'],
   testEnvironment: 'jsdom',
   testEnvironmentOptions: {
+    resources: 'usable',
     url: 'http://localhost:3000/',
   },
-  testMatch: null,
   testRegex: '/test/.*?\\.(test|spec)\\.tsx?$',
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: 'test/tsconfig.json',
+        diagnostics: {
+          ignoreCodes: ['TS151001'],
+        },
+      },
+    ],
+  },
   verbose: false,
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
 };

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`STATUS should have all options 1`] = `
-Object {
+{
   "ERROR": "ERROR",
   "IDLE": "IDLE",
   "INITIALIZING": "INITIALIZING",
@@ -12,7 +12,7 @@ Object {
 `;
 
 exports[`TYPE should have all options 1`] = `
-Object {
+{
   "DEVICE": "device_update",
   "FAVORITE": "favorite_update",
   "PLAYER": "player_update",

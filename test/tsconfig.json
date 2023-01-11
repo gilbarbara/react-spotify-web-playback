@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig",
   "compilerOptions": {
+    "noUnusedLocals": false,
     "esModuleInterop": true,
     "module": "esnext"
   },
