@@ -1,5 +1,5 @@
 /* tslint:disable:object-literal-sort-keys */
-import * as React from 'react';
+import { createElement, FunctionComponent } from 'react';
 import { create, NanoRenderer } from 'nano-css';
 // @ts-ignore
 import { addon as addonJSX } from 'nano-css/addon/jsx';
@@ -22,10 +22,10 @@ interface NanoExtended extends NanoRenderer {
     styles: CssLikeObject,
     dynamicTemplate?: (props: StyledProps) => CssLikeObject,
     block?: string,
-  ) => React.FunctionComponent<Partial<StyledProps>>;
+  ) => FunctionComponent<Partial<StyledProps>>;
 }
 
-const nano = create({ h: React.createElement });
+const nano = create({ h: createElement });
 
 addonRule(nano);
 addonKeyframes(nano);

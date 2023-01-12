@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { MouseEvent, useState } from 'react';
 
 import ClickOutside from './ClickOutside';
 import DevicesIcon from './icons/Devices';
@@ -16,10 +16,6 @@ interface Props {
   playerPosition: string;
   styles: StylesOptions;
   title: string;
-}
-
-export interface State {
-  isOpen: boolean;
 }
 
 const Wrapper = styled('div')(
@@ -66,82 +62,68 @@ const Wrapper = styled('div')(
   'DevicesRSWP',
 );
 
-export default class Devices extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
+export default function Devices(props: Props) {
+  const {
+    currentDeviceId,
+    deviceId,
+    devices,
+    onClickDevice,
+    open,
+    playerPosition,
+    styles: { activeColor, altColor, bgColor, color },
+    title,
+  } = props;
+  const [isOpen, setOpen] = useState(open);
 
-    this.state = {
-      isOpen: props.open,
-    };
-  }
-
-  private handleClickSetDevice = (event: React.MouseEvent<HTMLElement>) => {
-    const { onClickDevice } = this.props;
+  const handleClickSetDevice = (event: MouseEvent<HTMLElement>) => {
     const { dataset } = event.currentTarget;
 
     /* istanbul ignore else */
     if (dataset.id) {
       onClickDevice(dataset.id);
 
-      this.setState({ isOpen: false });
+      setOpen(false);
     }
   };
 
-  private handleClickToggleDevices = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
+  const handleClickToggleDevices = () => {
+    setOpen(s => !s);
   };
 
-  public render() {
-    const { isOpen } = this.state;
-    const {
-      currentDeviceId,
-      deviceId,
-      devices,
-      playerPosition,
-      styles: { activeColor, altColor, bgColor, color },
-      title,
-    } = this.props;
-
-    return (
-      <Wrapper
-        data-component-name="Devices"
-        data-device-id={currentDeviceId}
-        style={{
-          altColor,
-          bgColor,
-          c: currentDeviceId && deviceId && currentDeviceId !== deviceId ? activeColor : color,
-          p: playerPosition,
-        }}
-      >
-        {!!devices.length && (
-          <>
-            {isOpen && (
-              <ClickOutside onClick={this.handleClickToggleDevices}>
-                {devices.map((d: SpotifyDevice) => (
-                  <button
-                    key={d.id}
-                    aria-label={d.name}
-                    className={d.id === currentDeviceId ? 'rswp__devices__active' : undefined}
-                    data-id={d.id}
-                    onClick={this.handleClickSetDevice}
-                    type="button"
-                  >
-                    {d.name}
-                  </button>
-                ))}
-              </ClickOutside>
-            )}
-            <button
-              aria-label={title}
-              onClick={this.handleClickToggleDevices}
-              title={title}
-              type="button"
-            >
-              <DevicesIcon />
-            </button>
-          </>
-        )}
-      </Wrapper>
-    );
-  }
+  return (
+    <Wrapper
+      data-component-name="Devices"
+      data-device-id={currentDeviceId}
+      style={{
+        altColor,
+        bgColor,
+        c: currentDeviceId && deviceId && currentDeviceId !== deviceId ? activeColor : color,
+        p: playerPosition,
+      }}
+    >
+      {!!devices.length && (
+        <>
+          {isOpen && (
+            <ClickOutside onClick={handleClickToggleDevices}>
+              {devices.map((d: SpotifyDevice) => (
+                <button
+                  key={d.id}
+                  aria-label={d.name}
+                  className={d.id === currentDeviceId ? 'rswp__devices__active' : undefined}
+                  data-id={d.id}
+                  onClick={handleClickSetDevice}
+                  type="button"
+                >
+                  {d.name}
+                </button>
+              ))}
+            </ClickOutside>
+          )}
+          <button aria-label={title} onClick={handleClickToggleDevices} title={title} type="button">
+            <DevicesIcon />
+          </button>
+        </>
+      )}
+    </Wrapper>
+  );
 }

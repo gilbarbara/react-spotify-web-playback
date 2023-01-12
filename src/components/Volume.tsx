@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePrevious } from 'react-use';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
 import ClickOutside from './ClickOutside';
@@ -14,11 +15,6 @@ interface Props {
   setVolume: (volume: number) => any;
   styles: StylesOptions;
   title: string;
-  volume: number;
-}
-
-interface State {
-  isOpen: boolean;
   volume: number;
 }
 
@@ -57,106 +53,94 @@ const Wrapper = styled('div')(
   'VolumeRSWP',
 );
 
-export default class Volume extends React.PureComponent<Props, State> {
-  private timeout: number | undefined;
+export default function Volume(props: Props) {
+  const {
+    playerPosition,
+    setVolume,
+    styles: { altColor, bgColor, color },
+    title,
+    volume,
+  } = props;
+  const [isOpen, setIsOpen] = useState(false);
+  const [volumeState, setVolumeState] = useState(volume);
+  const timeoutRef = useRef<number>();
+  const previousVolume = usePrevious(volume);
 
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      isOpen: false,
-      volume: props.volume,
-    };
-  }
-
-  public componentDidUpdate(previousProps: Props) {
-    const { volume: volumeState } = this.state;
-    const { volume } = this.props;
-
-    if (previousProps.volume !== volume && volume !== volumeState) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ volume });
+  useEffect(() => {
+    if (previousVolume !== volume && volume !== volumeState) {
+      setVolumeState(volume);
     }
-  }
+  }, [previousVolume, volume, volumeState]);
 
-  private handleClick = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
+  const handleClick = () => {
+    setIsOpen(s => !s);
   };
 
-  private handleChangeSlider = ({ y }: RangeSliderPosition) => {
-    const { setVolume } = this.props;
-    const volume = Math.round(y) / 100;
+  const handleChangeSlider = ({ y }: RangeSliderPosition) => {
+    const currentvolume = Math.round(y) / 100;
 
-    clearTimeout(this.timeout);
+    clearTimeout(timeoutRef.current);
 
-    this.timeout = window.setTimeout(() => {
-      setVolume(volume);
+    timeoutRef.current = window.setTimeout(() => {
+      setVolume(currentvolume);
     }, 250);
 
-    this.setState({ volume });
+    setVolumeState(currentvolume);
   };
 
-  private handleAfterEnd = () => {
+  const handleAfterEnd = () => {
     setTimeout(() => {
-      this.setState({ isOpen: false });
+      setIsOpen(false);
     }, 100);
   };
 
-  public render() {
-    const { isOpen, volume } = this.state;
-    const {
-      playerPosition,
-      styles: { altColor, bgColor, color },
-      title,
-    } = this.props;
-    let icon = <VolumeHigh />;
+  let icon = <VolumeHigh />;
 
-    if (volume === 0) {
-      icon = <VolumeMute />;
-    } else if (volume <= 0.5) {
-      icon = <VolumeLow />;
-    }
-
-    return (
-      <Wrapper
-        data-component-name="Volume"
-        data-value={volume}
-        style={{ altColor, bgColor, c: color, p: playerPosition }}
-      >
-        {isOpen && (
-          <ClickOutside onClick={this.handleClick}>
-            <RangeSlider
-              axis="y"
-              className="volume"
-              onAfterEnd={this.handleAfterEnd}
-              onChange={this.handleChangeSlider}
-              styles={{
-                options: {
-                  thumbBorder: `2px solid ${color}`,
-                  thumbBorderRadius: 12,
-                  thumbColor: bgColor,
-                  thumbSize: 12,
-                  padding: 0,
-                  rangeColor: altColor || '#ccc',
-                  trackColor: color,
-                  width: 6,
-                },
-              }}
-              y={volume * 100}
-              yMax={100}
-              yMin={0}
-            />
-          </ClickOutside>
-        )}
-        <button
-          aria-label={title}
-          onClick={!isOpen ? this.handleClick : undefined}
-          title={title}
-          type="button"
-        >
-          {icon}
-        </button>
-      </Wrapper>
-    );
+  if (volume === 0) {
+    icon = <VolumeMute />;
+  } else if (volume <= 0.5) {
+    icon = <VolumeLow />;
   }
+
+  return (
+    <Wrapper
+      data-component-name="Volume"
+      data-value={volume}
+      style={{ altColor, bgColor, c: color, p: playerPosition }}
+    >
+      {isOpen && (
+        <ClickOutside onClick={handleClick}>
+          <RangeSlider
+            axis="y"
+            className="volume"
+            onAfterEnd={handleAfterEnd}
+            onChange={handleChangeSlider}
+            styles={{
+              options: {
+                thumbBorder: `2px solid ${color}`,
+                thumbBorderRadius: 12,
+                thumbColor: bgColor,
+                thumbSize: 12,
+                padding: 0,
+                rangeColor: altColor || '#ccc',
+                trackColor: color,
+                width: 6,
+              },
+            }}
+            y={volume * 100}
+            yMax={100}
+            yMin={0}
+          />
+        </ClickOutside>
+      )}
+      <button
+        aria-label={title}
+        onClick={!isOpen ? handleClick : undefined}
+        title={title}
+        type="button"
+      >
+        {icon}
+      </button>
+    </Wrapper>
+  );
 }

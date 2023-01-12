@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import * as React from 'react';
+import { ReactNode } from 'react';
 
 import { SpotifyDevice, SpotifyPlayerTrack } from './spotify';
 
@@ -110,7 +110,7 @@ export interface State {
 
 export interface ComponentsProps {
   [key: string]: any;
-  children?: React.ReactNode;
+  children?: ReactNode;
   styles: StylesOptions;
 }
 

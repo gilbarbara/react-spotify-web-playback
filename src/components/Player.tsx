@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { forwardRef } from 'react';
 
 import { put, px } from '../styles';
 import { ComponentsProps } from '../types/common';
@@ -34,7 +34,7 @@ put('.PlayerRSWP', {
   },
 });
 
-const Player = React.forwardRef<HTMLDivElement, ComponentsProps>(
+const Player = forwardRef<HTMLDivElement, ComponentsProps>(
   ({ children, styles: { bgColor, height }, ...rest }, ref) => {
     return (
       <div

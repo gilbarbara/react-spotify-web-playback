@@ -1,60 +1,46 @@
-import * as React from 'react';
+import { ReactNode, useCallback, useEffect, useRef } from 'react';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   onClick: () => any;
 }
 
-export default class ClickOutside extends React.PureComponent<Props> {
-  private container: HTMLElement | null;
-  private isTouch: boolean;
+export default function ClickOutside({ children, onClick, ...rest }: Props) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isTouchRef = useRef(false);
 
-  constructor(props: Props) {
-    super(props);
+  const handleClick = useCallback(
+    (event: MouseEvent | TouchEvent) => {
+      if (event.type === 'touchend') {
+        isTouchRef.current = true;
+      }
 
-    this.container = null;
-    this.setRef = this.setRef.bind(this);
-    this.isTouch = false;
-  }
+      if (event.type === 'click' && isTouchRef.current) {
+        return;
+      }
 
-  public componentDidMount() {
-    document.addEventListener('touchend', this.handleClick, true);
-    document.addEventListener('click', this.handleClick, true);
-  }
+      const el = containerRef.current;
 
-  public componentWillUnmount() {
-    document.removeEventListener('touchend', this.handleClick, true);
-    document.removeEventListener('click', this.handleClick, true);
-  }
+      if (el && !el.contains(event.target as Node)) {
+        onClick();
+      }
+    },
+    [onClick],
+  );
 
-  private handleClick = (event: MouseEvent | TouchEvent) => {
-    if (event.type === 'touchend') {
-      this.isTouch = true;
-    }
+  useEffect(() => {
+    document.addEventListener('touchend', handleClick, true);
+    document.addEventListener('click', handleClick, true);
 
-    if (event.type === 'click' && this.isTouch) {
-      return;
-    }
+    return () => {
+      document.removeEventListener('touchend', handleClick, true);
+      document.removeEventListener('click', handleClick, true);
+    };
+  });
 
-    const { onClick } = this.props;
-    const el = this.container;
-
-    if (el && !el.contains(event.target as Node)) {
-      onClick();
-    }
-  };
-
-  private setRef(ref: HTMLElement | null) {
-    this.container = ref;
-  }
-
-  public render() {
-    const { children, onClick, ...props } = this.props;
-
-    return (
-      <div {...props} ref={this.setRef}>
-        {children}
-      </div>
-    );
-  }
+  return (
+    <div {...rest} ref={containerRef}>
+      {children}
+    </div>
+  );
 }
