@@ -1,4 +1,3 @@
-import * as React from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
 import { px, styled } from '../styles';
@@ -25,48 +24,45 @@ const Wrapper = styled('div')(
   'SliderRSWP',
 );
 
-export default class Slider extends React.PureComponent<Props> {
-  private handleChangeRange = async ({ x }: RangeSliderPosition) => {
-    const { onChangeRange } = this.props;
+export default function Slider(props: Props) {
+  const { isMagnified, onChangeRange, onToggleMagnify, position, styles } = props;
 
+  const handleChangeRange = async ({ x }: RangeSliderPosition) => {
     onChangeRange(x);
   };
 
-  public render() {
-    const { isMagnified, onToggleMagnify, position, styles } = this.props;
-    const handleSize = styles.sliderHeight + 6;
+  const handleSize = styles.sliderHeight + 6;
 
-    return (
-      <Wrapper
-        data-component-name="Slider"
-        data-position={position}
-        onMouseEnter={onToggleMagnify}
-        onMouseLeave={onToggleMagnify}
-        style={{ sliderHeight: isMagnified ? styles.sliderHeight + 4 : styles.sliderHeight }}
-      >
-        <RangeSlider
-          axis="x"
-          className="slider"
-          onChange={this.handleChangeRange}
-          styles={{
-            options: {
-              thumbBorder: 0,
-              thumbBorderRadius: styles.sliderHandleBorderRadius,
-              thumbColor: styles.sliderHandleColor,
-              thumbSize: isMagnified ? handleSize + 4 : handleSize,
-              height: isMagnified ? styles.sliderHeight + 4 : styles.sliderHeight,
-              padding: 0,
-              rangeColor: styles.sliderColor,
-              trackBorderRadius: styles.sliderTrackBorderRadius,
-              trackColor: styles.sliderTrackColor,
-            },
-          }}
-          x={position}
-          xMax={100}
-          xMin={0}
-          xStep={0.1}
-        />
-      </Wrapper>
-    );
-  }
+  return (
+    <Wrapper
+      data-component-name="Slider"
+      data-position={position}
+      onMouseEnter={onToggleMagnify}
+      onMouseLeave={onToggleMagnify}
+      style={{ sliderHeight: isMagnified ? styles.sliderHeight + 4 : styles.sliderHeight }}
+    >
+      <RangeSlider
+        axis="x"
+        className="slider"
+        onChange={handleChangeRange}
+        styles={{
+          options: {
+            thumbBorder: 0,
+            thumbBorderRadius: styles.sliderHandleBorderRadius,
+            thumbColor: styles.sliderHandleColor,
+            thumbSize: isMagnified ? handleSize + 4 : handleSize,
+            height: isMagnified ? styles.sliderHeight + 4 : styles.sliderHeight,
+            padding: 0,
+            rangeColor: styles.sliderColor,
+            trackBorderRadius: styles.sliderTrackBorderRadius,
+            trackColor: styles.sliderTrackColor,
+          },
+        }}
+        x={position}
+        xMax={100}
+        xMin={0}
+        xStep={0.1}
+      />
+    </Wrapper>
+  );
 }

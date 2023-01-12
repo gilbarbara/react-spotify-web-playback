@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import * as React from 'react';
+import { createRef, PureComponent } from 'react';
 import isEqual from '@gilbarbara/deep-equal';
 import memoize from 'memoize-one';
 
@@ -46,7 +46,7 @@ import {
 
 import { Spotify } from '../global';
 
-class SpotifyWebPlayer extends React.PureComponent<Props, State> {
+class SpotifyWebPlayer extends PureComponent<Props, State> {
   private isActive = false;
   private emptyTrack = {
     artists: [] as Spotify.Artist[],
@@ -61,7 +61,7 @@ class SpotifyWebPlayer extends React.PureComponent<Props, State> {
   private player?: Spotify.Player;
   private playerProgressInterval?: number;
   private playerSyncInterval?: number;
-  private ref = React.createRef<HTMLDivElement>();
+  private ref = createRef<HTMLDivElement>();
   private seekUpdateInterval = 100;
   private readonly styles: StylesOptions;
   private syncTimeout?: number;

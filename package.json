@@ -36,7 +36,8 @@
     "@gilbarbara/react-range-slider": "^0.7.0",
     "exenv": "^1.2.2",
     "memoize-one": "^6.0.0",
-    "nano-css": "^5.3.5"
+    "nano-css": "^5.3.5",
+    "react-use": "^17.4.0"
   },
   "devDependencies": {
     "@gilbarbara/eslint-config": "^0.3.7",

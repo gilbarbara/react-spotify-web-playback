@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useMount, usePrevious, useUnmount } from 'react-use';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
@@ -18,10 +19,6 @@ interface Props {
   token: string;
   track: SpotifyPlayerTrack;
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
-}
-
-interface State {
-  isSaved: boolean;
 }
 
 const Wrapper = styled('div')(
@@ -114,169 +111,154 @@ const Title = styled('div')(
   }),
 );
 
-export default class Info extends React.PureComponent<Props, State> {
-  private isActive = false;
+export default function Info(props: Props) {
+  const {
+    isActive,
+    locale,
+    onFavoriteStatusChange,
+    showSaveIcon,
+    styles: { activeColor, color, height, trackArtistColor, trackNameColor },
+    token,
+    track: { id, name, uri, image, artists = [] },
+    updateSavedStatus,
+  } = props;
+  const [isSaved, setIsSaved] = useState(false);
+  const isMounted = useRef(false);
+  const previousId = usePrevious(id);
 
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      isSaved: false,
-    };
-  }
-
-  public async componentDidMount() {
-    this.isActive = true;
-
-    const { showSaveIcon, track } = this.props;
-
-    if (showSaveIcon && track.id) {
-      await this.setStatus();
+  const updateState = (state: boolean) => {
+    if (!isMounted.current) {
+      return;
     }
-  }
 
-  public async componentDidUpdate(previousProps: Props) {
-    const { showSaveIcon, track } = this.props;
+    setIsSaved(state);
+  };
 
-    if (showSaveIcon && previousProps.track.id !== track.id && track.id) {
-      this.updateState({ isSaved: false });
-
-      await this.setStatus();
+  const setStatus = async () => {
+    if (!isMounted.current) {
+      return;
     }
-  }
 
-  public componentWillUnmount() {
-    this.isActive = false;
-  }
+    if (updateSavedStatus && id) {
+      updateSavedStatus((newStatus: boolean) => {
+        updateState(newStatus);
+      });
+    }
 
-  private handleClickIcon = async () => {
-    const { isSaved } = this.state;
-    const { onFavoriteStatusChange, token, track } = this.props;
+    const status = await checkTracksStatus(token, id);
+    const [isFavorite] = status || [false];
 
+    updateState(isFavorite);
+    onFavoriteStatusChange(isSaved);
+  };
+
+  useMount(async () => {
+    isMounted.current = true;
+
+    if (showSaveIcon && id) {
+      await setStatus();
+    }
+  });
+
+  useEffect(() => {
+    if (showSaveIcon && previousId !== id && id) {
+      updateState(false);
+
+      setStatus();
+    }
+  });
+
+  useUnmount(() => {
+    isMounted.current = false;
+  });
+
+  const handleClickIcon = async () => {
     if (isSaved) {
-      await removeTracks(token, track.id);
-      this.updateState({ isSaved: false });
+      await removeTracks(token, id);
+      updateState(false);
     } else {
-      await saveTracks(token, track.id);
-      this.updateState({ isSaved: true });
+      await saveTracks(token, id);
+      updateState(true);
     }
 
     onFavoriteStatusChange(!isSaved);
   };
 
-  private setStatus = async () => {
-    if (!this.isActive) {
-      return;
-    }
+  const title = getSpotifyLinkTitle(name, locale.title);
+  let icon;
 
-    const { onFavoriteStatusChange, token, track, updateSavedStatus } = this.props;
-
-    if (updateSavedStatus && track.id) {
-      updateSavedStatus((newStatus: boolean) => {
-        this.updateState({ isSaved: newStatus });
-      });
-    }
-
-    const status = await checkTracksStatus(token, track.id);
-    const [isSaved] = status || [false];
-
-    this.updateState({ isSaved });
-    onFavoriteStatusChange(isSaved);
-  };
-
-  private updateState = (state = {}) => {
-    if (!this.isActive) {
-      return;
-    }
-
-    this.setState(state);
-  };
-
-  public render() {
-    const { isSaved } = this.state;
-    const {
-      isActive,
-      locale,
-      showSaveIcon,
-      styles: { activeColor, color, height, trackArtistColor, trackNameColor },
-      track: { id, name, uri, image, artists = [] },
-    } = this.props;
-    const title = getSpotifyLinkTitle(name, locale.title);
-    let icon;
-
-    /* istanbul ignore else */
-    if (showSaveIcon && id) {
-      icon = (
-        <button
-          aria-label={isSaved ? locale.removeTrack : locale.saveTrack}
-          className={isSaved ? 'rswp__active' : undefined}
-          onClick={this.handleClickIcon}
-          title={isSaved ? locale.removeTrack : locale.saveTrack}
-          type="button"
-        >
-          {isSaved ? <Favorite /> : <FavoriteOutline />}
-        </button>
-      );
-    }
-
-    const classes = [];
-
-    if (isActive) {
-      classes.push('rswp__active');
-    }
-
-    return (
-      <Wrapper className={classes.join(' ')} data-component-name="Info" style={{ h: height }}>
-        {image && (
-          <a
-            aria-label={title}
-            href={getSpotifyLink(uri)}
-            rel="noreferrer"
-            target="_blank"
-            title={title}
-          >
-            <img alt={name} src={image} />
-          </a>
-        )}
-        {!!name && (
-          <Title style={{ c: color, h: height, activeColor, trackArtistColor, trackNameColor }}>
-            <p>
-              <span>
-                <a
-                  aria-label={title}
-                  href={getSpotifyLink(uri)}
-                  rel="noreferrer"
-                  target="_blank"
-                  title={title}
-                >
-                  {name}
-                </a>
-              </span>
-              {icon}
-            </p>
-            <p title={artists.map(d => d.name).join(', ')}>
-              {artists.map((artist, index) => {
-                const artistTitle = getSpotifyLinkTitle(artist.name, locale.title);
-
-                return (
-                  <span key={artist.uri}>
-                    {index ? ', ' : ''}
-                    <a
-                      aria-label={artistTitle}
-                      href={getSpotifyLink(artist.uri)}
-                      rel="noreferrer"
-                      target="_blank"
-                      title={artistTitle}
-                    >
-                      {artist.name}
-                    </a>
-                  </span>
-                );
-              })}
-            </p>
-          </Title>
-        )}
-      </Wrapper>
+  /* istanbul ignore else */
+  if (showSaveIcon && id) {
+    icon = (
+      <button
+        aria-label={isSaved ? locale.removeTrack : locale.saveTrack}
+        className={isSaved ? 'rswp__active' : undefined}
+        onClick={handleClickIcon}
+        title={isSaved ? locale.removeTrack : locale.saveTrack}
+        type="button"
+      >
+        {isSaved ? <Favorite /> : <FavoriteOutline />}
+      </button>
     );
   }
+
+  const classes = [];
+
+  if (isActive) {
+    classes.push('rswp__active');
+  }
+
+  return (
+    <Wrapper className={classes.join(' ')} data-component-name="Info" style={{ h: height }}>
+      {image && (
+        <a
+          aria-label={title}
+          href={getSpotifyLink(uri)}
+          rel="noreferrer"
+          target="_blank"
+          title={title}
+        >
+          <img alt={name} src={image} />
+        </a>
+      )}
+      {!!name && (
+        <Title style={{ c: color, h: height, activeColor, trackArtistColor, trackNameColor }}>
+          <p>
+            <span>
+              <a
+                aria-label={title}
+                href={getSpotifyLink(uri)}
+                rel="noreferrer"
+                target="_blank"
+                title={title}
+              >
+                {name}
+              </a>
+            </span>
+            {icon}
+          </p>
+          <p title={artists.map(d => d.name).join(', ')}>
+            {artists.map((artist, index) => {
+              const artistTitle = getSpotifyLinkTitle(artist.name, locale.title);
+
+              return (
+                <span key={artist.uri}>
+                  {index ? ', ' : ''}
+                  <a
+                    aria-label={artistTitle}
+                    href={getSpotifyLink(artist.uri)}
+                    rel="noreferrer"
+                    target="_blank"
+                    title={artistTitle}
+                  >
+                    {artist.name}
+                  </a>
+                </span>
+              );
+            })}
+          </p>
+        </Title>
+      )}
+    </Wrapper>
+  );
 }
