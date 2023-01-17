@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { usePrevious } from 'react-use';
+import * as pkg from 'react-use';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
 import ClickOutside from './ClickOutside';
@@ -10,7 +10,7 @@ import VolumeMute from './icons/VolumeMute';
 import { px, styled } from '../styles';
 import { StyledProps, StylesOptions } from '../types/common';
 
-// const { usePrevious } = pkg;
+const { usePrevious } = pkg;
 
 interface Props {
   playerPosition: string;
