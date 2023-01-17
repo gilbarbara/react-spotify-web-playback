@@ -1,6 +1,7 @@
 {
   "extends": "@gilbarbara/tsconfig",
   "compilerOptions": {
+    "jsx": "react",
     "emitDeclarationOnly": true,
     "outDir": "./dist"
   },

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { useMount, usePrevious, useUnmount } from 'react-use';
+import React, { useEffect, useRef, useState } from 'react';
+import pkg from 'react-use';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
@@ -9,6 +9,8 @@ import { px, styled } from '../styles';
 import { Locale, StyledProps, StylesOptions } from '../types/common';
 import { SpotifyPlayerTrack } from '../types/spotify';
 import { getSpotifyLink, getSpotifyLinkTitle } from '../utils';
+
+const { useMount, usePrevious, useUnmount } = pkg;
 
 interface Props {
   isActive: boolean;

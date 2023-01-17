@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 
 import { put, px } from '../styles';
 import { ComponentsProps } from '../types/common';

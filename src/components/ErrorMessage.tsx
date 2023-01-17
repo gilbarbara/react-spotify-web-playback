@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { px, styled } from '../styles';
 import { ComponentsProps, StyledProps } from '../types/common';
 

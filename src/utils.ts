@@ -1,6 +1,8 @@
-import { canUseDOM as canUseDOMBool } from 'exenv';
+import pkg from 'exenv';
 
 import { Locale } from './types';
+
+const { canUseDOM: canUseDOMBool } = pkg;
 
 export const canUseDOM = () => canUseDOMBool;
 

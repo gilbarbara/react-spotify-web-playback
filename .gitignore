@@ -1,7 +1,7 @@
 .idea/
 .tmp/
 coverage/
-dist/
+# dist/
 node_modules/
 reports/
 webpack.stats.json

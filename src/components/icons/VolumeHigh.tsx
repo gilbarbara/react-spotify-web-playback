@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function VolumeHigh(props: any) {
   return (
     <svg

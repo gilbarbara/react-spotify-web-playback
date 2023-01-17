@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Devices from './Devices';
 import Volume from './Volume';
 

@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 
 import ClickOutside from './ClickOutside';
 import DevicesIcon from './icons/Devices';

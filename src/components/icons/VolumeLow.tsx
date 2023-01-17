@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function VolumeLow(props: any) {
   return (
     <svg

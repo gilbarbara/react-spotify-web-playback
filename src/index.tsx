@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { createRef, PureComponent } from 'react';
+import React, { createRef, PureComponent } from 'react';
 import isEqual from '@gilbarbara/deep-equal';
 import memoize from 'memoize-one';
 

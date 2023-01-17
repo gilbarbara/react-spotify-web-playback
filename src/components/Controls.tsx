@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Next from './icons/Next';
 import Pause from './icons/Pause';
 import Play from './icons/Play';

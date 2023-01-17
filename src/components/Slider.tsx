@@ -1,3 +1,4 @@
+import React from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
 import { px, styled } from '../styles';
