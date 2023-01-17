@@ -220,7 +220,7 @@ function Devices(props) {
 
 // src/components/Volume.tsx
 var import_react8 = __toESM(require("react"));
-var import_react_use = __toESM(require("react-use"));
+var import_react_use = require("react-use");
 var import_react_range_slider = __toESM(require("@gilbarbara/react-range-slider"));
 
 // src/components/icons/VolumeHigh.tsx
@@ -293,7 +293,6 @@ function VolumeMute(props) {
 }
 
 // src/components/Volume.tsx
-var { usePrevious } = import_react_use.default;
 var Wrapper2 = styled("div")(
   {
     "pointer-events": "all",
@@ -336,7 +335,7 @@ function Volume(props) {
   const [isOpen, setIsOpen] = (0, import_react8.useState)(false);
   const [volumeState, setVolumeState] = (0, import_react8.useState)(volume);
   const timeoutRef = (0, import_react8.useRef)();
-  const previousVolume = usePrevious(volume);
+  const previousVolume = (0, import_react_use.usePrevious)(volume);
   (0, import_react8.useEffect)(() => {
     if (previousVolume !== volume && volume !== volumeState) {
       setVolumeState(volume);
@@ -627,7 +626,7 @@ function ErrorMessage({
 
 // src/components/Info.tsx
 var import_react19 = __toESM(require("react"));
-var import_react_use2 = __toESM(require("react-use"));
+var import_react_use2 = require("react-use");
 
 // src/components/icons/Favorite.tsx
 var import_react17 = __toESM(require("react"));
@@ -876,7 +875,6 @@ function validateURI(input) {
 }
 
 // src/components/Info.tsx
-var { useMount, usePrevious: usePrevious2, useUnmount } = import_react_use2.default;
 var Wrapper7 = styled("div")(
   {
     alignItems: "center",
@@ -966,7 +964,7 @@ function Info(props) {
   } = props;
   const [isSaved, setIsSaved] = (0, import_react19.useState)(false);
   const isMounted = (0, import_react19.useRef)(false);
-  const previousId = usePrevious2(id);
+  const previousId = (0, import_react_use2.usePrevious)(id);
   const updateState = (state) => {
     if (!isMounted.current) {
       return;
@@ -987,7 +985,7 @@ function Info(props) {
     updateState(isFavorite);
     onFavoriteStatusChange(isSaved);
   };
-  useMount(async () => {
+  (0, import_react_use2.useMount)(async () => {
     isMounted.current = true;
     if (showSaveIcon && id) {
       await setStatus();
@@ -999,7 +997,7 @@ function Info(props) {
       setStatus();
     }
   });
-  useUnmount(() => {
+  (0, import_react_use2.useUnmount)(() => {
     isMounted.current = false;
   });
   const handleClickIcon = async () => {

@@ -190,7 +190,7 @@ function Devices(props) {
 
 // src/components/Volume.tsx
 import React7, { useEffect as useEffect2, useRef as useRef2, useState as useState2 } from "react";
-import pkg from "react-use";
+import { usePrevious } from "react-use";
 import RangeSlider from "@gilbarbara/react-range-slider";
 
 // src/components/icons/VolumeHigh.tsx
@@ -263,7 +263,6 @@ function VolumeMute(props) {
 }
 
 // src/components/Volume.tsx
-var { usePrevious } = pkg;
 var Wrapper2 = styled("div")(
   {
     "pointer-events": "all",
@@ -597,7 +596,7 @@ function ErrorMessage({
 
 // src/components/Info.tsx
 import React18, { useEffect as useEffect3, useRef as useRef3, useState as useState3 } from "react";
-import pkg3 from "react-use";
+import { useMount, usePrevious as usePrevious2, useUnmount } from "react-use";
 
 // src/components/icons/Favorite.tsx
 import React16 from "react";
@@ -757,8 +756,8 @@ async function setVolume(token, volume) {
 }
 
 // src/utils.ts
-import pkg2 from "exenv";
-var { canUseDOM: canUseDOMBool } = pkg2;
+import pkg from "exenv";
+var { canUseDOM: canUseDOMBool } = pkg;
 var STATUS = {
   ERROR: "ERROR",
   IDLE: "IDLE",
@@ -846,7 +845,6 @@ function validateURI(input) {
 }
 
 // src/components/Info.tsx
-var { useMount, usePrevious: usePrevious2, useUnmount } = pkg3;
 var Wrapper7 = styled("div")(
   {
     alignItems: "center",
