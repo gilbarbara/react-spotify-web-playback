@@ -1,7 +1,5 @@
 /* eslint-disable camelcase */
 
-import { Spotify } from '../../global';
-
 export type SpotifyPlayerCallback = (token: string) => void;
 
 export interface SpotifyAlbum {
@@ -102,11 +100,30 @@ export interface SpotifyPlayerStatus {
 }
 
 export interface SpotifyPlayerTrack {
-  artists: Spotify.Artist[];
+  artists: Pick<SpotifyArtist, 'name' | 'uri' | 'url'>[];
   durationMs: number;
   id: string;
   image: string;
   name: string;
+  uri: string;
+}
+
+export interface SpotifyTrack {
+  album: SpotifyAlbum;
+  artists: Pick<SpotifyArtist, 'name' | 'uri' | 'url'>[];
+  duration_ms: number;
+  id: string | null;
+  is_playable: boolean;
+  linked_from: {
+    id: null | string;
+    uri: null | string;
+  };
+  linked_from_uri?: string;
+  media_type: 'audio' | 'video';
+  name: string;
+  track_type: 'audio' | 'video';
+  type: 'track' | 'episode' | 'ad';
+  uid: string;
   uri: string;
 }
 
