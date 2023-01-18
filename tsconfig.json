@@ -1,8 +1,9 @@
 {
   "extends": "@gilbarbara/tsconfig",
   "compilerOptions": {
-    "emitDeclarationOnly": true,
-    "outDir": "./dist"
+    "downlevelIteration": true,
+    "noEmit": true,
+    "target": "es5"
   },
   "include": ["global.d.ts", "src/**/*"]
 }

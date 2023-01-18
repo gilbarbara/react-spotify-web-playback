@@ -43,11 +43,11 @@
     "react-use": "^17.4.0"
   },
   "devDependencies": {
-    "@gilbarbara/esbuilder": "^0.1.0",
     "@gilbarbara/eslint-config": "^0.3.7",
     "@gilbarbara/prettier-config": "^0.1.0",
     "@gilbarbara/tsconfig": "^0.1.1",
     "@size-limit/file": "^8.1.1",
+    "@swc/core": "^1.3.27",
     "@testing-library/dom": "^8.19.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -72,12 +72,13 @@
     "size-limit": "^8.1.1",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
+    "tsup": "^6.5.0",
     "typescript": "^4.9.4"
   },
   "scripts": {
-    "build": "npm run clean && esbuilder --input ./src/index.tsx --cjs --esm && npm run build:types",
-    "build:types": "tsc",
-    "clean": "del dist/*",
+    "build": "npm run clean && tsup",
+    "clean": "del lib/* && del esm/*",
+    "watch": "tsup --watch",
     "test": "is-ci \"test:coverage\" \"test:watch\"",
     "test:coverage": "jest --bail --coverage",
     "test:watch": "jest --watchAll --verbose",
@@ -87,6 +88,18 @@
     "size": "size-limit",
     "prepublishOnly": "npm run validate",
     "prepare": "husky install"
+  },
+  "tsup": {
+    "dts": true,
+    "entry": [
+      "src/index.tsx"
+    ],
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "sourcemap": true,
+    "splitting": false
   },
   "eslintConfig": {
     "extends": [
@@ -125,12 +138,12 @@
     {
       "name": "commonjs",
       "path": "./dist/index.js",
-      "limit": "20 KB"
+      "limit": "22 KB"
     },
     {
       "name": "esm",
       "path": "./dist/index.mjs",
-      "limit": "20 KB"
+      "limit": "16 KB"
     }
   ]
 }
