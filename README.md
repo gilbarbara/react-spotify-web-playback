@@ -8,11 +8,13 @@ View the [demo](https://react-spotify-web-playback.gilbarbara.dev/)
 
 Check the [supported browser](https://developer.spotify.com/documentation/web-playback-sdk/#supported-browsers) list. This library will try to use the user's devices to work with unsupported browsers.
 
+````jsx
+
 ## Setup
 
 ```bash
 npm i react-spotify-web-playback
-```
+````
 
 ## Getting Started
 
@@ -24,6 +26,10 @@ import SpotifyPlayer from 'react-spotify-web-playback';
   uris={['spotify:artist:6HQYnRM4OzToCYPpVBInuU']}
 />;
 ```
+
+### Client side only
+
+If you are using an SSR framework, you'll need to use a [dynamic import](https://nextjs.org/docs/advanced-features/dynamic-import) to load the player.
 
 ## Props
 
