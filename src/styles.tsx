@@ -1,17 +1,17 @@
+/* eslint-disable import/extensions */
 /* tslint:disable:object-literal-sort-keys */
 import { createElement, FunctionComponent } from 'react';
-import { create, NanoRenderer } from 'nano-css';
+import { create, CssLikeObject, NanoRenderer } from 'nano-css';
 // @ts-ignore
-import { addon as addonJSX } from 'nano-css/addon/jsx';
-import { addon as addonKeyframes } from 'nano-css/addon/keyframes';
+import { addon as addonJSX } from 'nano-css/addon/jsx.js';
+import { addon as addonKeyframes } from 'nano-css/addon/keyframes.js';
 // @ts-ignore
-import { addon as addonNesting } from 'nano-css/addon/nesting';
-import { addon as addonRule } from 'nano-css/addon/rule';
+import { addon as addonNesting } from 'nano-css/addon/nesting.js';
+import { addon as addonRule } from 'nano-css/addon/rule.js';
 // @ts-ignore
-import { addon as addonStyle } from 'nano-css/addon/style';
+import { addon as addonStyle } from 'nano-css/addon/style.js';
 // @ts-ignore
-import { addon as addonStyled } from 'nano-css/addon/styled';
-import { CssLikeObject } from 'nano-css/types/common';
+import { addon as addonStyled } from 'nano-css/addon/styled.js';
 
 import { StyledProps, StylesOptions, StylesProps } from './types/common';
 
