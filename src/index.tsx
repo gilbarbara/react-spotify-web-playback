@@ -63,7 +63,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   private playerSyncInterval?: number;
   private ref = createRef<HTMLDivElement>();
   private seekUpdateInterval = 100;
-  private readonly styles: StylesOptions;
+  private styles: StylesOptions;
   private syncTimeout?: number;
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -172,11 +172,13 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       offset,
       play: playProp,
       showSaveIcon,
+      styles,
       syncExternalDevice,
       token,
       uris,
     } = this.props;
     const isReady = previousState.status !== STATUS.READY && status === STATUS.READY;
+    const changedStyles = !isEqual(previousProps.styles, styles);
     const changedURIs = !isEqual(previousProps.uris, uris);
     const playOptions = this.getPlayOptions(uris);
 
@@ -265,6 +267,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           this.setExternalDevice(player.device.id);
         }
       }
+    }
+
+    if (changedStyles) {
+      this.styles = getMergedStyles(styles);
     }
 
     if (errorType === 'authentication_error' && this.hasNewToken) {
