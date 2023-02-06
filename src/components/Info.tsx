@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useMount, usePrevious, useUnmount } from 'react-use';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
@@ -9,6 +8,7 @@ import { px, styled } from '../styles';
 import { Locale, StyledProps, StylesOptions } from '../types/common';
 import { SpotifyPlayerTrack } from '../types/spotify';
 import { getSpotifyLink, getSpotifyLinkTitle } from '../utils';
+import { usePrevious } from '../modules/hooks';
 
 interface Props {
   isActive: boolean;
@@ -152,13 +152,18 @@ export default function Info(props: Props) {
     onFavoriteStatusChange(isSaved);
   };
 
-  useMount(async () => {
+  useEffect(() => {
     isMounted.current = true;
 
     if (showSaveIcon && id) {
-      await setStatus();
+      setStatus();
     }
-  });
+
+    return () => {
+      isMounted.current = false;
+    };
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (showSaveIcon && previousId !== id && id) {
@@ -166,10 +171,6 @@ export default function Info(props: Props) {
 
       setStatus();
     }
-  });
-
-  useUnmount(() => {
-    isMounted.current = false;
   });
 
   const handleClickIcon = async () => {
