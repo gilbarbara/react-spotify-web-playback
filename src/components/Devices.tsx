@@ -1,13 +1,14 @@
 import { MouseEvent, useCallback, useState } from 'react';
 
+import { px, styled } from '~/modules/styled';
+
+import { Locale, SpotifyDevice, StyledProps, StylesOptions } from '~/types';
+
 import ClickOutside from './ClickOutside';
 import DevicesIcon from './icons/Devices';
 import DevicesComputerIcon from './icons/DevicesComputer';
 import DevicesMobileIcon from './icons/DevicesMobile';
 import DevicesSpeakerIcon from './icons/DevicesSpeaker';
-
-import { px, styled } from '../modules/styled';
-import { Locale, SpotifyDevice, StyledProps, StylesOptions } from '../types';
 
 interface Props {
   currentDeviceId?: string;

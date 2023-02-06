@@ -3,16 +3,8 @@ import { createRef, PureComponent, ReactNode } from 'react';
 import isEqual from '@gilbarbara/deep-equal';
 import memoize from 'memoize-one';
 
-import Actions from './components/Actions';
-import Controls from './components/Controls';
-import ErrorMessage from './components/ErrorMessage';
-import Info from './components/Info';
-import Loader from './components/Loader';
-import Player from './components/Player';
-import Wrapper from './components/Wrapper';
-import { STATUS, TYPE } from './constants';
-import { getLocale, getSpotifyURIType } from './modules/getters';
-import { loadSpotifyPlayer, parseVolume, round, validateURI } from './modules/helpers';
+import { getLocale, getSpotifyURIType } from '~/modules/getters';
+import { loadSpotifyPlayer, parseVolume, round, validateURI } from '~/modules/helpers';
 import {
   getDevices,
   getPlaybackState,
@@ -23,8 +15,19 @@ import {
   seek,
   setDevice,
   setVolume,
-} from './modules/spotify';
-import { getMergedStyles } from './modules/styled';
+} from '~/modules/spotify';
+import { getMergedStyles } from '~/modules/styled';
+
+import Actions from '~/components/Actions';
+import Controls from '~/components/Controls';
+import ErrorMessage from '~/components/ErrorMessage';
+import Info from '~/components/Info';
+import Loader from '~/components/Loader';
+import Player from '~/components/Player';
+import Wrapper from '~/components/Wrapper';
+
+import { STATUS, TYPE } from '~/constants';
+
 import {
   CallbackState,
   Locale,

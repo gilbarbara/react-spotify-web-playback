@@ -6,7 +6,7 @@ import {
   parseVolume,
   round,
   validateURI,
-} from '../../src/modules/helpers';
+} from '~/modules/helpers';
 
 describe('canUseDOM', () => {
   it('should return properly', () => {

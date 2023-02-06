@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
+import { usePrevious } from '~/modules/hooks';
+import { px, styled } from '~/modules/styled';
+
+import { StyledProps, StylesOptions } from '~/types';
+
 import ClickOutside from './ClickOutside';
 import VolumeHigh from './icons/VolumeHigh';
 import VolumeLow from './icons/VolumeLow';
 import VolumeMid from './icons/VolumeMid';
 import VolumeMute from './icons/VolumeMute';
-
-import { usePrevious } from '../modules/hooks';
-import { px, styled } from '../modules/styled';
-import { StyledProps, StylesOptions } from '../types';
 
 interface Props {
   playerPosition: string;
