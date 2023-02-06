@@ -1,9 +1,10 @@
+import { memo } from 'react';
+
 import Devices from './Devices';
 import Volume from './Volume';
 
-import { px, styled } from '../styles';
-import { Locale, StyledProps, StylesOptions } from '../types/common';
-import { SpotifyDevice } from '../types/spotify';
+import { px, styled } from '../modules/styled';
+import { Locale, SpotifyDevice, StyledProps, StylesOptions } from '../types';
 
 interface Props {
   currentDeviceId: string;
@@ -23,27 +24,27 @@ const Wrapper = styled('div')(
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'flex-end',
-    paddingRight: px(10),
     'pointer-events': 'none',
 
-    '> div + div': {
-      marginLeft: px(10),
-    },
-
-    '@media (max-width: 1023px)': {
-      bottom: 0,
+    '@media (max-width: 767px)': {
+      bottom: px(28),
+      paddingRight: px(4),
       position: 'absolute',
       right: 0,
       width: 'auto',
     },
   },
   ({ style }: StyledProps) => ({
-    height: px(style.h),
+    height: px(32),
+
+    '@media (min-width: 768px)': {
+      height: px(style.h),
+    },
   }),
   'ActionsRSWP',
 );
 
-export default function Actions(props: Props) {
+function Actions(props: Props) {
   const {
     currentDeviceId,
     deviceId,
@@ -72,6 +73,7 @@ export default function Actions(props: Props) {
         currentDeviceId={currentDeviceId}
         deviceId={deviceId}
         devices={devices}
+        locale={locale}
         onClickDevice={onClickDevice}
         open={isDevicesOpen}
         playerPosition={playerPosition}
@@ -81,3 +83,5 @@ export default function Actions(props: Props) {
     </Wrapper>
   );
 }
+
+export default memo(Actions);

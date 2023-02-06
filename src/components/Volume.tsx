@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
 import ClickOutside from './ClickOutside';
 import VolumeHigh from './icons/VolumeHigh';
 import VolumeLow from './icons/VolumeLow';
+import VolumeMid from './icons/VolumeMid';
 import VolumeMute from './icons/VolumeMute';
 
-import { px, styled } from '../styles';
-import { StyledProps, StylesOptions } from '../types/common';
 import { usePrevious } from '../modules/hooks';
+import { px, styled } from '../modules/styled';
+import { StyledProps, StylesOptions } from '../types';
 
 interface Props {
   playerPosition: string;
@@ -20,24 +21,46 @@ interface Props {
 
 const Wrapper = styled('div')(
   {
+    display: 'none',
     'pointer-events': 'all',
     position: 'relative',
     zIndex: 20,
 
     '> div': {
+      alignItems: 'center',
+      backgroundColor: '#000',
+      borderRadius: px(4),
+      color: '#fff',
       display: 'flex',
+      filter: 'drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.5))',
       flexDirection: 'column',
-      padding: px(12),
+      left: '-4px',
+      padding: px(16),
       position: 'absolute',
-      right: `-${px(3)}`,
+
+      '> span': {
+        background: 'transparent',
+        borderLeft: `6px solid transparent`,
+        borderRight: `6px solid transparent`,
+        content: '""',
+        display: 'block',
+        height: 0,
+        position: 'absolute',
+        width: 0,
+      },
     },
 
     '> button': {
-      fontSize: px(26),
+      alignItems: 'center',
+      display: 'flex',
+      fontSize: px(24),
+      height: px(32),
+      justifyContent: 'center',
+      width: px(32),
     },
 
-    '@media (max-width: 1023px)': {
-      display: 'none',
+    '@media (any-pointer: fine)': {
+      display: 'block',
     },
   },
   ({ style }: StyledProps) => ({
@@ -45,9 +68,12 @@ const Wrapper = styled('div')(
       color: style.c,
     },
     '> div': {
-      backgroundColor: style.bgColor,
-      boxShadow: style.altColor ? `1px 1px 10px ${style.altColor}` : 'none',
-      [style.p]: '120%',
+      [style.position]: '130%',
+
+      '> span': {
+        [style.position === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
+        [style.position]: '-6px',
+      },
     },
   }),
   'VolumeRSWP',
@@ -57,7 +83,7 @@ export default function Volume(props: Props) {
   const {
     playerPosition,
     setVolume,
-    styles: { altColor, bgColor, color },
+    styles: { color },
     title,
     volume,
   } = props;
@@ -72,9 +98,9 @@ export default function Volume(props: Props) {
     }
   }, [previousVolume, volume, volumeState]);
 
-  const handleClick = () => {
+  const handleClickToggleList = useCallback(() => {
     setIsOpen(s => !s);
-  };
+  }, []);
 
   const handleChangeSlider = ({ y }: RangeSliderPosition) => {
     const currentvolume = Math.round(y) / 100;
@@ -98,49 +124,49 @@ export default function Volume(props: Props) {
 
   if (volume === 0) {
     icon = <VolumeMute />;
-  } else if (volume <= 0.5) {
+  } else if (volume <= 0.4) {
     icon = <VolumeLow />;
+  } else if (volume <= 0.7) {
+    icon = <VolumeMid />;
   }
 
   return (
-    <Wrapper
-      data-component-name="Volume"
-      data-value={volume}
-      style={{ altColor, bgColor, c: color, p: playerPosition }}
-    >
-      {isOpen && (
-        <ClickOutside onClick={handleClick}>
-          <RangeSlider
-            axis="y"
-            className="volume"
-            onAfterEnd={handleAfterEnd}
-            onChange={handleChangeSlider}
-            styles={{
-              options: {
-                thumbBorder: `2px solid ${color}`,
-                thumbBorderRadius: 12,
-                thumbColor: bgColor,
-                thumbSize: 12,
-                padding: 0,
-                rangeColor: altColor || '#ccc',
-                trackColor: color,
-                width: 6,
-              },
-            }}
-            y={volume * 100}
-            yMax={100}
-            yMin={0}
-          />
-        </ClickOutside>
-      )}
-      <button
-        aria-label={title}
-        onClick={!isOpen ? handleClick : undefined}
-        title={title}
-        type="button"
+    <ClickOutside isActive={isOpen} onClick={handleClickToggleList}>
+      <Wrapper
+        data-component-name="Volume"
+        data-value={volume}
+        style={{ c: color, position: playerPosition }}
       >
-        {icon}
-      </button>
-    </Wrapper>
+        {isOpen && (
+          <div>
+            <RangeSlider
+              axis="y"
+              className="volume"
+              onAfterEnd={handleAfterEnd}
+              onChange={handleChangeSlider}
+              styles={{
+                options: {
+                  padding: 0,
+                  rangeColor: '#fff',
+                  thumbBorder: 0,
+                  thumbBorderRadius: 12,
+                  thumbColor: '#fff',
+                  thumbSize: 12,
+                  trackColor: 'rgba(255, 255, 255, 0.5)',
+                  width: 6,
+                },
+              }}
+              y={volume * 100}
+              yMax={100}
+              yMin={0}
+            />
+            <span />
+          </div>
+        )}
+        <button aria-label={title} onClick={handleClickToggleList} title={title} type="button">
+          {icon}
+        </button>
+      </Wrapper>
+    </ClickOutside>
   );
 }

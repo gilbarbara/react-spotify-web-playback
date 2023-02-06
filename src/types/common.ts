@@ -7,6 +7,8 @@ export interface CallbackState extends State {
   type: string;
 }
 
+export type ErrorType = 'authentication_error' | 'player_status' | 'playback_error';
+
 export interface Props {
   /**
    * Start the player immediately.
@@ -17,6 +19,12 @@ export interface Props {
    * Get status updates from the player.
    */
   callback?: (state: CallbackState) => any;
+  /**
+   * Hide the Spotify logo.
+   * More info: https://developer.spotify.com/documentation/general/design-and-branding/
+   * @default false
+   */
+  hideAttribution?: boolean;
   /**
    * The initial volume for the player. This isn't used for external devices.
    * @default 1
@@ -88,7 +96,7 @@ export interface State {
   deviceId: string;
   devices: SpotifyDevice[];
   error: string;
-  errorType: string;
+  errorType: ErrorType | null;
   isActive: boolean;
   isInitializing: boolean;
   isMagnified: boolean;
@@ -113,8 +121,10 @@ export interface ComponentsProps {
 }
 
 export interface Locale {
+  currentDevice: string;
   devices: string;
   next: string;
+  otherDevices: string;
   pause: string;
   play: string;
   previous: string;
@@ -135,7 +145,7 @@ export interface StylesOptions {
   bgColor: string;
   color: string;
   errorColor: string;
-  height: number | string;
+  height: number;
   loaderColor: string;
   loaderSize: number | string;
   sliderColor: string;

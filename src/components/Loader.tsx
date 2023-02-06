@@ -1,5 +1,5 @@
-import { keyframes, px, styled } from '../styles';
-import { ComponentsProps, StyledProps } from '../types/common';
+import { keyframes, px, styled } from '../modules/styled';
+import { ComponentsProps, StyledProps } from '../types';
 
 const Wrapper = styled('div')(
   {

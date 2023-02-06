@@ -5,51 +5,14 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
   class="PlayerRSWP"
   data-component-name="Player"
   data-ready="true"
-  style="background-color: rgb(255, 255, 255); min-height: 48px;"
+  style="background: rgb(255, 255, 255); min-height: 80px;"
 >
   <div
-    class=" _SliderRSWP __181lube"
-    data-component-name="Slider"
-    data-position="0"
+    class=" _WrapperRSWP __5fskss"
+    data-component-name="Wrapper"
   >
     <div
-      class="slider"
-      style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
-    >
-      <div
-        class="slider__track"
-        role="presentation"
-        style="background-color: rgb(204, 204, 204); border-radius: 0; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
-      >
-        <div
-          class="slider__range"
-          style="width: 0%; background-color: rgb(102, 102, 102); border-radius: 0; position: absolute; height: 100%; top: 0px;"
-        />
-        <div
-          role="presentation"
-          style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 0%; bottom: 0%;"
-        >
-          <span
-            aria-label="slider handle"
-            aria-orientation="horizontal"
-            aria-valuemax="100"
-            aria-valuemin="0"
-            aria-valuenow="0"
-            class="slider__thumb"
-            role="slider"
-            style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
-            tabindex="0"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class=" _ContentRSWP __1xc0f9k"
-    data-component-name="Content"
-  >
-    <div
-      class="rswp__active _InfoRSWP __mvqn38"
+      class="rswp__active _InfoRSWP __3tmru1"
       data-component-name="Info"
     >
       <a
@@ -65,7 +28,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         />
       </a>
       <div
-        class=" __nnvdcq __77inad"
+        class=" __1g8stm2 __7zja79"
       >
         <p>
           <span>
@@ -95,122 +58,197 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
             </a>
           </span>
         </p>
+        <a
+          aria-label="Play on Spotify"
+          href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <svg
+            height="1em"
+            preserveAspectRatio="xMidYMid"
+            viewBox="0 0 512 160"
+            width="3.2em"
+          >
+            <path
+              d="M79.655 0C35.664 0 0 35.663 0 79.654c0 43.993 35.664 79.653 79.655 79.653 43.996 0 79.656-35.66 79.656-79.653 0-43.988-35.66-79.65-79.657-79.65L79.655 0Zm36.53 114.884a4.963 4.963 0 0 1-6.83 1.646c-18.702-11.424-42.246-14.011-69.973-7.676a4.967 4.967 0 0 1-5.944-3.738 4.958 4.958 0 0 1 3.734-5.945c30.343-6.933 56.37-3.948 77.367 8.884a4.965 4.965 0 0 1 1.645 6.83Zm9.75-21.689c-1.799 2.922-5.622 3.845-8.543 2.047-21.41-13.16-54.049-16.972-79.374-9.284a6.219 6.219 0 0 1-7.75-4.138 6.22 6.22 0 0 1 4.141-7.745c28.929-8.778 64.892-4.526 89.48 10.583 2.92 1.798 3.843 5.622 2.045 8.538Zm.836-22.585C101.1 55.362 58.742 53.96 34.231 61.4c-3.936 1.194-8.098-1.028-9.29-4.964a7.453 7.453 0 0 1 4.965-9.294c28.137-8.542 74.912-6.892 104.469 10.655a7.441 7.441 0 0 1 2.606 10.209c-2.092 3.54-6.677 4.707-10.206 2.605h-.004Zm89.944 2.922c-13.754-3.28-16.198-5.581-16.198-10.418 0-4.57 4.299-7.645 10.7-7.645 6.202 0 12.347 2.336 18.796 7.143.19.145.437.203.675.165a.888.888 0 0 0 .6-.367l6.715-9.466a.903.903 0 0 0-.171-1.225c-7.676-6.157-16.313-9.15-26.415-9.15-14.848 0-25.225 8.911-25.225 21.662 0 13.673 8.95 18.515 24.417 22.252 13.155 3.031 15.38 5.57 15.38 10.11 0 5.032-4.49 8.161-11.718 8.161-8.028 0-14.582-2.71-21.906-9.046a.932.932 0 0 0-.656-.218.89.89 0 0 0-.619.313l-7.533 8.96a.906.906 0 0 0 .086 1.256c8.522 7.61 19.004 11.624 30.323 11.624 16 0 26.339-8.742 26.339-22.277.028-11.421-6.81-17.746-23.561-21.821l-.029-.013Zm59.792-13.564c-6.934 0-12.622 2.732-17.321 8.33v-6.3c0-.498-.4-.903-.894-.903h-12.318a.899.899 0 0 0-.894.902v70.009c0 .494.4.903.894.903h12.318a.901.901 0 0 0 .894-.903v-22.097c4.699 5.26 10.387 7.838 17.32 7.838 12.89 0 25.94-9.92 25.94-28.886.019-18.97-13.032-28.894-25.93-28.894l-.01.001Zm11.614 28.893c0 9.653-5.945 16.397-14.468 16.397-8.418 0-14.772-7.048-14.772-16.397 0-9.35 6.354-16.397 14.772-16.397 8.38 0 14.468 6.893 14.468 16.396Zm47.759-28.893c-16.598 0-29.601 12.78-29.601 29.1 0 16.143 12.917 28.784 29.401 28.784 16.655 0 29.696-12.736 29.696-28.991 0-16.2-12.955-28.89-29.496-28.89v-.003Zm0 45.385c-8.827 0-15.485-7.096-15.485-16.497 0-9.444 6.43-16.298 15.285-16.298 8.884 0 15.58 7.093 15.58 16.504 0 9.443-6.468 16.291-15.38 16.291Zm64.937-44.258h-13.554V47.24c0-.497-.4-.902-.894-.902H374.05a.906.906 0 0 0-.904.902v13.855h-5.916a.899.899 0 0 0-.894.902v10.584a.9.9 0 0 0 .894.903h5.916v27.39c0 11.062 5.508 16.674 16.38 16.674 4.413 0 8.075-.914 11.528-2.873a.88.88 0 0 0 .457-.78v-10.083a.896.896 0 0 0-.428-.76.873.873 0 0 0-.876-.039c-2.368 1.19-4.66 1.741-7.229 1.741-3.947 0-5.716-1.798-5.716-5.812V73.49h13.554a.899.899 0 0 0 .894-.903V62.003a.873.873 0 0 0-.884-.903l-.01-.005Zm47.217.054v-1.702c0-5.006 1.921-7.238 6.22-7.238 2.57 0 4.633.51 6.945 1.28a.895.895 0 0 0 1.18-.858l-.001-10.377a.891.891 0 0 0-.637-.865c-2.435-.726-5.555-1.47-10.235-1.47-11.367 0-17.388 6.405-17.388 18.516v2.606h-5.916a.906.906 0 0 0-.904.902v10.638c0 .497.41.903.904.903h5.916v42.237c0 .504.41.904.904.904h12.308c.504 0 .904-.4.904-.904V73.487h11.5l17.616 42.234c-1.998 4.433-3.967 5.317-6.65 5.317-2.168 0-4.46-.646-6.79-1.93a.98.98 0 0 0-.714-.067.896.896 0 0 0-.533.485l-4.175 9.16a.9.9 0 0 0 .39 1.17c4.356 2.359 8.284 3.367 13.145 3.367 9.093 0 14.125-4.242 18.548-15.637l21.364-55.204a.88.88 0 0 0-.095-.838.878.878 0 0 0-.733-.392h-12.822a.901.901 0 0 0-.856.605l-13.136 37.509-14.382-37.534a.898.898 0 0 0-.837-.58h-21.04v-.003Zm-27.375-.054h-12.318a.907.907 0 0 0-.903.902v53.724c0 .504.409.904.903.904h12.318c.495 0 .904-.4.904-.904v-53.72a.9.9 0 0 0-.904-.903v-.003Zm-6.088-24.464c-4.88 0-8.836 3.95-8.836 8.828a8.835 8.835 0 0 0 8.836 8.836c4.88 0 8.827-3.954 8.827-8.836a8.83 8.83 0 0 0-8.827-8.828Z"
+              fill="#000000"
+            />
+          </svg>
+        </a>
       </div>
     </div>
     <div
-      class=" _ControlsRSWP __1q9n52d"
+      class=" _ControlsRSWP __sni8ug"
       data-component-name="Controls"
       data-playing="true"
     >
-      <div>
-        <button
-          aria-label="Previous"
-          title="Previous"
-          type="button"
-        >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+      <div
+        class="rswp__buttons"
+      >
+        <div>
+          <button
+            aria-label="Previous"
+            title="Previous"
+            type="button"
           >
-            <path
-              d="M29.09 53.749V5.819H5.819v116.363h23.273v-47.93L122.18 128V0z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M10.514 0a3.2 3.2 0 0 1 3.2 3.2v23.543L59.2.489A3.2 3.2 0 0 1 64 3.255V60.74a3.2 3.2 0 0 1-4.8 2.774L13.714 37.253V60.8a3.2 3.2 0 0 1-3.2 3.2H3.2A3.2 3.2 0 0 1 0 60.8V3.2A3.2 3.2 0 0 1 3.2 0h7.314Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <button
+            aria-label="Pause"
+            class="rswp__toggle"
+            title="Pause"
+            type="button"
+          >
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm-5.4 18h-5.2a1.4 1.4 0 0 0-1.4 1.4v25.2a1.4 1.4 0 0 0 1.4 1.4h5.2a1.4 1.4 0 0 0 1.4-1.4V19.4a1.4 1.4 0 0 0-1.4-1.4Zm16 0h-5.2a1.4 1.4 0 0 0-1.4 1.4v25.2a1.4 1.4 0 0 0 1.4 1.4h5.2a1.4 1.4 0 0 0 1.4-1.4V19.4a1.4 1.4 0 0 0-1.4-1.4Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <button
+            aria-label="Next"
+            title="Next"
+            type="button"
+          >
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M53.486 0a3.2 3.2 0 0 0-3.2 3.2v23.543L4.8.489A3.2 3.2 0 0 0 0 3.255V60.74a3.2 3.2 0 0 0 4.8 2.774l45.486-26.262V60.8a3.2 3.2 0 0 0 3.2 3.2H60.8a3.2 3.2 0 0 0 3.2-3.2V3.2A3.2 3.2 0 0 0 60.8 0h-7.314Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div>
-        <button
-          aria-label="Pause"
-          class="rswp__toggle"
-          title="Pause"
-          type="button"
+      <div
+        class=" _SliderRSWP __bgj9do"
+        data-component-name="Slider"
+        data-position="0"
+      >
+        <div
+          class="rswp_progress"
         >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
-          >
-            <path
-              d="M41.86 128V0H8.648v128h33.21zm77.491 0V0h-33.21v128h33.21z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-      </div>
-      <div>
-        <button
-          aria-label="Next"
-          title="Next"
-          type="button"
+          0:00
+        </div>
+        <div
+          class="slider"
+          style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
         >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+          <div
+            class="slider__track"
+            role="presentation"
+            style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
           >
-            <path
-              d="M98.91 53.749L5.817 0v128L98.91 74.251v47.93h23.273V5.819H98.909z"
-              fill="currentColor"
+            <div
+              class="slider__range"
+              style="width: 0%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
             />
-          </svg>
-        </button>
+            <div
+              role="presentation"
+              style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 0%; bottom: 0%;"
+            >
+              <span
+                aria-label="slider handle"
+                aria-orientation="horizontal"
+                aria-valuemax="100"
+                aria-valuemin="0"
+                aria-valuenow="0"
+                class="slider__thumb"
+                role="slider"
+                style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
+                tabindex="0"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="rswp_duration"
+        >
+          2:31
+        </div>
       </div>
     </div>
     <div
-      class=" _ActionsRSWP __hrnxs2"
+      class=" _ActionsRSWP __rnor3p"
       data-component-name="Actions"
     >
-      <div
-        class=" _VolumeRSWP __23rxcu"
-        data-component-name="Volume"
-        data-value="1"
-      >
-        <button
-          aria-label="Volume"
-          title="Volume"
-          type="button"
+      <div>
+        <div
+          class=" _VolumeRSWP __opinp7"
+          data-component-name="Volume"
+          data-value="1"
+          style="position: top;"
         >
-          <svg
-            data-component-name="VolumeHigh"
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+          <button
+            aria-label="Volume"
+            title="Volume"
+            type="button"
           >
-            <path
-              d="M0 85.869V40.38h21.24l39.41-22.743v90.974L21.24 85.87H0zm53.069 9.627V30.754L23.285 47.963H7.581v30.324h15.704L53.07 95.496zM92.355 18.86l4.889-5.723c13.772 12.64 21.94 30.407 21.94 49.724 0 19.318-8.168 37.085-21.94 49.725l-4.89-5.724c12.104-11.208 19.318-26.89 19.318-44 0-17.112-7.214-32.793-19.317-44.002zM75.303 38.835l4.889-5.724c5.246 5.008 9.062 11.209 11.149 18.542a41.69 41.69 0 0 1 1.55 11.21c0 11.506-4.77 22.12-12.7 29.75l-4.888-5.723c6.26-6.26 10.076-14.786 10.076-24.028 0-9.241-3.697-17.767-10.076-24.027z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+            <svg
+              data-component-name="VolumeHigh"
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div
-        class=" _DevicesRSWP __omb1nz"
-        data-component-name="Devices"
-        data-device-id="19ks98hfbxc53vh34jd"
-      >
-        <button
-          aria-label="Devices"
-          title="Devices"
-          type="button"
+      <div>
+        <div
+          class=" _DevicesRSWP __z23pve"
+          data-component-name="Devices"
+          data-device-id="19ks98hfbxc53vh34jd"
+          style="position: top;"
         >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+          <button
+            aria-label="Devices"
+            title="Devices"
+            type="button"
           >
-            <path
-              d="M6.765 89.483h40.412v6.765H6.269C2.765 96.248 0 93.483 0 89.978V20.703c0-3.504 2.765-6.27 6.27-6.27h40.907v6.766H6.765v68.285zm16.327 20.702a3.4 3.4 0 0 1 3.383-3.383h20.702v6.765H26.475c-.915 0-1.72-.347-2.344-1.038a3.064 3.064 0 0 1-1.039-2.344zm46.681-95.752h51.958c3.504 0 6.269 2.765 6.269 6.269v86.596c0 3.504-2.765 6.27-6.27 6.27H69.774c-3.504 0-6.27-2.766-6.27-6.27V20.702c0-3.504 2.766-6.27 6.27-6.27zm-.496 5.842l.07 87.52 52.88-.07-.07-87.45h-52.88zm13.89 45.573c3.464-3.462 7.714-5.23 12.585-5.23 9.827 0 17.815 7.988 17.815 17.815 0 9.827-7.988 17.815-17.815 17.815-9.827 0-17.815-7.988-17.815-17.815 0-4.87 1.768-9.122 5.23-12.585zm4.124 21.045c2.381 2.381 5.195 3.582 8.46 3.582 6.598 0 12.043-5.445 12.043-12.042 0-6.597-5.445-12.043-12.042-12.043-6.597 0-12.042 5.446-12.042 12.043 0 3.266 1.2 6.08 3.581 8.46zm12.935-44.466c-1.247 1.247-2.741 1.863-4.474 1.863-3.504 0-6.27-2.765-6.27-6.269s2.766-6.27 6.27-6.27c3.504 0 6.27 2.766 6.27 6.27 0 1.72-.608 3.218-1.796 4.406z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -222,131 +260,151 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
   class="PlayerRSWP"
   data-component-name="Player"
   data-ready="true"
-  style="background-color: rgb(255, 255, 255); min-height: 48px;"
+  style="background: rgb(255, 255, 255); min-height: 80px;"
 >
   <div
-    class=" _SliderRSWP __181lube"
-    data-component-name="Slider"
-    data-position="0"
+    class=" _WrapperRSWP __5fskss"
+    data-component-name="Wrapper"
   >
     <div
-      class="slider"
-      style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
-    >
-      <div
-        class="slider__track"
-        role="presentation"
-        style="background-color: rgb(204, 204, 204); border-radius: 0; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
-      >
-        <div
-          class="slider__range"
-          style="width: 0%; background-color: rgb(102, 102, 102); border-radius: 0; position: absolute; height: 100%; top: 0px;"
-        />
-        <div
-          role="presentation"
-          style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 0%; bottom: 0%;"
-        >
-          <span
-            aria-label="slider handle"
-            aria-orientation="horizontal"
-            aria-valuemax="100"
-            aria-valuemin="0"
-            aria-valuenow="0"
-            class="slider__thumb"
-            role="slider"
-            style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
-            tabindex="0"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class=" _ContentRSWP __1xc0f9k"
-    data-component-name="Content"
-  >
-    <div
-      class=" _InfoRSWP __mvqn38"
+      class=" _InfoRSWP __3tmru1"
       data-component-name="Info"
     />
     <div
-      class=" _ControlsRSWP __1q9n52d"
+      class=" _ControlsRSWP __sni8ug"
       data-component-name="Controls"
       data-playing="false"
     >
-      <div />
-      <div>
-        <button
-          aria-label="Play"
-          class="rswp__toggle"
-          title="Play"
-          type="button"
-        >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+      <div
+        class="rswp__buttons"
+      >
+        <div />
+        <div>
+          <button
+            aria-label="Play"
+            class="rswp__toggle"
+            title="Play"
+            type="button"
           >
-            <path
-              d="M119.351 64L8.65 0v128z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm-7.61 18.188c-.435.251-.702.715-.701 1.216v25.194a1.402 1.402 0 0 0 2.104 1.214L47.61 33.214a1.402 1.402 0 0 0 0-2.428L25.793 18.188c-.435-.25-.97-.25-1.404 0Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
+        <div />
       </div>
-      <div />
+      <div
+        class=" _SliderRSWP __bgj9do"
+        data-component-name="Slider"
+        data-position="0"
+      >
+        <div
+          class="rswp_progress"
+        >
+          0:00
+        </div>
+        <div
+          class="slider"
+          style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
+        >
+          <div
+            class="slider__track"
+            role="presentation"
+            style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
+          >
+            <div
+              class="slider__range"
+              style="width: 0%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
+            />
+            <div
+              role="presentation"
+              style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 0%; bottom: 0%;"
+            >
+              <span
+                aria-label="slider handle"
+                aria-orientation="horizontal"
+                aria-valuemax="100"
+                aria-valuemin="0"
+                aria-valuenow="0"
+                class="slider__thumb"
+                role="slider"
+                style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
+                tabindex="0"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="rswp_duration"
+        >
+          0:00
+        </div>
+      </div>
     </div>
     <div
-      class=" _ActionsRSWP __hrnxs2"
+      class=" _ActionsRSWP __rnor3p"
       data-component-name="Actions"
     >
-      <div
-        class=" _VolumeRSWP __23rxcu"
-        data-component-name="Volume"
-        data-value="1"
-      >
-        <button
-          aria-label="Volume"
-          title="Volume"
-          type="button"
+      <div>
+        <div
+          class=" _VolumeRSWP __opinp7"
+          data-component-name="Volume"
+          data-value="1"
+          style="position: top;"
         >
-          <svg
-            data-component-name="VolumeHigh"
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+          <button
+            aria-label="Volume"
+            title="Volume"
+            type="button"
           >
-            <path
-              d="M0 85.869V40.38h21.24l39.41-22.743v90.974L21.24 85.87H0zm53.069 9.627V30.754L23.285 47.963H7.581v30.324h15.704L53.07 95.496zM92.355 18.86l4.889-5.723c13.772 12.64 21.94 30.407 21.94 49.724 0 19.318-8.168 37.085-21.94 49.725l-4.89-5.724c12.104-11.208 19.318-26.89 19.318-44 0-17.112-7.214-32.793-19.317-44.002zM75.303 38.835l4.889-5.724c5.246 5.008 9.062 11.209 11.149 18.542a41.69 41.69 0 0 1 1.55 11.21c0 11.506-4.77 22.12-12.7 29.75l-4.888-5.723c6.26-6.26 10.076-14.786 10.076-24.028 0-9.241-3.697-17.767-10.076-24.027z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+            <svg
+              data-component-name="VolumeHigh"
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div
-        class=" _DevicesRSWP __omb1nz"
-        data-component-name="Devices"
-        data-device-id="19ks98hfbxc53vh34jd"
-      >
-        <button
-          aria-label="Devices"
-          title="Devices"
-          type="button"
+      <div>
+        <div
+          class=" _DevicesRSWP __z23pve"
+          data-component-name="Devices"
+          data-device-id="19ks98hfbxc53vh34jd"
+          style="position: top;"
         >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+          <button
+            aria-label="Devices"
+            title="Devices"
+            type="button"
           >
-            <path
-              d="M6.765 89.483h40.412v6.765H6.269C2.765 96.248 0 93.483 0 89.978V20.703c0-3.504 2.765-6.27 6.27-6.27h40.907v6.766H6.765v68.285zm16.327 20.702a3.4 3.4 0 0 1 3.383-3.383h20.702v6.765H26.475c-.915 0-1.72-.347-2.344-1.038a3.064 3.064 0 0 1-1.039-2.344zm46.681-95.752h51.958c3.504 0 6.269 2.765 6.269 6.269v86.596c0 3.504-2.765 6.27-6.27 6.27H69.774c-3.504 0-6.27-2.766-6.27-6.27V20.702c0-3.504 2.766-6.27 6.27-6.27zm-.496 5.842l.07 87.52 52.88-.07-.07-87.45h-52.88zm13.89 45.573c3.464-3.462 7.714-5.23 12.585-5.23 9.827 0 17.815 7.988 17.815 17.815 0 9.827-7.988 17.815-17.815 17.815-9.827 0-17.815-7.988-17.815-17.815 0-4.87 1.768-9.122 5.23-12.585zm4.124 21.045c2.381 2.381 5.195 3.582 8.46 3.582 6.598 0 12.043-5.445 12.043-12.042 0-6.597-5.445-12.043-12.042-12.043-6.597 0-12.042 5.446-12.042 12.043 0 3.266 1.2 6.08 3.581 8.46zm12.935-44.466c-1.247 1.247-2.741 1.863-4.474 1.863-3.504 0-6.27-2.765-6.27-6.269s2.766-6.27 6.27-6.27c3.504 0 6.27 2.766 6.27 6.27 0 1.72-.608 3.218-1.796 4.406z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -358,14 +416,14 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
   class="PlayerRSWP"
   data-component-name="Player"
   data-ready="false"
-  style="background-color: rgb(255, 255, 255); min-height: 48px;"
+  style="background: rgb(255, 255, 255); min-height: 80px;"
 >
   <div
-    class=" _ContentRSWP __1xc0f9k"
-    data-component-name="Content"
+    class=" _WrapperRSWP __5fskss"
+    data-component-name="Wrapper"
   >
     <p
-      class=" _ErrorRSWP __1c3vtun"
+      class=" _ErrorRSWP __pecfdr"
       data-component-name="ErrorMessage"
     >
       Spotify Web Player
@@ -381,14 +439,14 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
   class="PlayerRSWP"
   data-component-name="Player"
   data-ready="false"
-  style="background-color: rgb(255, 255, 255); min-height: 48px;"
+  style="background: rgb(255, 255, 255); min-height: 80px;"
 >
   <div
-    class=" _ContentRSWP __1xc0f9k"
-    data-component-name="Content"
+    class=" _WrapperRSWP __5fskss"
+    data-component-name="Wrapper"
   >
     <p
-      class=" _ErrorRSWP __1c3vtun"
+      class=" _ErrorRSWP __pecfdr"
       data-component-name="ErrorMessage"
     >
       Spotify Web Player
@@ -404,152 +462,186 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
   class="PlayerRSWP"
   data-component-name="Player"
   data-ready="true"
-  style="background-color: rgb(255, 255, 255); min-height: 48px;"
+  style="background: rgb(255, 255, 255); min-height: 80px;"
 >
   <div
-    class=" _SliderRSWP __181lube"
-    data-component-name="Slider"
-    data-position="0"
+    class=" _WrapperRSWP __5fskss"
+    data-component-name="Wrapper"
   >
     <div
-      class="slider"
-      style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
-    >
-      <div
-        class="slider__track"
-        role="presentation"
-        style="background-color: rgb(204, 204, 204); border-radius: 0; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
-      >
-        <div
-          class="slider__range"
-          style="width: 0%; background-color: rgb(102, 102, 102); border-radius: 0; position: absolute; height: 100%; top: 0px;"
-        />
-        <div
-          role="presentation"
-          style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 0%; bottom: 0%;"
-        >
-          <span
-            aria-label="slider handle"
-            aria-orientation="horizontal"
-            aria-valuemax="100"
-            aria-valuemin="0"
-            aria-valuenow="0"
-            class="slider__thumb"
-            role="slider"
-            style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
-            tabindex="0"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class=" _ContentRSWP __1xc0f9k"
-    data-component-name="Content"
-  >
-    <div
-      class=" _InfoRSWP __mvqn38"
+      class=" _InfoRSWP __3tmru1"
       data-component-name="Info"
     />
     <div
-      class=" _ControlsRSWP __1q9n52d"
+      class=" _ControlsRSWP __sni8ug"
       data-component-name="Controls"
       data-playing="false"
     >
-      <div>
-        <button
-          aria-label="Previous"
-          title="Previous"
-          type="button"
-        >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
-          >
-            <path
-              d="M29.09 53.749V5.819H5.819v116.363h23.273v-47.93L122.18 128V0z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-      </div>
-      <div>
-        <button
-          aria-label="Play"
-          class="rswp__toggle"
-          title="Play"
-          type="button"
-        >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
-          >
-            <path
-              d="M119.351 64L8.65 0v128z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-      </div>
-      <div>
-        <button
-          aria-label="Next"
-          title="Next"
-          type="button"
-        >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
-          >
-            <path
-              d="M98.91 53.749L5.817 0v128L98.91 74.251v47.93h23.273V5.819H98.909z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-      </div>
-    </div>
-    <div
-      class=" _ActionsRSWP __hrnxs2"
-      data-component-name="Actions"
-    >
       <div
-        class=" _DevicesRSWP __omb1nz"
-        data-component-name="Devices"
-        data-device-id=""
+        class="rswp__buttons"
       >
         <div>
           <button
-            aria-label="Jest Player"
-            data-id="df17372ghs982js892js"
+            aria-label="Previous"
+            title="Previous"
             type="button"
           >
-            Jest Player
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M10.514 0a3.2 3.2 0 0 1 3.2 3.2v23.543L59.2.489A3.2 3.2 0 0 1 64 3.255V60.74a3.2 3.2 0 0 1-4.8 2.774L13.714 37.253V60.8a3.2 3.2 0 0 1-3.2 3.2H3.2A3.2 3.2 0 0 1 0 60.8V3.2A3.2 3.2 0 0 1 3.2 0h7.314Z"
+                fill="currentColor"
+              />
+            </svg>
           </button>
         </div>
-        <button
-          aria-label="Devices"
-          title="Devices"
-          type="button"
-        >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+        <div>
+          <button
+            aria-label="Play"
+            class="rswp__toggle"
+            title="Play"
+            type="button"
           >
-            <path
-              d="M6.765 89.483h40.412v6.765H6.269C2.765 96.248 0 93.483 0 89.978V20.703c0-3.504 2.765-6.27 6.27-6.27h40.907v6.766H6.765v68.285zm16.327 20.702a3.4 3.4 0 0 1 3.383-3.383h20.702v6.765H26.475c-.915 0-1.72-.347-2.344-1.038a3.064 3.064 0 0 1-1.039-2.344zm46.681-95.752h51.958c3.504 0 6.269 2.765 6.269 6.269v86.596c0 3.504-2.765 6.27-6.27 6.27H69.774c-3.504 0-6.27-2.766-6.27-6.27V20.702c0-3.504 2.766-6.27 6.27-6.27zm-.496 5.842l.07 87.52 52.88-.07-.07-87.45h-52.88zm13.89 45.573c3.464-3.462 7.714-5.23 12.585-5.23 9.827 0 17.815 7.988 17.815 17.815 0 9.827-7.988 17.815-17.815 17.815-9.827 0-17.815-7.988-17.815-17.815 0-4.87 1.768-9.122 5.23-12.585zm4.124 21.045c2.381 2.381 5.195 3.582 8.46 3.582 6.598 0 12.043-5.445 12.043-12.042 0-6.597-5.445-12.043-12.042-12.043-6.597 0-12.042 5.446-12.042 12.043 0 3.266 1.2 6.08 3.581 8.46zm12.935-44.466c-1.247 1.247-2.741 1.863-4.474 1.863-3.504 0-6.27-2.765-6.27-6.269s2.766-6.27 6.27-6.27c3.504 0 6.27 2.766 6.27 6.27 0 1.72-.608 3.218-1.796 4.406z"
-              fill="currentColor"
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm-7.61 18.188c-.435.251-.702.715-.701 1.216v25.194a1.402 1.402 0 0 0 2.104 1.214L47.61 33.214a1.402 1.402 0 0 0 0-2.428L25.793 18.188c-.435-.25-.97-.25-1.404 0Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <button
+            aria-label="Next"
+            title="Next"
+            type="button"
+          >
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M53.486 0a3.2 3.2 0 0 0-3.2 3.2v23.543L4.8.489A3.2 3.2 0 0 0 0 3.255V60.74a3.2 3.2 0 0 0 4.8 2.774l45.486-26.262V60.8a3.2 3.2 0 0 0 3.2 3.2H60.8a3.2 3.2 0 0 0 3.2-3.2V3.2A3.2 3.2 0 0 0 60.8 0h-7.314Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class=" _SliderRSWP __bgj9do"
+        data-component-name="Slider"
+        data-position="0"
+      >
+        <div
+          class="rswp_progress"
+        >
+          0:00
+        </div>
+        <div
+          class="slider"
+          style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
+        >
+          <div
+            class="slider__track"
+            role="presentation"
+            style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
+          >
+            <div
+              class="slider__range"
+              style="width: 0%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
             />
-          </svg>
-        </button>
+            <div
+              role="presentation"
+              style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 0%; bottom: 0%;"
+            >
+              <span
+                aria-label="slider handle"
+                aria-orientation="horizontal"
+                aria-valuemax="100"
+                aria-valuemin="0"
+                aria-valuenow="0"
+                class="slider__thumb"
+                role="slider"
+                style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
+                tabindex="0"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="rswp_duration"
+        >
+          0:00
+        </div>
+      </div>
+    </div>
+    <div
+      class=" _ActionsRSWP __rnor3p"
+      data-component-name="Actions"
+    >
+      <div>
+        <div
+          class=" _DevicesRSWP __z23pve"
+          data-component-name="Devices"
+          data-device-id=""
+          style="position: top;"
+        >
+          <div>
+            <p>
+              Select other device
+            </p>
+            <button
+              aria-label="Jest Player"
+              data-id="df17372ghs982js892js"
+              type="button"
+            >
+              <svg
+                height="1em"
+                preserveAspectRatio="xMidYMid"
+                viewBox="0 0 64 64"
+                width="1em"
+              >
+                <path
+                  d="M7.226 10.323a7.228 7.228 0 0 1 7.226-7.226h35.096a7.228 7.228 0 0 1 7.226 7.226V37.16a7.226 7.226 0 0 1-7.226 7.226H14.452a7.226 7.226 0 0 1-7.226-7.226V10.323Zm7.226-1.033c-.57 0-1.033.462-1.033 1.033V37.16c0 .57.463 1.033 1.033 1.033h35.096c.57 0 1.033-.463 1.033-1.033V10.323c0-.57-.463-1.033-1.033-1.033H14.452ZM0 57.806a3.097 3.097 0 0 1 3.097-3.096h57.806a3.097 3.097 0 0 1 0 6.193H3.097A3.097 3.097 0 0 1 0 57.806Z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span>
+                Jest Player
+              </span>
+            </button>
+            <span />
+          </div>
+          <button
+            aria-label="Devices"
+            title="Devices"
+            type="button"
+          >
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -561,11 +653,11 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
   class="PlayerRSWP"
   data-component-name="Player"
   data-ready="false"
-  style="background-color: rgb(255, 255, 255); min-height: 48px;"
+  style="background: rgb(255, 255, 255); min-height: 80px;"
 >
   <div
-    class=" _ContentRSWP __1xc0f9k"
-    data-component-name="Content"
+    class=" _WrapperRSWP __5fskss"
+    data-component-name="Wrapper"
   >
     <p>
       Failed to perform playback
@@ -579,51 +671,14 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
   class="PlayerRSWP"
   data-component-name="Player"
   data-ready="true"
-  style="background-color: rgb(255, 255, 255); min-height: 48px;"
+  style="background: rgb(255, 255, 255); min-height: 80px;"
 >
   <div
-    class=" _SliderRSWP __181lube"
-    data-component-name="Slider"
-    data-position="0"
+    class=" _WrapperRSWP __5fskss"
+    data-component-name="Wrapper"
   >
     <div
-      class="slider"
-      style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
-    >
-      <div
-        class="slider__track"
-        role="presentation"
-        style="background-color: rgb(204, 204, 204); border-radius: 0; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
-      >
-        <div
-          class="slider__range"
-          style="width: 0%; background-color: rgb(102, 102, 102); border-radius: 0; position: absolute; height: 100%; top: 0px;"
-        />
-        <div
-          role="presentation"
-          style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 0%; bottom: 0%;"
-        >
-          <span
-            aria-label="slider handle"
-            aria-orientation="horizontal"
-            aria-valuemax="100"
-            aria-valuemin="0"
-            aria-valuenow="0"
-            class="slider__thumb"
-            role="slider"
-            style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
-            tabindex="0"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class=" _ContentRSWP __1xc0f9k"
-    data-component-name="Content"
-  >
-    <div
-      class="rswp__active _InfoRSWP __mvqn38"
+      class="rswp__active _InfoRSWP __3tmru1"
       data-component-name="Info"
     >
       <a
@@ -639,7 +694,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         />
       </a>
       <div
-        class=" __nnvdcq __77inad"
+        class=" __1g8stm2 __4twc11"
       >
         <p>
           <span>
@@ -653,23 +708,6 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
               Main Theme From Trouble Man
             </a>
           </span>
-          <button
-            aria-label="Save to your favorites"
-            title="Save to your favorites"
-            type="button"
-          >
-            <svg
-              height="1em"
-              preserveAspectRatio="xMidYMid"
-              viewBox="0 0 128 128"
-              width="1em"
-            >
-              <path
-                d="M126.772 51.913c-1.641 6.254-4.848 11.796-9.505 16.528l-41.524 48.612c-3.096 3.585-7.039 5.392-11.765 5.392-4.726 0-8.668-1.807-11.768-5.396L10.66 68.34C6.077 63.754 2.814 58.12 1.266 52.004.418 49 0 45.775 0 42.443 0 32.631 3.808 23.4 10.737 16.472 19.61 7.597 31.993 3.833 44.055 6.293c6.015 1.267 11.383 3.881 16.17 7.883a5.834 5.834 0 0 0 3.753 1.342c1.4 0 2.658-.459 3.674-1.339 9.686-7.953 22.313-10.577 34.105-7.094 5.884 1.828 11.005 4.928 15.463 9.387 9.322 9.322 12.893 22.716 9.552 35.44zm-14.428 12.012c7.721-7.721 10.73-18.85 8.013-29.263-3.259-12.157-13.877-21.773-27.765-22.377-7.712-.374-14.583 1.94-20.726 7.016-.334.223-.49.33-.73.511a11.431 11.431 0 0 1-4.092 1.923c-1.093.273-2.062.412-3.066.412-2.319 0-5.33-1.013-6.809-1.998-.37-.247-.701-.496-1.228-.902-5.627-4.652-11.977-6.96-19.156-6.96a30.137 30.137 0 0 0-21.323 8.825c-5.7 5.776-8.834 13.336-8.834 21.331 0 8.072 3.133 15.63 8.878 21.379l41.75 48.913c1.77 2.055 3.998 3.082 6.722 3.082s4.95-1.026 6.722-3.08l41.644-48.812z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
         </p>
         <p
           title="Marvin Gaye"
@@ -686,122 +724,214 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             </a>
           </span>
         </p>
+        <a
+          aria-label="Play on Spotify"
+          href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <svg
+            height="1em"
+            preserveAspectRatio="xMidYMid"
+            viewBox="0 0 512 160"
+            width="3.2em"
+          >
+            <path
+              d="M79.655 0C35.664 0 0 35.663 0 79.654c0 43.993 35.664 79.653 79.655 79.653 43.996 0 79.656-35.66 79.656-79.653 0-43.988-35.66-79.65-79.657-79.65L79.655 0Zm36.53 114.884a4.963 4.963 0 0 1-6.83 1.646c-18.702-11.424-42.246-14.011-69.973-7.676a4.967 4.967 0 0 1-5.944-3.738 4.958 4.958 0 0 1 3.734-5.945c30.343-6.933 56.37-3.948 77.367 8.884a4.965 4.965 0 0 1 1.645 6.83Zm9.75-21.689c-1.799 2.922-5.622 3.845-8.543 2.047-21.41-13.16-54.049-16.972-79.374-9.284a6.219 6.219 0 0 1-7.75-4.138 6.22 6.22 0 0 1 4.141-7.745c28.929-8.778 64.892-4.526 89.48 10.583 2.92 1.798 3.843 5.622 2.045 8.538Zm.836-22.585C101.1 55.362 58.742 53.96 34.231 61.4c-3.936 1.194-8.098-1.028-9.29-4.964a7.453 7.453 0 0 1 4.965-9.294c28.137-8.542 74.912-6.892 104.469 10.655a7.441 7.441 0 0 1 2.606 10.209c-2.092 3.54-6.677 4.707-10.206 2.605h-.004Zm89.944 2.922c-13.754-3.28-16.198-5.581-16.198-10.418 0-4.57 4.299-7.645 10.7-7.645 6.202 0 12.347 2.336 18.796 7.143.19.145.437.203.675.165a.888.888 0 0 0 .6-.367l6.715-9.466a.903.903 0 0 0-.171-1.225c-7.676-6.157-16.313-9.15-26.415-9.15-14.848 0-25.225 8.911-25.225 21.662 0 13.673 8.95 18.515 24.417 22.252 13.155 3.031 15.38 5.57 15.38 10.11 0 5.032-4.49 8.161-11.718 8.161-8.028 0-14.582-2.71-21.906-9.046a.932.932 0 0 0-.656-.218.89.89 0 0 0-.619.313l-7.533 8.96a.906.906 0 0 0 .086 1.256c8.522 7.61 19.004 11.624 30.323 11.624 16 0 26.339-8.742 26.339-22.277.028-11.421-6.81-17.746-23.561-21.821l-.029-.013Zm59.792-13.564c-6.934 0-12.622 2.732-17.321 8.33v-6.3c0-.498-.4-.903-.894-.903h-12.318a.899.899 0 0 0-.894.902v70.009c0 .494.4.903.894.903h12.318a.901.901 0 0 0 .894-.903v-22.097c4.699 5.26 10.387 7.838 17.32 7.838 12.89 0 25.94-9.92 25.94-28.886.019-18.97-13.032-28.894-25.93-28.894l-.01.001Zm11.614 28.893c0 9.653-5.945 16.397-14.468 16.397-8.418 0-14.772-7.048-14.772-16.397 0-9.35 6.354-16.397 14.772-16.397 8.38 0 14.468 6.893 14.468 16.396Zm47.759-28.893c-16.598 0-29.601 12.78-29.601 29.1 0 16.143 12.917 28.784 29.401 28.784 16.655 0 29.696-12.736 29.696-28.991 0-16.2-12.955-28.89-29.496-28.89v-.003Zm0 45.385c-8.827 0-15.485-7.096-15.485-16.497 0-9.444 6.43-16.298 15.285-16.298 8.884 0 15.58 7.093 15.58 16.504 0 9.443-6.468 16.291-15.38 16.291Zm64.937-44.258h-13.554V47.24c0-.497-.4-.902-.894-.902H374.05a.906.906 0 0 0-.904.902v13.855h-5.916a.899.899 0 0 0-.894.902v10.584a.9.9 0 0 0 .894.903h5.916v27.39c0 11.062 5.508 16.674 16.38 16.674 4.413 0 8.075-.914 11.528-2.873a.88.88 0 0 0 .457-.78v-10.083a.896.896 0 0 0-.428-.76.873.873 0 0 0-.876-.039c-2.368 1.19-4.66 1.741-7.229 1.741-3.947 0-5.716-1.798-5.716-5.812V73.49h13.554a.899.899 0 0 0 .894-.903V62.003a.873.873 0 0 0-.884-.903l-.01-.005Zm47.217.054v-1.702c0-5.006 1.921-7.238 6.22-7.238 2.57 0 4.633.51 6.945 1.28a.895.895 0 0 0 1.18-.858l-.001-10.377a.891.891 0 0 0-.637-.865c-2.435-.726-5.555-1.47-10.235-1.47-11.367 0-17.388 6.405-17.388 18.516v2.606h-5.916a.906.906 0 0 0-.904.902v10.638c0 .497.41.903.904.903h5.916v42.237c0 .504.41.904.904.904h12.308c.504 0 .904-.4.904-.904V73.487h11.5l17.616 42.234c-1.998 4.433-3.967 5.317-6.65 5.317-2.168 0-4.46-.646-6.79-1.93a.98.98 0 0 0-.714-.067.896.896 0 0 0-.533.485l-4.175 9.16a.9.9 0 0 0 .39 1.17c4.356 2.359 8.284 3.367 13.145 3.367 9.093 0 14.125-4.242 18.548-15.637l21.364-55.204a.88.88 0 0 0-.095-.838.878.878 0 0 0-.733-.392h-12.822a.901.901 0 0 0-.856.605l-13.136 37.509-14.382-37.534a.898.898 0 0 0-.837-.58h-21.04v-.003Zm-27.375-.054h-12.318a.907.907 0 0 0-.903.902v53.724c0 .504.409.904.903.904h12.318c.495 0 .904-.4.904-.904v-53.72a.9.9 0 0 0-.904-.903v-.003Zm-6.088-24.464c-4.88 0-8.836 3.95-8.836 8.828a8.835 8.835 0 0 0 8.836 8.836c4.88 0 8.827-3.954 8.827-8.836a8.83 8.83 0 0 0-8.827-8.828Z"
+              fill="#000000"
+            />
+          </svg>
+        </a>
       </div>
+      <button
+        aria-label="Save to your favorites"
+        title="Save to your favorites"
+        type="button"
+      >
+        <svg
+          height="1em"
+          preserveAspectRatio="xMidYMid"
+          viewBox="0 0 64 64"
+          width="1em"
+        >
+          <path
+            d="M5.944 7.206C13.271.3 24.723.34 31.999 7.3A18.924 18.924 0 0 1 48.02 2.32h.008a19.068 19.068 0 0 1 15.617 15.071v.013A18.759 18.759 0 0 1 59.47 33.26L37.573 59.353a7.288 7.288 0 0 1-8.642 1.916 7.276 7.276 0 0 1-2.498-1.912l-21.901-26.1c-6.55-7.671-5.93-19.131 1.408-26.051h.004Zm13.04 1.04a12.726 12.726 0 0 0-9.737 20.997l.021.02 21.905 26.105c.316.372.84.488 1.284.285.143-.066.27-.164.372-.285l21.934-26.137a12.565 12.565 0 0 0 2.808-10.625 12.875 12.875 0 0 0-10.534-10.17 12.714 12.714 0 0 0-10.785 3.37l-.029.029a6.198 6.198 0 0 1-8.444 0l-.037-.033a12.727 12.727 0 0 0-8.758-3.556Z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
     </div>
     <div
-      class=" _ControlsRSWP __1q9n52d"
+      class=" _ControlsRSWP __sni8ug"
       data-component-name="Controls"
       data-playing="true"
     >
-      <div>
-        <button
-          aria-label="Previous"
-          title="Previous"
-          type="button"
-        >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+      <div
+        class="rswp__buttons"
+      >
+        <div>
+          <button
+            aria-label="Previous"
+            title="Previous"
+            type="button"
           >
-            <path
-              d="M29.09 53.749V5.819H5.819v116.363h23.273v-47.93L122.18 128V0z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M10.514 0a3.2 3.2 0 0 1 3.2 3.2v23.543L59.2.489A3.2 3.2 0 0 1 64 3.255V60.74a3.2 3.2 0 0 1-4.8 2.774L13.714 37.253V60.8a3.2 3.2 0 0 1-3.2 3.2H3.2A3.2 3.2 0 0 1 0 60.8V3.2A3.2 3.2 0 0 1 3.2 0h7.314Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <button
+            aria-label="Pause"
+            class="rswp__toggle"
+            title="Pause"
+            type="button"
+          >
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm-5.4 18h-5.2a1.4 1.4 0 0 0-1.4 1.4v25.2a1.4 1.4 0 0 0 1.4 1.4h5.2a1.4 1.4 0 0 0 1.4-1.4V19.4a1.4 1.4 0 0 0-1.4-1.4Zm16 0h-5.2a1.4 1.4 0 0 0-1.4 1.4v25.2a1.4 1.4 0 0 0 1.4 1.4h5.2a1.4 1.4 0 0 0 1.4-1.4V19.4a1.4 1.4 0 0 0-1.4-1.4Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <button
+            aria-label="Next"
+            title="Next"
+            type="button"
+          >
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M53.486 0a3.2 3.2 0 0 0-3.2 3.2v23.543L4.8.489A3.2 3.2 0 0 0 0 3.255V60.74a3.2 3.2 0 0 0 4.8 2.774l45.486-26.262V60.8a3.2 3.2 0 0 0 3.2 3.2H60.8a3.2 3.2 0 0 0 3.2-3.2V3.2A3.2 3.2 0 0 0 60.8 0h-7.314Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div>
-        <button
-          aria-label="Pause"
-          class="rswp__toggle"
-          title="Pause"
-          type="button"
+      <div
+        class=" _SliderRSWP __bgj9do"
+        data-component-name="Slider"
+        data-position="0"
+      >
+        <div
+          class="rswp_progress"
         >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
-          >
-            <path
-              d="M41.86 128V0H8.648v128h33.21zm77.491 0V0h-33.21v128h33.21z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-      </div>
-      <div>
-        <button
-          aria-label="Next"
-          title="Next"
-          type="button"
+          0:00
+        </div>
+        <div
+          class="slider"
+          style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
         >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+          <div
+            class="slider__track"
+            role="presentation"
+            style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
           >
-            <path
-              d="M98.91 53.749L5.817 0v128L98.91 74.251v47.93h23.273V5.819H98.909z"
-              fill="currentColor"
+            <div
+              class="slider__range"
+              style="width: 0%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
             />
-          </svg>
-        </button>
+            <div
+              role="presentation"
+              style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 0%; bottom: 0%;"
+            >
+              <span
+                aria-label="slider handle"
+                aria-orientation="horizontal"
+                aria-valuemax="100"
+                aria-valuemin="0"
+                aria-valuenow="0"
+                class="slider__thumb"
+                role="slider"
+                style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
+                tabindex="0"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="rswp_duration"
+        >
+          2:31
+        </div>
       </div>
     </div>
     <div
-      class=" _ActionsRSWP __hrnxs2"
+      class=" _ActionsRSWP __rnor3p"
       data-component-name="Actions"
     >
-      <div
-        class=" _VolumeRSWP __23rxcu"
-        data-component-name="Volume"
-        data-value="1"
-      >
-        <button
-          aria-label="Volume"
-          title="Volume"
-          type="button"
+      <div>
+        <div
+          class=" _VolumeRSWP __opinp7"
+          data-component-name="Volume"
+          data-value="1"
+          style="position: top;"
         >
-          <svg
-            data-component-name="VolumeHigh"
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+          <button
+            aria-label="Volume"
+            title="Volume"
+            type="button"
           >
-            <path
-              d="M0 85.869V40.38h21.24l39.41-22.743v90.974L21.24 85.87H0zm53.069 9.627V30.754L23.285 47.963H7.581v30.324h15.704L53.07 95.496zM92.355 18.86l4.889-5.723c13.772 12.64 21.94 30.407 21.94 49.724 0 19.318-8.168 37.085-21.94 49.725l-4.89-5.724c12.104-11.208 19.318-26.89 19.318-44 0-17.112-7.214-32.793-19.317-44.002zM75.303 38.835l4.889-5.724c5.246 5.008 9.062 11.209 11.149 18.542a41.69 41.69 0 0 1 1.55 11.21c0 11.506-4.77 22.12-12.7 29.75l-4.888-5.723c6.26-6.26 10.076-14.786 10.076-24.028 0-9.241-3.697-17.767-10.076-24.027z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+            <svg
+              data-component-name="VolumeHigh"
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div
-        class=" _DevicesRSWP __omb1nz"
-        data-component-name="Devices"
-        data-device-id="19ks98hfbxc53vh34jd"
-      >
-        <button
-          aria-label="Devices"
-          title="Devices"
-          type="button"
+      <div>
+        <div
+          class=" _DevicesRSWP __z23pve"
+          data-component-name="Devices"
+          data-device-id="19ks98hfbxc53vh34jd"
+          style="position: top;"
         >
-          <svg
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 128 128"
-            width="1em"
+          <button
+            aria-label="Devices"
+            title="Devices"
+            type="button"
           >
-            <path
-              d="M6.765 89.483h40.412v6.765H6.269C2.765 96.248 0 93.483 0 89.978V20.703c0-3.504 2.765-6.27 6.27-6.27h40.907v6.766H6.765v68.285zm16.327 20.702a3.4 3.4 0 0 1 3.383-3.383h20.702v6.765H26.475c-.915 0-1.72-.347-2.344-1.038a3.064 3.064 0 0 1-1.039-2.344zm46.681-95.752h51.958c3.504 0 6.269 2.765 6.269 6.269v86.596c0 3.504-2.765 6.27-6.27 6.27H69.774c-3.504 0-6.27-2.766-6.27-6.27V20.702c0-3.504 2.766-6.27 6.27-6.27zm-.496 5.842l.07 87.52 52.88-.07-.07-87.45h-52.88zm13.89 45.573c3.464-3.462 7.714-5.23 12.585-5.23 9.827 0 17.815 7.988 17.815 17.815 0 9.827-7.988 17.815-17.815 17.815-9.827 0-17.815-7.988-17.815-17.815 0-4.87 1.768-9.122 5.23-12.585zm4.124 21.045c2.381 2.381 5.195 3.582 8.46 3.582 6.598 0 12.043-5.445 12.043-12.042 0-6.597-5.445-12.043-12.042-12.043-6.597 0-12.042 5.446-12.042 12.043 0 3.266 1.2 6.08 3.581 8.46zm12.935-44.466c-1.247 1.247-2.741 1.863-4.474 1.863-3.504 0-6.27-2.765-6.27-6.269s2.766-6.27 6.27-6.27c3.504 0 6.27 2.766 6.27 6.27 0 1.72-.608 3.218-1.796 4.406z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+            <svg
+              height="1em"
+              preserveAspectRatio="xMidYMid"
+              viewBox="0 0 64 64"
+              width="1em"
+            >
+              <path
+                d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
