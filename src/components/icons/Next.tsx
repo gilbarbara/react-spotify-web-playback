@@ -1,8 +1,8 @@
 export default function Next(props: any) {
   return (
-    <svg height="1em" preserveAspectRatio="xMidYMid" viewBox="0 0 128 128" width="1em" {...props}>
+    <svg height="1em" preserveAspectRatio="xMidYMid" viewBox="0 0 64 64" width="1em" {...props}>
       <path
-        d="M98.91 53.749L5.817 0v128L98.91 74.251v47.93h23.273V5.819H98.909z"
+        d="M53.486 0a3.2 3.2 0 0 0-3.2 3.2v23.543L4.8.489A3.2 3.2 0 0 0 0 3.255V60.74a3.2 3.2 0 0 0 4.8 2.774l45.486-26.262V60.8a3.2 3.2 0 0 0 3.2 3.2H60.8a3.2 3.2 0 0 0 3.2-3.2V3.2A3.2 3.2 0 0 0 60.8 0h-7.314Z"
         fill="currentColor"
       />
     </svg>

@@ -1,16 +1,18 @@
 /* eslint-disable camelcase */
-import { createRef, PureComponent } from 'react';
+import { createRef, PureComponent, ReactNode } from 'react';
 import isEqual from '@gilbarbara/deep-equal';
 import memoize from 'memoize-one';
 
 import Actions from './components/Actions';
-import Content from './components/Content';
 import Controls from './components/Controls';
 import ErrorMessage from './components/ErrorMessage';
 import Info from './components/Info';
 import Loader from './components/Loader';
 import Player from './components/Player';
-import Slider from './components/Slider';
+import Wrapper from './components/Wrapper';
+import { STATUS, TYPE } from './constants';
+import { getLocale, getSpotifyURIType } from './modules/getters';
+import { loadSpotifyPlayer, parseVolume, round, validateURI } from './modules/helpers';
 import {
   getDevices,
   getPlaybackState,
@@ -21,10 +23,11 @@ import {
   seek,
   setDevice,
   setVolume,
-} from './spotify';
-import { getMergedStyles } from './styles';
+} from './modules/spotify';
+import { getMergedStyles } from './modules/styled';
 import {
   CallbackState,
+  Locale,
   PlayOptions,
   Props,
   SpotifyDevice,
@@ -33,16 +36,6 @@ import {
   State,
   StylesOptions,
 } from './types';
-import {
-  getLocale,
-  getSpotifyURIType,
-  loadSpotifyPlayer,
-  parseVolume,
-  round,
-  STATUS,
-  TYPE,
-  validateURI,
-} from './utils';
 
 import { Spotify } from '../global';
 
@@ -54,10 +47,12 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     id: '',
     image: '',
     name: '',
+    thumb: '',
     uri: '',
   };
 
   private hasNewToken = false;
+  private locale: Locale;
   private player?: Spotify.Player;
   private playerProgressInterval?: number;
   private playerSyncInterval?: number;
@@ -113,7 +108,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       deviceId: '',
       devices: [],
       error: '',
-      errorType: '',
+      errorType: null,
       isActive: false,
       isInitializing: false,
       isMagnified: false,
@@ -130,6 +125,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       track: this.emptyTrack,
       volume: parseVolume(props.initialVolume) || 1,
     };
+
+    this.locale = getLocale(props.locale);
 
     this.styles = getMergedStyles(props.styles);
   }
@@ -169,6 +166,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       this.state;
     const {
       autoPlay,
+      locale,
       offset,
       play: playProp,
       showSaveIcon,
@@ -178,6 +176,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       uris,
     } = this.props;
     const isReady = previousState.status !== STATUS.READY && status === STATUS.READY;
+    const changedLocale = !isEqual(previousProps.locale, locale);
     const changedStyles = !isEqual(previousProps.styles, styles);
     const changedURIs = !isEqual(previousProps.uris, uris);
     const playOptions = this.getPlayOptions(uris);
@@ -269,6 +268,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       }
     }
 
+    if (changedLocale) {
+      this.locale = getLocale(locale);
+    }
+
     if (changedStyles) {
       this.styles = getMergedStyles(styles);
     }
@@ -290,12 +293,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     clearInterval(this.playerSyncInterval);
     clearInterval(this.playerProgressInterval);
     clearTimeout(this.syncTimeout);
-  }
-
-  private get isExternalPlayer(): boolean {
-    const { currentDeviceId, deviceId, status } = this.state;
-
-    return (currentDeviceId && currentDeviceId !== deviceId) || status === STATUS.UNSUPPORTED;
   }
 
   private handleCallback(state: CallbackState): void {
@@ -498,9 +495,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           artists,
           durationMs: duration_ms,
           id,
-          image: this.setAlbumImage(album),
           name,
           uri,
+          ...this.getAlbumImages(album),
         };
         let trackState;
 
@@ -569,6 +566,21 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
   };
 
+  // eslint-disable-next-line class-methods-use-this
+  private getAlbumImages = (album: Spotify.Album) => {
+    const minWidth = Math.min(...album.images.map(d => d.width || 0));
+    const maxWidth = Math.max(...album.images.map(d => d.width || 0));
+    const thumb: Spotify.Image =
+      album.images.find(d => d.width === minWidth) || ({} as Spotify.Image);
+    const image: Spotify.Image =
+      album.images.find(d => d.width === maxWidth) || ({} as Spotify.Image);
+
+    return {
+      image: image.url,
+      thumb: thumb.url,
+    };
+  };
+
   private async initializeDevices(id: string) {
     const { persistDeviceSelection, token } = this.props;
     const { devices } = await getDevices(token);
@@ -629,13 +641,11 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     this.player.connect();
   };
 
-  // eslint-disable-next-line class-methods-use-this
-  private setAlbumImage = (album: Spotify.Album): string => {
-    const width = Math.min(...album.images.map(d => d.width || 0));
-    const thumb: Spotify.Image = album.images.find(d => d.width === width) || ({} as Spotify.Image);
+  private get isExternalPlayer(): boolean {
+    const { currentDeviceId, deviceId, status } = this.state;
 
-    return thumb.url;
-  };
+    return (currentDeviceId && currentDeviceId !== deviceId) || status === STATUS.UNSUPPORTED;
+  }
 
   private setExternalDevice = (id: string) => {
     this.updateState({ currentDeviceId: id, isPlaying: true });
@@ -677,9 +687,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           artists: player.item.artists,
           durationMs: player.item.duration_ms,
           id: player.item.id,
-          image: this.setAlbumImage(player.item.album),
           name: player.item.name,
           uri: player.item.uri,
+          ...this.getAlbumImages(player.item.album),
         };
       }
 
@@ -888,29 +898,31 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       playerPosition,
       position,
       previousTracks,
+      progressMs,
       status,
       track,
       volume,
     } = this.state;
-    const { locale, name, showSaveIcon, token, updateSavedStatus } = this.props;
+    const { hideAttribution = false, name, showSaveIcon, token, updateSavedStatus } = this.props;
     const isReady = [STATUS.READY, STATUS.UNSUPPORTED].indexOf(status) >= 0;
     const isPlaybackError = errorType === 'playback_error';
-    const localeMerged = getLocale(locale);
 
-    let output = <Loader styles={this.styles} />;
-    let info;
+    const output: Record<string, ReactNode> = {
+      main: <Loader styles={this.styles} />,
+    };
 
     if (isPlaybackError) {
-      info = <p>{error}</p>;
+      output.info = <p>{error}</p>;
     }
 
     if (isReady) {
       /* istanbul ignore else */
-      if (!info) {
-        info = (
+      if (!output.info) {
+        output.info = (
           <Info
+            hideAttribution={hideAttribution}
             isActive={isActive}
-            locale={localeMerged}
+            locale={this.locale}
             onFavoriteStatusChange={this.handleFavoriteStatusChange}
             showSaveIcon={showSaveIcon!}
             styles={this.styles}
@@ -921,40 +933,54 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         );
       }
 
-      output = (
+      output.actions = (
+        <Actions
+          currentDeviceId={currentDeviceId}
+          deviceId={deviceId}
+          devices={devices}
+          isDevicesOpen={isUnsupported && !deviceId}
+          locale={this.locale}
+          onClickDevice={this.handleClickDevice}
+          playerPosition={playerPosition}
+          setVolume={this.setVolume}
+          styles={this.styles}
+          volume={volume}
+        />
+      );
+
+      output.controls = (
+        <Controls
+          durationMs={track.durationMs}
+          isExternalDevice={this.isExternalPlayer}
+          isMagnified={isMagnified}
+          isPlaying={isPlaying}
+          locale={this.locale}
+          nextTracks={nextTracks}
+          onChangeRange={this.handleChangeRange}
+          onClickNext={this.handleClickNext}
+          onClickPrevious={this.handleClickPrevious}
+          onClickTogglePlay={this.handleClickTogglePlay}
+          onToggleMagnify={this.handleToggleMagnify}
+          position={position}
+          previousTracks={previousTracks}
+          progressMs={progressMs}
+          styles={this.styles}
+        />
+      );
+
+      output.main = (
         <>
-          {info}
-          <Controls
-            isExternalDevice={this.isExternalPlayer}
-            isPlaying={isPlaying}
-            locale={localeMerged}
-            nextTracks={nextTracks}
-            onClickNext={this.handleClickNext}
-            onClickPrevious={this.handleClickPrevious}
-            onClickTogglePlay={this.handleClickTogglePlay}
-            previousTracks={previousTracks}
-            styles={this.styles}
-          />
-          <Actions
-            currentDeviceId={currentDeviceId}
-            deviceId={deviceId}
-            devices={devices}
-            isDevicesOpen={isUnsupported && !deviceId}
-            locale={localeMerged}
-            onClickDevice={this.handleClickDevice}
-            playerPosition={playerPosition}
-            setVolume={this.setVolume}
-            styles={this.styles}
-            volume={volume}
-          />
+          {output.info}
+          {output.controls}
+          {output.actions}
         </>
       );
-    } else if (info) {
-      output = info;
+    } else if (output.info) {
+      output.main = output.info;
     }
 
     if (status === STATUS.ERROR) {
-      output = (
+      output.main = (
         <ErrorMessage styles={this.styles}>
           {name}: {error}
         </ErrorMessage>
@@ -963,16 +989,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     return (
       <Player ref={this.ref} data-ready={isReady} styles={this.styles}>
-        {isReady && (
-          <Slider
-            isMagnified={isMagnified}
-            onChangeRange={this.handleChangeRange}
-            onToggleMagnify={this.handleToggleMagnify}
-            position={position}
-            styles={this.styles!}
-          />
-        )}
-        <Content styles={this.styles}>{output}</Content>
+        <Wrapper styles={this.styles}>{output.main}</Wrapper>
       </Player>
     );
   }
@@ -982,4 +999,5 @@ export * from './types';
 
 export default SpotifyWebPlayer;
 
-export { STATUS, TYPE } from './utils';
+export { TYPE } from './constants';
+export { STATUS } from './constants';

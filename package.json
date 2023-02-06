@@ -32,11 +32,12 @@
     "web playback"
   ],
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "react": "17 - 18"
   },
   "dependencies": {
     "@gilbarbara/deep-equal": "^0.1.2",
     "@gilbarbara/react-range-slider": "^0.7.0",
+    "colorizr": "^2.1.1",
     "exenv": "^1.2.2",
     "memoize-one": "^6.0.0",
     "nano-css": "^5.3.5"
@@ -137,12 +138,12 @@
     {
       "name": "commonjs",
       "path": "./dist/index.js",
-      "limit": "22 KB"
+      "limit": "26 KB"
     },
     {
       "name": "esm",
       "path": "./dist/index.mjs",
-      "limit": "16 KB"
+      "limit": "20 KB"
     }
   ]
 }

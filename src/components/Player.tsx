@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 
-import { put, px } from '../styles';
-import { ComponentsProps } from '../types/common';
+import { put, px } from '../modules/styled';
+import { ComponentsProps } from '../types';
 
 put('.PlayerRSWP', {
   boxSizing: 'border-box',
@@ -14,7 +14,7 @@ put('.PlayerRSWP', {
 
   button: {
     appearance: 'none',
-    backgroundColor: 'transparent',
+    background: 'transparent',
     border: 0,
     borderRadius: 0,
     color: 'inherit',
@@ -41,7 +41,7 @@ const Player = forwardRef<HTMLDivElement, ComponentsProps>(
         ref={ref}
         className="PlayerRSWP"
         data-component-name="Player"
-        style={{ backgroundColor: bgColor, minHeight: px(height) }}
+        style={{ background: bgColor, minHeight: px(height) }}
         {...rest}
       >
         {children}

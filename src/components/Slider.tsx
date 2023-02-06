@@ -1,31 +1,51 @@
+import { memo } from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
-import { px, styled } from '../styles';
-import { StyledProps, StylesOptions } from '../types/common';
+import { millisecondsToTime } from '../modules/helpers';
+import { px, styled } from '../modules/styled';
+import { StyledProps, StylesOptions } from '../types';
 
 interface Props {
+  durationMs: number;
   isMagnified: boolean;
   onChangeRange: (position: number) => void;
   onToggleMagnify: () => void;
   position: number;
+  progressMs: number;
   styles: StylesOptions;
 }
 
 const Wrapper = styled('div')(
   {
+    alignItems: 'center',
     display: 'flex',
-    position: 'relative',
+    fontSize: px(12),
     transition: 'height 0.3s',
     zIndex: 10,
   },
   ({ style }: StyledProps) => ({
-    height: px(style.sliderHeight),
+    '[class^="rswp_"]': {
+      color: style.c,
+      lineHeight: 1,
+      minWidth: px(32),
+    },
+
+    '.rswp_progress': {
+      marginRight: px(8),
+      textAlign: 'right',
+    },
+
+    '.rswp_duration': {
+      marginLeft: px(8),
+      textAlign: 'left',
+    },
   }),
   'SliderRSWP',
 );
 
-export default function Slider(props: Props) {
-  const { isMagnified, onChangeRange, onToggleMagnify, position, styles } = props;
+function Slider(props: Props) {
+  const { durationMs, isMagnified, onChangeRange, onToggleMagnify, position, progressMs, styles } =
+    props;
 
   const handleChangeRange = async ({ x }: RangeSliderPosition) => {
     onChangeRange(x);
@@ -39,8 +59,11 @@ export default function Slider(props: Props) {
       data-position={position}
       onMouseEnter={onToggleMagnify}
       onMouseLeave={onToggleMagnify}
-      style={{ sliderHeight: isMagnified ? styles.sliderHeight + 4 : styles.sliderHeight }}
+      style={{
+        c: styles.color,
+      }}
     >
+      <div className="rswp_progress">{millisecondsToTime(progressMs)}</div>
       <RangeSlider
         axis="x"
         className="slider"
@@ -63,6 +86,9 @@ export default function Slider(props: Props) {
         xMin={0}
         xStep={0.1}
       />
+      <div className="rswp_duration">{millisecondsToTime(durationMs)}</div>
     </Wrapper>
   );
 }
+
+export default memo(Slider);

@@ -1,46 +1,51 @@
-import { ReactNode, useCallback, useEffect, useRef } from 'react';
+import { memo, ReactNode, useEffect, useRef } from 'react';
 
 interface Props {
   children: ReactNode;
-  onClick: () => any;
+  isActive: boolean;
+  onClick: () => void;
 }
 
-export default function ClickOutside({ children, onClick, ...rest }: Props) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isTouchRef = useRef(false);
+function ClickOutside(props: Props) {
+  const { children, isActive, onClick, ...rest } = props;
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const isTouch = useRef(false);
 
-  const handleClick = useCallback(
-    (event: MouseEvent | TouchEvent) => {
-      if (event.type === 'touchend') {
-        isTouchRef.current = true;
-      }
+  const handleClick = useRef((event: MouseEvent | TouchEvent) => {
+    const container = containerRef.current;
 
-      if (event.type === 'click' && isTouchRef.current) {
-        return;
-      }
+    if (event.type === 'touchend') {
+      isTouch.current = true;
+    }
 
-      const el = containerRef.current;
+    if (event.type === 'click' && isTouch.current) {
+      return;
+    }
 
-      if (el && !el.contains(event.target as Node)) {
-        onClick();
-      }
-    },
-    [onClick],
-  );
-
-  useEffect(() => {
-    document.addEventListener('touchend', handleClick, true);
-    document.addEventListener('click', handleClick, true);
-
-    return () => {
-      document.removeEventListener('touchend', handleClick, true);
-      document.removeEventListener('click', handleClick, true);
-    };
+    if (container && !container.contains(event.target as Node)) {
+      onClick();
+    }
   });
 
+  useEffect(() => {
+    const { current } = handleClick;
+
+    if (isActive) {
+      document.addEventListener('touchend', current, true);
+      document.addEventListener('click', current, true);
+    }
+
+    return () => {
+      document.removeEventListener('touchend', current, true);
+      document.removeEventListener('click', current, true);
+    };
+  }, [isActive]);
+
   return (
-    <div {...rest} ref={containerRef}>
+    <div ref={containerRef} {...rest}>
       {children}
     </div>
   );
 }
+
+export default memo(ClickOutside);

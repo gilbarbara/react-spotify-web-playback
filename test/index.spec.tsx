@@ -6,9 +6,9 @@ import { setBoundingClientRect } from './fixtures/helpers';
 
 import { Spotify } from '../global';
 import SpotifyWebPlayer, { Props } from '../src';
-import * as utils from '../src/utils';
+import * as helpers from '../src/modules/helpers';
 
-jest.spyOn(utils, 'loadSpotifyPlayer').mockImplementation(() => Promise.resolve());
+jest.spyOn(helpers, 'loadSpotifyPlayer').mockImplementation(() => Promise.resolve());
 
 jest.useFakeTimers();
 
@@ -142,6 +142,7 @@ describe('SpotifyWebPlayer', () => {
               {
                 id: externalDeviceId,
                 name: 'Jest Player',
+                type: 'Computer',
               },
             ],
           }),
@@ -364,6 +365,23 @@ describe('SpotifyWebPlayer', () => {
 
       expect(mockSetVolume).toHaveBeenCalledWith(0.5);
       expect(volume).toHaveAttribute('data-value', '0.5');
+      expect(screen.getByTestId('VolumeMid')).toBeInTheDocument();
+
+      fireEvent.click(volumeButton);
+
+      // eslint-disable-next-line testing-library/no-node-access
+      fireEvent.click(volume.querySelector('.volume__track')!, {
+        clientX: 910,
+        clientY: 35,
+        currentTarget: {},
+      });
+
+      await act(async () => {
+        jest.runOnlyPendingTimers();
+      });
+
+      expect(mockSetVolume).toHaveBeenCalledWith(0.3);
+      expect(volume).toHaveAttribute('data-value', '0.3');
       expect(screen.getByTestId('VolumeLow')).toBeInTheDocument();
 
       fireEvent.click(volumeButton);

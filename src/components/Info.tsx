@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
+import SpotifyLogo from './SpotifyLogo';
 
-import { checkTracksStatus, removeTracks, saveTracks } from '../spotify';
-import { px, styled } from '../styles';
-import { Locale, StyledProps, StylesOptions } from '../types/common';
-import { SpotifyPlayerTrack } from '../types/spotify';
-import { getSpotifyLink, getSpotifyLinkTitle } from '../utils';
+import { getSpotifyLink, getSpotifyLinkTitle } from '../modules/getters';
 import { usePrevious } from '../modules/hooks';
+import { checkTracksStatus, removeTracks, saveTracks } from '../modules/spotify';
+import { px, styled } from '../modules/styled';
+import { Locale, SpotifyPlayerTrack, StyledProps, StylesOptions } from '../types';
 
 interface Props {
+  hideAttribution: boolean;
   isActive: boolean;
   locale: Locale;
   onFavoriteStatusChange: (status: boolean) => any;
@@ -21,85 +22,54 @@ interface Props {
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
 }
 
+const imageSize = 64;
+const iconSize = 42;
+
 const Wrapper = styled('div')(
   {
     alignItems: 'center',
     display: 'flex',
+    height: px(imageSize),
     textAlign: 'left',
 
     a: {
       display: 'inline-flex',
       textDecoration: 'none',
+
+      '&:hover': {
+        textDecoration: 'underline',
+      },
     },
 
-    '@media (max-width: 1023px)': {
+    img: {
+      height: px(imageSize),
+      width: px(imageSize),
+    },
+
+    button: {
+      alignItems: 'center',
+      display: 'flex',
+      fontSize: px(16),
+      height: px(iconSize),
+      justifyContent: 'center',
+      width: px(iconSize),
+    },
+
+    '@media (max-width: 767px)': {
       borderBottom: '1px solid #ccc',
+      paddingLeft: px(8),
       display: 'none',
       width: '100%',
     },
 
     '&.rswp__active': {
-      '@media (max-width: 1023px)': {
+      '@media (max-width: 767px)': {
         display: 'flex',
       },
     },
   },
   ({ style }: StyledProps) => ({
     height: px(style.h),
-
-    img: {
-      height: px(style.h),
-      width: px(style.h),
-    },
-  }),
-  'InfoRSWP',
-);
-
-const Title = styled('div')(
-  {
-    paddingLeft: px(10),
-    whiteSpace: 'nowrap',
-
-    p: {
-      fontSize: px(14),
-      lineHeight: 1.3,
-      paddingRight: px(5),
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-      width: '100%',
-
-      '&:first-child': {
-        alignItems: 'center',
-        display: 'inline-flex',
-      },
-    },
-
-    span: {
-      display: 'inline-block',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    },
-
-    button: {
-      fontSize: '110%',
-      marginLeft: px(5),
-    },
-  },
-  ({ style }: StyledProps) => ({
-    width: `calc(100% - ${px(style.h)})`,
-
-    p: {
-      a: {
-        color: style.trackNameColor,
-      },
-
-      '&:last-child': {
-        a: {
-          color: style.trackArtistColor,
-        },
-      },
-    },
 
     button: {
       color: style.c,
@@ -109,17 +79,80 @@ const Title = styled('div')(
       },
     },
   }),
+  'InfoRSWP',
 );
 
-export default function Info(props: Props) {
+const Title = styled('div')(
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    height: px(imageSize),
+    justifyContent: 'center',
+    paddingLeft: px(8),
+    whiteSpace: 'nowrap',
+
+    p: {
+      fontSize: px(14),
+      lineHeight: 1.3,
+      maxWidth: '100%',
+      paddingRight: px(5),
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+
+      '&:nth-of-type(1)': {
+        alignItems: 'center',
+        display: 'inline-flex',
+      },
+
+      '&:nth-of-type(2)': {
+        fontSize: px(12),
+      },
+    },
+
+    '> a': {
+      color: 'inherit',
+      fontSize: px(22),
+      marginTop: 'auto',
+    },
+
+    span: {
+      display: 'inline-block',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
+  ({ style }: StyledProps) => ({
+    maxWidth: `calc(100% - ${px(style.showSaveIcon ? imageSize + iconSize : imageSize)})`,
+
+    '@media (min-width: 768px)': {
+      maxWidth: `calc(100% - ${px(style.showSaveIcon ? imageSize + iconSize : imageSize)})`,
+    },
+
+    p: {
+      a: {
+        color: style.trackNameColor,
+      },
+
+      '&:nth-of-type(2)': {
+        a: {
+          color: style.trackArtistColor,
+        },
+      },
+    },
+  }),
+);
+
+function Info(props: Props) {
   const {
+    hideAttribution,
     isActive,
     locale,
     onFavoriteStatusChange,
     showSaveIcon,
-    styles: { activeColor, color, height, trackArtistColor, trackNameColor },
+    styles: { activeColor, bgColor, color, height, trackArtistColor, trackNameColor },
     token,
-    track: { id, name, uri, image, artists = [] },
+    track: { artists = [], id, name, thumb, uri },
     updateSavedStatus,
   } = props;
   const [isSaved, setIsSaved] = useState(false);
@@ -186,11 +219,11 @@ export default function Info(props: Props) {
   };
 
   const title = getSpotifyLinkTitle(name, locale.title);
-  let icon;
+  let favorite;
 
   /* istanbul ignore else */
   if (showSaveIcon && id) {
-    icon = (
+    favorite = (
       <button
         aria-label={isSaved ? locale.removeTrack : locale.saveTrack}
         className={isSaved ? 'rswp__active' : undefined}
@@ -210,8 +243,17 @@ export default function Info(props: Props) {
   }
 
   return (
-    <Wrapper className={classes.join(' ')} data-component-name="Info" style={{ h: height }}>
-      {image && (
+    <Wrapper
+      className={classes.join(' ')}
+      data-component-name="Info"
+      style={{
+        activeColor,
+        c: color,
+        h: height,
+        showSaveIcon,
+      }}
+    >
+      {thumb && (
         <a
           aria-label={title}
           href={getSpotifyLink(uri)}
@@ -219,11 +261,17 @@ export default function Info(props: Props) {
           target="_blank"
           title={title}
         >
-          <img alt={name} src={image} />
+          <img alt={name} src={thumb} />
         </a>
       )}
       {!!name && (
-        <Title style={{ c: color, h: height, activeColor, trackArtistColor, trackNameColor }}>
+        <Title
+          style={{
+            showSaveIcon,
+            trackArtistColor,
+            trackNameColor,
+          }}
+        >
           <p>
             <span>
               <a
@@ -236,7 +284,6 @@ export default function Info(props: Props) {
                 {name}
               </a>
             </span>
-            {icon}
           </p>
           <p title={artists.map(d => d.name).join(', ')}>
             {artists.map((artist, index) => {
@@ -258,8 +305,21 @@ export default function Info(props: Props) {
               );
             })}
           </p>
+          {!hideAttribution && (
+            <a
+              aria-label="Play on Spotify"
+              href={getSpotifyLink(uri)}
+              rel="noreferrer"
+              target="_blank"
+            >
+              <SpotifyLogo bgColor={bgColor} />
+            </a>
+          )}
         </Title>
       )}
+      {favorite}
     </Wrapper>
   );
 }
+
+export default memo(Info);

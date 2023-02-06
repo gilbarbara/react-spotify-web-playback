@@ -1,16 +1,19 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useCallback, useState } from 'react';
 
 import ClickOutside from './ClickOutside';
 import DevicesIcon from './icons/Devices';
+import DevicesComputerIcon from './icons/DevicesComputer';
+import DevicesMobileIcon from './icons/DevicesMobile';
+import DevicesSpeakerIcon from './icons/DevicesSpeaker';
 
-import { px, styled } from '../styles';
-import { StyledProps, StylesOptions } from '../types/common';
-import { SpotifyDevice } from '../types/spotify';
+import { px, styled } from '../modules/styled';
+import { Locale, SpotifyDevice, StyledProps, StylesOptions } from '../types';
 
 interface Props {
   currentDeviceId?: string;
   deviceId?: string;
   devices: SpotifyDevice[];
+  locale: Locale;
   onClickDevice: (deviceId: string) => any;
   open: boolean;
   playerPosition: string;
@@ -18,59 +21,135 @@ interface Props {
   title: string;
 }
 
+interface DeviceList {
+  currentDevice: SpotifyDevice | null;
+  otherDevices: SpotifyDevice[];
+}
+
 const Wrapper = styled('div')(
   {
     'pointer-events': 'all',
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
     position: 'relative',
     zIndex: 20,
 
     '> div': {
-      display: 'flex',
-      flexDirection: 'column',
-      padding: px(8),
+      backgroundColor: '#000',
+      borderRadius: px(8),
+      color: '#fff',
+      filter: 'drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.5))',
+      fontSize: px(14),
+      padding: px(16),
       position: 'absolute',
-      right: `-${px(3)}`,
+      right: 0,
+
+      '> p': {
+        fontWeight: 'bold',
+        marginBottom: px(16),
+        marginTop: px(16),
+        whiteSpace: 'nowrap',
+      },
 
       button: {
-        display: 'block',
-        padding: px(8),
+        alignItems: 'center',
+        display: 'flex',
+        textAlign: 'left',
         whiteSpace: 'nowrap',
 
-        '&.rswp__devices__active': {
-          fontWeight: 'bold',
+        '&:not(:last-of-type)': {
+          marginBottom: px(12),
         },
+
+        span: {
+          display: 'inline-block',
+          marginLeft: px(4),
+        },
+      },
+
+      '> span': {
+        background: 'transparent',
+        borderLeft: `6px solid transparent`,
+        borderRight: `6px solid transparent`,
+        content: '""',
+        display: 'block',
+        height: 0,
+        position: 'absolute',
+        right: px(10),
+        width: 0,
       },
     },
 
     '> button': {
-      fontSize: px(26),
+      alignItems: 'center',
+      display: 'flex',
+      fontSize: px(24),
+      height: px(32),
+      justifyContent: 'center',
+      width: px(32),
     },
   },
   ({ style }: StyledProps) => ({
     '> button': {
       color: style.c,
     },
+
     '> div': {
-      backgroundColor: style.bgColor,
-      boxShadow: style.altColor ? `1px 1px 10px ${style.altColor}` : 'none',
-      [style.p]: '120%',
-      button: {
-        color: style.c,
+      [style.position]: '120%',
+
+      '> span': {
+        [style.position === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
+        [style.position]: '-6px',
       },
     },
   }),
   'DevicesRSWP',
 );
 
+const ListHeader = styled('div')({
+  p: {
+    whiteSpace: 'nowrap',
+
+    '&:nth-of-type(1)': {
+      fontWeight: 'bold',
+      marginBottom: px(4),
+    },
+
+    '&:nth-of-type(2)': {
+      alignItems: 'center',
+      display: 'flex',
+
+      span: {
+        display: 'inline-block',
+        marginLeft: px(4),
+      },
+    },
+  },
+});
+
+function getDeviceIcon(type: string) {
+  if (type.toLowerCase().includes('speaker')) {
+    return <DevicesSpeakerIcon />;
+  }
+
+  if (type.toLowerCase().includes('computer')) {
+    return <DevicesComputerIcon />;
+  }
+
+  return <DevicesMobileIcon />;
+}
+
 export default function Devices(props: Props) {
   const {
     currentDeviceId,
     deviceId,
     devices,
+    locale,
     onClickDevice,
     open,
     playerPosition,
-    styles: { activeColor, altColor, bgColor, color },
+    styles: { color },
     title,
   } = props;
   const [isOpen, setOpen] = useState(open);
@@ -86,44 +165,78 @@ export default function Devices(props: Props) {
     }
   };
 
-  const handleClickToggleDevices = () => {
+  const handleClickToggleList = useCallback(() => {
     setOpen(s => !s);
-  };
+  }, []);
+
+  const { currentDevice, otherDevices } = devices.reduce<DeviceList>(
+    (acc, device) => {
+      if (device.id === currentDeviceId) {
+        acc.currentDevice = device;
+      } else {
+        acc.otherDevices.push(device);
+      }
+
+      return acc;
+    },
+    { currentDevice: null, otherDevices: [] },
+  );
+
+  let icon = <DevicesIcon />;
+
+  if (deviceId && currentDevice && currentDevice.id !== deviceId) {
+    icon = getDeviceIcon(currentDevice.type);
+  }
 
   return (
-    <Wrapper
-      data-component-name="Devices"
-      data-device-id={currentDeviceId}
-      style={{
-        altColor,
-        bgColor,
-        c: currentDeviceId && deviceId && currentDeviceId !== deviceId ? activeColor : color,
-        p: playerPosition,
-      }}
-    >
-      {!!devices.length && (
-        <>
-          {isOpen && (
-            <ClickOutside onClick={handleClickToggleDevices}>
-              {devices.map((d: SpotifyDevice) => (
-                <button
-                  key={d.id}
-                  aria-label={d.name}
-                  className={d.id === currentDeviceId ? 'rswp__devices__active' : undefined}
-                  data-id={d.id}
-                  onClick={handleClickSetDevice}
-                  type="button"
-                >
-                  {d.name}
-                </button>
-              ))}
-            </ClickOutside>
-          )}
-          <button aria-label={title} onClick={handleClickToggleDevices} title={title} type="button">
-            <DevicesIcon />
-          </button>
-        </>
-      )}
-    </Wrapper>
+    <ClickOutside isActive={isOpen} onClick={handleClickToggleList}>
+      <Wrapper
+        data-component-name="Devices"
+        data-device-id={currentDeviceId}
+        style={{
+          c: color,
+          position: playerPosition,
+        }}
+      >
+        {!!devices.length && (
+          <>
+            {isOpen && (
+              <div>
+                {currentDevice && (
+                  <ListHeader>
+                    <p>{locale.currentDevice}</p>
+                    <p>
+                      {getDeviceIcon(currentDevice.type)}
+                      <span>{currentDevice.name}</span>
+                    </p>
+                  </ListHeader>
+                )}
+                {!!otherDevices.length && (
+                  <>
+                    <p>{locale.otherDevices}</p>
+                    {otherDevices.map(device => (
+                      <button
+                        key={device.id}
+                        aria-label={device.name}
+                        data-id={device.id}
+                        onClick={handleClickSetDevice}
+                        type="button"
+                      >
+                        {getDeviceIcon(device.type)}
+                        <span>{device.name}</span>
+                      </button>
+                    ))}
+                  </>
+                )}
+                <span />
+              </div>
+            )}
+            <button aria-label={title} onClick={handleClickToggleList} title={title} type="button">
+              {icon}
+            </button>
+          </>
+        )}
+      </Wrapper>
+    </ClickOutside>
   );
 }
