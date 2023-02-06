@@ -1,45 +1,16 @@
 import {
   canUseDOM,
-  getSpotifyURIType,
   isNumber,
   loadSpotifyPlayer,
+  millisecondsToTime,
   parseVolume,
   round,
-  STATUS,
-  TYPE,
   validateURI,
-} from '../src/utils';
-
-describe('STATUS', () => {
-  it('should have all options', () => {
-    expect(STATUS).toMatchSnapshot();
-  });
-});
-
-describe('TYPE', () => {
-  it('should have all options', () => {
-    expect(TYPE).toMatchSnapshot();
-  });
-});
+} from '../../src/modules/helpers';
 
 describe('canUseDOM', () => {
   it('should return properly', () => {
     expect(canUseDOM()).toBeTrue();
-  });
-});
-
-describe('getSpotifyURIType', () => {
-  it.each([
-    ['spotify:album:51QBkcL7S3KYdXSSA0zM9R', 'album'],
-    ['spotify:artist:7A0awCXkE1FtSU8B0qwOJQ', 'artist'],
-    ['spotify:episode:6r8OOleI5xP7qCEipHvdyK', 'episode'],
-    ['spotify:playlist:5kHMGRfZHORA4UrCbhYyad', 'playlist'],
-    ['spotify:show:5huEzXsf133dhbh57Np2tg', 'show'],
-    ['spotify:track:0gkVD2tr14wCfJhqhdE94L', 'track'],
-    ['spotify:user:gilbarbara', 'user'],
-    ['spotify', ''],
-  ])('%p should return %p', (value, expected) => {
-    expect(getSpotifyURIType(value)).toBe(expected);
   });
 });
 
@@ -62,6 +33,18 @@ describe('loadSpotifyPlayer', () => {
 
     expect(scriptTag.tagName).toBe('SCRIPT');
     expect(scriptTag.src).toBe('https://sdk.scdn.co/spotify-player.js');
+  });
+});
+
+describe('millisecondsToTime', () => {
+  it.each([
+    [0, '0:00'],
+    [1200, '0:01'],
+    [63000, '1:03'],
+    [3610000, '01:00:10'],
+    [7123490, '01:58:43'],
+  ])('should convert %p to %p', (input, expected) => {
+    expect(millisecondsToTime(input)).toBe(expected);
   });
 });
 
