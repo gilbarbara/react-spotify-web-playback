@@ -10,6 +10,9 @@ module.exports = {
     },
   },
   moduleDirectories: ['node_modules', 'src'],
+  moduleNameMapper: {
+    '^~/(.*)$': '<rootDir>/src/$1',
+  },
   preset: 'ts-jest',
   setupFilesAfterEnv: ['<rootDir>/test/__setup__/setupFilesAfterEnv.ts'],
   testEnvironment: 'jsdom',

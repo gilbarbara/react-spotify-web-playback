@@ -1,4 +1,4 @@
-import { STATUS, TYPE } from '../src';
+import { STATUS, TYPE } from '~/constants';
 
 describe('STATUS', () => {
   it('should have all options', () => {

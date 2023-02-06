@@ -1,12 +1,14 @@
 import React from 'react';
 import { act, configure, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
+import * as helpers from '~/modules/helpers';
+
+import SpotifyWebPlayer, { Props } from '~/index';
+
 import { playerState, playerStatus } from './fixtures/data';
 import { setBoundingClientRect } from './fixtures/helpers';
 
 import { Spotify } from '../global';
-import SpotifyWebPlayer, { Props } from '../src';
-import * as helpers from '../src/modules/helpers';
 
 jest.spyOn(helpers, 'loadSpotifyPlayer').mockImplementation(() => Promise.resolve());
 

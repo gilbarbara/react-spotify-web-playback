@@ -1,10 +1,11 @@
 import { memo } from 'react';
 
+import { px, styled } from '~/modules/styled';
+
+import { Locale, SpotifyDevice, StyledProps, StylesOptions } from '~/types';
+
 import Devices from './Devices';
 import Volume from './Volume';
-
-import { px, styled } from '../modules/styled';
-import { Locale, SpotifyDevice, StyledProps, StylesOptions } from '../types';
 
 interface Props {
   currentDeviceId: string;

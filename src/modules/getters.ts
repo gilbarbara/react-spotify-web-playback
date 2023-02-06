@@ -1,4 +1,4 @@
-import { Locale } from '../types';
+import { Locale } from '~/types';
 
 export function getLocale(locale?: Partial<Locale>): Locale {
   return {

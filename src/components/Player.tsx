@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 
-import { put, px } from '../modules/styled';
-import { ComponentsProps } from '../types';
+import { put, px } from '~/modules/styled';
+
+import { ComponentsProps } from '~/types';
 
 put('.PlayerRSWP', {
   boxSizing: 'border-box',

@@ -1,8 +1,12 @@
 {
   "extends": "@gilbarbara/tsconfig",
   "compilerOptions": {
+    "baseUrl": ".",
     "downlevelIteration": true,
     "noEmit": true,
+    "paths": {
+      "~/*": ["src/*"]
+    },
     "target": "es5"
   },
   "include": ["global.d.ts", "src/**/*"]

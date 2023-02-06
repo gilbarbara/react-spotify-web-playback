@@ -1,5 +1,9 @@
 import { memo } from 'react';
 
+import { px, styled } from '~/modules/styled';
+
+import { Locale, StyledProps, StylesOptions } from '~/types';
+
 import Next from './icons/Next';
 import Pause from './icons/Pause';
 import Play from './icons/Play';
@@ -7,8 +11,6 @@ import Previous from './icons/Previous';
 import Slider from './Slider';
 
 import { Spotify } from '../../global';
-import { px, styled } from '../modules/styled';
-import { Locale, StyledProps, StylesOptions } from '../types';
 
 interface Props {
   durationMs: number;

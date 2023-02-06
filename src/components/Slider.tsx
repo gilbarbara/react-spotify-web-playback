@@ -1,9 +1,10 @@
 import { memo } from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
-import { millisecondsToTime } from '../modules/helpers';
-import { px, styled } from '../modules/styled';
-import { StyledProps, StylesOptions } from '../types';
+import { millisecondsToTime } from '~/modules/helpers';
+import { px, styled } from '~/modules/styled';
+
+import { StyledProps, StylesOptions } from '~/types';
 
 interface Props {
   durationMs: number;

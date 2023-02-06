@@ -1,7 +1,8 @@
 import { memo } from 'react';
 
-import { px, styled } from '../modules/styled';
-import { ComponentsProps, StyledProps } from '../types';
+import { px, styled } from '~/modules/styled';
+
+import { ComponentsProps, StyledProps } from '~/types';
 
 const StyledWrapper = styled('div')(
   {
