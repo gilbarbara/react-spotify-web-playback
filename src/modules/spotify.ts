@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { SpotifyPlayOptions } from './types';
+import { SpotifyPlayOptions } from '../types';
 
 export async function checkTracksStatus(token: string, tracks: string | string[]) {
   const ids = Array.isArray(tracks) ? tracks : [tracks];

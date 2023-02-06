@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getLocale should return a merged locale 1`] = `
+{
+  "currentDevice": "Selected device ",
+  "devices": "Devices",
+  "next": "Next",
+  "otherDevices": "Select other device",
+  "pause": "Pause",
+  "play": "Play",
+  "previous": "Previous",
+  "removeTrack": "Remove from your favorites",
+  "saveTrack": "Save to your favorites",
+  "title": "{name} on SPOTIFY",
+  "volume": "Volume",
+}
+`;

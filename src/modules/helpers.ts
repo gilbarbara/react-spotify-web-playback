@@ -1,57 +1,6 @@
 import { canUseDOM as canUseDOMBool } from 'exenv';
 
-import { Locale } from './types';
-
 export const canUseDOM = () => canUseDOMBool;
-
-export const STATUS = {
-  ERROR: 'ERROR',
-  IDLE: 'IDLE',
-  INITIALIZING: 'INITIALIZING',
-  READY: 'READY',
-  RUNNING: 'RUNNING',
-  UNSUPPORTED: 'UNSUPPORTED',
-};
-
-export const TYPE = {
-  DEVICE: 'device_update',
-  FAVORITE: 'favorite_update',
-  PLAYER: 'player_update',
-  PROGRESS: 'progress_update',
-  STATUS: 'status_update',
-  TRACK: 'track_update',
-};
-
-export function getLocale(locale?: Partial<Locale>): Locale {
-  return {
-    devices: 'Devices',
-    next: 'Next',
-    pause: 'Pause',
-    play: 'Play',
-    previous: 'Previous',
-    removeTrack: 'Remove from your favorites',
-    saveTrack: 'Save to your favorites',
-    title: '{name} on SPOTIFY',
-    volume: 'Volume',
-    ...locale,
-  };
-}
-
-export function getSpotifyLink(uri: string): string {
-  const [, type = '', id = ''] = uri.split(':');
-
-  return `https://open.spotify.com/${type}/${id}`;
-}
-
-export function getSpotifyLinkTitle(name: string, locale: string): string {
-  return locale.replace('{name}', name);
-}
-
-export function getSpotifyURIType(uri: string): string {
-  const [, type = ''] = uri.split(':');
-
-  return type;
-}
 
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
@@ -77,6 +26,26 @@ export function loadSpotifyPlayer(): Promise<any> {
       resolve();
     }
   });
+}
+
+export function millisecondsToTime(input: number) {
+  const seconds = Math.floor((input / 1000) % 60);
+  const minutes = Math.floor((input / (1000 * 60)) % 60);
+  const hours = Math.floor((input / (1000 * 60 * 60)) % 24);
+
+  const parts: string[] = [];
+
+  if (hours > 0) {
+    parts.push(
+      `${hours}`.padStart(2, '0'),
+      `${minutes}`.padStart(2, '0'),
+      `${seconds}`.padStart(2, '0'),
+    );
+  } else {
+    parts.push(`${minutes}`, `${seconds}`.padStart(2, '0'));
+  }
+
+  return parts.join(':');
 }
 
 export function parseVolume(value?: unknown): number {
