@@ -8,13 +8,11 @@ View the [demo](https://react-spotify-web-playback.gilbarbara.dev/)
 
 Check the [supported browser](https://developer.spotify.com/documentation/web-playback-sdk/#supported-browsers) list. This library will try to use the user's devices to work with unsupported browsers.
 
-````jsx
-
 ## Setup
 
 ```bash
 npm i react-spotify-web-playback
-````
+```
 
 ## Getting Started
 
@@ -27,7 +25,7 @@ import SpotifyPlayer from 'react-spotify-web-playback';
 />;
 ```
 
-### Client side only
+### Client-side only
 
 If you are using an SSR framework, you'll need to use a [dynamic import](https://nextjs.org/docs/advanced-features/dynamic-import) to load the player.
 
@@ -36,8 +34,47 @@ If you are using an SSR framework, you'll need to use a [dynamic import](https:/
 **autoPlay**: `boolean`  
 Start the player immediately.
 
-**callback**: `(state) => any`  
-Get status updates from the player. Check `CallbackState` in the [types](src/types/common.ts) for the `state` structure.
+**callback**: `(state: CallbackState) => void`  
+Get status updates from the player.
+
+<details>
+  <summary>Type Definition</summary>
+
+```typescript
+type ErrorType = 'authentication_error' | 'player_status' | 'playback_error';
+
+interface State {
+  currentDeviceId: string;
+  deviceId: string;
+  devices: SpotifyDevice[];
+  error: string;
+  errorType: ErrorType | null;
+  isActive: boolean;
+  isInitializing: boolean;
+  isMagnified: boolean;
+  isPlaying: boolean;
+  isSaved: boolean;
+  isUnsupported: boolean;
+  needsUpdate: boolean;
+  nextTracks: SpotifyTrack[];
+  playerPosition: 'bottom' | 'top';
+  position: number;
+  previousTracks: SpotifyTrack[];
+  progressMs: number;
+  status: string;
+  track: SpotifyPlayerTrack;
+  volume: number;
+}
+
+interface CallbackState extends State {
+  type: string;
+}
+```
+
+</details>
+
+**hideAttribution** `boolean`  
+Hide the Spotify logo.
 
 **initialVolume** `number` between 0 and 1. _default 1_  
 The initial volume for the player. It's not used for external devices.
@@ -50,8 +87,10 @@ The strings used for aria-label/title attributes.
 
 ```typescript
 interface Locale {
+  currentDevice?: string; // 'Current device'
   devices?: string; // 'Devices'
   next?: string; // 'Next'
+  otherDevices?: string; // 'Select other device'
   pause?: string; // 'Pause'
   play?: string; // 'Play'
   previous?: string; // 'Previous'
