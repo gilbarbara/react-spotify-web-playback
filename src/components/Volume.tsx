@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { usePrevious } from 'react-use';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
 import ClickOutside from './ClickOutside';
@@ -9,6 +8,7 @@ import VolumeMute from './icons/VolumeMute';
 
 import { px, styled } from '../styles';
 import { StyledProps, StylesOptions } from '../types/common';
+import { usePrevious } from '../modules/hooks';
 
 interface Props {
   playerPosition: string;
