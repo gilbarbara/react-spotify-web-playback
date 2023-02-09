@@ -1,4 +1,4 @@
-import { Locale } from '~/types';
+import { Locale, StylesOptions, StylesProps } from '~/types';
 
 export function getLocale(locale?: Partial<Locale>): Locale {
   return {
@@ -14,6 +14,28 @@ export function getLocale(locale?: Partial<Locale>): Locale {
     title: '{name} on SPOTIFY',
     volume: 'Volume',
     ...locale,
+  };
+}
+
+export function getMergedStyles(styles?: StylesProps): StylesOptions {
+  return {
+    activeColor: '#1cb954',
+    altColor: '#ccc',
+    bgColor: '#fff',
+    color: '#333',
+    errorColor: '#a60000',
+    height: 80,
+    loaderColor: '#ccc',
+    loaderSize: 32,
+    sliderColor: '#666',
+    sliderHandleBorderRadius: '50%',
+    sliderHandleColor: '#000',
+    sliderHeight: 4,
+    sliderTrackBorderRadius: 4,
+    sliderTrackColor: '#ccc',
+    trackArtistColor: '#666',
+    trackNameColor: '#333',
+    ...styles,
   };
 }
 

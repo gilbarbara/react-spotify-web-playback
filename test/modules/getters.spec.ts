@@ -1,5 +1,6 @@
 import {
   getLocale,
+  getMergedStyles,
   getSpotifyLink,
   getSpotifyLinkTitle,
   getSpotifyURIType,
@@ -8,6 +9,12 @@ import {
 describe('getLocale', () => {
   it('should return a merged locale', () => {
     expect(getLocale({ currentDevice: 'Selected device ' })).toMatchSnapshot();
+  });
+});
+
+describe('getMergedStyles', () => {
+  it('should return a merged styles', () => {
+    expect(getMergedStyles({ height: 100 })).toMatchSnapshot();
   });
 });
 

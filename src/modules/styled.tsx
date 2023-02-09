@@ -13,7 +13,7 @@ import { addon as addonStyle } from 'nano-css/addon/style.js';
 // @ts-ignore
 import { addon as addonStyled } from 'nano-css/addon/styled.js';
 
-import { StyledProps, StylesOptions, StylesProps } from '~/types';
+import { StyledProps } from '~/types';
 
 interface NanoExtended extends NanoRenderer {
   styled: (
@@ -39,26 +39,6 @@ const { keyframes, put, styled } = nano as NanoExtended;
 export const px = (value: string | number): string =>
   typeof value === 'number' ? `${value}px` : value;
 
-export function getMergedStyles(styles: StylesProps | undefined): StylesOptions {
-  return {
-    activeColor: '#1cb954',
-    altColor: '#ccc',
-    bgColor: '#fff',
-    color: '#333',
-    errorColor: '#a60000',
-    height: 80,
-    loaderColor: '#ccc',
-    loaderSize: 32,
-    sliderColor: '#666',
-    sliderHandleBorderRadius: '50%',
-    sliderHandleColor: '#000',
-    sliderHeight: 4,
-    sliderTrackBorderRadius: 4,
-    sliderTrackColor: '#ccc',
-    trackArtistColor: '#666',
-    trackNameColor: '#333',
-    ...styles,
-  };
-}
-
 export { keyframes, put, styled };
+
+export { type CssLikeObject } from 'nano-css';

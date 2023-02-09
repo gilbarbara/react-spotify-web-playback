@@ -89,7 +89,7 @@ declare namespace Spotify {
   interface PlayerInit {
     getOAuthToken(callback: (token: string) => void): void;
     name: string;
-    volume?: number | undefined;
+    volume?: number;
   }
 
   type ErrorListener = (error: Error) => void;

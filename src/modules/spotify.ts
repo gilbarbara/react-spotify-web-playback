@@ -135,7 +135,7 @@ export async function seek(token: string, position: number) {
   });
 }
 
-export async function setDevice(token: string, deviceId: string, shouldPlay?: boolean | undefined) {
+export async function setDevice(token: string, deviceId: string, shouldPlay?: boolean) {
   return fetch(`https://api.spotify.com/v1/me/player`, {
     body: JSON.stringify({ device_ids: [deviceId], play: shouldPlay }),
     headers: {

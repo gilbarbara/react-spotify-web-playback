@@ -9,6 +9,8 @@ export interface CallbackState extends State {
 
 export type ErrorType = 'authentication_error' | 'player_status' | 'playback_error';
 
+export type Layout = 'responsive' | 'compact';
+
 export interface Props {
   /**
    * Start the player immediately.
@@ -30,6 +32,11 @@ export interface Props {
    * @default 1
    */
   initialVolume?: number;
+  /**
+   * The layout of the player.
+   * @default responsive
+   */
+  layout?: Layout;
   /**
    * The strings used for aria-label/title attributes.
    */
