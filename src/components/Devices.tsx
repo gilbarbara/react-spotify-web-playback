@@ -1,8 +1,9 @@
 import { MouseEvent, useCallback, useState } from 'react';
+import { CssLikeObject } from 'nano-css';
 
 import { px, styled } from '~/modules/styled';
 
-import { Locale, SpotifyDevice, StyledProps, StylesOptions } from '~/types';
+import { Layout, Locale, SpotifyDevice, StyledProps, StylesOptions } from '~/types';
 
 import ClickOutside from './ClickOutside';
 import DevicesIcon from './icons/Devices';
@@ -14,6 +15,7 @@ interface Props {
   currentDeviceId?: string;
   deviceId?: string;
   devices: SpotifyDevice[];
+  layout: Layout;
   locale: Locale;
   onClickDevice: (deviceId: string) => any;
   open: boolean;
@@ -91,20 +93,30 @@ const Wrapper = styled('div')(
       width: px(32),
     },
   },
-  ({ style }: StyledProps) => ({
-    '> button': {
-      color: style.c,
-    },
+  ({ style }: StyledProps) => {
+    const isCompact = style.layout === 'compact';
+    const spanStyles: CssLikeObject = isCompact
+      ? {
+          bottom: `-${px(6)}`,
+          borderTop: `6px solid #000`,
+        }
+      : {
+          [style.position === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
+          [style.position]: '-6px',
+        };
 
-    '> div': {
-      [style.position]: '120%',
-
-      '> span': {
-        [style.position === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
-        [style.position]: '-6px',
+    return {
+      '> button': {
+        color: style.c,
       },
-    },
-  }),
+
+      '> div': {
+        [isCompact ? 'bottom' : style.position]: '120%',
+
+        '> span': spanStyles,
+      },
+    };
+  },
   'DevicesRSWP',
 );
 
@@ -146,6 +158,7 @@ export default function Devices(props: Props) {
     currentDeviceId,
     deviceId,
     devices,
+    layout,
     locale,
     onClickDevice,
     open,
@@ -196,6 +209,7 @@ export default function Devices(props: Props) {
         data-device-id={currentDeviceId}
         style={{
           c: color,
+          layout,
           position: playerPosition,
         }}
       >

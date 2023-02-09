@@ -79,6 +79,8 @@ Hide the Spotify logo.
 **initialVolume** `number` between 0 and 1. _default 1_  
 The initial volume for the player. It's not used for external devices.
 
+**layout** `'compact' | 'responsive'`. _default 'responsive'_ The layout of the player.
+
 **locale** `Locale`  
 The strings used for aria-label/title attributes.
 

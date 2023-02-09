@@ -681,4 +681,12 @@ describe('SpotifyWebPlayer', () => {
       );
     });
   });
+
+  describe('With "compact" layout', () => {
+    it('should render properly', async () => {
+      await setup({ layout: 'compact', styles: { bgColor: '#f04', color: '#fff' } });
+
+      expect(screen.getByTestId('Player')).toMatchSnapshot();
+    });
+  });
 });

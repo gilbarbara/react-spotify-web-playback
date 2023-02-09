@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
-import { px, styled } from '~/modules/styled';
+import { CssLikeObject, px, styled } from '~/modules/styled';
 
-import { Locale, StyledProps, StylesOptions } from '~/types';
+import { Layout, Locale, StyledProps, StylesOptions } from '~/types';
 
 import Next from './icons/Next';
 import Pause from './icons/Pause';
@@ -17,6 +17,7 @@ interface Props {
   isExternalDevice: boolean;
   isMagnified: boolean;
   isPlaying: boolean;
+  layout: Layout;
   locale: Locale;
   nextTracks: Spotify.Track[];
   onChangeRange: (position: number) => void;
@@ -32,27 +33,6 @@ interface Props {
 
 const Wrapper = styled('div')(
   {
-    padding: `${px(4)} 0`,
-  },
-  ({ style }: StyledProps) => ({
-    '@media (max-width: 767px)': {
-      padding: px(8),
-    },
-
-    button: {
-      alignItems: 'center',
-      color: style.c,
-      display: 'inline-flex',
-      fontSize: px(16),
-      height: px(32),
-      justifyContent: 'center',
-      width: px(32),
-
-      '&.rswp__toggle': {
-        fontSize: px(32),
-        width: px(48),
-      },
-    },
     '.rswp__buttons': {
       alignItems: 'center',
       display: 'flex',
@@ -66,7 +46,41 @@ const Wrapper = styled('div')(
         textAlign: 'center',
       },
     },
-  }),
+
+    button: {
+      alignItems: 'center',
+      display: 'inline-flex',
+      fontSize: px(16),
+      height: px(32),
+      justifyContent: 'center',
+      width: px(32),
+
+      '&.rswp__toggle': {
+        fontSize: px(32),
+        width: px(48),
+      },
+    },
+  },
+  ({ style }: StyledProps) => {
+    const isCompactLayout = style.layout === 'compact';
+    const styles: CssLikeObject = {};
+
+    if (isCompactLayout) {
+      styles.padding = px(8);
+    } else {
+      styles.padding = `${px(4)} 0`;
+      styles['@media (max-width: 767px)'] = {
+        padding: px(8),
+      };
+    }
+
+    return {
+      button: {
+        color: style.c,
+      },
+      ...styles,
+    };
+  },
   'ControlsRSWP',
 );
 
@@ -76,6 +90,7 @@ function Controls(props: Props) {
     isExternalDevice,
     isMagnified,
     isPlaying,
+    layout,
     locale,
     nextTracks,
     onChangeRange,
@@ -92,7 +107,7 @@ function Controls(props: Props) {
   const { color } = styles;
 
   return (
-    <Wrapper data-component-name="Controls" data-playing={isPlaying} style={{ c: color }}>
+    <Wrapper data-component-name="Controls" data-playing={isPlaying} style={{ c: color, layout }}>
       <div className="rswp__buttons">
         <div>
           {(!!previousTracks.length || isExternalDevice) && (

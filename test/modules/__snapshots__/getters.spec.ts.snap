@@ -15,3 +15,24 @@ exports[`getLocale should return a merged locale 1`] = `
   "volume": "Volume",
 }
 `;
+
+exports[`getMergedStyles should return a merged styles 1`] = `
+{
+  "activeColor": "#1cb954",
+  "altColor": "#ccc",
+  "bgColor": "#fff",
+  "color": "#333",
+  "errorColor": "#a60000",
+  "height": 100,
+  "loaderColor": "#ccc",
+  "loaderSize": 32,
+  "sliderColor": "#666",
+  "sliderHandleBorderRadius": "50%",
+  "sliderHandleColor": "#000",
+  "sliderHeight": 4,
+  "sliderTrackBorderRadius": 4,
+  "sliderTrackColor": "#ccc",
+  "trackArtistColor": "#666",
+  "trackNameColor": "#333",
+}
+`;

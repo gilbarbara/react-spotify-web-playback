@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { px, styled } from '~/modules/styled';
+import { CssLikeObject, px, styled } from '~/modules/styled';
 
 import { ComponentsProps, StyledProps } from '~/types';
 
@@ -15,26 +15,37 @@ const StyledWrapper = styled('div')(
 
     '> *': {
       width: '100%',
-
-      '@media (min-width: 768px)': {
-        width: '33.3333%',
-      },
-    },
-
-    '@media (min-width: 768px)': {
-      flexDirection: 'row',
-      padding: `0 ${px(8)}`,
     },
   },
-  ({ style }: StyledProps) => ({
-    minHeight: px(style.h),
-  }),
+  ({ style }: StyledProps) => {
+    let styles: CssLikeObject = {};
+
+    if (style.layout === 'responsive') {
+      styles = {
+        '> *': {
+          '@media (min-width: 768px)': {
+            width: '33.3333%',
+          },
+        },
+
+        '@media (min-width: 768px)': {
+          flexDirection: 'row',
+          padding: `0 ${px(8)}`,
+        },
+      };
+    }
+
+    return {
+      minHeight: px(style.h),
+      ...styles,
+    };
+  },
   'WrapperRSWP',
 );
 
-function Wrapper({ children, styles }: ComponentsProps) {
+function Wrapper({ children, layout, styles }: ComponentsProps) {
   return (
-    <StyledWrapper data-component-name="Wrapper" style={{ h: styles.height }}>
+    <StyledWrapper data-component-name="Wrapper" style={{ h: styles.height, layout }}>
       {children}
     </StyledWrapper>
   );

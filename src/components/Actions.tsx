@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
-import { px, styled } from '~/modules/styled';
+import { CssLikeObject, px, styled } from '~/modules/styled';
 
-import { Locale, SpotifyDevice, StyledProps, StylesOptions } from '~/types';
+import { Layout, Locale, SpotifyDevice, StyledProps, StylesOptions } from '~/types';
 
 import Devices from './Devices';
 import Volume from './Volume';
@@ -12,6 +12,7 @@ interface Props {
   deviceId: string;
   devices: SpotifyDevice[];
   isDevicesOpen: boolean;
+  layout: Layout;
   locale: Locale;
   onClickDevice: (deviceId: string) => any;
   playerPosition: string;
@@ -26,22 +27,30 @@ const Wrapper = styled('div')(
     display: 'flex',
     justifyContent: 'flex-end',
     'pointer-events': 'none',
-
-    '@media (max-width: 767px)': {
+  },
+  ({ style }: StyledProps) => {
+    let styles: CssLikeObject = {
       bottom: px(28),
       paddingRight: px(4),
       position: 'absolute',
       right: 0,
       width: 'auto',
-    },
-  },
-  ({ style }: StyledProps) => ({
-    height: px(32),
+    };
 
-    '@media (min-width: 768px)': {
-      height: px(style.h),
-    },
-  }),
+    if (style.layout === 'responsive') {
+      styles = {
+        '@media (max-width: 767px)': styles,
+        '@media (min-width: 768px)': {
+          height: px(style.h),
+        },
+      };
+    }
+
+    return {
+      height: px(32),
+      ...styles,
+    };
+  },
   'ActionsRSWP',
 );
 
@@ -51,6 +60,7 @@ function Actions(props: Props) {
     deviceId,
     devices,
     isDevicesOpen,
+    layout,
     locale,
     onClickDevice,
     playerPosition,
@@ -60,9 +70,10 @@ function Actions(props: Props) {
   } = props;
 
   return (
-    <Wrapper data-component-name="Actions" style={{ h: styles.height }}>
+    <Wrapper data-component-name="Actions" style={{ h: styles.height, layout }}>
       {currentDeviceId && (
         <Volume
+          layout={layout}
           playerPosition={playerPosition}
           setVolume={setVolume}
           styles={styles}
@@ -74,6 +85,7 @@ function Actions(props: Props) {
         currentDeviceId={currentDeviceId}
         deviceId={deviceId}
         devices={devices}
+        layout={layout}
         locale={locale}
         onClickDevice={onClickDevice}
         open={isDevicesOpen}

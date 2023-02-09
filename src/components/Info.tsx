@@ -1,11 +1,12 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, ReactNode, useEffect, useRef, useState } from 'react';
+import { fade } from 'colorizr';
 
 import { getSpotifyLink, getSpotifyLinkTitle } from '~/modules/getters';
 import { usePrevious } from '~/modules/hooks';
 import { checkTracksStatus, removeTracks, saveTracks } from '~/modules/spotify';
-import { px, styled } from '~/modules/styled';
+import { CssLikeObject, px, styled } from '~/modules/styled';
 
-import { Locale, SpotifyPlayerTrack, StyledProps, StylesOptions } from '~/types';
+import { Layout, Locale, SpotifyPlayerTrack, StyledProps, StylesOptions } from '~/types';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
@@ -14,6 +15,7 @@ import SpotifyLogo from './SpotifyLogo';
 interface Props {
   hideAttribution: boolean;
   isActive: boolean;
+  layout: Layout;
   locale: Locale;
   onFavoriteStatusChange: (status: boolean) => any;
   showSaveIcon: boolean;
@@ -24,82 +26,140 @@ interface Props {
 }
 
 const imageSize = 64;
-const iconSize = 42;
+const iconSize = 32;
 
 const Wrapper = styled('div')(
   {
-    alignItems: 'center',
-    display: 'flex',
-    height: px(imageSize),
     textAlign: 'left',
 
-    a: {
+    '> a': {
       display: 'inline-flex',
       textDecoration: 'none',
+      minHeigth: px(64),
+      minWidth: px(64),
 
       '&:hover': {
         textDecoration: 'underline',
       },
     },
 
-    img: {
-      height: px(imageSize),
-      width: px(imageSize),
-    },
-
     button: {
       alignItems: 'center',
       display: 'flex',
       fontSize: px(16),
-      height: px(iconSize),
+      height: px(iconSize + 8),
       justifyContent: 'center',
       width: px(iconSize),
     },
-
-    '@media (max-width: 767px)': {
-      borderBottom: '1px solid #ccc',
-      paddingLeft: px(8),
-      display: 'none',
-      width: '100%',
-    },
-
-    '&.rswp__active': {
-      '@media (max-width: 767px)': {
-        display: 'flex',
-      },
-    },
   },
-  ({ style }: StyledProps) => ({
-    height: px(style.h),
+  ({ style }: StyledProps) => {
+    const isCompactLayout = style.layout === 'compact';
+    const styles: CssLikeObject = {};
 
-    button: {
-      color: style.c,
+    if (isCompactLayout) {
+      styles.borderBottom = `1px solid ${fade(style.c, 40)}`;
+      styles['> a'] = {
+        display: 'flex',
+        margin: '0 auto',
+        maxWidth: px(640),
+        paddingBottom: '100%',
+        position: 'relative',
 
-      '&.rswp__active': {
-        color: style.activeColor,
+        img: {
+          display: 'block',
+          bottom: 0,
+          left: 0,
+          objectFit: 'contains',
+          position: 'absolute',
+          right: 0,
+          top: 0,
+        },
+      };
+    } else {
+      styles.alignItems = 'center';
+      styles.display = 'flex';
+      styles.height = px(style.h);
+      styles['@media (max-width: 767px)'] = {
+        borderBottom: `1px solid ${fade(style.c, 40)}`,
+        paddingLeft: px(8),
+        display: 'none',
+        width: '100%',
+      };
+      styles.img = {
+        height: px(imageSize),
+        width: px(imageSize),
+      };
+      styles['&.rswp__active'] = {
+        '@media (max-width: 767px)': {
+          display: 'flex',
+        },
+      };
+    }
+
+    return {
+      button: {
+        color: style.c,
+
+        '&.rswp__active': {
+          color: style.activeColor,
+        },
       },
-    },
-  }),
+
+      ...styles,
+    };
+  },
   'InfoRSWP',
 );
 
-const Title = styled('div')(
+const ContentWrapper = styled('div')(
   {
     display: 'flex',
     flexDirection: 'column',
-    height: px(imageSize),
     justifyContent: 'center',
-    paddingLeft: px(8),
-    whiteSpace: 'nowrap',
+
+    '> a': {
+      fontSize: px(22),
+      marginTop: px(4),
+    },
+  },
+  ({ style }: StyledProps) => {
+    const isCompactLayout = style.layout === 'compact';
+    const styles: CssLikeObject = {};
+
+    if (isCompactLayout) {
+      styles.padding = px(8);
+      styles.width = '100%';
+    } else {
+      styles.minHeight = px(imageSize);
+      styles.marginLeft = px(8);
+      styles.width = `calc(100% - ${px(imageSize + 8)})`;
+    }
+
+    return styles;
+  },
+  'ContentWrapperRSWP',
+);
+
+const Content = styled('div')(
+  {
+    display: 'flex',
+    justifyContent: 'start',
+
+    '[data-type="title-artist-wrapper"]': {
+      overflow: 'hidden',
+
+      div: {
+        marginLeft: `-${px(8)}`,
+        whiteSpace: 'nowrap',
+      },
+    },
 
     p: {
       fontSize: px(14),
       lineHeight: 1.3,
-      maxWidth: '100%',
-      paddingRight: px(5),
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
+      paddingLeft: px(8),
+      paddingRight: px(8),
+      width: '100%',
 
       '&:nth-of-type(1)': {
         alignItems: 'center',
@@ -111,54 +171,59 @@ const Title = styled('div')(
       },
     },
 
-    '> a': {
-      color: 'inherit',
-      fontSize: px(22),
-      marginTop: 'auto',
-    },
-
     span: {
       display: 'inline-block',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
     },
   },
-  ({ style }: StyledProps) => ({
-    maxWidth: `calc(100% - ${px(style.showSaveIcon ? imageSize + iconSize : imageSize)})`,
-
-    '@media (min-width: 768px)': {
-      maxWidth: `calc(100% - ${px(style.showSaveIcon ? imageSize + iconSize : imageSize)})`,
-    },
-
-    p: {
-      a: {
+  ({ style }: StyledProps) => {
+    return {
+      '[data-type="title-artist-wrapper"]': {
         color: style.trackNameColor,
-      },
+        maxWidth: `calc(100% - ${px(style.showSaveIcon ? iconSize : 0)})`,
 
-      '&:nth-of-type(2)': {
-        a: {
-          color: style.trackArtistColor,
+        div: {
+          '-webkit-mask-image': `linear-gradient(90deg,transparent 0, ${style.bgColor} 6px, ${style.bgColor} calc(100% - 12px),transparent)`,
         },
       },
-    },
-  }),
+      p: {
+        '&:nth-of-type(1)': {
+          color: style.trackNameColor,
+
+          a: {
+            color: style.trackNameColor,
+          },
+        },
+
+        '&:nth-of-type(2)': {
+          color: style.trackArtistColor,
+
+          a: {
+            color: style.trackArtistColor,
+          },
+        },
+      },
+    };
+  },
+  'ContentRSWP',
 );
 
 function Info(props: Props) {
   const {
     hideAttribution,
     isActive,
+    layout,
     locale,
     onFavoriteStatusChange,
     showSaveIcon,
     styles: { activeColor, bgColor, color, height, trackArtistColor, trackNameColor },
     token,
-    track: { artists = [], id, name, thumb, uri },
+    track: { artists = [], id, image, name, thumb, uri },
     updateSavedStatus,
   } = props;
   const [isSaved, setIsSaved] = useState(false);
   const isMounted = useRef(false);
   const previousId = usePrevious(id);
+  const isCompactLayout = layout === 'compact';
 
   const updateState = (state: boolean) => {
     if (!isMounted.current) {
@@ -237,10 +302,15 @@ function Info(props: Props) {
     );
   }
 
+  const content: Record<string, ReactNode> = {};
   const classes = [];
 
   if (isActive) {
     classes.push('rswp__active');
+  }
+
+  if (isCompactLayout) {
+    content.image = <img alt={name} src={image} />;
   }
 
   return (
@@ -251,74 +321,86 @@ function Info(props: Props) {
         activeColor,
         c: color,
         h: height,
+        layout,
         showSaveIcon,
       }}
     >
-      {thumb && (
-        <a
-          aria-label={title}
-          href={getSpotifyLink(uri)}
-          rel="noreferrer"
-          target="_blank"
-          title={title}
-        >
-          <img alt={name} src={thumb} />
-        </a>
-      )}
-      {!!name && (
-        <Title
-          style={{
-            showSaveIcon,
-            trackArtistColor,
-            trackNameColor,
-          }}
-        >
-          <p>
-            <span>
-              <a
-                aria-label={title}
-                href={getSpotifyLink(uri)}
-                rel="noreferrer"
-                target="_blank"
-                title={title}
-              >
-                {name}
-              </a>
-            </span>
-          </p>
-          <p title={artists.map(d => d.name).join(', ')}>
-            {artists.map((artist, index) => {
-              const artistTitle = getSpotifyLinkTitle(artist.name, locale.title);
+      <a
+        aria-label={title}
+        href={getSpotifyLink(uri)}
+        rel="noreferrer"
+        target="_blank"
+        title={title}
+      >
+        <img alt={name} src={isCompactLayout ? image : thumb} />
+      </a>
+      <ContentWrapper
+        style={{
+          layout,
+          showSaveIcon,
+        }}
+      >
+        {!!name && (
+          <Content
+            style={{
+              bgColor,
+              layout,
+              showSaveIcon,
+              trackArtistColor,
+              trackNameColor,
+            }}
+          >
+            <div data-type="title-artist-wrapper">
+              <div>
+                <p>
+                  <span>
+                    <a
+                      aria-label={title}
+                      href={getSpotifyLink(uri)}
+                      rel="noreferrer"
+                      target="_blank"
+                      title={title}
+                    >
+                      {name}
+                    </a>
+                  </span>
+                </p>
+                <p title={artists.map(d => d.name).join(', ')}>
+                  {artists.map((artist, index) => {
+                    const artistTitle = getSpotifyLinkTitle(artist.name, locale.title);
 
-              return (
-                <span key={artist.uri}>
-                  {index ? ', ' : ''}
-                  <a
-                    aria-label={artistTitle}
-                    href={getSpotifyLink(artist.uri)}
-                    rel="noreferrer"
-                    target="_blank"
-                    title={artistTitle}
-                  >
-                    {artist.name}
-                  </a>
-                </span>
-              );
-            })}
-          </p>
-          {!hideAttribution && (
-            <a
-              aria-label="Play on Spotify"
-              href={getSpotifyLink(uri)}
-              rel="noreferrer"
-              target="_blank"
-            >
-              <SpotifyLogo bgColor={bgColor} />
-            </a>
-          )}
-        </Title>
-      )}
-      {favorite}
+                    return (
+                      <span key={artist.uri}>
+                        {index ? ', ' : ''}
+                        <a
+                          aria-label={artistTitle}
+                          href={getSpotifyLink(artist.uri)}
+                          rel="noreferrer"
+                          target="_blank"
+                          title={artistTitle}
+                        >
+                          {artist.name}
+                        </a>
+                      </span>
+                    );
+                  })}
+                </p>
+              </div>
+            </div>
+            {favorite}
+          </Content>
+        )}
+        {!hideAttribution && (
+          <a
+            aria-label="Play on Spotify"
+            href={getSpotifyLink(uri)}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <SpotifyLogo bgColor={bgColor} />
+          </a>
+        )}
+      </ContentWrapper>
     </Wrapper>
   );
 }

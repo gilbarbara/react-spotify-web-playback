@@ -3,7 +3,7 @@ import { createRef, PureComponent, ReactNode } from 'react';
 import isEqual from '@gilbarbara/deep-equal';
 import memoize from 'memoize-one';
 
-import { getLocale, getSpotifyURIType } from '~/modules/getters';
+import { getLocale, getMergedStyles, getSpotifyURIType } from '~/modules/getters';
 import { loadSpotifyPlayer, parseVolume, round, validateURI } from '~/modules/helpers';
 import {
   getDevices,
@@ -16,7 +16,6 @@ import {
   setDevice,
   setVolume,
 } from '~/modules/spotify';
-import { getMergedStyles } from '~/modules/styled';
 
 import Actions from '~/components/Actions';
 import Controls from '~/components/Controls';
@@ -906,7 +905,14 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       track,
       volume,
     } = this.state;
-    const { hideAttribution = false, name, showSaveIcon, token, updateSavedStatus } = this.props;
+    const {
+      hideAttribution = false,
+      layout = 'responsive',
+      name,
+      showSaveIcon,
+      token,
+      updateSavedStatus,
+    } = this.props;
     const isReady = [STATUS.READY, STATUS.UNSUPPORTED].indexOf(status) >= 0;
     const isPlaybackError = errorType === 'playback_error';
 
@@ -925,6 +931,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           <Info
             hideAttribution={hideAttribution}
             isActive={isActive}
+            layout={layout}
             locale={this.locale}
             onFavoriteStatusChange={this.handleFavoriteStatusChange}
             showSaveIcon={showSaveIcon!}
@@ -942,6 +949,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           deviceId={deviceId}
           devices={devices}
           isDevicesOpen={isUnsupported && !deviceId}
+          layout={layout}
           locale={this.locale}
           onClickDevice={this.handleClickDevice}
           playerPosition={playerPosition}
@@ -957,6 +965,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           isExternalDevice={this.isExternalPlayer}
           isMagnified={isMagnified}
           isPlaying={isPlaying}
+          layout={layout}
           locale={this.locale}
           nextTracks={nextTracks}
           onChangeRange={this.handleChangeRange}
@@ -992,7 +1001,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     return (
       <Player ref={this.ref} data-ready={isReady} styles={this.styles}>
-        <Wrapper styles={this.styles}>{output.main}</Wrapper>
+        <Wrapper layout={layout} styles={this.styles}>
+          {output.main}
+        </Wrapper>
       </Player>
     );
   }
