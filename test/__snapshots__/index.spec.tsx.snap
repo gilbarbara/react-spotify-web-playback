@@ -28,40 +28,44 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         />
       </a>
       <div
-        class=" _ContentWrapperRSWP __1mr4xl1"
+        class=" _ContentWrapperRSWP __1c53jt9"
       >
         <div
-          class=" _ContentRSWP __1i66e8o"
+          class=" _ContentRSWP __1of0817"
         >
-          <div>
-            <p>
-              <span>
-                <a
-                  aria-label="Main Theme From Trouble Man on SPOTIFY"
-                  href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
-                  rel="noreferrer"
-                  target="_blank"
-                  title="Main Theme From Trouble Man on SPOTIFY"
-                >
-                  Main Theme From Trouble Man
-                </a>
-              </span>
-            </p>
-            <p
-              title="Marvin Gaye"
-            >
-              <span>
-                <a
-                  aria-label="Marvin Gaye on SPOTIFY"
-                  href="https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
-                  rel="noreferrer"
-                  target="_blank"
-                  title="Marvin Gaye on SPOTIFY"
-                >
-                  Marvin Gaye
-                </a>
-              </span>
-            </p>
+          <div
+            data-type="title-artist-wrapper"
+          >
+            <div>
+              <p>
+                <span>
+                  <a
+                    aria-label="Main Theme From Trouble Man on SPOTIFY"
+                    href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
+                    rel="noreferrer"
+                    target="_blank"
+                    title="Main Theme From Trouble Man on SPOTIFY"
+                  >
+                    Main Theme From Trouble Man
+                  </a>
+                </span>
+              </p>
+              <p
+                title="Marvin Gaye"
+              >
+                <span>
+                  <a
+                    aria-label="Marvin Gaye on SPOTIFY"
+                    href="https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
+                    rel="noreferrer"
+                    target="_blank"
+                    title="Marvin Gaye on SPOTIFY"
+                  >
+                    Marvin Gaye
+                  </a>
+                </span>
+              </p>
+            </div>
           </div>
         </div>
         <a
@@ -289,7 +293,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
         />
       </a>
       <div
-        class=" _ContentWrapperRSWP __1mr4xl1"
+        class=" _ContentWrapperRSWP __1c53jt9"
       >
         <a
           aria-label="Play on Spotify"
@@ -526,7 +530,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         />
       </a>
       <div
-        class=" _ContentWrapperRSWP __1mr4xl1"
+        class=" _ContentWrapperRSWP __1c53jt9"
       >
         <a
           aria-label="Play on Spotify"
@@ -770,40 +774,44 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         />
       </a>
       <div
-        class=" _ContentWrapperRSWP __anzta0"
+        class=" _ContentWrapperRSWP __1gmrvbw"
       >
         <div
-          class=" _ContentRSWP __1i66e8o"
+          class=" _ContentRSWP __1xwov57"
         >
-          <div>
-            <p>
-              <span>
-                <a
-                  aria-label="Main Theme From Trouble Man on SPOTIFY"
-                  href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
-                  rel="noreferrer"
-                  target="_blank"
-                  title="Main Theme From Trouble Man on SPOTIFY"
-                >
-                  Main Theme From Trouble Man
-                </a>
-              </span>
-            </p>
-            <p
-              title="Marvin Gaye"
-            >
-              <span>
-                <a
-                  aria-label="Marvin Gaye on SPOTIFY"
-                  href="https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
-                  rel="noreferrer"
-                  target="_blank"
-                  title="Marvin Gaye on SPOTIFY"
-                >
-                  Marvin Gaye
-                </a>
-              </span>
-            </p>
+          <div
+            data-type="title-artist-wrapper"
+          >
+            <div>
+              <p>
+                <span>
+                  <a
+                    aria-label="Main Theme From Trouble Man on SPOTIFY"
+                    href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
+                    rel="noreferrer"
+                    target="_blank"
+                    title="Main Theme From Trouble Man on SPOTIFY"
+                  >
+                    Main Theme From Trouble Man
+                  </a>
+                </span>
+              </p>
+              <p
+                title="Marvin Gaye"
+              >
+                <span>
+                  <a
+                    aria-label="Marvin Gaye on SPOTIFY"
+                    href="https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
+                    rel="noreferrer"
+                    target="_blank"
+                    title="Marvin Gaye on SPOTIFY"
+                  >
+                    Marvin Gaye
+                  </a>
+                </span>
+              </p>
+            </div>
           </div>
         </div>
         <a
@@ -947,7 +955,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
     >
       <div>
         <div
-          class=" _VolumeRSWP __1qv6xpq"
+          class=" _VolumeRSWP __me2fpj"
           data-component-name="Volume"
           data-value="1"
           style="position: top;"
@@ -974,7 +982,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
       </div>
       <div>
         <div
-          class=" _DevicesRSWP __1ihvu27"
+          class=" _DevicesRSWP __9ms3l2"
           data-component-name="Devices"
           data-device-id="19ks98hfbxc53vh34jd"
           style="position: top;"
@@ -1031,40 +1039,44 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         />
       </a>
       <div
-        class=" _ContentWrapperRSWP __1mr4xl1"
+        class=" _ContentWrapperRSWP __1c53jt9"
       >
         <div
-          class=" _ContentRSWP __b3b1fy"
+          class=" _ContentRSWP __mdrp5m"
         >
-          <div>
-            <p>
-              <span>
-                <a
-                  aria-label="Main Theme From Trouble Man on SPOTIFY"
-                  href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
-                  rel="noreferrer"
-                  target="_blank"
-                  title="Main Theme From Trouble Man on SPOTIFY"
-                >
-                  Main Theme From Trouble Man
-                </a>
-              </span>
-            </p>
-            <p
-              title="Marvin Gaye"
-            >
-              <span>
-                <a
-                  aria-label="Marvin Gaye on SPOTIFY"
-                  href="https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
-                  rel="noreferrer"
-                  target="_blank"
-                  title="Marvin Gaye on SPOTIFY"
-                >
-                  Marvin Gaye
-                </a>
-              </span>
-            </p>
+          <div
+            data-type="title-artist-wrapper"
+          >
+            <div>
+              <p>
+                <span>
+                  <a
+                    aria-label="Main Theme From Trouble Man on SPOTIFY"
+                    href="https://open.spotify.com/track/6KUjwoHktuX3du8laPVfO8"
+                    rel="noreferrer"
+                    target="_blank"
+                    title="Main Theme From Trouble Man on SPOTIFY"
+                  >
+                    Main Theme From Trouble Man
+                  </a>
+                </span>
+              </p>
+              <p
+                title="Marvin Gaye"
+              >
+                <span>
+                  <a
+                    aria-label="Marvin Gaye on SPOTIFY"
+                    href="https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
+                    rel="noreferrer"
+                    target="_blank"
+                    title="Marvin Gaye on SPOTIFY"
+                  >
+                    Marvin Gaye
+                  </a>
+                </span>
+              </p>
+            </div>
           </div>
           <button
             aria-label="Save to your favorites"

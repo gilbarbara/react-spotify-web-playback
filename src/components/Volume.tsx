@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
 import { usePrevious } from '~/modules/hooks';
-import { px, styled } from '~/modules/styled';
+import { CssLikeObject, px, styled } from '~/modules/styled';
 
-import { StyledProps, StylesOptions } from '~/types';
+import { Layout, StyledProps, StylesOptions } from '~/types';
 
 import ClickOutside from './ClickOutside';
 import VolumeHigh from './icons/VolumeHigh';
@@ -13,6 +13,7 @@ import VolumeMid from './icons/VolumeMid';
 import VolumeMute from './icons/VolumeMute';
 
 interface Props {
+  layout: Layout;
   playerPosition: string;
   setVolume: (volume: number) => any;
   styles: StylesOptions;
@@ -64,30 +65,34 @@ const Wrapper = styled('div')(
       display: 'block',
     },
   },
-  ({ style }: StyledProps) => ({
-    '> button': {
-      color: style.c,
-    },
-    '> div': {
-      [style.position]: '130%',
+  ({ style }: StyledProps) => {
+    const isCompact = style.layout === 'compact';
+    const spanStyles: CssLikeObject = isCompact
+      ? {
+          bottom: `-${px(6)}`,
+          borderTop: `6px solid #000`,
+        }
+      : {
+          [style.position === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
+          [style.position]: '-6px',
+        };
 
-      '> span': {
-        [style.position === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
-        [style.position]: '-6px',
+    return {
+      '> button': {
+        color: style.c,
       },
-    },
-  }),
+      '> div': {
+        [isCompact ? 'bottom' : style.position]: '130%',
+
+        '> span': spanStyles,
+      },
+    };
+  },
   'VolumeRSWP',
 );
 
 export default function Volume(props: Props) {
-  const {
-    playerPosition,
-    setVolume,
-    styles: { color },
-    title,
-    volume,
-  } = props;
+  const { layout, playerPosition, setVolume, styles, title, volume } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [volumeState, setVolumeState] = useState(volume);
   const timeoutRef = useRef<number>();
@@ -136,7 +141,7 @@ export default function Volume(props: Props) {
       <Wrapper
         data-component-name="Volume"
         data-value={volume}
-        style={{ c: color, position: playerPosition }}
+        style={{ c: styles.color, layout, position: playerPosition }}
       >
         {isOpen && (
           <div>

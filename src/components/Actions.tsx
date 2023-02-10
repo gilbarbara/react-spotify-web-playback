@@ -73,6 +73,7 @@ function Actions(props: Props) {
     <Wrapper data-component-name="Actions" style={{ h: styles.height, layout }}>
       {currentDeviceId && (
         <Volume
+          layout={layout}
           playerPosition={playerPosition}
           setVolume={setVolume}
           styles={styles}
@@ -84,6 +85,7 @@ function Actions(props: Props) {
         currentDeviceId={currentDeviceId}
         deviceId={deviceId}
         devices={devices}
+        layout={layout}
         locale={locale}
         onClickDevice={onClickDevice}
         open={isDevicesOpen}

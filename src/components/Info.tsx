@@ -26,13 +26,13 @@ interface Props {
 }
 
 const imageSize = 64;
-const iconSize = 42;
+const iconSize = 32;
 
 const Wrapper = styled('div')(
   {
     textAlign: 'left',
 
-    a: {
+    '> a': {
       display: 'inline-flex',
       textDecoration: 'none',
       minHeigth: px(64),
@@ -47,9 +47,9 @@ const Wrapper = styled('div')(
       alignItems: 'center',
       display: 'flex',
       fontSize: px(16),
-      height: px(40),
+      height: px(iconSize + 8),
       justifyContent: 'center',
-      width: px(40),
+      width: px(iconSize),
     },
   },
   ({ style }: StyledProps) => {
@@ -116,7 +116,6 @@ const ContentWrapper = styled('div')(
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    width: '100%',
 
     '> a': {
       fontSize: px(22),
@@ -129,9 +128,11 @@ const ContentWrapper = styled('div')(
 
     if (isCompactLayout) {
       styles.padding = px(8);
+      styles.width = '100%';
     } else {
       styles.minHeight = px(imageSize);
       styles.marginLeft = px(8);
+      styles.width = `calc(100% - ${px(imageSize + 8)})`;
     }
 
     return styles;
@@ -144,17 +145,20 @@ const Content = styled('div')(
     display: 'flex',
     justifyContent: 'start',
 
-    div: {
-      whiteSpace: 'nowrap',
+    '[data-type="title-artist-wrapper"]': {
+      overflow: 'hidden',
+
+      div: {
+        marginLeft: `-${px(8)}`,
+        whiteSpace: 'nowrap',
+      },
     },
 
     p: {
       fontSize: px(14),
       lineHeight: 1.3,
-      paddingRight: px(5),
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
+      paddingLeft: px(8),
+      paddingRight: px(8),
       width: '100%',
 
       '&:nth-of-type(1)': {
@@ -169,21 +173,30 @@ const Content = styled('div')(
 
     span: {
       display: 'inline-block',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
     },
   },
   ({ style }: StyledProps) => {
     return {
-      div: {
+      '[data-type="title-artist-wrapper"]': {
+        color: style.trackNameColor,
         maxWidth: `calc(100% - ${px(style.showSaveIcon ? iconSize : 0)})`,
+
+        div: {
+          '-webkit-mask-image': `linear-gradient(90deg,transparent 0, ${style.bgColor} 6px, ${style.bgColor} calc(100% - 12px),transparent)`,
+        },
       },
       p: {
-        a: {
+        '&:nth-of-type(1)': {
           color: style.trackNameColor,
+
+          a: {
+            color: style.trackNameColor,
+          },
         },
 
         '&:nth-of-type(2)': {
+          color: style.trackArtistColor,
+
           a: {
             color: style.trackArtistColor,
           },
@@ -330,46 +343,49 @@ function Info(props: Props) {
         {!!name && (
           <Content
             style={{
+              bgColor,
               layout,
               showSaveIcon,
               trackArtistColor,
               trackNameColor,
             }}
           >
-            <div>
-              <p>
-                <span>
-                  <a
-                    aria-label={title}
-                    href={getSpotifyLink(uri)}
-                    rel="noreferrer"
-                    target="_blank"
-                    title={title}
-                  >
-                    {name}
-                  </a>
-                </span>
-              </p>
-              <p title={artists.map(d => d.name).join(', ')}>
-                {artists.map((artist, index) => {
-                  const artistTitle = getSpotifyLinkTitle(artist.name, locale.title);
+            <div data-type="title-artist-wrapper">
+              <div>
+                <p>
+                  <span>
+                    <a
+                      aria-label={title}
+                      href={getSpotifyLink(uri)}
+                      rel="noreferrer"
+                      target="_blank"
+                      title={title}
+                    >
+                      {name}
+                    </a>
+                  </span>
+                </p>
+                <p title={artists.map(d => d.name).join(', ')}>
+                  {artists.map((artist, index) => {
+                    const artistTitle = getSpotifyLinkTitle(artist.name, locale.title);
 
-                  return (
-                    <span key={artist.uri}>
-                      {index ? ', ' : ''}
-                      <a
-                        aria-label={artistTitle}
-                        href={getSpotifyLink(artist.uri)}
-                        rel="noreferrer"
-                        target="_blank"
-                        title={artistTitle}
-                      >
-                        {artist.name}
-                      </a>
-                    </span>
-                  );
-                })}
-              </p>
+                    return (
+                      <span key={artist.uri}>
+                        {index ? ', ' : ''}
+                        <a
+                          aria-label={artistTitle}
+                          href={getSpotifyLink(artist.uri)}
+                          rel="noreferrer"
+                          target="_blank"
+                          title={artistTitle}
+                        >
+                          {artist.name}
+                        </a>
+                      </span>
+                    );
+                  })}
+                </p>
+              </div>
             </div>
             {favorite}
           </Content>
