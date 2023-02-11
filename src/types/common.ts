@@ -33,6 +33,11 @@ export interface Props {
    */
   initialVolume?: number;
   /**
+   * Show the volume inline for the "responsive" layout for 768px and above.
+   * @default true
+   */
+  inlineVolume?: boolean;
+  /**
    * The layout of the player.
    * @default responsive
    */

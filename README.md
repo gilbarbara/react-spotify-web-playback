@@ -79,6 +79,9 @@ Hide the Spotify logo.
 **initialVolume** `number` between 0 and 1. _default 1_  
 The initial volume for the player. It's not used for external devices.
 
+**inlineVolume** `boolean` _default true_  
+Show the volume inline for in the "responsive" layout for 768px and above.
+
 **layout** `'compact' | 'responsive'`. _default 'responsive'_ The layout of the player.
 
 **locale** `Locale`  

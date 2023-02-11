@@ -907,6 +907,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     } = this.state;
     const {
       hideAttribution = false,
+      inlineVolume = true,
       layout = 'responsive',
       name,
       showSaveIcon,
@@ -948,6 +949,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           currentDeviceId={currentDeviceId}
           deviceId={deviceId}
           devices={devices}
+          inlineVolume={inlineVolume}
           isDevicesOpen={isUnsupported && !deviceId}
           layout={layout}
           locale={this.locale}

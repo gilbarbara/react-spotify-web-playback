@@ -11,6 +11,7 @@ interface Props {
   currentDeviceId: string;
   deviceId: string;
   devices: SpotifyDevice[];
+  inlineVolume: boolean;
   isDevicesOpen: boolean;
   layout: Layout;
   locale: Locale;
@@ -59,6 +60,7 @@ function Actions(props: Props) {
     currentDeviceId,
     deviceId,
     devices,
+    inlineVolume,
     isDevicesOpen,
     layout,
     locale,
@@ -71,16 +73,6 @@ function Actions(props: Props) {
 
   return (
     <Wrapper data-component-name="Actions" style={{ h: styles.height, layout }}>
-      {currentDeviceId && (
-        <Volume
-          layout={layout}
-          playerPosition={playerPosition}
-          setVolume={setVolume}
-          styles={styles}
-          title={locale.volume}
-          volume={volume}
-        />
-      )}
       <Devices
         currentDeviceId={currentDeviceId}
         deviceId={deviceId}
@@ -93,6 +85,17 @@ function Actions(props: Props) {
         styles={styles}
         title={locale.devices}
       />
+      {currentDeviceId && (
+        <Volume
+          inlineVolume={inlineVolume}
+          layout={layout}
+          playerPosition={playerPosition}
+          setVolume={setVolume}
+          styles={styles}
+          title={locale.volume}
+          volume={volume}
+        />
+      )}
     </Wrapper>
   );
 }
