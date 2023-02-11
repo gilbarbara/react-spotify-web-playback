@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider';
 
-import { usePrevious } from '~/modules/hooks';
+import { useMediaQuery, usePrevious } from '~/modules/hooks';
 import { CssLikeObject, px, styled } from '~/modules/styled';
 
 import { Layout, StyledProps, StylesOptions } from '~/types';
@@ -13,6 +13,7 @@ import VolumeMid from './icons/VolumeMid';
 import VolumeMute from './icons/VolumeMute';
 
 interface Props {
+  inlineVolume: boolean;
   layout: Layout;
   playerPosition: string;
   setVolume: (volume: number) => any;
@@ -21,7 +22,7 @@ interface Props {
   volume: number;
 }
 
-const Wrapper = styled('div')(
+const WrapperWithToggle = styled('div')(
   {
     display: 'none',
     'pointer-events': 'all',
@@ -91,12 +92,42 @@ const Wrapper = styled('div')(
   'VolumeRSWP',
 );
 
+const WrapperInline = styled('div')(
+  {
+    display: 'none',
+    padding: `0 ${px(8)}`,
+    'pointer-events': 'all',
+
+    '> div': {
+      display: 'flex',
+      padding: `0 ${px(5)}`,
+      width: px(100),
+    },
+
+    '> span': {
+      display: 'flex',
+      fontSize: px(24),
+    },
+
+    '@media (any-pointer: fine)': {
+      alignItems: 'center',
+      display: 'flex',
+    },
+  },
+  ({ style }) => ({
+    color: style.c,
+  }),
+  'VolumeInlineRSWP',
+);
+
 export default function Volume(props: Props) {
-  const { layout, playerPosition, setVolume, styles, title, volume } = props;
+  const { inlineVolume, layout, playerPosition, setVolume, styles, title, volume } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [volumeState, setVolumeState] = useState(volume);
   const timeoutRef = useRef<number>();
   const previousVolume = usePrevious(volume);
+  const isMediumScreen = useMediaQuery('(min-width: 768px)');
+  const isInline = layout === 'responsive' && inlineVolume && isMediumScreen;
 
   useEffect(() => {
     if (previousVolume !== volume && volume !== volumeState) {
@@ -108,8 +139,9 @@ export default function Volume(props: Props) {
     setIsOpen(s => !s);
   }, []);
 
-  const handleChangeSlider = ({ y }: RangeSliderPosition) => {
-    const currentvolume = Math.round(y) / 100;
+  const handleChangeSlider = ({ x, y }: RangeSliderPosition) => {
+    const value = isInline ? x : y;
+    const currentvolume = Math.round(value) / 100;
 
     clearTimeout(timeoutRef.current);
 
@@ -136,9 +168,41 @@ export default function Volume(props: Props) {
     icon = <VolumeMid />;
   }
 
+  if (isInline) {
+    return (
+      <WrapperInline data-component-name="Volume" data-value={volume} style={{ c: styles.color }}>
+        <span>{icon}</span>
+        <div>
+          <RangeSlider
+            axis="x"
+            className="volume"
+            onAfterEnd={handleAfterEnd}
+            onChange={handleChangeSlider}
+            styles={{
+              options: {
+                thumbBorder: 0,
+                thumbBorderRadius: styles.sliderHandleBorderRadius,
+                thumbColor: styles.sliderHandleColor,
+                thumbSize: styles.sliderHeight + 6,
+                height: styles.sliderHeight,
+                padding: 0,
+                rangeColor: styles.sliderColor,
+                trackBorderRadius: styles.sliderTrackBorderRadius,
+                trackColor: styles.sliderTrackColor,
+              },
+            }}
+            x={volume * 100}
+            xMax={100}
+            xMin={0}
+          />
+        </div>
+      </WrapperInline>
+    );
+  }
+
   return (
     <ClickOutside isActive={isOpen} onClick={handleClickToggleList}>
-      <Wrapper
+      <WrapperWithToggle
         data-component-name="Volume"
         data-value={volume}
         style={{ c: styles.color, layout, position: playerPosition }}
@@ -172,7 +236,7 @@ export default function Volume(props: Props) {
         <button aria-label={title} onClick={handleClickToggleList} title={title} type="button">
           {icon}
         </button>
-      </Wrapper>
+      </WrapperWithToggle>
     </ClickOutside>
   );
 }

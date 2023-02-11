@@ -15,9 +15,17 @@ export const domRect = {
     top: 0,
     width: 6,
   },
+  volumeInline: {
+    bottom: 50,
+    height: 4,
+    left: 900,
+    right: 1000,
+    top: 0,
+    width: 90,
+  },
 };
 
-export function setBoundingClientRect(type: 'slider' | 'volume') {
+export function setBoundingClientRect(type: 'slider' | 'volume' | 'volumeInline') {
   // @ts-ignore
   Element.prototype.getBoundingClientRect = () => domRect[type];
 }

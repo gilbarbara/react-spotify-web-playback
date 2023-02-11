@@ -14,6 +14,7 @@ module.exports = {
     '^~/(.*)$': '<rootDir>/src/$1',
   },
   preset: 'ts-jest',
+  setupFiles: ['<rootDir>/test/__setup__/setupFiles.ts'],
   setupFilesAfterEnv: ['<rootDir>/test/__setup__/setupFilesAfterEnv.ts'],
   testEnvironment: 'jsdom',
   testEnvironmentOptions: {
