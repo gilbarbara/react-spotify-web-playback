@@ -31,10 +31,10 @@ If you are using an SSR framework, you'll need to use a [dynamic import](https:/
 
 ## Props
 
-**autoPlay**: `boolean`  
+**autoPlay** `boolean` ▶︎ false  
 Start the player immediately.
 
-**callback**: `(state: CallbackState) => void`  
+**callback** `(state: CallbackState) => void`  
 Get status updates from the player.
 
 <details>
@@ -73,16 +73,17 @@ interface CallbackState extends State {
 
 </details>
 
-**hideAttribution** `boolean`  
+**hideAttribution** `boolean` ▶︎ false  
 Hide the Spotify logo.
 
-**initialVolume** `number` between 0 and 1. _default 1_  
+**initialVolume** `number` between 0 and 1. ▶︎ 1  
 The initial volume for the player. It's not used for external devices.
 
-**inlineVolume** `boolean` _default true_  
-Show the volume inline for in the "responsive" layout for 768px and above.
+**inlineVolume** `boolean` ▶︎ true  
+Show the volume inline for the "responsive" layout for 768px and above.
 
-**layout** `'compact' | 'responsive'`. _default 'responsive'_ The layout of the player.
+**layout** `'compact' | 'responsive'` ▶︎ 'responsive'  
+The layout of the player.
 
 **locale** `Locale`  
 The strings used for aria-label/title attributes.
@@ -108,41 +109,41 @@ interface Locale {
 
 </details>
 
-**magnifySliderOnHover**: `boolean`  
+**magnifySliderOnHover**: `boolean` ▶︎ false  
 Magnify the player's slider on hover.
 
-**name** `string` _default: Spotify Web Player_  
+**name** `string` ▶︎ 'Spotify Web Player'  
 The name of the player.
 
 **offset** `number`  
 The position of the list/tracks you want to start the player.
 
-**persistDeviceSelection** `boolean`  
+**persistDeviceSelection** `boolean` ▶︎ false  
 Save the device selection.
 
 **play** `boolean`  
-Control the player's status
+Control the player's status.
 
-**showSaveIcon** `boolean`  
+**showSaveIcon** `boolean` ▶︎ false  
 Display a Favorite button. It needs additional scopes in your token.
 
 **styles** `object`  
 Customize the player's appearance. Check `StylesOptions` in the [types](src/types/common.ts).
 
-**syncExternalDevice** `boolean`  
+**syncExternalDevice** `boolean` ▶︎ false  
 If there are no URIs and an external device is playing, use the external player context.
 
-**syncExternalDeviceInterval** `number` _default: 5_  
+**syncExternalDeviceInterval** `number` ▶︎ 5  
 The time in seconds that the player will sync with external devices.
 
 **token** `string` **REQUIRED**  
-A Spotify token. More info below.
+A Spotify token. More info is below.
 
 **updateSavedStatus** `(fn: (status: boolean) => any) => any`  
 Provide you with a function to sync the track saved status in the player.  
 _This works in addition to the **showSaveIcon** prop, and it is only needed if you keep track's saved status in your app._
 
-**uris** `string | string[]`  
+**uris** `string | string[]` **REQUIRED**  
 A list of Spotify [URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
 
 ## Spotify Token
