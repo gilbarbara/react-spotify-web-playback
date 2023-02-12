@@ -36,6 +36,7 @@ import {
   SpotifyPlayerCallback,
   SpotifyPlayerStatus,
   State,
+  Status,
   StylesOptions,
 } from './types';
 
@@ -914,7 +915,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       token,
       updateSavedStatus,
     } = this.props;
-    const isReady = [STATUS.READY, STATUS.UNSUPPORTED].indexOf(status) >= 0;
+    const isReady = ([STATUS.READY, STATUS.UNSUPPORTED] as Status[]).indexOf(status) >= 0;
     const isPlaybackError = errorType === 'playback_error';
 
     const output: Record<string, ReactNode> = {

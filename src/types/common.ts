@@ -1,10 +1,15 @@
 /* eslint-disable camelcase */
 import { ReactNode } from 'react';
 
+import { STATUS, TYPE } from '~/constants';
+
 import { SpotifyDevice, SpotifyPlayerTrack, SpotifyTrack } from './spotify';
 
+export type Status = (typeof STATUS)[keyof typeof STATUS];
+export type Type = (typeof TYPE)[keyof typeof TYPE];
+
 export interface CallbackState extends State {
-  type: string;
+  type: Type;
 }
 
 export type ErrorType = 'authentication_error' | 'player_status' | 'playback_error';
@@ -100,7 +105,7 @@ export interface Props {
   /**
    * A list of Spotify URIs.
    */
-  uris?: string | string[];
+  uris: string | string[];
 }
 
 export interface State {
@@ -121,7 +126,7 @@ export interface State {
   position: number;
   previousTracks: SpotifyTrack[];
   progressMs: number;
-  status: string;
+  status: Status;
   track: SpotifyPlayerTrack;
   volume: number;
 }

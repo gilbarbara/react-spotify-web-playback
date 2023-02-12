@@ -83,6 +83,7 @@
     "test:coverage": "jest --bail --coverage",
     "test:watch": "jest --watchAll --verbose",
     "lint": "eslint --ext .ts,.tsx src test",
+    "typecheck": "tsc --noEmit",
     "format": "prettier \"**/*.{js,jsx,json,yml,yaml,css,less,scss,ts,tsx,md,graphql,mdx}\" --write",
     "validate": "npm run lint && npm run test:coverage && npm run build && npm run size",
     "size": "size-limit",
