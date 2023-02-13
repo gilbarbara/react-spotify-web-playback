@@ -32,12 +32,12 @@ const Wrapper = styled('div')(
     },
 
     '.rswp_progress': {
-      marginRight: px(8),
+      marginRight: px(style.sliderHeight + 6),
       textAlign: 'right',
     },
 
     '.rswp_duration': {
-      marginLeft: px(8),
+      marginLeft: px(style.sliderHeight + 6),
       textAlign: 'left',
     },
   }),
@@ -62,6 +62,7 @@ function Slider(props: Props) {
       onMouseLeave={onToggleMagnify}
       style={{
         c: styles.color,
+        sliderHeight: styles.sliderHeight,
       }}
     >
       <div className="rswp_progress">{millisecondsToTime(progressMs)}</div>

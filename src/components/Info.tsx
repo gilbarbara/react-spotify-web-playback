@@ -78,7 +78,7 @@ const Wrapper = styled('div')(
     } else {
       styles.alignItems = 'center';
       styles.display = 'flex';
-      styles.height = px(style.h);
+      styles.minHeight = px(80);
       styles['@media (max-width: 767px)'] = {
         borderBottom: `1px solid ${fade(style.c, 40)}`,
         paddingLeft: px(8),
@@ -311,6 +311,10 @@ function Info(props: Props) {
 
   if (isCompactLayout) {
     content.image = <img alt={name} src={image} />;
+  }
+
+  if (!id) {
+    return <div />;
   }
 
   return (
