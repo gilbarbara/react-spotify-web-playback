@@ -21,7 +21,6 @@ interface Props {
   open: boolean;
   playerPosition: string;
   styles: StylesOptions;
-  title: string;
 }
 
 interface DeviceList {
@@ -101,8 +100,8 @@ const Wrapper = styled('div')(
           borderTop: `6px solid #000`,
         }
       : {
-          [style.position === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
-          [style.position]: '-6px',
+          [style.p === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
+          [style.p]: '-6px',
         };
 
     return {
@@ -111,7 +110,7 @@ const Wrapper = styled('div')(
       },
 
       '> div': {
-        [isCompact ? 'bottom' : style.position]: '120%',
+        [isCompact ? 'bottom' : style.p]: '120%',
 
         '> span': spanStyles,
       },
@@ -164,7 +163,6 @@ export default function Devices(props: Props) {
     open,
     playerPosition,
     styles: { color },
-    title,
   } = props;
   const [isOpen, setOpen] = useState(open);
 
@@ -210,7 +208,7 @@ export default function Devices(props: Props) {
         style={{
           c: color,
           layout,
-          position: playerPosition,
+          p: playerPosition,
         }}
       >
         {!!devices.length && (
@@ -246,7 +244,12 @@ export default function Devices(props: Props) {
                 <span />
               </div>
             )}
-            <button aria-label={title} onClick={handleClickToggleList} title={title} type="button">
+            <button
+              aria-label={locale.devices}
+              onClick={handleClickToggleList}
+              title={locale.devices}
+              type="button"
+            >
               {icon}
             </button>
           </>

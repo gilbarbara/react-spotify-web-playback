@@ -69,6 +69,7 @@ function Slider(props: Props) {
       <RangeSlider
         axis="x"
         className="slider"
+        data-component-name="progress-bar"
         onChange={handleChangeRange}
         styles={{
           options: {

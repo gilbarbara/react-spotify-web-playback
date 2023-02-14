@@ -4,7 +4,7 @@ import RangeSlider, { RangeSliderPosition } from '@gilbarbara/react-range-slider
 import { useMediaQuery, usePrevious } from '~/modules/hooks';
 import { CssLikeObject, px, styled } from '~/modules/styled';
 
-import { Layout, StyledProps, StylesOptions } from '~/types';
+import { Layout, Locale, StyledProps, StylesOptions } from '~/types';
 
 import ClickOutside from './ClickOutside';
 import VolumeHigh from './icons/VolumeHigh';
@@ -15,10 +15,10 @@ import VolumeMute from './icons/VolumeMute';
 interface Props {
   inlineVolume: boolean;
   layout: Layout;
+  locale: Locale;
   playerPosition: string;
   setVolume: (volume: number) => any;
   styles: StylesOptions;
-  title: string;
   volume: number;
 }
 
@@ -74,8 +74,8 @@ const WrapperWithToggle = styled('div')(
           borderTop: `6px solid #000`,
         }
       : {
-          [style.position === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
-          [style.position]: '-6px',
+          [style.p === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
+          [style.p]: '-6px',
         };
 
     return {
@@ -83,7 +83,7 @@ const WrapperWithToggle = styled('div')(
         color: style.c,
       },
       '> div': {
-        [isCompact ? 'bottom' : style.position]: '130%',
+        [isCompact ? 'bottom' : style.p]: '130%',
 
         '> span': spanStyles,
       },
@@ -121,7 +121,7 @@ const WrapperInline = styled('div')(
 );
 
 export default function Volume(props: Props) {
-  const { inlineVolume, layout, playerPosition, setVolume, styles, title, volume } = props;
+  const { inlineVolume, layout, locale, playerPosition, setVolume, styles, volume } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [volumeState, setVolumeState] = useState(volume);
   const timeoutRef = useRef<number>();
@@ -176,6 +176,7 @@ export default function Volume(props: Props) {
           <RangeSlider
             axis="x"
             className="volume"
+            data-component-name="volume-bar"
             onAfterEnd={handleAfterEnd}
             onChange={handleChangeSlider}
             styles={{
@@ -204,13 +205,14 @@ export default function Volume(props: Props) {
       <WrapperWithToggle
         data-component-name="Volume"
         data-value={volume}
-        style={{ c: styles.color, layout, position: playerPosition }}
+        style={{ c: styles.color, layout, p: playerPosition }}
       >
         {isOpen && (
           <div>
             <RangeSlider
               axis="y"
               className="volume"
+              data-component-name="volume-bar"
               onAfterEnd={handleAfterEnd}
               onChange={handleChangeSlider}
               styles={{
@@ -232,7 +234,12 @@ export default function Volume(props: Props) {
             <span />
           </div>
         )}
-        <button aria-label={title} onClick={handleClickToggleList} title={title} type="button">
+        <button
+          aria-label={locale.volume}
+          onClick={handleClickToggleList}
+          title={locale.volume}
+          type="button"
+        >
           {icon}
         </button>
       </WrapperWithToggle>

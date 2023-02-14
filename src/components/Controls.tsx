@@ -13,6 +13,7 @@ import Slider from './Slider';
 import { Spotify } from '../../global';
 
 interface Props {
+  devices: JSX.Element | null;
   durationMs: number;
   isExternalDevice: boolean;
   isMagnified: boolean;
@@ -29,36 +30,20 @@ interface Props {
   previousTracks: Spotify.Track[];
   progressMs: number;
   styles: StylesOptions;
+  volume: JSX.Element | null;
 }
 
 const Wrapper = styled('div')(
   {
-    '.rswp__buttons': {
-      alignItems: 'center',
-      display: 'flex',
-      justifyContent: 'center',
-      marginBottom: px(8),
-
-      '> div': {
-        alignItems: 'center',
-        display: 'flex',
-        minWidth: px(32),
-        textAlign: 'center',
-      },
+    '.rswp__volume': {
+      position: 'absolute',
+      right: 0,
+      top: 0,
     },
-
-    button: {
-      alignItems: 'center',
-      display: 'inline-flex',
-      fontSize: px(16),
-      height: px(32),
-      justifyContent: 'center',
-      width: px(32),
-
-      '&.rswp__toggle': {
-        fontSize: px(32),
-        width: px(48),
-      },
+    '.rswp__devices': {
+      position: 'absolute',
+      left: 0,
+      top: 0,
     },
   },
   ({ style }: StyledProps) => {
@@ -74,18 +59,53 @@ const Wrapper = styled('div')(
       };
     }
 
-    return {
-      button: {
-        color: style.c,
-      },
-      ...styles,
-    };
+    return styles;
   },
   'ControlsRSWP',
 );
 
+const Buttons = styled('div')(
+  {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: px(8),
+    position: 'relative',
+
+    '> div': {
+      alignItems: 'center',
+      display: 'flex',
+      minWidth: px(32),
+      textAlign: 'center',
+    },
+  },
+  () => ({}),
+  'ControlsButtonsRSWP',
+);
+
+const Button = styled('button')(
+  {
+    alignItems: 'center',
+    display: 'inline-flex',
+    fontSize: px(16),
+    height: px(32),
+    justifyContent: 'center',
+    width: px(32),
+
+    '&.rswp__toggle': {
+      fontSize: px(32),
+      width: px(48),
+    },
+  },
+  ({ style }: StyledProps) => ({
+    color: style.c,
+  }),
+  'ControlsButtonRSWP',
+);
+
 function Controls(props: Props) {
   const {
+    devices,
     durationMs,
     isExternalDevice,
     isMagnified,
@@ -102,49 +122,55 @@ function Controls(props: Props) {
     previousTracks,
     progressMs,
     styles,
+    volume,
   } = props;
 
   const { color } = styles;
 
   return (
-    <Wrapper data-component-name="Controls" data-playing={isPlaying} style={{ c: color, layout }}>
-      <div className="rswp__buttons">
+    <Wrapper data-component-name="Controls" data-playing={isPlaying} style={{ layout }}>
+      <Buttons>
+        {devices && <div className="rswp__devices">{devices}</div>}
         <div>
           {(!!previousTracks.length || isExternalDevice) && (
-            <button
+            <Button
               aria-label={locale.previous}
               onClick={onClickPrevious}
+              style={{ c: color }}
               title={locale.previous}
               type="button"
             >
               <Previous />
-            </button>
+            </Button>
           )}
         </div>
         <div>
-          <button
+          <Button
             aria-label={isPlaying ? locale.pause : locale.play}
             className="rswp__toggle"
             onClick={onClickTogglePlay}
+            style={{ c: color }}
             title={isPlaying ? locale.pause : locale.play}
             type="button"
           >
             {isPlaying ? <Pause /> : <Play />}
-          </button>
+          </Button>
         </div>
         <div>
           {(!!nextTracks.length || isExternalDevice) && (
-            <button
+            <Button
               aria-label={locale.next}
               onClick={onClickNext}
+              style={{ c: color }}
               title={locale.next}
               type="button"
             >
               <Next />
-            </button>
+            </Button>
           )}
         </div>
-      </div>
+        {volume && <div className="rswp__volume">{volume}</div>}
+      </Buttons>
       <Slider
         durationMs={durationMs}
         isMagnified={isMagnified}

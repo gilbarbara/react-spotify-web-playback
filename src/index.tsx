@@ -19,10 +19,12 @@ import {
 
 import Actions from '~/components/Actions';
 import Controls from '~/components/Controls';
+import Devices from '~/components/Devices';
 import ErrorMessage from '~/components/ErrorMessage';
 import Info from '~/components/Info';
 import Loader from '~/components/Loader';
 import Player from '~/components/Player';
+import Volume from '~/components/Volume';
 import Wrapper from '~/components/Wrapper';
 
 import { STATUS, TYPE } from '~/constants';
@@ -60,6 +62,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   private playerProgressInterval?: number;
   private playerSyncInterval?: number;
   private ref = createRef<HTMLDivElement>();
+  private renderInlineActions = false;
+  private resizeTimeout?: number;
   private seekUpdateInterval = 100;
   private styles: StylesOptions;
   private syncTimeout?: number;
@@ -162,6 +166,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
 
     await loadSpotifyPlayer();
+
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
   }
 
   public async componentDidUpdate(previousProps: Props, previousState: State) {
@@ -296,6 +303,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     clearInterval(this.playerSyncInterval);
     clearInterval(this.playerProgressInterval);
     clearTimeout(this.syncTimeout);
+
+    window.removeEventListener('resize', this.handleResize);
   }
 
   private handleCallback(state: CallbackState): void {
@@ -557,6 +566,17 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       isInitializing: false,
       status: device_id ? STATUS.READY : STATUS.IDLE,
     });
+  };
+
+  private handleResize = () => {
+    const { layout = 'responsive' } = this.props;
+
+    clearTimeout(this.resizeTimeout);
+
+    this.resizeTimeout = window.setTimeout(() => {
+      this.renderInlineActions = window.innerWidth >= 768 && layout === 'responsive';
+      this.forceUpdate();
+    }, 100);
   };
 
   private handleToggleMagnify = () => {
@@ -945,25 +965,44 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         );
       }
 
-      output.actions = (
-        <Actions
+      output.devices = (
+        <Devices
           currentDeviceId={currentDeviceId}
           deviceId={deviceId}
           devices={devices}
-          inlineVolume={inlineVolume}
-          isDevicesOpen={isUnsupported && !deviceId}
           layout={layout}
           locale={this.locale}
           onClickDevice={this.handleClickDevice}
+          open={isUnsupported && !deviceId}
+          playerPosition={playerPosition}
+          styles={this.styles}
+        />
+      );
+
+      output.volume = currentDeviceId ? (
+        <Volume
+          inlineVolume={inlineVolume}
+          layout={layout}
+          locale={this.locale}
           playerPosition={playerPosition}
           setVolume={this.setVolume}
           styles={this.styles}
           volume={volume}
         />
-      );
+      ) : null;
+
+      if (this.renderInlineActions) {
+        output.actions = (
+          <Actions layout={layout} styles={this.styles}>
+            {output.devices}
+            {output.volume}
+          </Actions>
+        );
+      }
 
       output.controls = (
         <Controls
+          devices={this.renderInlineActions ? null : output.devices}
           durationMs={track.durationMs}
           isExternalDevice={this.isExternalPlayer}
           isMagnified={isMagnified}
@@ -980,6 +1019,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           previousTracks={previousTracks}
           progressMs={progressMs}
           styles={this.styles}
+          volume={this.renderInlineActions ? null : output.volume}
         />
       );
 

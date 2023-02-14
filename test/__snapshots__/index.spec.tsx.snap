@@ -89,16 +89,46 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
       </div>
     </div>
     <div
-      class=" _ControlsRSWP __1fbkdr4"
+      class=" _ControlsRSWP __11aa6ep"
       data-component-name="Controls"
       data-playing="true"
     >
       <div
-        class="rswp__buttons"
+        class=" _ControlsButtonsRSWP __3hmsj"
       >
+        <div
+          class="rswp__devices"
+        >
+          <div>
+            <div
+              class=" _DevicesRSWP __z23pve"
+              data-component-name="Devices"
+              data-device-id="19ks98hfbxc53vh34jd"
+            >
+              <button
+                aria-label="Devices"
+                title="Devices"
+                type="button"
+              >
+                <svg
+                  height="1em"
+                  preserveAspectRatio="xMidYMid"
+                  viewBox="0 0 64 64"
+                  width="1em"
+                >
+                  <path
+                    d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
         <div>
           <button
             aria-label="Previous"
+            class=" _ControlsButtonRSWP __a3qe0k"
             title="Previous"
             type="button"
           >
@@ -118,7 +148,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         <div>
           <button
             aria-label="Pause"
-            class="rswp__toggle"
+            class="rswp__toggle _ControlsButtonRSWP __a3qe0k"
             title="Pause"
             type="button"
           >
@@ -138,6 +168,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         <div>
           <button
             aria-label="Next"
+            class=" _ControlsButtonRSWP __a3qe0k"
             title="Next"
             type="button"
           >
@@ -154,6 +185,64 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
             </svg>
           </button>
         </div>
+        <div
+          class="rswp__volume"
+        >
+          <div
+            class=" _VolumeInlineRSWP __a3qe0k"
+            data-component-name="Volume"
+            data-value="1"
+          >
+            <span>
+              <svg
+                data-component-name="VolumeHigh"
+                height="1em"
+                preserveAspectRatio="xMidYMid"
+                viewBox="0 0 64 64"
+                width="1em"
+              >
+                <path
+                  d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <div>
+              <div
+                class="volume"
+                data-component-name="volume-bar"
+                style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
+              >
+                <div
+                  class="volume__track"
+                  role="presentation"
+                  style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
+                >
+                  <div
+                    class="volume__range"
+                    style="width: 100%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
+                  />
+                  <div
+                    role="presentation"
+                    style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 100%; bottom: 0%;"
+                  >
+                    <span
+                      aria-label="slider handle"
+                      aria-orientation="horizontal"
+                      aria-valuemax="100"
+                      aria-valuemin="0"
+                      aria-valuenow="100"
+                      class="volume__thumb"
+                      role="slider"
+                      style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
+                      tabindex="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         class=" _SliderRSWP __q14q70"
@@ -167,6 +256,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         </div>
         <div
           class="slider"
+          data-component-name="progress-bar"
           style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
         >
           <div
@@ -203,90 +293,6 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         </div>
       </div>
     </div>
-    <div
-      class=" _ActionsRSWP __ofsl12"
-      data-component-name="Actions"
-    >
-      <div>
-        <div
-          class=" _DevicesRSWP __z23pve"
-          data-component-name="Devices"
-          data-device-id="19ks98hfbxc53vh34jd"
-          style="position: top;"
-        >
-          <button
-            aria-label="Devices"
-            title="Devices"
-            type="button"
-          >
-            <svg
-              height="1em"
-              preserveAspectRatio="xMidYMid"
-              viewBox="0 0 64 64"
-              width="1em"
-            >
-              <path
-                d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div
-        class=" _VolumeInlineRSWP __a3qe0k"
-        data-component-name="Volume"
-        data-value="1"
-      >
-        <span>
-          <svg
-            data-component-name="VolumeHigh"
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 64 64"
-            width="1em"
-          >
-            <path
-              d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
-        <div>
-          <div
-            class="volume"
-            style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
-          >
-            <div
-              class="volume__track"
-              role="presentation"
-              style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
-            >
-              <div
-                class="volume__range"
-                style="width: 100%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
-              />
-              <div
-                role="presentation"
-                style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 100%; bottom: 0%;"
-              >
-                <span
-                  aria-label="slider handle"
-                  aria-orientation="horizontal"
-                  aria-valuemax="100"
-                  aria-valuemin="0"
-                  aria-valuenow="100"
-                  class="volume__thumb"
-                  role="slider"
-                  style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
-                  tabindex="0"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 `;
@@ -304,18 +310,47 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
   >
     <div />
     <div
-      class=" _ControlsRSWP __1fbkdr4"
+      class=" _ControlsRSWP __11aa6ep"
       data-component-name="Controls"
       data-playing="false"
     >
       <div
-        class="rswp__buttons"
+        class=" _ControlsButtonsRSWP __3hmsj"
       >
+        <div
+          class="rswp__devices"
+        >
+          <div>
+            <div
+              class=" _DevicesRSWP __z23pve"
+              data-component-name="Devices"
+              data-device-id="19ks98hfbxc53vh34jd"
+            >
+              <button
+                aria-label="Devices"
+                title="Devices"
+                type="button"
+              >
+                <svg
+                  height="1em"
+                  preserveAspectRatio="xMidYMid"
+                  viewBox="0 0 64 64"
+                  width="1em"
+                >
+                  <path
+                    d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
         <div />
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle"
+            class="rswp__toggle _ControlsButtonRSWP __a3qe0k"
             title="Play"
             type="button"
           >
@@ -333,6 +368,64 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
           </button>
         </div>
         <div />
+        <div
+          class="rswp__volume"
+        >
+          <div
+            class=" _VolumeInlineRSWP __a3qe0k"
+            data-component-name="Volume"
+            data-value="1"
+          >
+            <span>
+              <svg
+                data-component-name="VolumeHigh"
+                height="1em"
+                preserveAspectRatio="xMidYMid"
+                viewBox="0 0 64 64"
+                width="1em"
+              >
+                <path
+                  d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <div>
+              <div
+                class="volume"
+                data-component-name="volume-bar"
+                style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
+              >
+                <div
+                  class="volume__track"
+                  role="presentation"
+                  style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
+                >
+                  <div
+                    class="volume__range"
+                    style="width: 100%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
+                  />
+                  <div
+                    role="presentation"
+                    style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 100%; bottom: 0%;"
+                  >
+                    <span
+                      aria-label="slider handle"
+                      aria-orientation="horizontal"
+                      aria-valuemax="100"
+                      aria-valuemin="0"
+                      aria-valuenow="100"
+                      class="volume__thumb"
+                      role="slider"
+                      style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
+                      tabindex="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         class=" _SliderRSWP __q14q70"
@@ -346,6 +439,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
         </div>
         <div
           class="slider"
+          data-component-name="progress-bar"
           style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
         >
           <div
@@ -379,90 +473,6 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
           class="rswp_duration"
         >
           0:00
-        </div>
-      </div>
-    </div>
-    <div
-      class=" _ActionsRSWP __ofsl12"
-      data-component-name="Actions"
-    >
-      <div>
-        <div
-          class=" _DevicesRSWP __z23pve"
-          data-component-name="Devices"
-          data-device-id="19ks98hfbxc53vh34jd"
-          style="position: top;"
-        >
-          <button
-            aria-label="Devices"
-            title="Devices"
-            type="button"
-          >
-            <svg
-              height="1em"
-              preserveAspectRatio="xMidYMid"
-              viewBox="0 0 64 64"
-              width="1em"
-            >
-              <path
-                d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div
-        class=" _VolumeInlineRSWP __a3qe0k"
-        data-component-name="Volume"
-        data-value="1"
-      >
-        <span>
-          <svg
-            data-component-name="VolumeHigh"
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 64 64"
-            width="1em"
-          >
-            <path
-              d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
-        <div>
-          <div
-            class="volume"
-            style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
-          >
-            <div
-              class="volume__track"
-              role="presentation"
-              style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
-            >
-              <div
-                class="volume__range"
-                style="width: 100%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
-              />
-              <div
-                role="presentation"
-                style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 100%; bottom: 0%;"
-              >
-                <span
-                  aria-label="slider handle"
-                  aria-orientation="horizontal"
-                  aria-valuemax="100"
-                  aria-valuemin="0"
-                  aria-valuenow="100"
-                  class="volume__thumb"
-                  role="slider"
-                  style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
-                  tabindex="0"
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -529,16 +539,72 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
   >
     <div />
     <div
-      class=" _ControlsRSWP __1fbkdr4"
+      class=" _ControlsRSWP __11aa6ep"
       data-component-name="Controls"
       data-playing="false"
     >
       <div
-        class="rswp__buttons"
+        class=" _ControlsButtonsRSWP __3hmsj"
       >
+        <div
+          class="rswp__devices"
+        >
+          <div>
+            <div
+              class=" _DevicesRSWP __z23pve"
+              data-component-name="Devices"
+              data-device-id=""
+            >
+              <div>
+                <p>
+                  Select other device
+                </p>
+                <button
+                  aria-label="Jest Player"
+                  data-id="df17372ghs982js892js"
+                  type="button"
+                >
+                  <svg
+                    height="1em"
+                    preserveAspectRatio="xMidYMid"
+                    viewBox="0 0 64 64"
+                    width="1em"
+                  >
+                    <path
+                      d="M7.226 10.323a7.228 7.228 0 0 1 7.226-7.226h35.096a7.228 7.228 0 0 1 7.226 7.226V37.16a7.226 7.226 0 0 1-7.226 7.226H14.452a7.226 7.226 0 0 1-7.226-7.226V10.323Zm7.226-1.033c-.57 0-1.033.462-1.033 1.033V37.16c0 .57.463 1.033 1.033 1.033h35.096c.57 0 1.033-.463 1.033-1.033V10.323c0-.57-.463-1.033-1.033-1.033H14.452ZM0 57.806a3.097 3.097 0 0 1 3.097-3.096h57.806a3.097 3.097 0 0 1 0 6.193H3.097A3.097 3.097 0 0 1 0 57.806Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span>
+                    Jest Player
+                  </span>
+                </button>
+                <span />
+              </div>
+              <button
+                aria-label="Devices"
+                title="Devices"
+                type="button"
+              >
+                <svg
+                  height="1em"
+                  preserveAspectRatio="xMidYMid"
+                  viewBox="0 0 64 64"
+                  width="1em"
+                >
+                  <path
+                    d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
         <div>
           <button
             aria-label="Previous"
+            class=" _ControlsButtonRSWP __a3qe0k"
             title="Previous"
             type="button"
           >
@@ -558,7 +624,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle"
+            class="rswp__toggle _ControlsButtonRSWP __a3qe0k"
             title="Play"
             type="button"
           >
@@ -578,6 +644,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         <div>
           <button
             aria-label="Next"
+            class=" _ControlsButtonRSWP __a3qe0k"
             title="Next"
             type="button"
           >
@@ -607,6 +674,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         </div>
         <div
           class="slider"
+          data-component-name="progress-bar"
           style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
         >
           <div
@@ -640,63 +708,6 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
           class="rswp_duration"
         >
           0:00
-        </div>
-      </div>
-    </div>
-    <div
-      class=" _ActionsRSWP __ofsl12"
-      data-component-name="Actions"
-    >
-      <div>
-        <div
-          class=" _DevicesRSWP __z23pve"
-          data-component-name="Devices"
-          data-device-id=""
-          style="position: top;"
-        >
-          <div>
-            <p>
-              Select other device
-            </p>
-            <button
-              aria-label="Jest Player"
-              data-id="df17372ghs982js892js"
-              type="button"
-            >
-              <svg
-                height="1em"
-                preserveAspectRatio="xMidYMid"
-                viewBox="0 0 64 64"
-                width="1em"
-              >
-                <path
-                  d="M7.226 10.323a7.228 7.228 0 0 1 7.226-7.226h35.096a7.228 7.228 0 0 1 7.226 7.226V37.16a7.226 7.226 0 0 1-7.226 7.226H14.452a7.226 7.226 0 0 1-7.226-7.226V10.323Zm7.226-1.033c-.57 0-1.033.462-1.033 1.033V37.16c0 .57.463 1.033 1.033 1.033h35.096c.57 0 1.033-.463 1.033-1.033V10.323c0-.57-.463-1.033-1.033-1.033H14.452ZM0 57.806a3.097 3.097 0 0 1 3.097-3.096h57.806a3.097 3.097 0 0 1 0 6.193H3.097A3.097 3.097 0 0 1 0 57.806Z"
-                  fill="currentColor"
-                />
-              </svg>
-              <span>
-                Jest Player
-              </span>
-            </button>
-            <span />
-          </div>
-          <button
-            aria-label="Devices"
-            title="Devices"
-            type="button"
-          >
-            <svg
-              height="1em"
-              preserveAspectRatio="xMidYMid"
-              viewBox="0 0 64 64"
-              width="1em"
-            >
-              <path
-                d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
         </div>
       </div>
     </div>
@@ -811,16 +822,46 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
       </div>
     </div>
     <div
-      class=" _ControlsRSWP __v6y2v0"
+      class=" _ControlsRSWP __anzta0"
       data-component-name="Controls"
       data-playing="false"
     >
       <div
-        class="rswp__buttons"
+        class=" _ControlsButtonsRSWP __3hmsj"
       >
+        <div
+          class="rswp__devices"
+        >
+          <div>
+            <div
+              class=" _DevicesRSWP __9ms3l2"
+              data-component-name="Devices"
+              data-device-id="19ks98hfbxc53vh34jd"
+            >
+              <button
+                aria-label="Devices"
+                title="Devices"
+                type="button"
+              >
+                <svg
+                  height="1em"
+                  preserveAspectRatio="xMidYMid"
+                  viewBox="0 0 64 64"
+                  width="1em"
+                >
+                  <path
+                    d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
         <div>
           <button
             aria-label="Previous"
+            class=" _ControlsButtonRSWP __bd4m75"
             title="Previous"
             type="button"
           >
@@ -840,7 +881,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle"
+            class="rswp__toggle _ControlsButtonRSWP __bd4m75"
             title="Play"
             type="button"
           >
@@ -860,6 +901,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         <div>
           <button
             aria-label="Next"
+            class=" _ControlsButtonRSWP __bd4m75"
             title="Next"
             type="button"
           >
@@ -876,6 +918,36 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
             </svg>
           </button>
         </div>
+        <div
+          class="rswp__volume"
+        >
+          <div>
+            <div
+              class=" _VolumeRSWP __me2fpj"
+              data-component-name="Volume"
+              data-value="1"
+            >
+              <button
+                aria-label="Volume"
+                title="Volume"
+                type="button"
+              >
+                <svg
+                  data-component-name="VolumeHigh"
+                  height="1em"
+                  preserveAspectRatio="xMidYMid"
+                  viewBox="0 0 64 64"
+                  width="1em"
+                >
+                  <path
+                    d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         class=" _SliderRSWP __1lztbt5"
@@ -889,6 +961,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         </div>
         <div
           class="slider"
+          data-component-name="progress-bar"
           style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
         >
           <div
@@ -922,64 +995,6 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
           class="rswp_duration"
         >
           2:31
-        </div>
-      </div>
-    </div>
-    <div
-      class=" _ActionsRSWP __y3q9ji"
-      data-component-name="Actions"
-    >
-      <div>
-        <div
-          class=" _DevicesRSWP __9ms3l2"
-          data-component-name="Devices"
-          data-device-id="19ks98hfbxc53vh34jd"
-          style="position: top;"
-        >
-          <button
-            aria-label="Devices"
-            title="Devices"
-            type="button"
-          >
-            <svg
-              height="1em"
-              preserveAspectRatio="xMidYMid"
-              viewBox="0 0 64 64"
-              width="1em"
-            >
-              <path
-                d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div>
-        <div
-          class=" _VolumeRSWP __me2fpj"
-          data-component-name="Volume"
-          data-value="1"
-          style="position: top;"
-        >
-          <button
-            aria-label="Volume"
-            title="Volume"
-            type="button"
-          >
-            <svg
-              data-component-name="VolumeHigh"
-              height="1em"
-              preserveAspectRatio="xMidYMid"
-              viewBox="0 0 64 64"
-              width="1em"
-            >
-              <path
-                d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
         </div>
       </div>
     </div>
@@ -1093,16 +1108,46 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
       </div>
     </div>
     <div
-      class=" _ControlsRSWP __1fbkdr4"
+      class=" _ControlsRSWP __11aa6ep"
       data-component-name="Controls"
       data-playing="true"
     >
       <div
-        class="rswp__buttons"
+        class=" _ControlsButtonsRSWP __3hmsj"
       >
+        <div
+          class="rswp__devices"
+        >
+          <div>
+            <div
+              class=" _DevicesRSWP __z23pve"
+              data-component-name="Devices"
+              data-device-id="19ks98hfbxc53vh34jd"
+            >
+              <button
+                aria-label="Devices"
+                title="Devices"
+                type="button"
+              >
+                <svg
+                  height="1em"
+                  preserveAspectRatio="xMidYMid"
+                  viewBox="0 0 64 64"
+                  width="1em"
+                >
+                  <path
+                    d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
         <div>
           <button
             aria-label="Previous"
+            class=" _ControlsButtonRSWP __a3qe0k"
             title="Previous"
             type="button"
           >
@@ -1122,7 +1167,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <div>
           <button
             aria-label="Pause"
-            class="rswp__toggle"
+            class="rswp__toggle _ControlsButtonRSWP __a3qe0k"
             title="Pause"
             type="button"
           >
@@ -1142,6 +1187,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <div>
           <button
             aria-label="Next"
+            class=" _ControlsButtonRSWP __a3qe0k"
             title="Next"
             type="button"
           >
@@ -1158,6 +1204,64 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             </svg>
           </button>
         </div>
+        <div
+          class="rswp__volume"
+        >
+          <div
+            class=" _VolumeInlineRSWP __a3qe0k"
+            data-component-name="Volume"
+            data-value="1"
+          >
+            <span>
+              <svg
+                data-component-name="VolumeHigh"
+                height="1em"
+                preserveAspectRatio="xMidYMid"
+                viewBox="0 0 64 64"
+                width="1em"
+              >
+                <path
+                  d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <div>
+              <div
+                class="volume"
+                data-component-name="volume-bar"
+                style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
+              >
+                <div
+                  class="volume__track"
+                  role="presentation"
+                  style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
+                >
+                  <div
+                    class="volume__range"
+                    style="width: 100%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
+                  />
+                  <div
+                    role="presentation"
+                    style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 100%; bottom: 0%;"
+                  >
+                    <span
+                      aria-label="slider handle"
+                      aria-orientation="horizontal"
+                      aria-valuemax="100"
+                      aria-valuemin="0"
+                      aria-valuenow="100"
+                      class="volume__thumb"
+                      role="slider"
+                      style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
+                      tabindex="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         class=" _SliderRSWP __q14q70"
@@ -1171,6 +1275,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         </div>
         <div
           class="slider"
+          data-component-name="progress-bar"
           style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
         >
           <div
@@ -1204,90 +1309,6 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           class="rswp_duration"
         >
           2:31
-        </div>
-      </div>
-    </div>
-    <div
-      class=" _ActionsRSWP __ofsl12"
-      data-component-name="Actions"
-    >
-      <div>
-        <div
-          class=" _DevicesRSWP __z23pve"
-          data-component-name="Devices"
-          data-device-id="19ks98hfbxc53vh34jd"
-          style="position: top;"
-        >
-          <button
-            aria-label="Devices"
-            title="Devices"
-            type="button"
-          >
-            <svg
-              height="1em"
-              preserveAspectRatio="xMidYMid"
-              viewBox="0 0 64 64"
-              width="1em"
-            >
-              <path
-                d="M57 4c3.864 0 7 3.136 7 7v42a7 7 0 0 1-7 7H31a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h26ZM16 54v6H8v-6h8Zm41-44H31a1 1 0 0 0-1 1v42a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1ZM44 32a8 8 0 1 1 0 16 8 8 0 0 1 0-16ZM16 4v6H7a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h9v6H7a7 7 0 0 1-7-7V11c0-3.864 3.136-7 7-7h9Zm28 12a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div
-        class=" _VolumeInlineRSWP __a3qe0k"
-        data-component-name="Volume"
-        data-value="1"
-      >
-        <span>
-          <svg
-            data-component-name="VolumeHigh"
-            height="1em"
-            preserveAspectRatio="xMidYMid"
-            viewBox="0 0 64 64"
-            width="1em"
-          >
-            <path
-              d="M37.963 3.402a2.989 2.989 0 0 1 1.5 2.596v52a3 3 0 0 1-4.5 2.6l-27.7-16C.32 40.572-2.06 31.688 1.943 24.73a14.556 14.556 0 0 1 5.32-5.328l27.7-16a3 3 0 0 1 3 0ZM45 9.542a23.008 23.008 0 0 1 0 44.912V48.25a17.008 17.008 0 0 0 0-32.508Zm-11.532 1.656-23.2 13.4a8.556 8.556 0 0 0 0 14.8l23.2 13.4v-41.6ZM45 22.238a11 11 0 0 1 0 19.52v-19.52Z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
-        <div>
-          <div
-            class="volume"
-            style="box-sizing: border-box; display: inline-block; padding: 0px; transition: height 0.4s, width 0.4s; height: 4px; width: 100%;"
-          >
-            <div
-              class="volume__track"
-              role="presentation"
-              style="background-color: rgb(204, 204, 204); border-radius: 4px; box-sizing: border-box; height: 4px; position: relative; width: 100%;"
-            >
-              <div
-                class="volume__range"
-                style="width: 100%; background-color: rgb(102, 102, 102); border-radius: 4px; position: absolute; height: 100%; top: 0px;"
-              />
-              <div
-                role="presentation"
-                style="box-sizing: border-box; height: 4px; position: absolute; transition: height 0.4s, width 0.4s; width: 20px; left: 100%; bottom: 0%;"
-              >
-                <span
-                  aria-label="slider handle"
-                  aria-orientation="horizontal"
-                  aria-valuemax="100"
-                  aria-valuemin="0"
-                  aria-valuenow="100"
-                  class="volume__thumb"
-                  role="slider"
-                  style="background-color: rgb(0, 0, 0); border: 0px; border-radius: 50%; box-sizing: border-box; display: block; position: absolute; transition: height 0.4s, width 0.4s; height: 10px; left: -5px; top: -3px; width: 10px;"
-                  tabindex="0"
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, configure, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, configure, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 
 import * as helpers from '~/modules/helpers';
 
@@ -321,23 +321,23 @@ describe('SpotifyWebPlayer', () => {
 
     it('should handle range magnification', async () => {
       await setup({ ...props, magnifySliderOnHover: true });
-      const range = screen.getByTestId('Slider');
+      const progressBar = screen.getByTestId('progress-bar');
 
       expect(screen.getAllByLabelText('slider handle')[0]).toHaveStyle({
         height: '10px',
       });
 
       // eslint-disable-next-line testing-library/no-node-access
-      fireEvent.mouseEnter(range.querySelector('.slider__track')!);
+      fireEvent.mouseEnter(progressBar.querySelector('.slider__track')!);
 
-      expect(screen.getAllByLabelText('slider handle')[0]).toHaveStyle({
+      expect(within(progressBar).getByLabelText('slider handle')).toHaveStyle({
         height: '14px',
       });
 
       // eslint-disable-next-line testing-library/no-node-access
-      fireEvent.mouseLeave(range.querySelector('.slider__track')!);
+      fireEvent.mouseLeave(progressBar.querySelector('.slider__track')!);
 
-      expect(screen.getAllByLabelText('slider handle')[0]).toHaveStyle({
+      expect(within(progressBar).getByLabelText('slider handle')).toHaveStyle({
         height: '10px',
       });
     });
@@ -349,13 +349,10 @@ describe('SpotifyWebPlayer', () => {
 
       expect(screen.getByTestId('VolumeHigh')).toBeInTheDocument();
 
-      const volume = screen.getByTestId('Volume');
-      const volumeButton = screen.getByLabelText('Volume');
-
-      fireEvent.click(volumeButton);
+      fireEvent.click(screen.getByLabelText('Volume'));
 
       // eslint-disable-next-line testing-library/no-node-access
-      fireEvent.click(volume.querySelector('.volume__track')!, {
+      fireEvent.click(screen.getByTestId('Volume').querySelector('.volume__track')!, {
         clientX: 910,
         clientY: 25,
         currentTarget: {},
@@ -366,13 +363,13 @@ describe('SpotifyWebPlayer', () => {
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0.5);
-      expect(volume).toHaveAttribute('data-value', '0.5');
+      expect(screen.getByTestId('Volume')).toHaveAttribute('data-value', '0.5');
       expect(screen.getByTestId('VolumeMid')).toBeInTheDocument();
 
-      fireEvent.click(volumeButton);
+      fireEvent.click(screen.getByLabelText('Volume'));
 
       // eslint-disable-next-line testing-library/no-node-access
-      fireEvent.click(volume.querySelector('.volume__track')!, {
+      fireEvent.click(screen.getByTestId('Volume').querySelector('.volume__track')!, {
         clientX: 910,
         clientY: 35,
         currentTarget: {},
@@ -383,13 +380,13 @@ describe('SpotifyWebPlayer', () => {
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0.3);
-      expect(volume).toHaveAttribute('data-value', '0.3');
+      expect(screen.getByTestId('Volume')).toHaveAttribute('data-value', '0.3');
       expect(screen.getByTestId('VolumeLow')).toBeInTheDocument();
 
-      fireEvent.click(volumeButton);
+      fireEvent.click(screen.getByLabelText('Volume'));
 
       // eslint-disable-next-line testing-library/no-node-access
-      fireEvent.click(volume.querySelector('.volume__track')!, {
+      fireEvent.click(screen.getByTestId('Volume').querySelector('.volume__track')!, {
         clientX: 910,
         clientY: 50,
         currentTarget: {},
@@ -400,7 +397,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0);
-      expect(volume).toHaveAttribute('data-value', '0');
+      expect(screen.getByTestId('Volume')).toHaveAttribute('data-value', '0');
       expect(screen.getByTestId('VolumeMute')).toBeInTheDocument();
     });
 
@@ -411,12 +408,12 @@ describe('SpotifyWebPlayer', () => {
 
       expect(screen.getByTestId('VolumeHigh')).toBeInTheDocument();
 
-      const volume = screen.getByTestId('Volume');
-
       // eslint-disable-next-line testing-library/no-node-access
-      fireEvent.click(volume.querySelector('.volume__track')!, {
-        clientX: 945,
-        clientY: 50,
+      const getTrack = () => screen.getByTestId('Volume').querySelector('.volume__track')!;
+
+      fireEvent.click(getTrack(), {
+        clientX: 950,
+        clientY: 52,
         currentTarget: {},
       });
 
@@ -425,13 +422,13 @@ describe('SpotifyWebPlayer', () => {
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0.5);
-      expect(volume).toHaveAttribute('data-value', '0.5');
+      expect(screen.getByTestId('Volume')).toHaveAttribute('data-value', '0.5');
       expect(screen.getByTestId('VolumeMid')).toBeInTheDocument();
 
       // eslint-disable-next-line testing-library/no-node-access
-      fireEvent.click(volume.querySelector('.volume__track')!, {
-        clientX: 927,
-        clientY: 50,
+      fireEvent.click(getTrack(), {
+        clientX: 930,
+        clientY: 52,
         currentTarget: {},
       });
 
@@ -440,13 +437,13 @@ describe('SpotifyWebPlayer', () => {
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0.3);
-      expect(volume).toHaveAttribute('data-value', '0.3');
+      expect(screen.getByTestId('Volume')).toHaveAttribute('data-value', '0.3');
       expect(screen.getByTestId('VolumeLow')).toBeInTheDocument();
 
       // eslint-disable-next-line testing-library/no-node-access
-      fireEvent.click(volume.querySelector('.volume__track')!, {
+      fireEvent.click(getTrack(), {
         clientX: 900,
-        clientY: 50,
+        clientY: 52,
         currentTarget: {},
       });
 
@@ -455,7 +452,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0);
-      expect(volume).toHaveAttribute('data-value', '0');
+      expect(screen.getByTestId('Volume')).toHaveAttribute('data-value', '0');
       expect(screen.getByTestId('VolumeMute')).toBeInTheDocument();
     });
 
@@ -547,11 +544,9 @@ describe('SpotifyWebPlayer', () => {
 
       setExternalDevice();
 
-      const volume = screen.getByTestId('Volume');
-
       // eslint-disable-next-line testing-library/no-node-access
-      fireEvent.click(volume.querySelector('.volume__track')!, {
-        clientX: 945,
+      fireEvent.click(screen.getByTestId('Volume').querySelector('.volume__track')!, {
+        clientX: 950,
         clientY: 50,
         currentTarget: {},
       });
@@ -564,7 +559,7 @@ describe('SpotifyWebPlayer', () => {
         'https://api.spotify.com/v1/me/player/volume?volume_percent=50',
         expect.objectContaining({ method: 'PUT' }),
       );
-      expect(volume).toHaveAttribute('data-value', '0.5');
+      expect(screen.getByTestId('Volume')).toHaveAttribute('data-value', '0.5');
     });
 
     it('should handle Control clicks', async () => {
