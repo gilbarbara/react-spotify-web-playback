@@ -79,7 +79,9 @@ const Buttons = styled('div')(
       textAlign: 'center',
     },
   },
-  () => ({}),
+  ({ style }: StyledProps) => ({
+    color: style.c,
+  }),
   'ControlsButtonsRSWP',
 );
 
@@ -97,9 +99,7 @@ const Button = styled('button')(
       width: px(48),
     },
   },
-  ({ style }: StyledProps) => ({
-    color: style.c,
-  }),
+  () => ({}),
   'ControlsButtonRSWP',
 );
 
@@ -129,14 +129,13 @@ function Controls(props: Props) {
 
   return (
     <Wrapper data-component-name="Controls" data-playing={isPlaying} style={{ layout }}>
-      <Buttons>
+      <Buttons style={{ c: color }}>
         {devices && <div className="rswp__devices">{devices}</div>}
         <div>
           {(!!previousTracks.length || isExternalDevice) && (
             <Button
               aria-label={locale.previous}
               onClick={onClickPrevious}
-              style={{ c: color }}
               title={locale.previous}
               type="button"
             >
@@ -149,7 +148,6 @@ function Controls(props: Props) {
             aria-label={isPlaying ? locale.pause : locale.play}
             className="rswp__toggle"
             onClick={onClickTogglePlay}
-            style={{ c: color }}
             title={isPlaying ? locale.pause : locale.play}
             type="button"
           >
@@ -161,7 +159,6 @@ function Controls(props: Props) {
             <Button
               aria-label={locale.next}
               onClick={onClickNext}
-              style={{ c: color }}
               title={locale.next}
               type="button"
             >

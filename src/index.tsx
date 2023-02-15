@@ -176,6 +176,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       this.state;
     const {
       autoPlay,
+      layout,
       locale,
       offset,
       play: playProp,
@@ -186,6 +187,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       uris,
     } = this.props;
     const isReady = previousState.status !== STATUS.READY && status === STATUS.READY;
+    const changedLayout = !isEqual(previousProps.layout, layout);
     const changedLocale = !isEqual(previousProps.locale, locale);
     const changedStyles = !isEqual(previousProps.styles, styles);
     const changedURIs = !isEqual(previousProps.uris, uris);
@@ -276,6 +278,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           this.setExternalDevice(player.device.id);
         }
       }
+    }
+
+    if (changedLayout) {
+      this.handleResize();
     }
 
     if (changedLocale) {
@@ -461,7 +467,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     let devices: SpotifyDevice[] = [];
 
     if (this.player && !isPlaybackError) {
-      await this.player.disconnect();
+      this.player.disconnect();
       this.player = undefined;
     }
 

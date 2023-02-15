@@ -94,7 +94,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
       data-playing="true"
     >
       <div
-        class=" _ControlsButtonsRSWP __3hmsj"
+        class=" _ControlsButtonsRSWP __a3qe0k"
       >
         <div
           class="rswp__devices"
@@ -128,7 +128,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __a3qe0k"
+            class=" _ControlsButtonRSWP __3hmsj"
             title="Previous"
             type="button"
           >
@@ -148,7 +148,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         <div>
           <button
             aria-label="Pause"
-            class="rswp__toggle _ControlsButtonRSWP __a3qe0k"
+            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Pause"
             type="button"
           >
@@ -168,7 +168,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __a3qe0k"
+            class=" _ControlsButtonRSWP __3hmsj"
             title="Next"
             type="button"
           >
@@ -315,7 +315,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
       data-playing="false"
     >
       <div
-        class=" _ControlsButtonsRSWP __3hmsj"
+        class=" _ControlsButtonsRSWP __a3qe0k"
       >
         <div
           class="rswp__devices"
@@ -350,7 +350,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle _ControlsButtonRSWP __a3qe0k"
+            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Play"
             type="button"
           >
@@ -544,7 +544,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
       data-playing="false"
     >
       <div
-        class=" _ControlsButtonsRSWP __3hmsj"
+        class=" _ControlsButtonsRSWP __a3qe0k"
       >
         <div
           class="rswp__devices"
@@ -604,7 +604,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __a3qe0k"
+            class=" _ControlsButtonRSWP __3hmsj"
             title="Previous"
             type="button"
           >
@@ -624,7 +624,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle _ControlsButtonRSWP __a3qe0k"
+            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Play"
             type="button"
           >
@@ -644,7 +644,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __a3qe0k"
+            class=" _ControlsButtonRSWP __3hmsj"
             title="Next"
             type="button"
           >
@@ -745,7 +745,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
     data-component-name="Wrapper"
   >
     <div
-      class="rswp__active _InfoRSWP __useel1"
+      class="rswp__active _InfoRSWP __pkinha"
       data-component-name="Info"
     >
       <a
@@ -827,7 +827,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
       data-playing="false"
     >
       <div
-        class=" _ControlsButtonsRSWP __3hmsj"
+        class=" _ControlsButtonsRSWP __bd4m75"
       >
         <div
           class="rswp__devices"
@@ -861,7 +861,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __bd4m75"
+            class=" _ControlsButtonRSWP __3hmsj"
             title="Previous"
             type="button"
           >
@@ -881,7 +881,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle _ControlsButtonRSWP __bd4m75"
+            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Play"
             type="button"
           >
@@ -901,7 +901,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __bd4m75"
+            class=" _ControlsButtonRSWP __3hmsj"
             title="Next"
             type="button"
           >
@@ -1113,7 +1113,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
       data-playing="true"
     >
       <div
-        class=" _ControlsButtonsRSWP __3hmsj"
+        class=" _ControlsButtonsRSWP __a3qe0k"
       >
         <div
           class="rswp__devices"
@@ -1147,7 +1147,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __a3qe0k"
+            class=" _ControlsButtonRSWP __3hmsj"
             title="Previous"
             type="button"
           >
@@ -1167,7 +1167,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <div>
           <button
             aria-label="Pause"
-            class="rswp__toggle _ControlsButtonRSWP __a3qe0k"
+            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Pause"
             type="button"
           >
@@ -1187,7 +1187,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __a3qe0k"
+            class=" _ControlsButtonRSWP __3hmsj"
             title="Next"
             type="button"
           >

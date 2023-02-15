@@ -69,7 +69,7 @@ const Wrapper = styled('div')(
           display: 'block',
           bottom: 0,
           left: 0,
-          objectFit: 'contains',
+          maxWidth: '100%',
           position: 'absolute',
           right: 0,
           top: 0,
