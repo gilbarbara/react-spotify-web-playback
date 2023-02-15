@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from '@gilbarbara/components';
+import { primaryColor } from './modules/theme';
 
 const Wrapper = styled.a`
   position: fixed;
@@ -13,7 +13,7 @@ const Wrapper = styled.a`
   }
 
   svg {
-    fill: ${theme.colors.primary};
+    fill: ${primaryColor};
     color: #fff;
   }
 

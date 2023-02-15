@@ -1,25 +1,27 @@
 {
   "name": "react-spotify-web-playback-demo",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "description": "Demo for react-spotify-web-playback",
   "keywords": [],
   "main": "src/index.tsx",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@gilbarbara/components": "^0.7.1",
     "@gilbarbara/eslint-config": "^0.3.7",
-    "@gilbarbara/components": "^0.6.2",
+    "@gilbarbara/helpers": "^0.6.3",
     "@gilbarbara/prettier-config": "^0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
-    "react-spotify-web-playback": "^0.11.2",
-    "typescript": "^4.9.4"
+    "react-spotify-web-playback": "^0.12.0",
+    "react-use": "^17.4.0",
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
-    "@types/node": "^18.11.18",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.10"
+    "@types/node": "^18.13.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11"
   },
   "scripts": {
     "start": "react-scripts start",
