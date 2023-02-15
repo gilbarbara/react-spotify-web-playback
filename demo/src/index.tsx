@@ -1,7 +1,9 @@
+import { ThemeProvider } from '@emotion/react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import App from './App';
+import { theme } from './modules/theme';
 
 const rootElement = document.getElementById('root');
 
@@ -10,7 +12,9 @@ if (rootElement) {
 
   root.render(
     <StrictMode>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </StrictMode>,
   );
 }

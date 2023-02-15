@@ -1,3 +1,4 @@
+import { Layout } from 'react-spotify-web-playback';
 import { css, Global } from '@emotion/react';
 import styled from '@emotion/styled';
 import { theme } from '@gilbarbara/components';
@@ -69,9 +70,25 @@ export const List = styled.ul`
   list-style: none;
 `;
 
-export const Player = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-`;
+export const Player = styled.div<{ layout: Layout }>(({ layout }) => {
+  if (layout === 'responsive') {
+    return css`
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    `;
+  }
+
+  return css`
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    bottom: 20px;
+    overflow: hidden;
+    position: fixed;
+    position: fixed;
+    right: 0;
+    right: 20px;
+    width: 320px;
+  `
+});
