@@ -101,7 +101,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         >
           <div>
             <div
-              class=" _DevicesRSWP __z23pve"
+              class=" _DevicesRSWP __n5xkwq"
               data-component-name="Devices"
               data-device-id="19ks98hfbxc53vh34jd"
             >
@@ -322,7 +322,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
         >
           <div>
             <div
-              class=" _DevicesRSWP __z23pve"
+              class=" _DevicesRSWP __n5xkwq"
               data-component-name="Devices"
               data-device-id="19ks98hfbxc53vh34jd"
             >
@@ -551,7 +551,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         >
           <div>
             <div
-              class=" _DevicesRSWP __z23pve"
+              class=" _DevicesRSWP __n5xkwq"
               data-component-name="Devices"
               data-device-id=""
             >
@@ -834,7 +834,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         >
           <div>
             <div
-              class=" _DevicesRSWP __9ms3l2"
+              class=" _DevicesRSWP __ix65sv"
               data-component-name="Devices"
               data-device-id="19ks98hfbxc53vh34jd"
             >
@@ -1120,7 +1120,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         >
           <div>
             <div
-              class=" _DevicesRSWP __z23pve"
+              class=" _DevicesRSWP __n5xkwq"
               data-component-name="Devices"
               data-device-id="19ks98hfbxc53vh34jd"
             >

@@ -45,11 +45,11 @@ const Wrapper = styled('div')(
       fontSize: px(14),
       padding: px(16),
       position: 'absolute',
-      right: 0,
+      textAlign: 'left',
 
       '> p': {
         fontWeight: 'bold',
-        marginBottom: px(16),
+        marginBottom: px(8),
         marginTop: px(16),
         whiteSpace: 'nowrap',
       },
@@ -57,7 +57,6 @@ const Wrapper = styled('div')(
       button: {
         alignItems: 'center',
         display: 'flex',
-        textAlign: 'left',
         whiteSpace: 'nowrap',
 
         '&:not(:last-of-type)': {
@@ -78,7 +77,6 @@ const Wrapper = styled('div')(
         display: 'block',
         height: 0,
         position: 'absolute',
-        right: px(10),
         width: 0,
       },
     },
@@ -94,14 +92,35 @@ const Wrapper = styled('div')(
   },
   ({ style }: StyledProps) => {
     const isCompact = style.layout === 'compact';
+    const divStyles: CssLikeObject = isCompact
+      ? {
+          bottom: '120%',
+          left: 0,
+        }
+      : {
+          [style.p]: '120%',
+          left: 0,
+
+          '@media (min-width: 768px)': {
+            left: 'auto',
+            right: 0,
+          },
+        };
     const spanStyles: CssLikeObject = isCompact
       ? {
           bottom: `-${px(6)}`,
           borderTop: `6px solid #000`,
+          left: px(10),
         }
       : {
           [style.p === 'top' ? 'border-bottom' : 'border-top']: `6px solid #000`,
           [style.p]: '-6px',
+          left: px(10),
+
+          '@media (min-width: 768px)': {
+            left: 'auto',
+            right: px(10),
+          },
         };
 
     return {
@@ -110,7 +129,7 @@ const Wrapper = styled('div')(
       },
 
       '> div': {
-        [isCompact ? 'bottom' : style.p]: '120%',
+        ...divStyles,
 
         '> span': spanStyles,
       },
@@ -125,7 +144,7 @@ const ListHeader = styled('div')({
 
     '&:nth-of-type(1)': {
       fontWeight: 'bold',
-      marginBottom: px(4),
+      marginBottom: px(8),
     },
 
     '&:nth-of-type(2)': {
