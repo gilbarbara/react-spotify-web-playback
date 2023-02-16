@@ -42,6 +42,14 @@ Get status updates from the player.
 
 ```typescript
 type ErrorType = 'authentication_error' | 'player_status' | 'playback_error';
+type Status = 'ERROR' | 'IDLE' | 'INITIALIZING' | 'READY' | 'RUNNING' | 'UNSUPPORTED';
+type Type =
+  | 'device_update'
+  | 'favorite_update'
+  | 'player_update'
+  | 'progress_update'
+  | 'status_update'
+  | 'track_update';
 
 interface State {
   currentDeviceId: string;
@@ -61,13 +69,13 @@ interface State {
   position: number;
   previousTracks: SpotifyTrack[];
   progressMs: number;
-  status: string;
+  status: Status;
   track: SpotifyPlayerTrack;
   volume: number;
 }
 
 interface CallbackState extends State {
-  type: string;
+  type: Type;
 }
 ```
 
