@@ -185,12 +185,11 @@ describe('SpotifyWebPlayer', () => {
         authenticationFn({ type: authenticationType, message: 'Failed to authenticate' });
       });
 
+      expect(screen.getByTestId('Player')).toHaveAttribute('data-ready', 'false');
       expect(screen.getByTestId('Player')).toMatchSnapshot('With Error');
       expect(mockDisconnect).toHaveBeenCalledTimes(1);
 
       rerender(<SpotifyWebPlayer {...baseProps} token={`${token}BB`} />);
-
-      expect(mockConnect).toHaveBeenCalledTimes(2);
 
       await act(async () => {
         await initalizePlayer();
@@ -465,16 +464,6 @@ describe('SpotifyWebPlayer', () => {
         'https://api.spotify.com/v1/me/player/play?device_id=19ks98hfbxc53vh34jd',
         expect.any(Object),
       );
-    });
-
-    it('should handle token changes', async () => {
-      const { rerender } = await setup({ ...props });
-
-      expect(mockConnect).toHaveBeenCalledTimes(2);
-
-      rerender(<SpotifyWebPlayer {...baseProps} token={`${token}B`} />);
-
-      expect(mockConnect).toHaveBeenCalledTimes(3);
     });
 
     it('should handle Control clicks', async () => {

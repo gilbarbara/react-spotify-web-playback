@@ -56,7 +56,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     uri: '',
   };
 
-  private hasNewToken = false;
   private locale: Locale;
   private player?: Spotify.Player;
   private playerProgressInterval?: number;
@@ -172,8 +171,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   }
 
   public async componentDidUpdate(previousProps: Props, previousState: State) {
-    const { currentDeviceId, deviceId, errorType, isInitializing, isPlaying, status, track } =
-      this.state;
+    const { currentDeviceId, deviceId, isInitializing, isPlaying, status, track } = this.state;
     const {
       autoPlay,
       layout,
@@ -183,7 +181,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       showSaveIcon,
       styles,
       syncExternalDevice,
-      token,
       uris,
     } = this.props;
     const isReady = previousState.status !== STATUS.READY && status === STATUS.READY;
@@ -197,7 +194,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const shouldPlay = (changedURIs && isPlaying) || !!(isReady && (autoPlay || playProp));
 
     if (canPlay && shouldPlay) {
-      await play(token, { deviceId: currentDeviceId, offset, ...playOptions });
+      await this.togglePlay(true);
 
       /* istanbul ignore else */
       if (!isPlaying) {
@@ -253,14 +250,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       });
     }
 
-    if (token && previousProps.token !== token) {
-      if (!isInitializing) {
-        this.initializePlayer();
-      } else {
-        this.hasNewToken = true;
-      }
-    }
-
     if (previousProps.play !== playProp && playProp !== isPlaying) {
       await this.togglePlay(!track.id || changedURIs);
     }
@@ -271,7 +260,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     if (previousState.isInitializing && !isInitializing) {
       if (syncExternalDevice && !uris) {
-        const player: SpotifyPlayerStatus = await getPlaybackState(token);
+        const player: SpotifyPlayerStatus = await getPlaybackState(this.token);
 
         /* istanbul ignore else */
         if (player && player.is_playing && player.device.id !== deviceId) {
@@ -290,11 +279,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     if (changedStyles) {
       this.styles = getMergedStyles(styles);
-    }
-
-    if (errorType === 'authentication_error' && this.hasNewToken) {
-      this.hasNewToken = false;
-      this.initializePlayer();
     }
   }
 
@@ -323,7 +307,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
   private handleChangeRange = async (position: number) => {
     const { track } = this.state;
-    const { callback, token } = this.props;
+    const { callback } = this.props;
     let progress = 0;
 
     try {
@@ -331,7 +315,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
       if (this.isExternalPlayer) {
         progress = Math.round(track.durationMs * percentage);
-        await seek(token, progress);
+        await seek(this.token, progress);
 
         this.updateState({
           position,
@@ -380,9 +364,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     try {
       /* istanbul ignore else */
       if (this.isExternalPlayer) {
-        const { token } = this.props;
-
-        await previous(token);
+        await previous(this.token);
         this.syncTimeout = window.setTimeout(() => {
           this.syncDevice();
         }, 300);
@@ -399,9 +381,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     try {
       /* istanbul ignore else */
       if (this.isExternalPlayer) {
-        const { token } = this.props;
-
-        await next(token);
+        await next(this.token);
         this.syncTimeout = window.setTimeout(() => {
           this.syncDevice();
         }, 300);
@@ -416,12 +396,12 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
   private handleClickDevice = async (deviceId: string) => {
     const { isUnsupported } = this.state;
-    const { autoPlay, persistDeviceSelection, token } = this.props;
+    const { autoPlay, persistDeviceSelection } = this.props;
 
     this.updateState({ currentDeviceId: deviceId });
 
     try {
-      await setDevice(token, deviceId);
+      await setDevice(this.token, deviceId);
 
       /* istanbul ignore else */
       if (persistDeviceSelection) {
@@ -432,7 +412,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       if (isUnsupported) {
         await this.syncDevice();
 
-        const player: SpotifyPlayerStatus = await getPlaybackState(token);
+        const player: SpotifyPlayerStatus = await getPlaybackState(this.token);
 
         if (player && !player.is_playing && autoPlay) {
           await this.togglePlay(true);
@@ -472,11 +452,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
 
     if (isInitializationError) {
-      const { token } = this.props;
-
       nextStatus = STATUS.UNSUPPORTED;
 
-      ({ devices = [] } = await getDevices(token));
+      ({ devices = [] } = await getDevices(this.token));
     }
 
     if (!isInitializationError && !isPlaybackError) {
@@ -610,9 +588,15 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     };
   };
 
+  private get token(): string {
+    const { token } = this.props;
+
+    return token;
+  }
+
   private async initializeDevices(id: string) {
-    const { persistDeviceSelection, token } = this.props;
-    const { devices } = await getDevices(token);
+    const { persistDeviceSelection } = this.props;
+    const { devices } = await getDevices(this.token);
     let currentDeviceId = id;
 
     if (persistDeviceSelection) {
@@ -631,7 +615,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
   private initializePlayer = () => {
     const { volume } = this.state;
-    const { name = 'Spotify Web Player', token } = this.props;
+    const { name = 'Spotify Web Player' } = this.props;
 
     if (!window.Spotify) {
       return;
@@ -645,7 +629,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     this.player = new window.Spotify.Player({
       getOAuthToken: (callback: SpotifyPlayerCallback) => {
-        callback(token);
+        callback(this.token);
       },
       name,
       volume,
@@ -685,11 +669,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   };
 
   private setVolume = async (volume: number) => {
-    const { token } = this.props;
-
     /* istanbul ignore else */
     if (this.isExternalPlayer) {
-      await setVolume(token, Math.round(volume * 100));
+      await setVolume(this.token, Math.round(volume * 100));
       await this.syncDevice();
     } else if (this.player) {
       await this.player.setVolume(volume);
@@ -704,10 +686,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
 
     const { deviceId } = this.state;
-    const { token } = this.props;
 
     try {
-      const player: SpotifyPlayerStatus = await getPlaybackState(token);
+      const player: SpotifyPlayerStatus = await getPlaybackState(this.token);
       let track = this.emptyTrack;
 
       if (!player) {
@@ -808,16 +789,16 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
   private toggleOffset = async () => {
     const { currentDeviceId } = this.state;
-    const { offset, token, uris } = this.props;
+    const { offset, uris } = this.props;
 
     if (typeof offset === 'number' && Array.isArray(uris)) {
-      await play(token, { deviceId: currentDeviceId, offset, uris });
+      await play(this.token, { deviceId: currentDeviceId, offset, uris });
     }
   };
 
   private togglePlay = async (init = false) => {
     const { currentDeviceId, isPlaying, needsUpdate } = this.state;
-    const { offset, token, uris } = this.props;
+    const { offset, uris } = this.props;
     const shouldInitialize = init || needsUpdate;
     const playOptions = this.getPlayOptions(uris);
 
@@ -825,13 +806,13 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       /* istanbul ignore else */
       if (this.isExternalPlayer) {
         if (!isPlaying) {
-          await play(token, {
+          await play(this.token, {
             deviceId: currentDeviceId,
             offset,
             ...(shouldInitialize ? playOptions : undefined),
           });
         } else {
-          await pause(token);
+          await pause(this.token);
 
           this.updateState({ isPlaying: false });
         }
@@ -849,7 +830,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           (!playerState && !!(playOptions.context_uri || playOptions.uris)) ||
           (shouldInitialize && playerState && playerState.paused)
         ) {
-          await play(token, {
+          await play(this.token, {
             deviceId: currentDeviceId,
             offset,
             ...(shouldInitialize ? playOptions : undefined),
@@ -942,7 +923,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       layout = 'responsive',
       name,
       showSaveIcon,
-      token,
       updateSavedStatus,
     } = this.props;
     const isReady = ([STATUS.READY, STATUS.UNSUPPORTED] as Status[]).indexOf(status) >= 0;
@@ -968,7 +948,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
             onFavoriteStatusChange={this.handleFavoriteStatusChange}
             showSaveIcon={showSaveIcon!}
             styles={this.styles}
-            token={token}
+            token={this.token}
             track={track}
             updateSavedStatus={updateSavedStatus}
           />
