@@ -45,7 +45,7 @@ import {
 import { Spotify } from '../global';
 
 class SpotifyWebPlayer extends PureComponent<Props, State> {
-  private isActive = false;
+  private isMounted = false;
   private emptyTrack = {
     artists: [] as Spotify.Artist[],
     durationMs: 0,
@@ -151,7 +151,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   };
 
   public async componentDidMount() {
-    this.isActive = true;
+    this.isMounted = true;
     const { top = 0 } = this.ref.current?.getBoundingClientRect() || {};
 
     this.updateState({
@@ -299,7 +299,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   }
 
   public async componentWillUnmount() {
-    this.isActive = false;
+    this.isMounted = false;
 
     /* istanbul ignore else */
     if (this.player) {
@@ -695,7 +695,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   };
 
   private syncDevice = async () => {
-    if (!this.isActive) {
+    if (!this.isMounted) {
       return;
     }
 
@@ -865,7 +865,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   };
 
   private updateSeekBar = async () => {
-    if (!this.isActive) {
+    if (!this.isMounted) {
       return;
     }
 
@@ -905,7 +905,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   };
 
   private updateState = (state = {}) => {
-    if (!this.isActive) {
+    if (!this.isMounted) {
       return;
     }
 
