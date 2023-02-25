@@ -666,6 +666,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     this.player.addListener('playback_error', error =>
       this.handlePlayerErrors('playback_error', error.message),
     );
+    this.player.addListener('autoplay_failed', async () => {
+      // eslint-disable-next-line no-console
+      console.log('Autoplay is not allowed by the browser autoplay rules');
+    });
 
     this.player.connect();
   };
