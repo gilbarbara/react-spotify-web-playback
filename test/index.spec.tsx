@@ -213,8 +213,23 @@ describe('SpotifyWebPlayer', () => {
       expect(mockDisconnect).toHaveBeenCalledTimes(1);
     });
 
+    it('should handle `initialization_error`', async () => {
+      await setup({ initialize: false });
+
+      const [initializationType, initializationFn] = mockAddListener.mock.calls.find(
+        d => d[0] === 'initialization_error',
+      );
+
+      await act(async () => {
+        initializationFn({ type: initializationType, message: 'Failed to initialize' });
+      });
+
+      expect(screen.getByTestId('Player')).toMatchSnapshot();
+      expect(mockDisconnect).toHaveBeenCalledTimes(1);
+    });
+
     it('should handle `playback_error`', async () => {
-      const { unmount } = await setup({ initialize: false });
+      const { unmount } = await setup({ initialize: true });
 
       const [playbackType, playbackFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'playback_error',
@@ -229,21 +244,6 @@ describe('SpotifyWebPlayer', () => {
 
       unmount();
 
-      expect(mockDisconnect).toHaveBeenCalledTimes(1);
-    });
-
-    it('should handle `initialization_error`', async () => {
-      await setup({ initialize: false });
-
-      const [initializationType, initializationFn] = mockAddListener.mock.calls.find(
-        d => d[0] === 'initialization_error',
-      );
-
-      await act(async () => {
-        initializationFn({ type: initializationType, message: 'Failed to initialize' });
-      });
-
-      expect(screen.getByTestId('Player')).toMatchSnapshot();
       expect(mockDisconnect).toHaveBeenCalledTimes(1);
     });
   });

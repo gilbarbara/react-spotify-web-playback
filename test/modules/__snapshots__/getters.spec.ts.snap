@@ -22,7 +22,7 @@ exports[`getMergedStyles should return a merged styles 1`] = `
   "altColor": "#ccc",
   "bgColor": "#fff",
   "color": "#333",
-  "errorColor": "#a60000",
+  "errorColor": "#ff0026",
   "height": 100,
   "loaderColor": "#ccc",
   "loaderSize": 32,

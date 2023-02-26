@@ -1,18 +1,17 @@
 /* eslint-disable camelcase */
 import { ReactNode } from 'react';
 
-import { STATUS, TYPE } from '~/constants';
+import { ERROR_TYPE, STATUS, TYPE } from '~/constants';
 
 import { SpotifyDevice, SpotifyTrack } from './spotify';
 
+export type ErrorType = (typeof ERROR_TYPE)[keyof typeof ERROR_TYPE];
 export type Status = (typeof STATUS)[keyof typeof STATUS];
 export type Type = (typeof TYPE)[keyof typeof TYPE];
 
 export interface CallbackState extends State {
   type: Type;
 }
-
-export type ErrorType = 'authentication_error' | 'player_status' | 'playback_error';
 
 export type Layout = 'responsive' | 'compact';
 
