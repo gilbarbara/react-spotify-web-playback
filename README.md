@@ -67,7 +67,7 @@ interface State {
   previousTracks: SpotifyTrack[];
   progressMs: number;
   status: Status;
-  track: SpotifyPlayerTrack;
+  track: SpotifyTrack;
   volume: number;
 }
 
@@ -178,7 +178,7 @@ Please refer to Spotify's Web API [docs](https://developer.spotify.com/documenta
 
 ## Styling
 
-You can customize the UI with a `styles` prop. Check all the available options [here](src/types/common.ts#L69).
+You can customize the UI with a `styles` prop. Check all the available options [here](src/types/common.ts#L159).
 
 ```tsx
 <SpotifyWebPlayer

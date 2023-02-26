@@ -9,5 +9,5 @@
     },
     "target": "es5"
   },
-  "include": ["global.d.ts", "src/**/*"]
+  "include": ["src/**/*"]
 }

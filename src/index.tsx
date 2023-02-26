@@ -4,7 +4,14 @@ import isEqual from '@gilbarbara/deep-equal';
 import memoize from 'memoize-one';
 
 import { getLocale, getMergedStyles, getSpotifyURIType } from '~/modules/getters';
-import { loadSpotifyPlayer, parseVolume, round, validateURI } from '~/modules/helpers';
+import {
+  convertTrack,
+  getAlbumImages,
+  loadSpotifyPlayer,
+  parseVolume,
+  round,
+  validateURI,
+} from '~/modules/helpers';
 import {
   getDevices,
   getPlaybackState,
@@ -34,6 +41,7 @@ import {
   Locale,
   PlayOptions,
   Props,
+  SpotifyArtist,
   SpotifyDevice,
   SpotifyPlayerCallback,
   SpotifyPlayerStatus,
@@ -42,12 +50,10 @@ import {
   StylesOptions,
 } from './types';
 
-import { Spotify } from '../global';
-
 class SpotifyWebPlayer extends PureComponent<Props, State> {
   private isMounted = false;
   private emptyTrack = {
-    artists: [] as Spotify.Artist[],
+    artists: [] as SpotifyArtist[],
     durationMs: 0,
     id: '',
     image: '',
@@ -478,30 +484,19 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         const {
           paused,
           position,
-          track_window: {
-            current_track: { album, artists, duration_ms, id, name, uri },
-            next_tracks,
-            previous_tracks,
-          },
+          track_window: { current_track, next_tracks, previous_tracks },
         } = state;
 
         const isPlaying = !paused;
         const volume = (await this.player?.getVolume()) || 100;
-        const track = {
-          artists,
-          durationMs: duration_ms,
-          id,
-          name,
-          uri,
-          ...this.getAlbumImages(album),
-        };
-        let trackState;
+        const track = convertTrack(current_track);
+        let trackState = {};
 
         if (position === 0) {
           trackState = {
-            nextTracks: next_tracks,
+            nextTracks: next_tracks.map(convertTrack),
             position: 0,
-            previousTracks: previous_tracks,
+            previousTracks: previous_tracks.map(convertTrack),
             track,
           };
         }
@@ -525,11 +520,12 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           position: 0,
           previousTracks: [],
           track: {
-            artists: '',
+            artists: [],
             durationMs: 0,
             id: '',
             image: '',
             name: '',
+            thumb: '',
             uri: '',
           },
         });
@@ -571,21 +567,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         return { isMagnified: !previousState.isMagnified };
       });
     }
-  };
-
-  // eslint-disable-next-line class-methods-use-this
-  private getAlbumImages = (album: Spotify.Album) => {
-    const minWidth = Math.min(...album.images.map(d => d.width || 0));
-    const maxWidth = Math.max(...album.images.map(d => d.width || 0));
-    const thumb: Spotify.Image =
-      album.images.find(d => d.width === minWidth) || ({} as Spotify.Image);
-    const image: Spotify.Image =
-      album.images.find(d => d.width === maxWidth) || ({} as Spotify.Image);
-
-    return {
-      image: image.url,
-      thumb: thumb.url,
-    };
   };
 
   private get token(): string {
@@ -706,7 +687,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           id: player.item.id,
           name: player.item.name,
           uri: player.item.uri,
-          ...this.getAlbumImages(player.item.album),
+          ...getAlbumImages(player.item.album),
         };
       }
 
