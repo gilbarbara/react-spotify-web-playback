@@ -14,6 +14,7 @@ import SpotifyLogo from './SpotifyLogo';
 
 interface Props {
   hideAttribution: boolean;
+  hideCoverArt: boolean;
   isActive: boolean;
   layout: Layout;
   locale: Locale;
@@ -131,8 +132,13 @@ const ContentWrapper = styled('div')(
       styles.width = '100%';
     } else {
       styles.minHeight = px(imageSize);
-      styles.marginLeft = px(8);
-      styles.width = `calc(100% - ${px(imageSize + 8)})`;
+
+      if (!style.hideCoverArt) {
+        styles.marginLeft = px(8);
+        styles.width = `calc(100% - ${px(imageSize + 8)})`;
+      } else {
+        styles.width = '100%';
+      }
     }
 
     return styles;
@@ -210,6 +216,7 @@ const Content = styled('div')(
 function Info(props: Props) {
   const {
     hideAttribution,
+    hideCoverArt,
     isActive,
     layout,
     locale,
@@ -329,17 +336,20 @@ function Info(props: Props) {
         showSaveIcon,
       }}
     >
-      <a
-        aria-label={title}
-        href={getSpotifyLink(uri)}
-        rel="noreferrer"
-        target="_blank"
-        title={title}
-      >
-        <img alt={name} src={isCompactLayout ? image : thumb} />
-      </a>
+      {!hideCoverArt && (
+        <a
+          aria-label={title}
+          href={getSpotifyLink(uri)}
+          rel="noreferrer"
+          target="_blank"
+          title={title}
+        >
+          <img alt={name} src={isCompactLayout ? image : thumb} />
+        </a>
+      )}
       <ContentWrapper
         style={{
+          hideCoverArt,
           layout,
           showSaveIcon,
         }}
