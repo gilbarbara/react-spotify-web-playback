@@ -563,7 +563,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const { magnifySliderOnHover } = this.props;
 
     if (magnifySliderOnHover) {
-      this.updateState((previousState: State) => {
+      this.updateState(previousState => {
         return { isMagnified: !previousState.isMagnified };
       });
     }
@@ -874,7 +874,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
   };
 
-  private updateState = (state = {}) => {
+  private updateState: typeof this.setState = state => {
     if (!this.isMounted) {
       return;
     }
