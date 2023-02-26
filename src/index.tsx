@@ -615,7 +615,12 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
   private initializePlayer = () => {
     const { volume } = this.state;
-    const { name = 'Spotify Web Player' } = this.props;
+    const {
+      getOAuthToken = (callback: SpotifyPlayerCallback) => {
+        callback(this.token);
+      },
+      name = 'Spotify Web Player',
+    } = this.props;
 
     if (!window.Spotify) {
       return;
@@ -628,9 +633,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     });
 
     this.player = new window.Spotify.Player({
-      getOAuthToken: (callback: SpotifyPlayerCallback) => {
-        callback(this.token);
-      },
+      getOAuthToken,
       name,
       volume,
     });
@@ -821,9 +824,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           this.syncDevice();
         }, 300);
       } else if (this.player) {
-        const playerState = await this.player.getCurrentState();
-
         await this.player.activateElement();
+
+        const playerState = await this.player.getCurrentState();
 
         // eslint-disable-next-line unicorn/prefer-ternary
         if (
@@ -835,6 +838,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
             offset,
             ...(shouldInitialize ? playOptions : undefined),
           });
+          await this.player.togglePlay();
         } else {
           await this.player.togglePlay();
         }

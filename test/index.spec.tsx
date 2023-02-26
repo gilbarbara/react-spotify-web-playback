@@ -464,6 +464,11 @@ describe('SpotifyWebPlayer', () => {
         'https://api.spotify.com/v1/me/player/play?device_id=19ks98hfbxc53vh34jd',
         expect.any(Object),
       );
+      expect(mockTogglePlay).toHaveBeenCalledTimes(1);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'false');
+      });
     });
 
     it('should handle Control clicks', async () => {
