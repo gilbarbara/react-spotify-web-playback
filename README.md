@@ -38,7 +38,7 @@ Get status updates from the player.
   <summary>Type Definition</summary>
 
 ```typescript
-type ErrorType = 'authentication_error' | 'player_status' | 'playback_error';
+type ErrorType = 'account' | 'authentication' | 'initialization' | 'playback' | 'player';
 type Status = 'ERROR' | 'IDLE' | 'INITIALIZING' | 'READY' | 'RUNNING' | 'UNSUPPORTED';
 type Type =
   | 'device_update'

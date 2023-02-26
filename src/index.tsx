@@ -34,10 +34,11 @@ import Player from '~/components/Player';
 import Volume from '~/components/Volume';
 import Wrapper from '~/components/Wrapper';
 
-import { STATUS, TYPE } from '~/constants';
+import { ERROR_TYPE, STATUS, TYPE } from '~/constants';
 
 import {
   CallbackState,
+  ErrorType,
   Locale,
   PlayOptions,
   Props,
@@ -445,10 +446,11 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
   };
 
-  private handlePlayerErrors = async (type: string, message: string) => {
+  private handlePlayerErrors = async (type: ErrorType, message: string) => {
     const { status } = this.state;
-    const isPlaybackError = type === 'playback_error';
-    const isInitializationError = type === 'initialization_error';
+    const isPlaybackError = type === ERROR_TYPE.PLAYBACK;
+    const isInitializationError = type === ERROR_TYPE.INITIALIZATION;
+
     let nextStatus = status;
     let devices: SpotifyDevice[] = [];
 
@@ -461,9 +463,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       nextStatus = STATUS.UNSUPPORTED;
 
       ({ devices = [] } = await getDevices(this.token));
-    }
-
-    if (!isInitializationError && !isPlaybackError) {
+    } else if (!isPlaybackError) {
       nextStatus = STATUS.ERROR;
     }
 
@@ -503,7 +503,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
         this.updateState({
           error: '',
-          errorType: '',
+          errorType: null,
           isActive: true,
           isPlaying,
           progressMs: position,
@@ -609,7 +609,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     this.updateState({
       error: '',
-      errorType: '',
+      errorType: null,
       isInitializing: true,
     });
 
@@ -623,16 +623,16 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     this.player.addListener('not_ready', this.handlePlayerStatus);
     this.player.addListener('player_state_changed', this.handlePlayerStateChanges);
     this.player.addListener('initialization_error', error =>
-      this.handlePlayerErrors('initialization_error', error.message),
+      this.handlePlayerErrors(ERROR_TYPE.INITIALIZATION, error.message),
     );
     this.player.addListener('authentication_error', error =>
-      this.handlePlayerErrors('authentication_error', error.message),
+      this.handlePlayerErrors(ERROR_TYPE.AUTHENTICATION, error.message),
     );
     this.player.addListener('account_error', error =>
-      this.handlePlayerErrors('account_error', error.message),
+      this.handlePlayerErrors(ERROR_TYPE.ACCOUNT, error.message),
     );
     this.player.addListener('playback_error', error =>
-      this.handlePlayerErrors('playback_error', error.message),
+      this.handlePlayerErrors(ERROR_TYPE.PLAYBACK, error.message),
     );
     this.player.addListener('autoplay_failed', async () => {
       // eslint-disable-next-line no-console
@@ -693,7 +693,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
       this.updateState({
         error: '',
-        errorType: '',
+        errorType: null,
         isActive: true,
         isPlaying: player.is_playing,
         nextTracks: [],
@@ -722,7 +722,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
       this.updateState({
         error: error.message,
-        errorType: 'player_status',
+        errorType: ERROR_TYPE.PLAYER,
         status: STATUS.ERROR,
         ...state,
       });
@@ -888,7 +888,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       deviceId,
       devices,
       error,
-      errorType,
       isActive,
       isMagnified,
       isPlaying,
@@ -907,20 +906,14 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       hideCoverArt = false,
       inlineVolume = true,
       layout = 'responsive',
-      name,
       showSaveIcon,
       updateSavedStatus,
     } = this.props;
-    const isReady = ([STATUS.READY, STATUS.UNSUPPORTED] as Status[]).indexOf(status) >= 0;
-    const isPlaybackError = errorType === 'playback_error';
+    const isReady = ([STATUS.READY, STATUS.UNSUPPORTED] as Status[]).includes(status);
 
     const output: Record<string, ReactNode> = {
       main: <Loader styles={this.styles} />,
     };
-
-    if (isPlaybackError) {
-      output.info = <p>{error}</p>;
-    }
 
     if (isReady) {
       /* istanbul ignore else */
@@ -1001,37 +994,29 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       );
 
       output.main = (
-        <>
+        <Wrapper layout={layout} styles={this.styles}>
           {output.info}
           {output.controls}
           {output.actions}
-        </>
+        </Wrapper>
       );
     } else if (output.info) {
       output.main = output.info;
     }
 
     if (status === STATUS.ERROR) {
-      output.main = (
-        <ErrorMessage styles={this.styles}>
-          {name}: {error}
-        </ErrorMessage>
-      );
+      output.main = <ErrorMessage styles={this.styles}>{error}</ErrorMessage>;
     }
 
     return (
       <Player ref={this.ref} data-ready={isReady} styles={this.styles}>
-        <Wrapper layout={layout} styles={this.styles}>
-          {output.main}
-        </Wrapper>
+        {output.main}
       </Player>
     );
   }
 }
 
 export * from './types';
+export { ERROR_TYPE, STATUS, TYPE } from './constants';
 
 export default SpotifyWebPlayer;
-
-export { TYPE } from './constants';
-export { STATUS } from './constants';

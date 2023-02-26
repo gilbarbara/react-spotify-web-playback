@@ -23,7 +23,7 @@ export function getMergedStyles(styles?: StylesProps): StylesOptions {
     altColor: '#ccc',
     bgColor: '#fff',
     color: '#333',
-    errorColor: '#a60000',
+    errorColor: '#ff0026',
     height: 80,
     loaderColor: '#ccc',
     loaderSize: 32,
