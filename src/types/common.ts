@@ -27,6 +27,10 @@ export interface Props {
    */
   callback?: (state: CallbackState) => any;
   /**
+   * The callback Spotify SDK uses to get/update the token.
+   */
+  getOAuthToken?: (callback: (token: string) => void) => Promise<void>;
+  /**
    * Hide the Spotify logo.
    * More info: https://developer.spotify.com/documentation/general/design-and-branding/
    * @default false

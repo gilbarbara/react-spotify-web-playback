@@ -81,6 +81,9 @@ interface CallbackState extends State {
 
 </details>
 
+**getOAuthToken** `(callback: (token: string) => void) => Promise<void>`  
+The callback Spotify SDK uses to get/update the token. _Use it to generate a new token when the player needs it._
+
 **hideAttribution** `boolean` ▶︎ false  
 Hide the Spotify logo.
 
