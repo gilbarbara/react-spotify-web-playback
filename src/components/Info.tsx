@@ -6,7 +6,7 @@ import { usePrevious } from '~/modules/hooks';
 import { checkTracksStatus, removeTracks, saveTracks } from '~/modules/spotify';
 import { CssLikeObject, px, styled } from '~/modules/styled';
 
-import { Layout, Locale, SpotifyPlayerTrack, StyledProps, StylesOptions } from '~/types';
+import { Layout, Locale, SpotifyTrack, StyledProps, StylesOptions } from '~/types';
 
 import Favorite from './icons/Favorite';
 import FavoriteOutline from './icons/FavoriteOutline';
@@ -22,7 +22,7 @@ interface Props {
   showSaveIcon: boolean;
   styles: StylesOptions;
   token: string;
-  track: SpotifyPlayerTrack;
+  track: SpotifyTrack;
   updateSavedStatus?: (fn: (status: boolean) => any) => any;
 }
 

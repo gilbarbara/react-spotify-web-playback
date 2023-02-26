@@ -2,15 +2,13 @@ import { memo } from 'react';
 
 import { CssLikeObject, px, styled } from '~/modules/styled';
 
-import { Layout, Locale, StyledProps, StylesOptions } from '~/types';
+import { Layout, Locale, SpotifyTrack, StyledProps, StylesOptions } from '~/types';
 
 import Next from './icons/Next';
 import Pause from './icons/Pause';
 import Play from './icons/Play';
 import Previous from './icons/Previous';
 import Slider from './Slider';
-
-import { Spotify } from '../../global';
 
 interface Props {
   devices: JSX.Element | null;
@@ -20,14 +18,14 @@ interface Props {
   isPlaying: boolean;
   layout: Layout;
   locale: Locale;
-  nextTracks: Spotify.Track[];
+  nextTracks: SpotifyTrack[];
   onChangeRange: (position: number) => void;
   onClickNext: () => void;
   onClickPrevious: () => void;
   onClickTogglePlay: () => void;
   onToggleMagnify: () => void;
   position: number;
-  previousTracks: Spotify.Track[];
+  previousTracks: SpotifyTrack[];
   progressMs: number;
   styles: StylesOptions;
   volume: JSX.Element | null;

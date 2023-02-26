@@ -8,8 +8,6 @@ import SpotifyWebPlayer, { Props } from '~/index';
 import { playerState, playerStatus } from './fixtures/data';
 import { setBoundingClientRect } from './fixtures/helpers';
 
-import { Spotify } from '../global';
-
 jest.spyOn(helpers, 'loadSpotifyPlayer').mockImplementation(() => Promise.resolve());
 
 jest.useFakeTimers();

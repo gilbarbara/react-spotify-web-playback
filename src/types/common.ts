@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { STATUS, TYPE } from '~/constants';
 
-import { SpotifyDevice, SpotifyPlayerTrack, SpotifyTrack } from './spotify';
+import { SpotifyDevice, SpotifyTrack } from './spotify';
 
 export type Status = (typeof STATUS)[keyof typeof STATUS];
 export type Type = (typeof TYPE)[keyof typeof TYPE];
@@ -137,7 +137,7 @@ export interface State {
   previousTracks: SpotifyTrack[];
   progressMs: number;
   status: Status;
-  track: SpotifyPlayerTrack;
+  track: SpotifyTrack;
   volume: number;
 }
 
