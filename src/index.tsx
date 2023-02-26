@@ -6,7 +6,7 @@ import memoize from 'memoize-one';
 import { getLocale, getMergedStyles, getSpotifyURIType } from '~/modules/getters';
 import {
   convertTrack,
-  getAlbumImages,
+  getAlbumImage,
   loadSpotifyPlayer,
   parseVolume,
   round,
@@ -59,7 +59,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     id: '',
     image: '',
     name: '',
-    thumb: '',
     uri: '',
   };
 
@@ -525,7 +524,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
             id: '',
             image: '',
             name: '',
-            thumb: '',
             uri: '',
           },
         });
@@ -685,9 +683,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           artists: player.item.artists,
           durationMs: player.item.duration_ms,
           id: player.item.id,
+          image: getAlbumImage(player.item.album),
           name: player.item.name,
           uri: player.item.uri,
-          ...getAlbumImages(player.item.album),
         };
       }
 

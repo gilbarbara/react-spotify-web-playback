@@ -24,7 +24,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
       >
         <img
           alt="Main Theme From Trouble Man"
-          src="https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3"
+          src="https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052"
         />
       </a>
       <div
@@ -725,7 +725,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
       >
         <img
           alt="Main Theme From Trouble Man"
-          src="https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3"
+          src="https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052"
         />
       </a>
       <div
@@ -1273,7 +1273,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
       >
         <img
           alt="Main Theme From Trouble Man"
-          src="https://i.scdn.co/image/38ff482faf9916ca15ccb3e14b2886a27c0866e3"
+          src="https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052"
         />
       </a>
       <div

@@ -12,24 +12,16 @@ export function convertTrack(track: Spotify.Track): SpotifyTrack {
     artists,
     durationMs: duration_ms,
     id: id ?? '',
+    image: getAlbumImage(album),
     name,
     uri,
-    ...getAlbumImages(album),
   };
 }
 
-export function getAlbumImages(album: Spotify.Album) {
-  const minWidth = Math.min(...album.images.map(d => d.width || 0));
+export function getAlbumImage(album: Spotify.Album) {
   const maxWidth = Math.max(...album.images.map(d => d.width || 0));
-  const thumb: Spotify.Image =
-    album.images.find(d => d.width === minWidth) || ({} as Spotify.Image);
-  const image: Spotify.Image =
-    album.images.find(d => d.width === maxWidth) || ({} as Spotify.Image);
 
-  return {
-    image: image.url,
-    thumb: thumb.url,
-  };
+  return album.images.find(d => d.width === maxWidth)?.url || '';
 }
 
 export function isNumber(value: unknown): value is number {

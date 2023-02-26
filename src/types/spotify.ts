@@ -105,7 +105,6 @@ export interface SpotifyTrack {
   id: string;
   image: string;
   name: string;
-  thumb: string;
   uri: string;
 }
 
