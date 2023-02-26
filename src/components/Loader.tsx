@@ -4,7 +4,9 @@ import { ComponentsProps, StyledProps } from '~/types';
 
 const Wrapper = styled('div')(
   {
-    margin: '0 auto',
+    alignItems: 'center',
+    display: 'flex',
+    jsutifyContent: 'center',
     position: 'relative',
 
     '> div': {
@@ -43,21 +45,22 @@ const Wrapper = styled('div')(
     });
 
     return {
-      height: px(style.loaderSize),
-      width: px(style.loaderSize),
+      height: px(style.h),
 
       '> div': {
         animation: `${pulse} 1.15s infinite cubic-bezier(0.215, 0.61, 0.355, 1)`,
         borderColor: style.loaderColor,
+        height: px(style.loaderSize),
+        width: px(style.loaderSize),
       },
     };
   },
   'LoaderRSWP',
 );
 
-export default function Loader({ styles: { loaderColor, loaderSize } }: ComponentsProps) {
+export default function Loader({ styles: { height, loaderColor, loaderSize } }: ComponentsProps) {
   return (
-    <Wrapper data-component-name="Loader" style={{ loaderColor, loaderSize }}>
+    <Wrapper data-component-name="Loader" style={{ h: height, loaderColor, loaderSize }}>
       <div />
     </Wrapper>
   );

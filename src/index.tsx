@@ -488,15 +488,14 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
         const isPlaying = !paused;
         const volume = (await this.player?.getVolume()) || 100;
-        const track = convertTrack(current_track);
         let trackState = {};
 
-        if (position === 0) {
+        if (position === 0 && current_track) {
           trackState = {
             nextTracks: next_tracks.map(convertTrack),
             position: 0,
             previousTracks: previous_tracks.map(convertTrack),
-            track,
+            track: convertTrack(current_track),
           };
         }
 
