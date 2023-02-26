@@ -224,7 +224,7 @@ function Info(props: Props) {
     showSaveIcon,
     styles: { activeColor, bgColor, color, height, trackArtistColor, trackNameColor },
     token,
-    track: { artists = [], id, image, name, thumb, uri },
+    track: { artists = [], id, image, name, uri },
     updateSavedStatus,
   } = props;
   const [isSaved, setIsSaved] = useState(false);
@@ -344,7 +344,7 @@ function Info(props: Props) {
           target="_blank"
           title={title}
         >
-          <img alt={name} src={isCompactLayout ? image : thumb} />
+          <img alt={name} src={image} />
         </a>
       )}
       <ContentWrapper
