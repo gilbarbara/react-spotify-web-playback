@@ -923,6 +923,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     } = this.state;
     const {
       hideAttribution = false,
+      hideCoverArt = false,
       inlineVolume = true,
       layout = 'responsive',
       name,
@@ -946,6 +947,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         output.info = (
           <Info
             hideAttribution={hideAttribution}
+            hideCoverArt={hideCoverArt}
             isActive={isActive}
             layout={layout}
             locale={this.locale}

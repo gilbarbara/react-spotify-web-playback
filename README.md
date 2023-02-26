@@ -87,6 +87,9 @@ The callback Spotify SDK uses to get/update the token. _Use it to generate a new
 **hideAttribution** `boolean` ▶︎ false  
 Hide the Spotify logo.
 
+**hideCoverArt** `boolean` ▶︎ false  
+Hide the cover art
+
 **initialVolume** `number` between 0 and 1. ▶︎ 1  
 The initial volume for the player. It's not used for external devices.
 

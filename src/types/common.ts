@@ -37,6 +37,11 @@ export interface Props {
    */
   hideAttribution?: boolean;
   /**
+   * Hide the cover art.
+   * @default false
+   */
+  hideCoverArt?: boolean;
+  /**
    * The initial volume for the player. This isn't used for external devices.
    * @default 1
    */
