@@ -31,9 +31,6 @@ If you are using an SSR framework, you'll need to use a [dynamic import](https:/
 
 ## Props
 
-**autoPlay** `boolean` ▶︎ false  
-Start the player immediately.
-
 **callback** `(state: CallbackState) => void`  
 Get status updates from the player.
 

@@ -20,6 +20,7 @@ export interface Props {
   /**
    * Start the player immediately.
    * @default false
+   * @deprecated Most browsers block autoplaying since the user needs to interact with the page first.
    */
   autoPlay?: boolean;
   /**
