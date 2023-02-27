@@ -79,7 +79,44 @@ interface CallbackState extends State {
 </details>
 
 **getOAuthToken** `(callback: (token: string) => void) => Promise<void>`  
-The callback Spotify SDK uses to get/update the token. _Use it to generate a new token when the player needs it._
+The callback [Spotify SDK](https://developer.spotify.com/documentation/web-playback-sdk/reference/#initializing-the-sdk) uses to get/update the token.  
+ _Use it to generate a new token when the player needs it._
+
+<details>
+  <summary>Example</summary>
+
+```tsx
+import { useState } from 'react';
+import SpotifyPlayer, { Props } from 'react-spotify-web-playback';
+
+import { refreshTokenRequest } from '../some_module';
+
+export default function PlayerWrapper() {
+  const [accessToken, setAccessToken] = useState('');
+  const [refreshToken, setRefreshToken] = useState('');
+  const [expiresAt, setExpiresAt] = useState(0);
+
+  const getOAuthToken: Props['getOAuthToken'] = async callback => {
+    if (expiresAt > Date.now()) {
+      callback(accessToken);
+
+      return;
+    }
+
+    const { acess_token, expires_in, refresh_token } = await refreshTokenRequest(refreshToken);
+
+    setAccessToken(acess_token);
+    setRefreshToken(refresh_token);
+    setExpiresAt(Date.now() + expires_in * 1000);
+
+    callback(acess_token);
+  };
+
+  return <SpotifyPlayer getOAuthToken={getOAuthToken} token={accessToken} uris={[]} />;
+}
+```
+
+</details>
 
 **hideAttribution** `boolean` ▶︎ false  
 Hide the Spotify logo.
