@@ -319,14 +319,17 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     try {
       const percentage = position / 100;
 
+      let stateChanges = {};
+
       if (this.isExternalPlayer) {
         progress = Math.round(track.durationMs * percentage);
+
         await seek(this.token, progress);
 
-        this.updateState({
+        stateChanges = {
           position,
           progressMs: progress,
-        });
+        };
       } else if (this.player) {
         const state = await this.player.getCurrentState();
 
@@ -334,18 +337,21 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           progress = Math.round(state.track_window.current_track.duration_ms * percentage);
           await this.player.seek(progress);
 
-          this.updateState({
+          stateChanges = {
             position,
             progressMs: progress,
-          });
+          };
         } else {
-          this.updateState({ position: 0 });
+          stateChanges = { position: 0 };
         }
       }
+
+      this.updateState(stateChanges);
 
       if (callback) {
         callback({
           ...this.state,
+          ...stateChanges,
           type: TYPE.PROGRESS,
         });
       }
