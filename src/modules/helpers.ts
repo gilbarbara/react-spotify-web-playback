@@ -1,9 +1,5 @@
 /* eslint-disable camelcase */
-import { canUseDOM as canUseDOMBool } from 'exenv';
-
 import { SpotifyTrack } from '~/types';
-
-export const canUseDOM = () => canUseDOMBool;
 
 export function convertTrack(track: Spotify.Track): SpotifyTrack {
   const { album, artists, duration_ms, id, name, uri } = track;

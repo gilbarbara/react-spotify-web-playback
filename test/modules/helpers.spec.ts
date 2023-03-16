@@ -1,5 +1,4 @@
 import {
-  canUseDOM,
   isNumber,
   loadSpotifyPlayer,
   millisecondsToTime,
@@ -7,12 +6,6 @@ import {
   round,
   validateURI,
 } from '~/modules/helpers';
-
-describe('canUseDOM', () => {
-  it('should return properly', () => {
-    expect(canUseDOM()).toBeTrue();
-  });
-});
 
 describe('isNumber', () => {
   it('should return properly', () => {

@@ -1,44 +1,41 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { canUseDOM } from '~/modules/helpers';
-
-export function useMediaQuery(query: string): boolean {
-  const getMatches = (input: string): boolean => {
-    if (canUseDOM()) {
-      return window.matchMedia(input).matches;
-    }
-
-    return false;
+export function useMediaQuery(input: string): boolean {
+  const getMatches = (query: string): boolean => {
+    return window.matchMedia(query).matches;
   };
 
-  const [matches, setMatches] = useState<boolean>(getMatches(query));
+  const [matches, setMatches] = useState<boolean>(getMatches(input));
 
   function handleChange() {
-    setMatches(getMatches(query));
+    setMatches(getMatches(input));
   }
 
   useEffect(() => {
-    const matchMedia = window.matchMedia(query);
+    const matchMedia = window.matchMedia(input);
 
     // Triggered at the first client-side load and if query changes
     handleChange();
 
-    // Listen matchMedia
-    if (matchMedia.addListener) {
-      matchMedia.addListener(handleChange);
-    } else {
+    try {
       matchMedia.addEventListener('change', handleChange);
+    } catch {
+      // Safari isn't supporting matchMedia.addEventListener
+      /* istanbul ignore next */
+      matchMedia.addListener(handleChange);
     }
 
     return () => {
-      if (matchMedia.removeListener) {
-        matchMedia.removeListener(handleChange);
-      } else {
+      try {
         matchMedia.removeEventListener('change', handleChange);
+      } catch {
+        // Safari isn't supporting matchMedia.removeEventListener
+        /* istanbul ignore next */
+        matchMedia.removeListener(handleChange);
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, [input]);
 
   return matches;
 }
