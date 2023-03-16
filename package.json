@@ -38,7 +38,6 @@
     "@gilbarbara/deep-equal": "^0.1.2",
     "@gilbarbara/react-range-slider": "^0.7.0",
     "colorizr": "^2.1.1",
-    "exenv": "^1.2.2",
     "memoize-one": "^6.0.0",
     "nano-css": "^5.3.5"
   },
