@@ -1,12 +1,13 @@
-import { FormEvent, MouseEvent, useCallback, useRef } from "react";
+import { FormEvent, MouseEvent, useCallback, useRef } from 'react';
 import SpotifyWebPlayer, {
   CallbackState,
+  ERROR_TYPE,
+  Layout,
   STATUS,
   StylesProps,
-  Layout,
-  TYPE
-} from "react-spotify-web-playback";
-import { useSetState } from "react-use";
+  TYPE,
+} from 'react-spotify-web-playback';
+import { useSetState } from 'react-use';
 import {
   Anchor,
   Box,
@@ -21,30 +22,29 @@ import {
   Input,
   RadioGroup,
   Spacer,
-  Toggle
-} from "@gilbarbara/components";
-import { request } from "@gilbarbara/helpers";
+  Toggle,
+} from '@gilbarbara/components';
+import { request } from '@gilbarbara/helpers';
 
-import { GlobalStyles, List, Player } from "./components";
-import GitHubRepo from "./GitHubRepo";
+import { GlobalStyles, List, Player } from './components';
 
 interface State {
-  isPlaying: boolean;
+  URIs: string[];
   hideAttribution: boolean;
   inlineVolume: boolean;
-  layout: "responsive" | "compact";
+  isPlaying: boolean;
+  layout: 'responsive' | 'compact';
   styles?: StylesProps;
   token: string;
-  URIs: string[];
 }
 
 const validateURI = (input: string): boolean => {
   let isValid = false;
 
-  if (input && input.includes(":")) {
-    const [key, type, id] = input.split(":");
+  if (input && input.includes(':')) {
+    const [key, type, id] = input.split(':');
 
-    if (key && type && type !== "user" && id && id.length === 22) {
+    if (key && type && type !== 'user' && id && id.length === 22) {
       isValid = true;
     }
   }
@@ -53,35 +53,49 @@ const validateURI = (input: string): boolean => {
 };
 
 const parseURIs = (input: string): string[] => {
-  const ids = input.split(",");
+  const ids = input.split(',');
 
-  return ids.every((d) => validateURI(d)) ? ids : [];
+  return ids.every(d => validateURI(d)) ? ids : [];
+};
+
+const baseURIs = {
+  album: 'spotify:album:5GzhTq1Iu7jioZquau8f93',
+  artist: 'spotify:artist:4oLeXFyACqeem2VImYeBFe',
+  playlist: 'spotify:playlist:5BxDl4F4ZSgackA0YVV3ca',
+  tracks: [
+    'spotify:track:3zYpRGnnoegSpt3SguSo3W',
+    'spotify:track:5sjeJXROHuutyj8P3JGZoN',
+    'spotify:track:3u0VPnYkZo30zw60SInouA',
+    'spotify:track:5ZoDwIP1ntHwciLjydJ8X2',
+    'spotify:track:7ohR0qPH6f2Vuj2pUNanJG',
+    'spotify:track:5g2sPpVq3hdk9ZuMfABrts',
+    'spotify:track:3mJ6pNcFM2CkykCYSREdKT',
+    'spotify:track:63DTXKZi7YdJ4tzGti1Dtr',
+  ],
 };
 
 function App() {
   const scopes = [
-    "streaming",
-    "user-read-email",
-    "user-read-private",
-    "user-library-read",
-    "user-library-modify",
-    "user-read-playback-state",
-    "user-modify-playback-state"
+    'streaming',
+    'user-read-email',
+    'user-read-private',
+    'user-library-read',
+    'user-library-modify',
+    'user-read-playback-state',
+    'user-modify-playback-state',
   ];
-  const savedToken = localStorage.getItem("rswp_token");
+  const savedToken = localStorage.getItem('rswp_token');
   const URIsInput = useRef<HTMLInputElement>(null);
-  const [
-    { hideAttribution, inlineVolume, isPlaying, layout, styles, token, URIs },
-    setState
-  ] = useSetState<State>({
-    hideAttribution: false,
-    inlineVolume: true,
-    isPlaying: false,
-    layout: "responsive",
-    styles: undefined,
-    token: savedToken || "",
-    URIs: ["spotify:album:79ONNoS4M9tfIA1mYLBYVX"]
-  });
+  const [{ hideAttribution, inlineVolume, isPlaying, layout, styles, token, URIs }, setState] =
+    useSetState<State>({
+      hideAttribution: false,
+      inlineVolume: true,
+      isPlaying: false,
+      layout: 'responsive',
+      styles: undefined,
+      token: savedToken || '',
+      URIs: [baseURIs.artist],
+    });
 
   const handleSubmit = useCallback(
     (event: FormEvent) => {
@@ -96,11 +110,11 @@ function App() {
 
       if (nextToken) {
         setState({ token: nextToken });
-        localStorage.setItem("rswp_token", nextToken);
+        localStorage.setItem('rswp_token', nextToken);
         form.reset();
       }
     },
-    [setState]
+    [setState],
   );
 
   const handleSubmitURIs = useCallback(
@@ -111,13 +125,13 @@ function App() {
         setState({ URIs: parseURIs(URIsInput.current.value) });
       }
     },
-    [setState]
+    [setState],
   );
 
   const handleClickURIs = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      const { uris = "" } = event.currentTarget.dataset;
+      const { uris = '' } = event.currentTarget.dataset;
 
       setState({ isPlaying: true, URIs: parseURIs(uris) });
 
@@ -125,11 +139,11 @@ function App() {
         URIsInput.current.value = uris;
       }
     },
-    [setState]
+    [setState],
   );
 
   const handleCallback = useCallback(
-    async ({ type, track, ...state }: CallbackState) => {
+    async ({ track, type, ...state }: CallbackState) => {
       console.group(`RSWP: ${type}`);
       console.log(state);
       console.groupEnd();
@@ -139,21 +153,18 @@ function App() {
       if (type === TYPE.TRACK) {
         console.log(track);
         const trackStyles = await request(
-          `https://scripts.gilbarbara.dev/api/getImagePlayerStyles?url=${track.image}`
+          `https://scripts.gilbarbara.dev/api/getImagePlayerStyles?url=${track.image}`,
         );
 
         setState({ styles: trackStyles });
       }
 
-      if (
-        state.status === STATUS.ERROR &&
-        state.errorType === "authentication_error"
-      ) {
-        localStorage.removeItem("rswp_token");
-        setState({ token: "" });
+      if (state.status === STATUS.ERROR && state.errorType === ERROR_TYPE.AUTHENTICATION) {
+        localStorage.removeItem('rswp_token');
+        setState({ token: '' });
       }
     },
-    [setState]
+    [setState],
   );
 
   const content: any = {};
@@ -161,13 +172,7 @@ function App() {
   if (token) {
     content.main = (
       <>
-        <Box
-          as="form"
-          maxWidth={320}
-          mx="auto"
-          onSubmit={handleSubmitURIs}
-          width="100%"
-        >
+        <Box as="form" maxWidth={320} mx="auto" onSubmit={handleSubmitURIs} width="100%">
           <ComponentWrapper
             suffix={
               <Button
@@ -182,81 +187,45 @@ function App() {
             <Input
               ref={URIsInput}
               data-flex={1}
-              defaultValue={URIs.join(",")}
+              defaultValue={URIs.join(',')}
               name="uris"
               placeholder="Enter a Spotify URI"
               suffixSpacing={48}
             />
           </ComponentWrapper>
         </Box>
-        <Grid
-          gap={20}
-          maxWidth={320}
-          mt="xl"
-          mx="auto"
-          templateColumns="repeat(2, 1fr)"
-        >
-          <Button
-            data-uris="spotify:artist:0b9ukmbg0MO5eMlorcgOwz"
-            onClick={handleClickURIs}
-            size="sm"
-          >
+        <Grid gap={20} maxWidth={320} mt="xl" mx="auto" templateColumns="repeat(2, 1fr)">
+          <Button data-uris={baseURIs.artist} onClick={handleClickURIs} size="sm">
             Play an Artist
           </Button>
-          <Button
-            data-uris="spotify:album:79ONNoS4M9tfIA1mYLBYVX"
-            onClick={handleClickURIs}
-            size="sm"
-          >
+          <Button data-uris={baseURIs.album} onClick={handleClickURIs} size="sm">
             Play an Album
           </Button>
-          <Button
-            data-uris="spotify:playlist:1hOzc9GLICCPVMq5xcCRxV"
-            onClick={handleClickURIs}
-            size="sm"
-          >
+          <Button data-uris={baseURIs.playlist} onClick={handleClickURIs} size="sm">
             Play a Playlist
           </Button>
-          <Button
-            data-uris={[
-              "spotify:track:4pGxnHLyli1TLkRFHyBxo0",
-              "spotify:track:1cU4jWWFTAiclPWyD3X2KP",
-              "spotify:track:6I6QkE2UVSj9YX48oRrD6e",
-              "spotify:track:2q8EbgPUw6bCQjVyfGoytw",
-              "spotify:track:5B4611SCn4puXahrf7rqkj",
-              "spotify:track:3D93OQLw3qrD3q61uW7vjX",
-              "spotify:track:15TXFTdwGEEL4jH9erTRnK"
-            ].join(",")}
-            onClick={handleClickURIs}
-            size="sm"
-          >
+          <Button data-uris={baseURIs.tracks.join(',')} onClick={handleClickURIs} size="sm">
             Play some Tracks
           </Button>
         </Grid>
-        <Box maxWidth={400} mx="auto" mt="xl" textAlign="center">
+        <Box maxWidth={400} mt="xl" mx="auto" textAlign="center">
           <H4>Layout</H4>
           <RadioGroup
             inline
             items={[
-              { label: "Responsive", value: "responsive" },
+              { label: 'Responsive', value: 'responsive' },
               {
-                label: "Compact",
-                value: "compact"
-              }
+                label: 'Compact',
+                value: 'compact',
+              },
             ]}
             name="layout"
-            onChange={(item) =>
-              setState({ layout: item.currentTarget.value as Layout })
-            }
+            onChange={item => setState({ layout: item.currentTarget.value as Layout })}
             style={{ justifyContent: 'center' }}
             value={layout}
           />
           <H4 mt="md">Props</H4>
-          <Spacer
-            distribution="center"
-            mx="auto"
-            gapVertical="md"
-          >
+          <Spacer distribution="center" gapVertical="md" mx="auto">
             <Toggle
               checked={hideAttribution}
               label="Hide Attribution"
@@ -278,8 +247,8 @@ function App() {
         <SpotifyWebPlayer
           callback={handleCallback}
           hideAttribution={hideAttribution}
-          inlineVolume={inlineVolume}
           initialVolume={100}
+          inlineVolume={inlineVolume}
           layout={layout}
           persistDeviceSelection
           play={isPlaying}
@@ -294,13 +263,7 @@ function App() {
   } else {
     content.main = (
       <>
-        <Box
-          as="form"
-          maxWidth={320}
-          mx="auto"
-          onSubmit={handleSubmit}
-          width="100%"
-        >
+        <Box as="form" maxWidth={320} mx="auto" onSubmit={handleSubmit} width="100%">
           <ComponentWrapper
             suffix={
               <Button
@@ -323,16 +286,16 @@ function App() {
         <Box mt="xl" textAlign="center">
           <H6>Required scopes</H6>
           <List>
-            {scopes.map((d) => (
+            {scopes.map(d => (
               <li key={d}>{d}</li>
             ))}
           </List>
           <H4 mt="md">
-            Get one{" "}
+            Get one{' '}
             <Anchor
               external
               href={`https://accounts.spotify.com/en/authorize?response_type=token&client_id=adaaf209fb064dfab873a71817029e0d&redirect_uri=https:%2F%2Fdeveloper.spotify.com%2Fdocumentation%2Fweb-playback-sdk%2Fquick-start%2F&scope=${scopes.join(
-                "%20"
+                '%20',
               )}&show_dialog=true`}
             >
               here
@@ -353,8 +316,6 @@ function App() {
 
         {content.main}
         {content.player}
-
-        <GitHubRepo />
       </Container>
     </>
   );

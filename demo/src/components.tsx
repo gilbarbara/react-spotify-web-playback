@@ -86,9 +86,7 @@ export const Player = styled.div<{ layout: Layout }>(({ layout }) => {
     bottom: 20px;
     overflow: hidden;
     position: fixed;
-    position: fixed;
-    right: 0;
     right: 20px;
     width: 320px;
-  `
+  `;
 });
