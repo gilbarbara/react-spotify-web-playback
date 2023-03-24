@@ -197,7 +197,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const playOptions = this.getPlayOptions(uris);
 
     const canPlay = !!currentDeviceId && !!(playOptions.context_uri || playOptions.uris);
-    const shouldPlay = (changedURIs && isPlaying) || !!(isReady && (autoPlay || playProp));
+    const shouldPlay = isReady && (autoPlay || playProp);
 
     if (canPlay && shouldPlay) {
       await this.togglePlay(true);
@@ -212,8 +212,14 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           this.syncDevice();
         }, 600);
       }
-    } else if (changedURIs && !isPlaying) {
-      this.updateState({ needsUpdate: true });
+    } else if (changedURIs) {
+      if (isPlaying || playProp) {
+        await this.togglePlay(true);
+      } else {
+        this.updateState({ needsUpdate: true });
+      }
+    } else if (previousProps.play !== playProp && playProp !== isPlaying) {
+      await this.togglePlay(!track.id);
     }
 
     if (previousState.status !== status) {
@@ -254,10 +260,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         ...this.state,
         type: TYPE.PLAYER,
       });
-    }
-
-    if (previousProps.play !== playProp && playProp !== isPlaying) {
-      await this.togglePlay(!track.id || changedURIs);
     }
 
     if (previousProps.offset !== offset) {
@@ -783,10 +785,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     }
   };
 
-  private togglePlay = async (init = false) => {
+  private togglePlay = async (force = false) => {
     const { currentDeviceId, isPlaying, needsUpdate } = this.state;
     const { offset, uris } = this.props;
-    const shouldInitialize = init || needsUpdate;
+    const shouldInitialize = force || needsUpdate;
     const playOptions = this.getPlayOptions(uris);
 
     try {
@@ -811,12 +813,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         await this.player.activateElement();
 
         const playerState = await this.player.getCurrentState();
+        const shouldPlay = !playerState && !!(playOptions.context_uri || playOptions.uris);
 
         // eslint-disable-next-line unicorn/prefer-ternary
-        if (
-          (!playerState && !!(playOptions.context_uri || playOptions.uris)) ||
-          (shouldInitialize && playerState && playerState.paused)
-        ) {
+        if (shouldPlay || shouldInitialize) {
           await play(this.token, {
             deviceId: currentDeviceId,
             offset,
