@@ -175,7 +175,7 @@ export default function Devices(props: Props) {
   const {
     currentDeviceId,
     deviceId,
-    devices,
+    devices = [],
     layout,
     locale,
     onClickDevice,
