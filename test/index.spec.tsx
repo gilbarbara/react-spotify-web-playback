@@ -19,7 +19,7 @@ let playerStatusResponse = playerStatus;
 
 const mockAddListener = jest.fn();
 
-const initalizePlayer = async () => {
+const initializePlayer = async () => {
   const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
 
   await readyFn({ device_id: deviceId });
@@ -74,7 +74,7 @@ async function setup(props?: SetupProps) {
 
   if (initialize) {
     await act(async () => {
-      await initalizePlayer();
+      await initializePlayer();
 
       if (!skipUpdate) {
         await updatePlayer(updateState);
@@ -190,7 +190,7 @@ describe('SpotifyWebPlayer', () => {
       rerender(<SpotifyWebPlayer {...baseProps} token={`${token}BB`} />);
 
       await act(async () => {
-        await initalizePlayer();
+        await initializePlayer();
       });
 
       expect(screen.getByTestId('Player')).toHaveAttribute('data-ready', 'true');
@@ -727,6 +727,16 @@ describe('SpotifyWebPlayer', () => {
       await setup({ layout: 'compact', styles: { bgColor: '#f04', color: '#fff' } });
 
       expect(screen.getByTestId('Player')).toMatchSnapshot();
+    });
+  });
+
+  describe('With "getPlayer" prop', () => {
+    it('should return the player', async () => {
+      const mockGetPlayer = jest.fn();
+
+      await setup({ getPlayer: mockGetPlayer });
+
+      expect(mockGetPlayer).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -118,6 +118,9 @@ export default function PlayerWrapper() {
 
 </details>
 
+**getPlayer** `(player: SpotifyPlayer) => void`  
+Get the Spotify Web Playback SDK instance.
+
 **hideAttribution** `boolean` ▶︎ false  
 Hide the Spotify logo.
 

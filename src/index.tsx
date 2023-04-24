@@ -605,6 +605,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       getOAuthToken = (callback: SpotifyPlayerCallback) => {
         callback(this.token);
       },
+      getPlayer,
       name = 'Spotify Web Player',
     } = this.props;
 
@@ -645,6 +646,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     });
 
     this.player.connect();
+
+    if (getPlayer) {
+      getPlayer(this.player);
+    }
   };
 
   private get isExternalPlayer(): boolean {
@@ -1020,6 +1025,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 }
 
 export * from './types';
+export type SpotifyPlayer = Spotify.Player;
 export { ERROR_TYPE, STATUS, TYPE } from './constants';
 
 export default SpotifyWebPlayer;
