@@ -31,6 +31,10 @@ export interface Props {
    */
   getOAuthToken?: (callback: (token: string) => void) => Promise<void>;
   /**
+   * Get the Spotify Web Playback SDK instance.
+   */
+  getPlayer?: (player: Spotify.Player) => void;
+  /**
    * Hide the Spotify logo.
    * More info: https://developer.spotify.com/documentation/general/design-and-branding/
    * @default false
