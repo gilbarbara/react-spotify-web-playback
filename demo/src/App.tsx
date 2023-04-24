@@ -294,9 +294,9 @@ function App() {
             Get one{' '}
             <Anchor
               external
-              href={`https://accounts.spotify.com/en/authorize?response_type=token&client_id=adaaf209fb064dfab873a71817029e0d&redirect_uri=https:%2F%2Fdeveloper.spotify.com%2Fdocumentation%2Fweb-playback-sdk%2Fquick-start%2F&scope=${scopes.join(
+              href={`https://accounts.spotify.com/en/authorize?response_type=token&client_id=2030beede5174f9f9b23ffc23ba0705c&redirect_uri=https:%2F%2Freact-spotify-web-playback.gilbarbara.dev%2Ftoken.html&scope=${scopes.join(
                 '%20',
-              )}&show_dialog=true`}
+              )}&show_dialog=false`}
             >
               here
             </Anchor>
