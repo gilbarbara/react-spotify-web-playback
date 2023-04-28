@@ -7,6 +7,7 @@ import { getLocale, getMergedStyles, getSpotifyURIType } from '~/modules/getters
 import {
   convertTrack,
   getAlbumImage,
+  getURIs,
   loadSpotifyPlayer,
   parseVolume,
   round,
@@ -74,20 +75,15 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   private syncTimeout?: number;
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
-  private getPlayOptions = memoize((data): PlayOptions => {
+  private getPlayOptions = memoize((ids: string[]): PlayOptions => {
     const playOptions: PlayOptions = {
       context_uri: undefined,
       uris: undefined,
     };
 
     /* istanbul ignore else */
-    if (data) {
-      const ids = Array.isArray(data) ? data : [data];
-
+    if (ids) {
       if (!ids.every(d => validateURI(d))) {
-        // eslint-disable-next-line no-console
-        console.error('Invalid URI');
-
         return playOptions;
       }
 
@@ -194,7 +190,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const changedLocale = !isEqual(previousProps.locale, locale);
     const changedStyles = !isEqual(previousProps.styles, styles);
     const changedURIs = !isEqual(previousProps.uris, uris);
-    const playOptions = this.getPlayOptions(uris);
+    const playOptions = this.getPlayOptions(getURIs(uris));
 
     const canPlay = !!currentDeviceId && !!(playOptions.context_uri || playOptions.uris);
     const shouldPlay = isReady && (autoPlay || playProp);
@@ -785,8 +781,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const { currentDeviceId } = this.state;
     const { offset, uris } = this.props;
 
-    if (typeof offset === 'number' && Array.isArray(uris)) {
-      await play(this.token, { deviceId: currentDeviceId, offset, uris });
+    if (typeof offset === 'number') {
+      await play(this.token, { deviceId: currentDeviceId, offset, uris: getURIs(uris) });
     }
   };
 
@@ -794,7 +790,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const { currentDeviceId, isPlaying, needsUpdate } = this.state;
     const { offset, uris } = this.props;
     const shouldInitialize = force || needsUpdate;
-    const playOptions = this.getPlayOptions(uris);
+    const playOptions = this.getPlayOptions(getURIs(uris));
 
     try {
       /* istanbul ignore else */

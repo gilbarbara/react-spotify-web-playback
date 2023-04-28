@@ -20,6 +20,14 @@ export function getAlbumImage(album: Spotify.Album) {
   return album.images.find(d => d.width === maxWidth)?.url || '';
 }
 
+export function getURIs(uris: string | string[]): string[] {
+  if (!uris) {
+    return [];
+  }
+
+  return Array.isArray(uris) ? uris : [uris];
+}
+
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
 }
