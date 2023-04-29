@@ -27,7 +27,27 @@ import SpotifyPlayer from 'react-spotify-web-playback';
 
 ### Client-side only
 
-If you are using an SSR framework, you'll need to use a [dynamic import](https://nextjs.org/docs/advanced-features/dynamic-import) to load the player.
+This library requires the `window` object.  
+If you are using an SSR framework, you'll need to use a [dynamic import](https://nextjs.org/docs/advanced-features/dynamic-import) or a [Client Component](https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components) to load the player.
+
+## Spotify Token
+
+It needs a Spotify token with the following scopes:
+
+- streaming
+- user-read-email
+- user-read-private
+- user-read-playback-state (to read other devices' status)
+- user-modify-playback-state (to update other devices)
+
+If you want to show the Favorite button (💚), you'll need the additional scopes:
+
+- user-library-read
+- user-library-modify
+
+Please refer to Spotify's Web API [docs](https://developer.spotify.com/documentation/web-api/) for more information.
+
+> This library doesn't handle token generation and expiration. You'll need to handle that by yourself.
 
 ## Props
 
@@ -221,24 +241,53 @@ _This works in addition to the **showSaveIcon** prop, and it is only needed if y
 **uris** `string | string[]` **REQUIRED**  
 A list of Spotify [URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
 
-## Spotify Token
+## Spotify API
 
-It needs a Spotify token with the following scopes:
+The functions that interact with the Spotify API are exported for your convenience.  
+Use them at your own risk.
 
-- streaming
-- user-read-email
-- user-read-private
-- user-read-playback-state (to read other devices' status)
-- user-modify-playback-state (to update other devices)
+```tsx
+import { spotifyApi } from 'react-spotify-web-playback';
+```
 
-If you want to show the Favorite button (💚), you'll need the additional scopes:
+**checkTracksStatus(token: string, tracks: string | string[]): Promise\<boolean[]>**
 
-- user-library-read
-- user-library-modify
+**getDevices(token: string): Promise\<SpotifyApi.UserDevicesResponse>**
 
-Please refer to Spotify's Web API [docs](https://developer.spotify.com/documentation/web-api/) for more information.
+**getPlaybackState(token: string): Promise\<SpotifyApi.CurrentlyPlayingObject | null>**
 
-> This library doesn't handle token generation and expiration. You'll need to handle that by yourself.
+**getQueue(token: string): Promise\<SpotifyApi.UsersQueueResponse>**
+
+**pause(token: string, deviceId?: string): Promise\<void>**
+
+**play(token: string, options: SpotifyPlayOptions): Promise\<void>**
+
+```typescript
+interface SpotifyPlayOptions {
+  context_uri?: string;
+  deviceId: string;
+  offset?: number;
+  uris?: string[];
+}
+```
+
+**previous(token: string, deviceId?: string): Promise\<void>**
+
+**next(token: string, deviceId?: string): Promise\<void>**
+
+**removeTracks(token: string, tracks: string | string[]): Promise\<void>**
+
+**repeat(token: string, state: 'context' | 'track' | 'off', deviceId?: string): Promise\<void>**
+
+**saveTracks(token: string, tracks: string | string[]): Promise\<void>**
+
+**seek(token: string, position: number, deviceId?: string): Promise\<void>**
+
+**setDevice(token: string, deviceId: string, shouldPlay?: boolean): Promise\<void>**
+
+**setVolume(token: string, volume: number, deviceId?: string): Promise\<void>**
+
+**shuffle(token: string, state: boolean, deviceId?: string): Promise\<void>**
 
 ## Styling
 

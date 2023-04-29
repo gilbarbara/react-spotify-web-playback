@@ -1033,6 +1033,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
 export * from './types';
 export type SpotifyPlayer = Spotify.Player;
+
 export { ERROR_TYPE, STATUS, TYPE } from './constants';
+export * as spotifyApi from './modules/spotify';
 
 export default SpotifyWebPlayer;
