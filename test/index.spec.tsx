@@ -5,7 +5,7 @@ import * as helpers from '~/modules/helpers';
 
 import SpotifyWebPlayer, { Props } from '~/index';
 
-import { playerState, playerStatus } from './fixtures/data';
+import { playbackState, playerState } from './fixtures/data';
 import { setBoundingClientRect } from './fixtures/helpers';
 
 jest.spyOn(helpers, 'loadSpotifyPlayer').mockImplementation(() => Promise.resolve());
@@ -15,7 +15,7 @@ jest.useFakeTimers();
 configure({ testIdAttribute: 'data-component-name' });
 
 let playerStateResponse = playerState;
-let playerStatusResponse = playerStatus;
+let playerStatusResponse = playbackState;
 
 const mockAddListener = jest.fn();
 
@@ -554,9 +554,9 @@ describe('SpotifyWebPlayer', () => {
     it('should handle Volume changes', async () => {
       setBoundingClientRect('volumeInline');
       playerStatusResponse = {
-        ...playerStatus,
+        ...playbackState,
         device: {
-          ...playerStatus.device,
+          ...playbackState.device,
           volume_percent: 60,
         },
       };
@@ -585,7 +585,7 @@ describe('SpotifyWebPlayer', () => {
     it('should handle Control clicks', async () => {
       // reset the response (playing)
       playerStatusResponse = {
-        ...playerStatus,
+        ...playbackState,
         is_playing: true,
       };
 
@@ -647,7 +647,7 @@ describe('SpotifyWebPlayer', () => {
       );
 
       // reset the response again (paused)
-      playerStatusResponse = playerStatus;
+      playerStatusResponse = playbackState;
 
       await act(async () => {
         jest.runOnlyPendingTimers();
@@ -679,7 +679,7 @@ describe('SpotifyWebPlayer', () => {
   describe('With "syncExternalDevice"', () => {
     it('should handle syncExternalDevice changes', async () => {
       playerStatusResponse = {
-        ...playerStatus,
+        ...playbackState,
         is_playing: true,
       };
 
@@ -687,7 +687,7 @@ describe('SpotifyWebPlayer', () => {
 
       expect(screen.getByTestId('Devices')).toHaveAttribute(
         'data-device-id',
-        playerStatus.device.id,
+        playbackState.device.id,
       );
     });
   });
@@ -695,7 +695,7 @@ describe('SpotifyWebPlayer', () => {
   describe('With control props', () => {
     it('should honor the "play" prop', async () => {
       playerStatusResponse = {
-        ...playerStatus,
+        ...playbackState,
         is_playing: true,
       };
 

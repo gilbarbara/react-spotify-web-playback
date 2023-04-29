@@ -1,7 +1,10 @@
 /* eslint-disable camelcase */
-import { SpotifyPlayOptions } from '~/types';
+import { RepeatState, SpotifyPlayOptions } from '~/types';
 
-export async function checkTracksStatus(token: string, tracks: string | string[]) {
+export async function checkTracksStatus(
+  token: string,
+  tracks: string | string[],
+): Promise<boolean[]> {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
   return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`, {
@@ -13,7 +16,7 @@ export async function checkTracksStatus(token: string, tracks: string | string[]
   }).then(d => d.json());
 }
 
-export async function getDevices(token: string) {
+export async function getDevices(token: string): Promise<SpotifyApi.UserDevicesResponse> {
   return fetch(`https://api.spotify.com/v1/me/player/devices`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -23,7 +26,9 @@ export async function getDevices(token: string) {
   }).then(d => d.json());
 }
 
-export async function getPlaybackState(token: string) {
+export async function getPlaybackState(
+  token: string,
+): Promise<SpotifyApi.CurrentlyPlayingObject | null> {
   return fetch(`https://api.spotify.com/v1/me/player`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -39,8 +44,40 @@ export async function getPlaybackState(token: string) {
   });
 }
 
-export async function pause(token: string) {
-  return fetch(`https://api.spotify.com/v1/me/player/pause`, {
+export async function getQueue(token: string): Promise<SpotifyApi.UsersQueueResponse> {
+  return fetch(`https://api.spotify.com/v1/me/player/queue`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function next(token: string, deviceId?: string): Promise<void> {
+  let query = '';
+
+  if (deviceId) {
+    query += `?device_id=${deviceId}`;
+  }
+
+  await fetch(`https://api.spotify.com/v1/me/player/next${query}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  });
+}
+
+export async function pause(token: string, deviceId?: string): Promise<void> {
+  let query = '';
+
+  if (deviceId) {
+    query += `?device_id=${deviceId}`;
+  }
+
+  await fetch(`https://api.spotify.com/v1/me/player/pause${query}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -52,7 +89,7 @@ export async function pause(token: string) {
 export async function play(
   token: string,
   { context_uri, deviceId, offset = 0, uris }: SpotifyPlayOptions,
-) {
+): Promise<void> {
   let body;
 
   if (context_uri) {
@@ -69,7 +106,7 @@ export async function play(
     body = JSON.stringify({ uris, offset: { position: offset } });
   }
 
-  return fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+  await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
     body,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -79,8 +116,14 @@ export async function play(
   });
 }
 
-export async function previous(token: string) {
-  return fetch(`https://api.spotify.com/v1/me/player/previous`, {
+export async function previous(token: string, deviceId?: string): Promise<void> {
+  let query = '';
+
+  if (deviceId) {
+    query += `?device_id=${deviceId}`;
+  }
+
+  await fetch(`https://api.spotify.com/v1/me/player/previous${query}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -89,20 +132,10 @@ export async function previous(token: string) {
   });
 }
 
-export async function next(token: string) {
-  return fetch(`https://api.spotify.com/v1/me/player/next`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-  });
-}
-
-export async function removeTracks(token: string, tracks: string | string[]) {
+export async function removeTracks(token: string, tracks: string | string[]): Promise<void> {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
-  return fetch(`https://api.spotify.com/v1/me/tracks`, {
+  await fetch(`https://api.spotify.com/v1/me/tracks`, {
     body: JSON.stringify(ids),
     headers: {
       Authorization: `Bearer ${token}`,
@@ -112,10 +145,26 @@ export async function removeTracks(token: string, tracks: string | string[]) {
   });
 }
 
-export async function saveTracks(token: string, tracks: string | string[]) {
+export async function repeat(token: string, state: RepeatState, deviceId?: string): Promise<void> {
+  let query = `?state=${state}`;
+
+  if (deviceId) {
+    query += `&device_id=${deviceId}`;
+  }
+
+  await fetch(`https://api.spotify.com/v1/me/player/repeat${query}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+  });
+}
+
+export async function saveTracks(token: string, tracks: string | string[]): Promise<void> {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
-  return fetch(`https://api.spotify.com/v1/me/tracks`, {
+  await fetch(`https://api.spotify.com/v1/me/tracks`, {
     body: JSON.stringify({ ids }),
     headers: {
       Authorization: `Bearer ${token}`,
@@ -125,8 +174,14 @@ export async function saveTracks(token: string, tracks: string | string[]) {
   });
 }
 
-export async function seek(token: string, position: number) {
-  return fetch(`https://api.spotify.com/v1/me/player/seek?position_ms=${position}`, {
+export async function seek(token: string, position: number, deviceId?: string): Promise<void> {
+  let query = `?position_ms=${position}`;
+
+  if (deviceId) {
+    query += `&device_id=${deviceId}`;
+  }
+
+  await fetch(`https://api.spotify.com/v1/me/player/seek${query}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -135,8 +190,12 @@ export async function seek(token: string, position: number) {
   });
 }
 
-export async function setDevice(token: string, deviceId: string, shouldPlay?: boolean) {
-  return fetch(`https://api.spotify.com/v1/me/player`, {
+export async function setDevice(
+  token: string,
+  deviceId: string,
+  shouldPlay?: boolean,
+): Promise<void> {
+  await fetch(`https://api.spotify.com/v1/me/player`, {
     body: JSON.stringify({ device_ids: [deviceId], play: shouldPlay }),
     headers: {
       Authorization: `Bearer ${token}`,
@@ -146,8 +205,30 @@ export async function setDevice(token: string, deviceId: string, shouldPlay?: bo
   });
 }
 
-export async function setVolume(token: string, volume: number) {
-  return fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
+export async function setVolume(token: string, volume: number, deviceId?: string): Promise<void> {
+  let query = `?volume_percent=${volume}`;
+
+  if (deviceId) {
+    query += `&device_id=${deviceId}`;
+  }
+
+  await fetch(`https://api.spotify.com/v1/me/player/volume${query}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+  });
+}
+
+export async function shuffle(token: string, state: boolean, deviceId?: string): Promise<void> {
+  let query = `?state=${state}`;
+
+  if (deviceId) {
+    query += `&device_id=${deviceId}`;
+  }
+
+  await fetch(`https://api.spotify.com/v1/me/player/shuffle${query}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',

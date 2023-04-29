@@ -47,7 +47,6 @@ import {
   SpotifyArtist,
   SpotifyDevice,
   SpotifyPlayerCallback,
-  SpotifyPlayerStatus,
   State,
   Status,
   StylesOptions,
@@ -190,10 +189,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       uris,
     } = this.props;
     const isReady = previousState.status !== STATUS.READY && status === STATUS.READY;
-    const changedLayout = !isEqual(previousProps.layout, layout);
-    const changedLocale = !isEqual(previousProps.locale, locale);
-    const changedStyles = !isEqual(previousProps.styles, styles);
-    const changedURIs = !isEqual(previousProps.uris, uris);
     const playOptions = this.getPlayOptions(getURIs(uris));
 
     const canPlay = !!currentDeviceId && !!(playOptions.context_uri || playOptions.uris);
@@ -212,7 +207,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           this.syncDevice();
         }, 600);
       }
-    } else if (changedURIs) {
+    } else if (!isEqual(previousProps.uris, uris)) {
       if (isPlaying || playProp) {
         await this.togglePlay(true);
       } else {
@@ -275,24 +270,24 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     if (previousState.isInitializing && !isInitializing) {
       if (syncExternalDevice && !uris) {
-        const player: SpotifyPlayerStatus = await getPlaybackState(this.token);
+        const playerState = await getPlaybackState(this.token);
 
         /* istanbul ignore else */
-        if (player && player.is_playing && player.device.id !== deviceId) {
-          this.setExternalDevice(player.device.id);
+        if (playerState && playerState.is_playing && playerState.device.id !== deviceId) {
+          this.setExternalDevice(playerState.device.id ?? '');
         }
       }
     }
 
-    if (changedLayout) {
+    if (previousProps.layout !== layout) {
       this.handleResize();
     }
 
-    if (changedLocale) {
+    if (!isEqual(previousProps.locale, locale)) {
       this.locale = getLocale(locale);
     }
 
-    if (changedStyles) {
+    if (!isEqual(previousProps.styles, styles)) {
       this.styles = getMergedStyles(styles);
     }
   }
@@ -433,9 +428,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       if (isUnsupported) {
         await this.syncDevice();
 
-        const player: SpotifyPlayerStatus = await getPlaybackState(this.token);
+        const playerState = await getPlaybackState(this.token);
 
-        if (player && !player.is_playing && autoPlay) {
+        if (playerState && !playerState.is_playing && autoPlay) {
           await this.togglePlay(true);
         }
       }
@@ -693,22 +688,22 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const { deviceId } = this.state;
 
     try {
-      const player: SpotifyPlayerStatus = await getPlaybackState(this.token);
+      const playerState = await getPlaybackState(this.token);
       let track = this.emptyTrack;
 
-      if (!player) {
+      if (!playerState) {
         throw new Error('No player');
       }
 
       /* istanbul ignore else */
-      if (player.item) {
+      if (playerState.item) {
         track = {
-          artists: player.item.artists,
-          durationMs: player.item.duration_ms,
-          id: player.item.id,
-          image: getAlbumImage(player.item.album),
-          name: player.item.name,
-          uri: player.item.uri,
+          artists: 'artists' in playerState.item ? playerState.item.artists : [],
+          durationMs: playerState.item.duration_ms,
+          id: playerState.item.id,
+          image: 'album' in playerState.item ? getAlbumImage(playerState.item.album) : '',
+          name: playerState.item.name,
+          uri: playerState.item.uri,
         };
       }
 
@@ -716,13 +711,13 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         error: '',
         errorType: null,
         isActive: true,
-        isPlaying: player.is_playing,
+        isPlaying: playerState.is_playing,
         nextTracks: [],
         previousTracks: [],
-        progressMs: player.item ? player.progress_ms : 0,
+        progressMs: playerState.item ? playerState.progress_ms ?? 0 : 0,
         status: STATUS.READY,
         track,
-        volume: parseVolume(player.device.volume_percent),
+        volume: parseVolume(playerState.device.volume_percent),
       });
     } catch (error: any) {
       const state = {
