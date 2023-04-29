@@ -39,6 +39,7 @@ Get status updates from the player.
 
 ```typescript
 type ErrorType = 'account' | 'authentication' | 'initialization' | 'playback' | 'player';
+type RepeatState = 'off' | 'context' | 'track';
 type Status = 'ERROR' | 'IDLE' | 'INITIALIZING' | 'READY' | 'RUNNING' | 'UNSUPPORTED';
 type Type =
   | 'device_update'
@@ -47,6 +48,10 @@ type Type =
   | 'progress_update'
   | 'status_update'
   | 'track_update';
+
+interface CallbackState extends State {
+  type: Type;
+}
 
 interface State {
   currentDeviceId: string;
@@ -66,13 +71,11 @@ interface State {
   position: number;
   previousTracks: SpotifyTrack[];
   progressMs: number;
+  repeat: RepeatState;
+  shuffle: boolean;
   status: Status;
   track: SpotifyTrack;
   volume: number;
-}
-
-interface CallbackState extends State {
-  type: Type;
 }
 ```
 

@@ -6,6 +6,8 @@ import { ERROR_TYPE, STATUS, TYPE } from '~/constants';
 import { SpotifyDevice, SpotifyTrack } from './spotify';
 
 export type ErrorType = (typeof ERROR_TYPE)[keyof typeof ERROR_TYPE];
+export type Layout = 'responsive' | 'compact';
+export type RepeatState = 'off' | 'context' | 'track';
 export type Status = (typeof STATUS)[keyof typeof STATUS];
 export type Type = (typeof TYPE)[keyof typeof TYPE];
 
@@ -23,8 +25,6 @@ export interface CustomComponents {
    */
   rightButton?: ReactNode;
 }
-
-export type Layout = 'responsive' | 'compact';
 
 export interface Props {
   /**
@@ -154,6 +154,8 @@ export interface State {
   position: number;
   previousTracks: SpotifyTrack[];
   progressMs: number;
+  repeat: RepeatState;
+  shuffle: boolean;
   status: Status;
   track: SpotifyTrack;
   volume: number;

@@ -7,6 +7,7 @@ import { getLocale, getMergedStyles, getSpotifyURIType } from '~/modules/getters
 import {
   convertTrack,
   getAlbumImage,
+  getRepeatState,
   getURIs,
   loadSpotifyPlayer,
   parseVolume,
@@ -129,6 +130,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       position: 0,
       previousTracks: [],
       progressMs: 0,
+      repeat: 'off',
+      shuffle: false,
       status: STATUS.IDLE,
       track: this.emptyTrack,
       volume: parseVolume(props.initialVolume) || 1,
@@ -173,7 +176,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   }
 
   public async componentDidUpdate(previousProps: Props, previousState: State) {
-    const { currentDeviceId, deviceId, isInitializing, isPlaying, status, track } = this.state;
+    const { currentDeviceId, deviceId, isInitializing, isPlaying, repeat, shuffle, status, track } =
+      this.state;
     const {
       autoPlay,
       layout,
@@ -252,6 +256,13 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       this.toggleProgressBar();
       await this.toggleSyncInterval(this.isExternalPlayer);
 
+      this.handleCallback({
+        ...this.state,
+        type: TYPE.PLAYER,
+      });
+    }
+
+    if (previousState.repeat !== repeat || previousState.shuffle !== shuffle) {
       this.handleCallback({
         ...this.state,
         type: TYPE.PLAYER,
@@ -487,6 +498,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         const {
           paused,
           position,
+          repeat_mode,
+          shuffle,
           track_window: { current_track, next_tracks, previous_tracks },
         } = state;
 
@@ -509,6 +522,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           isActive: true,
           isPlaying,
           progressMs: position,
+          repeat: getRepeatState(repeat_mode),
+          shuffle,
           volume: round(volume),
           ...trackState,
         });

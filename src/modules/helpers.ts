@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { SpotifyTrack } from '~/types';
+import { RepeatState, SpotifyTrack } from '~/types';
 
 export function convertTrack(track: Spotify.Track): SpotifyTrack {
   const { album, artists, duration_ms, id, name, uri } = track;
@@ -18,6 +18,18 @@ export function getAlbumImage(album: Spotify.Album) {
   const maxWidth = Math.max(...album.images.map(d => d.width || 0));
 
   return album.images.find(d => d.width === maxWidth)?.url || '';
+}
+
+export function getRepeatState(mode: number): RepeatState {
+  switch (mode) {
+    case 1:
+      return 'context';
+    case 2:
+      return 'track';
+    case 0:
+    default:
+      return 'off';
+  }
 }
 
 export function getURIs(uris: string | string[]): string[] {
