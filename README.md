@@ -78,6 +78,27 @@ interface CallbackState extends State {
 
 </details>
 
+**components** `CustomComponents`  
+Custom components for the player.
+
+<details>
+  <summary>Type Definition</summary>
+
+```typescript
+interface CustomComponents {
+  /**
+   * A React component to be displayed before the previous button.
+   */
+  leftButton?: ReactNode;
+  /**
+   * A React component to be displayed after the next button.
+   */
+  rightButton?: ReactNode;
+}
+```
+
+</details>
+
 **getOAuthToken** `(callback: (token: string) => void) => Promise<void>`  
 The callback [Spotify SDK](https://developer.spotify.com/documentation/web-playback-sdk/reference/#initializing-the-sdk) uses to get/update the token.  
  _Use it to generate a new token when the player needs it._

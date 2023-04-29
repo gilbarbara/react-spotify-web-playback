@@ -13,6 +13,17 @@ export interface CallbackState extends State {
   type: Type;
 }
 
+export interface CustomComponents {
+  /**
+   * A React component to be displayed before the previous button.
+   */
+  leftButton?: ReactNode;
+  /**
+   * A React component to be displayed after the next button.
+   */
+  rightButton?: ReactNode;
+}
+
 export type Layout = 'responsive' | 'compact';
 
 export interface Props {
@@ -26,6 +37,10 @@ export interface Props {
    * Get status updates from the player.
    */
   callback?: (state: CallbackState) => any;
+  /**
+   * Custom components for the player.
+   */
+  components?: CustomComponents;
   /**
    * The callback Spotify SDK uses to get/update the token.
    */
