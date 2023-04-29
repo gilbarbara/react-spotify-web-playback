@@ -37,6 +37,7 @@
   "dependencies": {
     "@gilbarbara/deep-equal": "^0.2.0",
     "@gilbarbara/react-range-slider": "^0.7.0",
+    "@types/spotify-api": "^0.0.21",
     "@types/spotify-web-playback-sdk": "^0.1.15",
     "colorizr": "^2.1.1",
     "memoize-one": "^6.0.0",
