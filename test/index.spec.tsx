@@ -453,6 +453,34 @@ describe('SpotifyWebPlayer', () => {
       expect(screen.getByTestId('VolumeMute')).toBeInTheDocument();
     });
 
+    it('should handle repeat changes', async () => {
+      await setup({
+        initialize: true,
+        updateState: {
+          repeat_mode: 1,
+        },
+      });
+
+      await waitFor(() => {
+        expect(mockCallback).toHaveBeenLastCalledWith(
+          expect.objectContaining({ repeat: 'context' }),
+        );
+      });
+    });
+
+    it('should handle shuffle changes', async () => {
+      await setup({
+        initialize: true,
+        updateState: {
+          shuffle: true,
+        },
+      });
+
+      await waitFor(() => {
+        expect(mockCallback).toHaveBeenLastCalledWith(expect.objectContaining({ shuffle: true }));
+      });
+    });
+
     it('should handle URIs changes', async () => {
       const { rerender } = await setup(props);
 
