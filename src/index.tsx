@@ -905,6 +905,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       volume,
     } = this.state;
     const {
+      components,
       hideAttribution = false,
       hideCoverArt = false,
       inlineVolume = true,
@@ -975,6 +976,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
       output.controls = (
         <Controls
+          components={components}
           devices={this.renderInlineActions ? null : output.devices}
           durationMs={track.durationMs}
           isActive={isActive}

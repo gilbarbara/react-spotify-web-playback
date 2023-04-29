@@ -2,7 +2,14 @@ import { memo } from 'react';
 
 import { CssLikeObject, px, styled } from '~/modules/styled';
 
-import { Layout, Locale, SpotifyTrack, StyledProps, StylesOptions } from '~/types';
+import {
+  CustomComponents,
+  Layout,
+  Locale,
+  SpotifyTrack,
+  StyledProps,
+  StylesOptions,
+} from '~/types';
 
 import Next from './icons/Next';
 import Pause from './icons/Pause';
@@ -11,6 +18,7 @@ import Previous from './icons/Previous';
 import Slider from './Slider';
 
 interface Props {
+  components?: CustomComponents;
   devices: JSX.Element | null;
   durationMs: number;
   isActive: boolean;
@@ -108,6 +116,7 @@ const Button = styled('button')(
 
 function Controls(props: Props) {
   const {
+    components: { leftButton, rightButton } = {},
     devices,
     durationMs,
     isActive,
@@ -134,6 +143,7 @@ function Controls(props: Props) {
     <Wrapper data-component-name="Controls" data-playing={isPlaying} style={{ layout }}>
       <Buttons style={{ c: color }}>
         {devices && <div className="rswp__devices">{devices}</div>}
+        <div>{leftButton}</div>
         <div>
           <Button
             aria-label={locale.previous}
@@ -167,6 +177,7 @@ function Controls(props: Props) {
             <Next />
           </Button>
         </div>
+        <div>{rightButton}</div>
         {volume && <div className="rswp__volume">{volume}</div>}
       </Buttons>
       <Slider

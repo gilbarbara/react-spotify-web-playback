@@ -739,4 +739,17 @@ describe('SpotifyWebPlayer', () => {
       expect(mockGetPlayer).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('With "components" prop', () => {
+    it('should render the components', async () => {
+      await setup({
+        components: {
+          leftButton: <button type="button">Left</button>,
+          rightButton: <button type="button">Right</button>,
+        },
+      });
+
+      expect(screen.getByTestId('Controls')).toMatchSnapshot();
+    });
+  });
 });
