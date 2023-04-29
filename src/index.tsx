@@ -899,7 +899,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       nextTracks,
       playerPosition,
       position,
-      previousTracks,
       progressMs,
       status,
       track,
@@ -978,6 +977,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         <Controls
           devices={this.renderInlineActions ? null : output.devices}
           durationMs={track.durationMs}
+          isActive={isActive}
           isExternalDevice={this.isExternalPlayer}
           isMagnified={isMagnified}
           isPlaying={isPlaying}
@@ -990,7 +990,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
           onClickTogglePlay={this.handleClickTogglePlay}
           onToggleMagnify={this.handleToggleMagnify}
           position={position}
-          previousTracks={previousTracks}
           progressMs={progressMs}
           styles={this.styles}
           volume={this.renderInlineActions ? null : output.volume}
