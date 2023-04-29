@@ -13,6 +13,7 @@ import Slider from './Slider';
 interface Props {
   devices: JSX.Element | null;
   durationMs: number;
+  isActive: boolean;
   isExternalDevice: boolean;
   isMagnified: boolean;
   isPlaying: boolean;
@@ -25,7 +26,6 @@ interface Props {
   onClickTogglePlay: () => void;
   onToggleMagnify: () => void;
   position: number;
-  previousTracks: SpotifyTrack[];
   progressMs: number;
   styles: StylesOptions;
   volume: JSX.Element | null;
@@ -92,6 +92,11 @@ const Button = styled('button')(
     justifyContent: 'center',
     width: px(32),
 
+    '&:disabled': {
+      cursor: 'default',
+      opacity: 0.6,
+    },
+
     '&.rswp__toggle': {
       fontSize: px(32),
       width: px(48),
@@ -105,6 +110,7 @@ function Controls(props: Props) {
   const {
     devices,
     durationMs,
+    isActive,
     isExternalDevice,
     isMagnified,
     isPlaying,
@@ -117,7 +123,6 @@ function Controls(props: Props) {
     onClickTogglePlay,
     onToggleMagnify,
     position,
-    previousTracks,
     progressMs,
     styles,
     volume,
@@ -130,16 +135,15 @@ function Controls(props: Props) {
       <Buttons style={{ c: color }}>
         {devices && <div className="rswp__devices">{devices}</div>}
         <div>
-          {(!!previousTracks.length || isExternalDevice) && (
-            <Button
-              aria-label={locale.previous}
-              onClick={onClickPrevious}
-              title={locale.previous}
-              type="button"
-            >
-              <Previous />
-            </Button>
-          )}
+          <Button
+            aria-label={locale.previous}
+            disabled={!isActive && !isExternalDevice}
+            onClick={onClickPrevious}
+            title={locale.previous}
+            type="button"
+          >
+            <Previous />
+          </Button>
         </div>
         <div>
           <Button
@@ -153,16 +157,15 @@ function Controls(props: Props) {
           </Button>
         </div>
         <div>
-          {(!!nextTracks.length || isExternalDevice) && (
-            <Button
-              aria-label={locale.next}
-              onClick={onClickNext}
-              title={locale.next}
-              type="button"
-            >
-              <Next />
-            </Button>
-          )}
+          <Button
+            aria-label={locale.next}
+            disabled={!nextTracks.length && !isActive && !isExternalDevice}
+            onClick={onClickNext}
+            title={locale.next}
+            type="button"
+          >
+            <Next />
+          </Button>
         </div>
         {volume && <div className="rswp__volume">{volume}</div>}
       </Buttons>
