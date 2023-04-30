@@ -5,11 +5,11 @@
   "keywords": [],
   "main": "src/index.tsx",
   "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@gilbarbara/components": "^0.9.3",
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@gilbarbara/components": "^0.9.5",
     "@gilbarbara/eslint-config": "^0.4.2",
-    "@gilbarbara/helpers": "^0.7.1",
+    "@gilbarbara/helpers": "^0.7.2",
     "@gilbarbara/prettier-config": "^0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -19,9 +19,9 @@
     "typescript": "^4.9.5"
   },
   "devDependencies": {
-    "@types/node": "^18.16.0",
-    "@types/react": "^18.0.38",
-    "@types/react-dom": "^18.0.11"
+    "@types/node": "^18.16.3",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
