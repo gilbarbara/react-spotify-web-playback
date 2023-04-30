@@ -3,6 +3,8 @@ import SpotifyWebPlayer, {
   CallbackState,
   ERROR_TYPE,
   Layout,
+  RepeatState,
+  SpotifyPlayer,
   STATUS,
   StylesProps,
   TYPE,
@@ -26,14 +28,18 @@ import {
 } from '@gilbarbara/components';
 import { request } from '@gilbarbara/helpers';
 
-import { GlobalStyles, List, Player } from './components';
+import { GlobalStyles, List, Player, RepeatButton, ShuffleButton } from './components';
 
 interface State {
   URIs: string[];
   hideAttribution: boolean;
   inlineVolume: boolean;
+  isActive: boolean;
   isPlaying: boolean;
   layout: 'responsive' | 'compact';
+  player: SpotifyPlayer;
+  repeat: RepeatState;
+  shuffle: boolean;
   styles?: StylesProps;
   token: string;
 }
@@ -86,12 +92,29 @@ function App() {
   ];
   const savedToken = localStorage.getItem('rswp_token');
   const URIsInput = useRef<HTMLInputElement>(null);
-  const [{ hideAttribution, inlineVolume, isPlaying, layout, styles, token, URIs }, setState] =
-    useSetState<State>({
+  const [
+    {
+      hideAttribution,
+      inlineVolume,
+      isActive,
+      isPlaying,
+      layout,
+      repeat,
+      shuffle,
+      styles,
+      token,
+      URIs,
+    },
+    setState,
+  ] = useSetState<State>({
       hideAttribution: false,
       inlineVolume: true,
+    isActive: false,
       isPlaying: false,
       layout: 'responsive',
+    player: null,
+    repeat: 'off',
+    shuffle: false,
       styles: undefined,
       token: savedToken || '',
       URIs: [baseURIs.artist],
@@ -148,10 +171,16 @@ function App() {
       console.log(state);
       console.groupEnd();
 
-      setState({ isPlaying: state.isPlaying });
+      if (type === TYPE.PLAYER) {
+        setState({
+          isActive: state.isActive,
+          isPlaying: state.isPlaying,
+          repeat: state.repeat,
+          shuffle: state.shuffle,
+        });
+      }
 
       if (type === TYPE.TRACK) {
-        console.log(track);
         const trackStyles = await request(
           `https://scripts.gilbarbara.dev/api/getImagePlayerStyles?url=${track.image}`,
         );
@@ -163,6 +192,13 @@ function App() {
         localStorage.removeItem('rswp_token');
         setState({ token: '' });
       }
+    },
+    [setState],
+  );
+
+  const getPlayer = useCallback(
+    async (playerInstance: SpotifyPlayer) => {
+      setState({ player: playerInstance });
     },
     [setState],
   );
@@ -242,10 +278,16 @@ function App() {
         </Box>
       </>
     );
+
     content.player = (
       <Player key={token} layout={layout}>
         <SpotifyWebPlayer
           callback={handleCallback}
+          components={{
+            leftButton: <ShuffleButton disabled={!isActive} shuffle={shuffle} token={token} />,
+            rightButton: <RepeatButton disabled={!isActive} repeat={repeat} token={token} />,
+          }}
+          getPlayer={getPlayer}
           hideAttribution={hideAttribution}
           initialVolume={100}
           inlineVolume={inlineVolume}
