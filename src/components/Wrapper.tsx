@@ -43,7 +43,9 @@ const StyledWrapper = styled('div')(
   'WrapperRSWP',
 );
 
-function Wrapper({ children, layout, styles }: ComponentsProps) {
+function Wrapper(props: ComponentsProps) {
+  const { children, layout, styles } = props;
+
   return (
     <StyledWrapper data-component-name="Wrapper" style={{ h: styles.height, layout }}>
       {children}

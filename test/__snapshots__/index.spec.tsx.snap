@@ -107,6 +107,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
             >
               <button
                 aria-label="Devices"
+                class="ButtonRSWP"
                 title="Devices"
                 type="button"
               >
@@ -129,7 +130,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Previous"
             type="button"
           >
@@ -149,7 +150,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         <div>
           <button
             aria-label="Pause"
-            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Pause"
             type="button"
           >
@@ -169,7 +170,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Next"
             type="button"
           >
@@ -330,6 +331,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
             >
               <button
                 aria-label="Devices"
+                class="ButtonRSWP"
                 title="Devices"
                 type="button"
               >
@@ -352,7 +354,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             disabled=""
             title="Previous"
             type="button"
@@ -373,7 +375,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Play"
             type="button"
           >
@@ -393,7 +395,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             disabled=""
             title="Next"
             type="button"
@@ -591,6 +593,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                 </p>
                 <button
                   aria-label="Jest Player"
+                  class="ButtonRSWP"
                   data-id="df17372ghs982js892js"
                   type="button"
                 >
@@ -613,6 +616,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
               </div>
               <button
                 aria-label="Devices"
+                class="ButtonRSWP"
                 title="Devices"
                 type="button"
               >
@@ -635,7 +639,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Previous"
             type="button"
           >
@@ -655,7 +659,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Play"
             type="button"
           >
@@ -675,7 +679,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Next"
             type="button"
           >
@@ -858,7 +862,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Previous"
             type="button"
           >
@@ -878,7 +882,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Play"
             type="button"
           >
@@ -898,7 +902,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Next"
             type="button"
           >
@@ -1135,6 +1139,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
             >
               <button
                 aria-label="Devices"
+                class="ButtonRSWP"
                 title="Devices"
                 type="button"
               >
@@ -1157,7 +1162,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Previous"
             type="button"
           >
@@ -1177,7 +1182,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         <div>
           <button
             aria-label="Play"
-            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Play"
             type="button"
           >
@@ -1197,7 +1202,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Next"
             type="button"
           >
@@ -1226,6 +1231,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
             >
               <button
                 aria-label="Volume"
+                class="ButtonRSWP"
                 title="Volume"
                 type="button"
               >
@@ -1319,6 +1325,7 @@ exports[`SpotifyWebPlayer With "components" prop should render the components 1`
         >
           <button
             aria-label="Devices"
+            class="ButtonRSWP"
             title="Devices"
             type="button"
           >
@@ -1347,7 +1354,7 @@ exports[`SpotifyWebPlayer With "components" prop should render the components 1`
     <div>
       <button
         aria-label="Previous"
-        class=" _ControlsButtonRSWP __3hmsj"
+        class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
         title="Previous"
         type="button"
       >
@@ -1367,7 +1374,7 @@ exports[`SpotifyWebPlayer With "components" prop should render the components 1`
     <div>
       <button
         aria-label="Play"
-        class="rswp__toggle _ControlsButtonRSWP __3hmsj"
+        class="ButtonRSWP rswp__toggle _ControlsButtonRSWP __3hmsj"
         title="Play"
         type="button"
       >
@@ -1387,7 +1394,7 @@ exports[`SpotifyWebPlayer With "components" prop should render the components 1`
     <div>
       <button
         aria-label="Next"
-        class=" _ControlsButtonRSWP __3hmsj"
+        class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
         title="Next"
         type="button"
       >
@@ -1590,6 +1597,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
           </div>
           <button
             aria-label="Save to your favorites"
+            class="ButtonRSWP"
             title="Save to your favorites"
             type="button"
           >
@@ -1645,6 +1653,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
             >
               <button
                 aria-label="Devices"
+                class="ButtonRSWP"
                 title="Devices"
                 type="button"
               >
@@ -1667,7 +1676,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <div>
           <button
             aria-label="Previous"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Previous"
             type="button"
           >
@@ -1687,7 +1696,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <div>
           <button
             aria-label="Pause"
-            class="rswp__toggle _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP rswp__toggle _ControlsButtonRSWP __3hmsj"
             title="Pause"
             type="button"
           >
@@ -1707,7 +1716,7 @@ exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = 
         <div>
           <button
             aria-label="Next"
-            class=" _ControlsButtonRSWP __3hmsj"
+            class="ButtonRSWP _ControlsButtonRSWP __3hmsj"
             title="Next"
             type="button"
           >

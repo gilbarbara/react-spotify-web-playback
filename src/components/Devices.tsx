@@ -58,6 +58,7 @@ const Wrapper = styled('div')(
         alignItems: 'center',
         display: 'flex',
         whiteSpace: 'nowrap',
+        width: '100%',
 
         '&:not(:last-of-type)': {
           marginBottom: px(12),
@@ -250,6 +251,7 @@ export default function Devices(props: Props) {
                       <button
                         key={device.id}
                         aria-label={device.name}
+                        className="ButtonRSWP"
                         data-id={device.id}
                         onClick={handleClickSetDevice}
                         type="button"
@@ -265,6 +267,7 @@ export default function Devices(props: Props) {
             )}
             <button
               aria-label={locale.devices}
+              className="ButtonRSWP"
               onClick={handleClickToggleList}
               title={locale.devices}
               type="button"

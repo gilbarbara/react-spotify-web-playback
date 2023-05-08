@@ -25,6 +25,7 @@ import {
   setDevice,
   setVolume,
 } from '~/modules/spotify';
+import { put } from '~/modules/styled';
 
 import Actions from '~/components/Actions';
 import Controls from '~/components/Controls';
@@ -51,6 +52,37 @@ import {
   Status,
   StylesOptions,
 } from './types';
+
+put('.PlayerRSWP', {
+  boxSizing: 'border-box',
+  fontSize: 'inherit',
+  width: '100%',
+
+  '*': {
+    boxSizing: 'border-box',
+  },
+
+  p: {
+    margin: 0,
+  },
+});
+
+put('.ButtonRSWP', {
+  appearance: 'none',
+  background: 'transparent',
+  border: 0,
+  borderRadius: 0,
+  color: 'inherit',
+  cursor: 'pointer',
+  display: 'inline-flex',
+  lineHeight: 1,
+  padding: 0,
+
+  ':focus': {
+    outlineColor: '#000',
+    outlineOffset: 3,
+  },
+});
 
 class SpotifyWebPlayer extends PureComponent<Props, State> {
   private isMounted = false;
