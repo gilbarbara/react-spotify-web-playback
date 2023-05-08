@@ -236,6 +236,7 @@ export default function Volume(props: Props) {
         )}
         <button
           aria-label={locale.volume}
+          className="ButtonRSWP"
           onClick={handleClickToggleList}
           title={locale.volume}
           type="button"

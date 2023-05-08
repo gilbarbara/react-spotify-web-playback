@@ -147,6 +147,7 @@ function Controls(props: Props) {
         <div>
           <Button
             aria-label={locale.previous}
+            className="ButtonRSWP"
             disabled={!isActive && !isExternalDevice}
             onClick={onClickPrevious}
             title={locale.previous}
@@ -158,7 +159,7 @@ function Controls(props: Props) {
         <div>
           <Button
             aria-label={isPlaying ? locale.pause : locale.play}
-            className="rswp__toggle"
+            className="ButtonRSWP rswp__toggle"
             onClick={onClickTogglePlay}
             title={isPlaying ? locale.pause : locale.play}
             type="button"
@@ -169,6 +170,7 @@ function Controls(props: Props) {
         <div>
           <Button
             aria-label={locale.next}
+            className="ButtonRSWP"
             disabled={!nextTracks.length && !isActive && !isExternalDevice}
             onClick={onClickNext}
             title={locale.next}

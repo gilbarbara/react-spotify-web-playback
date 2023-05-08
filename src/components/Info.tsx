@@ -36,7 +36,7 @@ const Wrapper = styled('div')(
     '> a': {
       display: 'inline-flex',
       textDecoration: 'none',
-      minHeigth: px(64),
+      minHeight: px(64),
       minWidth: px(64),
 
       '&:hover': {
@@ -299,7 +299,7 @@ function Info(props: Props) {
     favorite = (
       <button
         aria-label={isSaved ? locale.removeTrack : locale.saveTrack}
-        className={isSaved ? 'rswp__active' : undefined}
+        className={`ButtonRSWP${isSaved ? ' rswp__active' : ''}`}
         onClick={handleClickIcon}
         title={isSaved ? locale.removeTrack : locale.saveTrack}
         type="button"
