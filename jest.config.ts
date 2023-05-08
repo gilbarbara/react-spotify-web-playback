@@ -1,4 +1,6 @@
-module.exports = {
+import { Config } from 'jest';
+
+const config: Config = {
   collectCoverage: false,
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
   coverageThreshold: {
@@ -13,7 +15,6 @@ module.exports = {
   moduleNameMapper: {
     '^~/(.*)$': '<rootDir>/src/$1',
   },
-  preset: 'ts-jest',
   setupFiles: ['<rootDir>/test/__setup__/setupFiles.ts'],
   setupFilesAfterEnv: ['<rootDir>/test/__setup__/setupFilesAfterEnv.ts'],
   testEnvironment: 'jsdom',
@@ -36,3 +37,5 @@ module.exports = {
   verbose: false,
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
 };
+
+export default config;
