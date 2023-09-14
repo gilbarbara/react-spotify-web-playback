@@ -61,10 +61,9 @@ export function loadSpotifyPlayer(): Promise<any> {
 
       document.head.appendChild(script);
     } else {
-      resolve();
+      reject();
     }
-  });
-}
+  }).catch((error: any) => { console.log(error) });
 
 export function millisecondsToTime(input: number) {
   const seconds = Math.floor((input / 1000) % 60);
