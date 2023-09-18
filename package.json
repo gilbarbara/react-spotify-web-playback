@@ -1,6 +1,6 @@
 {
   "name": "react-spotify-web-playback",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "A React Spotify Web Player",
   "author": "Gil Barbara <gilbarbara@gmail.com>",
   "repository": {
@@ -15,7 +15,8 @@
   "module": "./dist/index.mjs",
   "exports": {
     "import": "./dist/index.mjs",
-    "require": "./dist/index.js"
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
   },
   "files": [
     "dist",
