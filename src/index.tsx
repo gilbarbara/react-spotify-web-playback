@@ -187,7 +187,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
   public async componentDidMount() {
     this.isMounted = true;
-    const { top = 0 } = this.ref.current?.getBoundingClientRect() || {};
+    const { top = 0 } = this.ref.current?.getBoundingClientRect() ?? {};
 
     this.updateState({
       playerPosition: top > window.innerHeight / 2 ? 'bottom' : 'top',
@@ -223,7 +223,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const isReady = previousState.status !== STATUS.READY && status === STATUS.READY;
     const playOptions = this.getPlayOptions(getURIs(uris));
 
-    const canPlay = !!currentDeviceId && !!(playOptions.context_uri || playOptions.uris);
+    const canPlay = !!currentDeviceId && !!(playOptions.context_uri ?? playOptions.uris);
     const shouldPlay = isReady && (autoPlay || playProp);
 
     if (canPlay && shouldPlay) {
@@ -305,7 +305,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         const playerState = await getPlaybackState(this.token);
 
         /* istanbul ignore else */
-        if (playerState && playerState.is_playing && playerState.device.id !== deviceId) {
+        if (playerState?.is_playing && playerState.device.id !== deviceId) {
           this.setExternalDevice(playerState.device.id ?? '');
         }
       }
@@ -531,7 +531,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         } = state;
 
         const isPlaying = !paused;
-        const volume = (await this.player?.getVolume()) || 100;
+        const volume = (await this.player?.getVolume()) ?? 100;
         let trackState = {};
 
         if (position === 0 && current_track) {
@@ -856,7 +856,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         await this.player.activateElement();
 
         const playerState = await this.player.getCurrentState();
-        const shouldPlay = !playerState && !!(playOptions.context_uri || playOptions.uris);
+        const shouldPlay = !playerState && !!(playOptions.context_uri ?? playOptions.uris);
 
         // eslint-disable-next-line unicorn/prefer-ternary
         if (shouldPlay || shouldInitialize) {
