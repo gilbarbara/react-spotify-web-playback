@@ -44,6 +44,7 @@
     "nano-css": "^5.6.1"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.13.5",
     "@gilbarbara/eslint-config": "^0.7.2",
     "@gilbarbara/hooks": "^0.6.4",
     "@gilbarbara/prettier-config": "^1.0.0",
@@ -87,8 +88,9 @@
     "test:coverage": "jest --bail --coverage",
     "test:watch": "jest --watchAll --verbose",
     "typecheck": "tsc -p test/tsconfig.json",
+    "typevalidation": "attw -P",
     "format": "prettier \"**/*.{js,jsx,json,yml,yaml,css,less,scss,ts,tsx,md,graphql,mdx}\" --write",
-    "validate": "npm run lint && npm run typecheck && npm run test:coverage && npm run build && npm run size",
+    "validate": "npm run lint && npm run typecheck && npm run test:coverage && npm run build && npm run typevalidation && npm run size",
     "size": "size-limit",
     "prepublishOnly": "npm run validate",
     "prepare": "husky install"
@@ -110,7 +112,6 @@
       "@gilbarbara/eslint-config",
       "@gilbarbara/eslint-config/jest",
       "@gilbarbara/eslint-config/testing-library"
-
     ],
     "overrides": [
       {
