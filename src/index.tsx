@@ -106,7 +106,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   private styles: StylesOptions;
   private syncTimeout?: number;
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   private getPlayOptions = memoize((ids: string[]): PlayOptions => {
     const playOptions: PlayOptions = {
       context_uri: undefined,
@@ -173,7 +172,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     this.styles = getMergedStyles(props.styles);
   }
 
-  // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
     autoPlay: false,
     initialVolume: 1,
@@ -858,7 +856,6 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         const playerState = await this.player.getCurrentState();
         const shouldPlay = !playerState && !!(playOptions.context_uri ?? playOptions.uris);
 
-        // eslint-disable-next-line unicorn/prefer-ternary
         if (shouldPlay || shouldInitialize) {
           await play(this.token, {
             deviceId: currentDeviceId,

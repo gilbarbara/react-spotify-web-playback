@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { ReactNode } from 'react';
 
 import { ERROR_TYPE, STATUS, TYPE } from '~/constants';
