@@ -132,7 +132,7 @@ export function RepeatButton({
       {...rest}
     >
       <BoxInline as="span" position="relative">
-        <Icon name="repeat-alt" size={24} title={null} />
+        <Icon name="repeat" size={24} title={null} />
         {repeat !== 'off' && (
           <span
             style={{
