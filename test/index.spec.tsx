@@ -422,7 +422,6 @@ describe('SpotifyWebPlayer', () => {
       expect(screen.getByTestId('Volume')).toHaveAttribute('data-value', '0.5');
       expect(screen.getByTestId('VolumeMid')).toBeInTheDocument();
 
-      // eslint-disable-next-line testing-library/no-node-access
       fireEvent.click(getTrack(), {
         clientX: 930,
         clientY: 52,
@@ -437,7 +436,6 @@ describe('SpotifyWebPlayer', () => {
       expect(screen.getByTestId('Volume')).toHaveAttribute('data-value', '0.3');
       expect(screen.getByTestId('VolumeLow')).toBeInTheDocument();
 
-      // eslint-disable-next-line testing-library/no-node-access
       fireEvent.click(getTrack(), {
         clientX: 900,
         clientY: 52,

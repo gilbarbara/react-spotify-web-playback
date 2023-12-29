@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 export type SpotifyPlayerCallback = (token: string) => void;
 
 export type SpotifyAlbum = Spotify.Album;
