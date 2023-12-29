@@ -820,9 +820,10 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   private toggleOffset = async () => {
     const { currentDeviceId } = this.state;
     const { offset, uris } = this.props;
+    const playOptions = this.getPlayOptions(getURIs(uris));
 
     if (typeof offset === 'number') {
-      await play(this.token, { deviceId: currentDeviceId, offset, uris: getURIs(uris) });
+      await play(this.token, { deviceId: currentDeviceId, offset, ...playOptions });
     }
   };
 
