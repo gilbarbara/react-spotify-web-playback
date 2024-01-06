@@ -188,7 +188,7 @@ const Content = styled('div')(
         maxWidth: `calc(100% - ${px(style.showSaveIcon ? iconSize : 0)})`,
 
         div: {
-          '-webkit-mask-image': `linear-gradient(90deg,transparent 0, ${style.bgColor} 6px, ${style.bgColor} calc(100% - 12px),transparent)`,
+          '-webkit-mask-image': `linear-gradient(90deg,transparent 0, ${style.trackNameColor} 6px, ${style.trackNameColor} calc(100% - 12px),transparent)`,
         },
       },
       p: {
