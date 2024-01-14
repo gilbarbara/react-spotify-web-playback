@@ -1,3 +1,5 @@
+import { adaptBgColor } from '~/modules/helpers';
+
 import { Locale, StylesOptions, StylesProps } from '~/types';
 
 export function getLocale(locale?: Partial<Locale>): Locale {
@@ -18,7 +20,7 @@ export function getLocale(locale?: Partial<Locale>): Locale {
 }
 
 export function getMergedStyles(styles?: StylesProps): StylesOptions {
-  return {
+  const mergedStyles = {
     activeColor: '#1cb954',
     altColor: '#ccc',
     bgColor: '#fff',
@@ -37,6 +39,10 @@ export function getMergedStyles(styles?: StylesProps): StylesOptions {
     trackNameColor: '#333',
     ...styles,
   };
+
+  mergedStyles.bgColor = adaptBgColor(mergedStyles.bgColor);
+
+  return mergedStyles;
 }
 
 export function getSpotifyLink(uri: string): string {
