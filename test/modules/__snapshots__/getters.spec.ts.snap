@@ -20,7 +20,7 @@ exports[`getMergedStyles should return a merged styles 1`] = `
 {
   "activeColor": "#1cb954",
   "altColor": "#ccc",
-  "bgColor": "#fff",
+  "bgColor": "rgba(0, 0, 0, 0)",
   "color": "#333",
   "errorColor": "#ff0026",
   "height": 100,

@@ -291,7 +291,9 @@ interface SpotifyPlayOptions {
 
 ## Styling
 
-You can customize the UI with a `styles` prop. Check all the available options [here](src/types/common.ts#L159).
+You can customize the UI with a `styles` prop.  
+If you want a transparent player, you can use `bgColor: 'transparent'`.  
+Check all the available options [here](src/types/common.ts#L188).
 
 ```tsx
 <SpotifyWebPlayer

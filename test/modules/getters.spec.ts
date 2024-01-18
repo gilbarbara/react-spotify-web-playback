@@ -1,10 +1,23 @@
 import {
+  getBgColor,
   getLocale,
   getMergedStyles,
   getSpotifyLink,
   getSpotifyLinkTitle,
   getSpotifyURIType,
 } from '~/modules/getters';
+
+import { TRANSPARENT_COLOR } from '~/constants';
+
+describe('getBgColor', () => {
+  it('should return the background color', () => {
+    expect(getBgColor('#f04')).toBe('#f04');
+  });
+
+  it('should return the transparent color', () => {
+    expect(getBgColor('transparent')).toBe(TRANSPARENT_COLOR);
+  });
+});
 
 describe('getLocale', () => {
   it('should return a merged locale', () => {
@@ -14,7 +27,7 @@ describe('getLocale', () => {
 
 describe('getMergedStyles', () => {
   it('should return a merged styles', () => {
-    expect(getMergedStyles({ height: 100 })).toMatchSnapshot();
+    expect(getMergedStyles({ bgColor: 'transparent', height: 100 })).toMatchSnapshot();
   });
 });
 

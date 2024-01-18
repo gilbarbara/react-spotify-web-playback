@@ -1,6 +1,13 @@
-import { adaptBgColor } from '~/modules/helpers';
-
+import { TRANSPARENT_COLOR } from '~/constants';
 import { Locale, StylesOptions, StylesProps } from '~/types';
+
+export function getBgColor(bgColor: string, fallbackColor?: string): string {
+  if (fallbackColor) {
+    return bgColor === TRANSPARENT_COLOR ? fallbackColor : bgColor;
+  }
+
+  return bgColor === 'transparent' ? TRANSPARENT_COLOR : bgColor;
+}
 
 export function getLocale(locale?: Partial<Locale>): Locale {
   return {
@@ -40,7 +47,7 @@ export function getMergedStyles(styles?: StylesProps): StylesOptions {
     ...styles,
   };
 
-  mergedStyles.bgColor = adaptBgColor(mergedStyles.bgColor);
+  mergedStyles.bgColor = getBgColor(mergedStyles.bgColor);
 
   return mergedStyles;
 }

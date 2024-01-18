@@ -15,6 +15,8 @@ export const STATUS = {
   UNSUPPORTED: 'UNSUPPORTED',
 } as const;
 
+export const TRANSPARENT_COLOR = 'rgba(0, 0, 0, 0)';
+
 export const TYPE = {
   DEVICE: 'device_update',
   FAVORITE: 'favorite_update',

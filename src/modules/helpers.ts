@@ -122,13 +122,3 @@ export function validateURI(input: string): boolean {
 
   return false;
 }
-
-const transparentBgColor = 'rgba(0, 0, 0, 0)';
-
-export function adaptBgColor(bgColor: string): string {
-  return bgColor === 'transparent' ? transparentBgColor : bgColor;
-}
-
-export function getMaskImageColor(trackNameColor: string, bgColor: string): string {
-  return bgColor === transparentBgColor ? trackNameColor : bgColor;
-}

@@ -1,8 +1,7 @@
 import { memo, ReactNode, useEffect, useRef, useState } from 'react';
 import { fade } from 'colorizr';
 
-import { getSpotifyLink, getSpotifyLinkTitle } from '~/modules/getters';
-import { getMaskImageColor } from '~/modules/helpers';
+import { getBgColor, getSpotifyLink, getSpotifyLinkTitle } from '~/modules/getters';
 import { usePrevious } from '~/modules/hooks';
 import { checkTracksStatus, removeTracks, saveTracks } from '~/modules/spotify';
 import { CssLikeObject, px, styled } from '~/modules/styled';
@@ -183,7 +182,7 @@ const Content = styled('div')(
     },
   },
   ({ style }: StyledProps) => {
-    const maskImageColor = getMaskImageColor(style.trackNameColor, style.bgColor);
+    const maskImageColor = getBgColor(style.bgColor, style.trackNameColor);
 
     return {
       '[data-type="title-artist-wrapper"]': {
