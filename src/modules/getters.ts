@@ -1,4 +1,13 @@
+import { TRANSPARENT_COLOR } from '~/constants';
 import { Locale, StylesOptions, StylesProps } from '~/types';
+
+export function getBgColor(bgColor: string, fallbackColor?: string): string {
+  if (fallbackColor) {
+    return bgColor === TRANSPARENT_COLOR ? fallbackColor : bgColor;
+  }
+
+  return bgColor === 'transparent' ? TRANSPARENT_COLOR : bgColor;
+}
 
 export function getLocale(locale?: Partial<Locale>): Locale {
   return {
@@ -18,7 +27,7 @@ export function getLocale(locale?: Partial<Locale>): Locale {
 }
 
 export function getMergedStyles(styles?: StylesProps): StylesOptions {
-  return {
+  const mergedStyles = {
     activeColor: '#1cb954',
     altColor: '#ccc',
     bgColor: '#fff',
@@ -37,6 +46,10 @@ export function getMergedStyles(styles?: StylesProps): StylesOptions {
     trackNameColor: '#333',
     ...styles,
   };
+
+  mergedStyles.bgColor = getBgColor(mergedStyles.bgColor);
+
+  return mergedStyles;
 }
 
 export function getSpotifyLink(uri: string): string {
