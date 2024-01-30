@@ -161,8 +161,8 @@ export interface State {
 }
 
 export interface ComponentsProps {
-  children?: ReactNode;
   [key: string]: any;
+  children?: ReactNode;
   styles: StylesOptions;
 }
 
