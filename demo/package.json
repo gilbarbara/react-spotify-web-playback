@@ -7,19 +7,19 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@gilbarbara/components": "^0.10.1",
-    "@gilbarbara/eslint-config": "^0.7.2",
-    "@gilbarbara/helpers": "^0.9.1",
+    "@gilbarbara/components": "^0.11.2",
+    "@gilbarbara/eslint-config": "^0.7.4",
+    "@gilbarbara/helpers": "^0.9.2",
     "@gilbarbara/prettier-config": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "react-spotify-web-playback": "latest",
-    "react-use": "^17.4.2"
+    "react-use": "^17.5.0"
   },
   "devDependencies": {
-    "@types/node": "20.10.5",
-    "@types/react": "18.2.46",
+    "@types/node": "20.11.11",
+    "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "typescript": "5.3.3"
   },

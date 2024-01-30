@@ -42,6 +42,7 @@ interface State {
   shuffle: boolean;
   styles?: StylesProps;
   token: string;
+  transparent: boolean;
 }
 
 const validateURI = (input: string): boolean => {
@@ -103,22 +104,24 @@ function App() {
       shuffle,
       styles,
       token,
+      transparent,
       URIs,
     },
     setState,
   ] = useSetState<State>({
-      hideAttribution: false,
-      inlineVolume: true,
+    hideAttribution: false,
+    inlineVolume: true,
     isActive: false,
-      isPlaying: false,
-      layout: 'responsive',
+    isPlaying: false,
+    layout: 'responsive',
     player: null,
     repeat: 'off',
     shuffle: false,
-      styles: undefined,
-      token: savedToken || '',
-      URIs: [baseURIs.artist],
-    });
+    styles: undefined,
+    token: savedToken || '',
+    transparent: false,
+    URIs: [baseURIs.artist],
+  });
 
   const handleSubmit = useCallback(
     (event: FormEvent) => {
@@ -181,9 +184,13 @@ function App() {
       }
 
       if (type === TYPE.TRACK) {
-        const trackStyles = await request(
+        const trackStyles = await request<StylesProps>(
           `https://scripts.gilbarbara.dev/api/getImagePlayerStyles?url=${track.image}`,
         );
+
+        if (transparent) {
+          trackStyles.bgColor = 'transparent';
+        }
 
         setState({ styles: trackStyles });
       }
@@ -193,7 +200,7 @@ function App() {
         setState({ token: '' });
       }
     },
-    [setState],
+    [setState, transparent],
   );
 
   const getPlayer = useCallback(
@@ -274,6 +281,12 @@ function App() {
               name="inlineVolume"
               onClick={() => setState({ inlineVolume: !inlineVolume })}
             />
+            <Toggle
+              checked={transparent}
+              label="Transparent"
+              name="transparent"
+              onClick={() => setState({ transparent: !transparent })}
+            />
           </Spacer>
         </Box>
       </>
@@ -295,7 +308,7 @@ function App() {
           persistDeviceSelection
           play={isPlaying}
           showSaveIcon
-          styles={styles}
+          styles={transparent ? { ...styles, bgColor: 'transparent' } : styles}
           syncExternalDevice
           token={token}
           uris={URIs}
