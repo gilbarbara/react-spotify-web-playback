@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent, useCallback, useRef } from 'react';
+import { FormEvent, MouseEvent, ReactNode, useCallback, useRef } from 'react';
 import SpotifyWebPlayer, {
   CallbackState,
   ERROR_TYPE,
@@ -9,7 +9,7 @@ import SpotifyWebPlayer, {
   StylesProps,
   TYPE,
 } from 'react-spotify-web-playback';
-import { useSetState } from 'react-use';
+import { useEffectOnce, useSetState } from 'react-use';
 import {
   Anchor,
   Box,
@@ -19,129 +19,141 @@ import {
   Grid,
   H1,
   H4,
-  H6,
   Icon,
   Input,
+  Loader,
+  NonIdealState,
   RadioGroup,
   Spacer,
   Toggle,
 } from '@gilbarbara/components';
 import { request } from '@gilbarbara/helpers';
 
-import { GlobalStyles, List, Player, RepeatButton, ShuffleButton } from './components';
+import GlobalStyles from './components/GlobalStyles';
+import Player from './components/Player';
+import RepeatButton from './components/RepeatButton';
+import ShuffleButton from './components/ShuffleButton';
+import {
+  getAuthorizeUrl,
+  getCredentials,
+  login,
+  logout,
+  parseURIs,
+  refreshCredentials,
+  setCredentials,
+} from './modules/helpers';
 
 interface State {
   URIs: string[];
+  accessToken: string;
+  error?: string;
   hideAttribution: boolean;
   inlineVolume: boolean;
   isActive: boolean;
   isPlaying: boolean;
   layout: 'responsive' | 'compact';
   player: SpotifyPlayer;
+  refreshToken: string;
   repeat: RepeatState;
   shuffle: boolean;
   styles?: StylesProps;
-  token: string;
   transparent: boolean;
 }
 
-const validateURI = (input: string): boolean => {
-  let isValid = false;
-
-  if (input && input.includes(':')) {
-    const [key, type, id] = input.split(':');
-
-    if (key && type && type !== 'user' && id && id.length === 22) {
-      isValid = true;
-    }
-  }
-
-  return isValid;
-};
-
-const parseURIs = (input: string): string[] => {
-  const ids = input.split(',');
-
-  return ids.every(d => validateURI(d)) ? ids : [];
-};
-
 const baseURIs = {
-  album: 'spotify:album:5GzhTq1Iu7jioZquau8f93',
+  album: 'spotify:album:0WLIcGHr0nLyKJpMirAS17',
   artist: 'spotify:artist:4oLeXFyACqeem2VImYeBFe',
-  playlist: 'spotify:playlist:5BxDl4F4ZSgackA0YVV3ca',
+  playlist: 'spotify:playlist:1Zr2FUPeD5hYJTGbTDSQs4',
   tracks: [
-    'spotify:track:3zYpRGnnoegSpt3SguSo3W',
-    'spotify:track:5sjeJXROHuutyj8P3JGZoN',
-    'spotify:track:3u0VPnYkZo30zw60SInouA',
-    'spotify:track:5ZoDwIP1ntHwciLjydJ8X2',
-    'spotify:track:7ohR0qPH6f2Vuj2pUNanJG',
-    'spotify:track:5g2sPpVq3hdk9ZuMfABrts',
-    'spotify:track:3mJ6pNcFM2CkykCYSREdKT',
-    'spotify:track:63DTXKZi7YdJ4tzGti1Dtr',
+    // Boogie
+    // 'spotify:track:3zYpRGnnoegSpt3SguSo3W',
+    // 'spotify:track:5sjeJXROHuutyj8P3JGZoN',
+    // 'spotify:track:3u0VPnYkZo30zw60SInouA',
+    // 'spotify:track:5ZoDwIP1ntHwciLjydJ8X2',
+    // 'spotify:track:7ohR0qPH6f2Vuj2pUNanJG',
+    // 'spotify:track:5g2sPpVq3hdk9ZuMfABrts',
+    // 'spotify:track:3mJ6pNcFM2CkykCYSREdKT',
+    // 'spotify:track:63DTXKZi7YdJ4tzGti1Dtr',
+
+    // 90s Electronic
+    'spotify:track:5Kh3pqvJGVCBapAgrRP8QO',
+    'spotify:track:0j5FJJOmmnXPd0XajFWkMF',
+    'spotify:track:3XWgwgbWDI56mf1Wl3cLzb',
+    'spotify:track:6rvinglzwGWPaO9N9nnHeR',
+    'spotify:track:6LERtd1yiclxFH8MHAqr0Q',
+    'spotify:track:5eFCFpmDbqGqpdOVE9CXCh',
+    'spotify:track:1RdHfWJogQm1UW4MglA8gA',
+    'spotify:track:3z70bimZB3dgdixBrxpxY0',
+    'spotify:track:3RmCwMliRzxvjGp42ItZtC',
+    'spotify:track:6WpTrVTG1mFU1hZpxbVBX7',
+    'spotify:track:5sJiLlgQKBL81QCTOkoLB5',
+    'spotify:track:7hnqJYCKZFW7vMoykaraZG',
   ],
 };
 
 function App() {
-  const scopes = [
-    'streaming',
-    'user-read-email',
-    'user-read-private',
-    'user-library-read',
-    'user-library-modify',
-    'user-read-playback-state',
-    'user-modify-playback-state',
-  ];
-  const savedToken = localStorage.getItem('rswp_token');
   const URIsInput = useRef<HTMLInputElement>(null);
+  const isMounted = useRef(false);
+
+  const code = new URLSearchParams(window.location.search).get('code');
+  const credentials = getCredentials();
   const [
     {
+      accessToken,
+      error,
       hideAttribution,
       inlineVolume,
       isActive,
       isPlaying,
       layout,
+      refreshToken,
       repeat,
       shuffle,
       styles,
-      token,
       transparent,
       URIs,
     },
     setState,
   ] = useSetState<State>({
+    accessToken: credentials.accessToken ?? '',
     hideAttribution: false,
     inlineVolume: true,
     isActive: false,
     isPlaying: false,
     layout: 'responsive',
     player: null,
+    refreshToken: credentials.refreshToken ?? '',
     repeat: 'off',
     shuffle: false,
     styles: undefined,
-    token: savedToken || '',
     transparent: false,
     URIs: [baseURIs.artist],
   });
 
-  const handleSubmit = useCallback(
-    (event: FormEvent) => {
-      event.preventDefault();
+  useEffectOnce(() => {
+    if (code && !isMounted.current) {
+      login(code)
+        .then(spotifyCredentials => {
+          setCredentials(spotifyCredentials);
+          setState({
+            accessToken: spotifyCredentials.accessToken,
+            refreshToken: spotifyCredentials.refreshToken,
+          });
+        })
+        .catch(fetchError => {
+          setState({ error: fetchError.message || 'An error occurred. Try again' });
+        })
+        .finally(() => {
+          const url = new URL(window.location.href);
 
-      const form = event.currentTarget as HTMLFormElement;
-      const formElements = form.elements as typeof form.elements & {
-        token: HTMLInputElement;
-      };
+          window.history.replaceState({}, document.title, `${url.pathname}`);
+        });
+    }
 
-      const nextToken = formElements.token.value;
-
-      if (nextToken) {
-        setState({ token: nextToken });
-        localStorage.setItem('rswp_token', nextToken);
-        form.reset();
-      }
-    },
-    [setState],
-  );
+    return () => {
+      isMounted.current = true;
+    };
+  });
 
   const handleSubmitURIs = useCallback(
     (event: FormEvent) => {
@@ -153,6 +165,11 @@ function App() {
     },
     [setState],
   );
+
+  const handleClickLogout = useCallback(() => {
+    logout();
+    setState({ accessToken: '', refreshToken: '' });
+  }, [setState]);
 
   const handleClickURIs = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
@@ -170,9 +187,11 @@ function App() {
 
   const handleCallback = useCallback(
     async ({ track, type, ...state }: CallbackState) => {
+      /* eslint-disable no-console */
       console.group(`RSWP: ${type}`);
       console.log(state);
       console.groupEnd();
+      /* eslint-enable no-console */
 
       if (type === TYPE.PLAYER) {
         setState({
@@ -196,11 +215,18 @@ function App() {
       }
 
       if (state.status === STATUS.ERROR && state.errorType === ERROR_TYPE.AUTHENTICATION) {
-        localStorage.removeItem('rswp_token');
-        setState({ token: '' });
+        refreshCredentials(refreshToken)
+          .then(spotifyCredentials => {
+            setCredentials(spotifyCredentials);
+            setState({ accessToken: spotifyCredentials.accessToken });
+          })
+          .catch(() => {
+            logout();
+            setState({ accessToken: '', refreshToken: '' });
+          });
       }
     },
-    [setState, transparent],
+    [refreshToken, setState, transparent],
   );
 
   const getPlayer = useCallback(
@@ -210,9 +236,29 @@ function App() {
     [setState],
   );
 
-  const content: any = {};
+  const content: Record<string, ReactNode> = {
+    connect: (
+      <Box flexBox justify="center" maxWidth={320} mx="auto" width="100%">
+        <Anchor href={getAuthorizeUrl()}>
+          <Button size="lg">
+            <Icon mr="sm" name="spotify" size={24} />
+            <span>Connect</span>
+          </Button>
+        </Anchor>
+      </Box>
+    ),
+  };
 
-  if (token) {
+  if (error) {
+    content.main = (
+      <>
+        <NonIdealState description={error} icon="close-o" mb="lg" title={null} />
+        {content.connect}
+      </>
+    );
+  } else if (code) {
+    content.main = <Loader size={200} />;
+  } else if (accessToken) {
     content.main = (
       <>
         <Box as="form" maxWidth={320} mx="auto" onSubmit={handleSubmitURIs} width="100%">
@@ -293,12 +339,14 @@ function App() {
     );
 
     content.player = (
-      <Player key={token} layout={layout}>
+      <Player key={accessToken} layout={layout}>
         <SpotifyWebPlayer
           callback={handleCallback}
           components={{
-            leftButton: <ShuffleButton disabled={!isActive} shuffle={shuffle} token={token} />,
-            rightButton: <RepeatButton disabled={!isActive} repeat={repeat} token={token} />,
+            leftButton: (
+              <ShuffleButton disabled={!isActive} shuffle={shuffle} token={accessToken} />
+            ),
+            rightButton: <RepeatButton disabled={!isActive} repeat={repeat} token={accessToken} />,
           }}
           getPlayer={getPlayer}
           hideAttribution={hideAttribution}
@@ -310,64 +358,30 @@ function App() {
           showSaveIcon
           styles={transparent ? { ...styles, bgColor: 'transparent' } : styles}
           syncExternalDevice
-          token={token}
+          token={accessToken}
           uris={URIs}
         />
       </Player>
     );
   } else {
-    content.main = (
-      <>
-        <Box as="form" maxWidth={320} mx="auto" onSubmit={handleSubmit} width="100%">
-          <ComponentWrapper
-            suffix={
-              <Button
-                shape="round"
-                style={{ borderBottomLeftRadius: 0, borderTopLeftRadius: 0 }}
-                type="submit"
-              >
-                <Icon name="check" size={24} />
-              </Button>
-            }
-          >
-            <Input
-              name="token"
-              placeholder="Enter a Spotify token"
-              suffixSpacing={48}
-              type="text"
-            />
-          </ComponentWrapper>
-        </Box>
-        <Box mt="xl" textAlign="center">
-          <H6>Required scopes</H6>
-          <List>
-            {scopes.map(d => (
-              <li key={d}>{d}</li>
-            ))}
-          </List>
-          <H4 mt="md">
-            Get one{' '}
-            <Anchor
-              external
-              href={`https://accounts.spotify.com/en/authorize?response_type=token&client_id=2030beede5174f9f9b23ffc23ba0705c&redirect_uri=https:%2F%2Freact-spotify-web-playback.gilbarbara.dev%2Ftoken.html&scope=${scopes.join(
-                '%20',
-              )}&show_dialog=false`}
-            >
-              here
-            </Anchor>
-          </H4>
-        </Box>
-      </>
-    );
+    content.main = content.connect;
   }
 
   return (
     <>
-      <GlobalStyles hasToken={!!token} />
-      <Container fullScreen fullScreenOffset={token ? 100 : 0} justify="center">
-        <H1 align="center" mb="xl">
-          React Spotify Web Playback
-        </H1>
+      <GlobalStyles hasToken={!!accessToken} />
+      <Container fullScreen fullScreenOffset={accessToken ? 100 : 0} justify="center">
+        <Spacer distribution="center" mb="xl">
+          <H1 align="center" mb={0}>
+            React Spotify Web Playback
+          </H1>
+
+          {accessToken && (
+            <Button onClick={handleClickLogout} size="xs">
+              <Icon name="sign-out" size={14} />
+            </Button>
+          )}
+        </Spacer>
 
         {content.main}
         {content.player}
