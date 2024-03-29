@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`STATUS should have all options 1`] = `
+exports[`STATUS > should have all options 1`] = `
 {
   "ERROR": "ERROR",
   "IDLE": "IDLE",
@@ -11,7 +11,7 @@ exports[`STATUS should have all options 1`] = `
 }
 `;
 
-exports[`TYPE should have all options 1`] = `
+exports[`TYPE > should have all options 1`] = `
 {
   "DEVICE": "device_update",
   "FAVORITE": "favorite_update",

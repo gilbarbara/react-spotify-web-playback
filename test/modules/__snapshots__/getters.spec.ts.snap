@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`getLocale should return a merged locale 1`] = `
+exports[`getLocale > should return a merged locale 1`] = `
 {
   "currentDevice": "Selected device ",
   "devices": "Devices",
@@ -16,7 +16,7 @@ exports[`getLocale should return a merged locale 1`] = `
 }
 `;
 
-exports[`getMergedStyles should return a merged styles 1`] = `
+exports[`getMergedStyles > should return a merged styles 1`] = `
 {
   "activeColor": "#1cb954",
   "altColor": "#ccc",
