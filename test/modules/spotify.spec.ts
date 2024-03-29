@@ -27,7 +27,7 @@ const mockDevices = {
   devices: [
     {
       id: deviceId,
-      name: 'Jest Player',
+      name: 'Test Player',
       type: 'Computer',
     },
   ],

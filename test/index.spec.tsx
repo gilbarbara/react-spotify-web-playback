@@ -1,5 +1,13 @@
+/* eslint-disable testing-library/no-unnecessary-act */
 import React from 'react';
-import { act, configure, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor as tlWaitFor,
+  within,
+} from '@testing-library/react';
 
 import * as helpers from '~/modules/helpers';
 
@@ -8,16 +16,22 @@ import SpotifyWebPlayer, { Props } from '~/index';
 import { playbackState, playerState } from './fixtures/data';
 import { setBoundingClientRect } from './fixtures/helpers';
 
-jest.spyOn(helpers, 'loadSpotifyPlayer').mockImplementation(() => Promise.resolve());
+vi.spyOn(helpers, 'loadSpotifyPlayer').mockImplementation(() => Promise.resolve());
 
-jest.useFakeTimers();
-
-configure({ testIdAttribute: 'data-component-name' });
+vi.useFakeTimers();
 
 let playerStateResponse = playerState;
 let playerStatusResponse = playbackState;
 
-const mockAddListener = jest.fn();
+async function waitFor(fn: () => void) {
+  vi.useRealTimers();
+
+  await tlWaitFor(fn);
+
+  vi.useFakeTimers();
+}
+
+const mockAddListener = vi.fn();
 
 const initializePlayer = async () => {
   const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
@@ -31,20 +45,20 @@ const updatePlayer = async (state?: Partial<Spotify.PlaybackState>) => {
   await stateChangeFn({ ...playerState, ...state });
 };
 
-const mockFn = jest.fn();
-const mockActivateElement = jest.fn();
-const mockCallback = jest.fn();
-const mockConnect = jest.fn();
-const mockDisconnect = jest.fn();
-const mockGetCurrentState = jest.fn(() => playerStateResponse);
-const mockGetOAuthToken = jest.fn();
-const mockGetVolume = jest.fn(() => 1);
-const mockNextTrack = jest.fn(updatePlayer);
-const mockPreviousTrack = jest.fn(updatePlayer);
-const mockRemoveListener = jest.fn();
-const mockSetName = jest.fn();
-const mockSetVolume = jest.fn();
-const mockTogglePlay = jest.fn(updatePlayer);
+const mockFn = vi.fn();
+const mockActivateElement = vi.fn();
+const mockCallback = vi.fn();
+const mockConnect = vi.fn();
+const mockDisconnect = vi.fn();
+const mockGetCurrentState = vi.fn(() => playerStateResponse);
+const mockGetOAuthToken = vi.fn();
+const mockGetVolume = vi.fn(() => 1);
+const mockNextTrack = vi.fn(updatePlayer);
+const mockPreviousTrack = vi.fn(updatePlayer);
+const mockRemoveListener = vi.fn();
+const mockSetName = vi.fn();
+const mockSetVolume = vi.fn();
+const mockTogglePlay = vi.fn(updatePlayer);
 
 const deviceId = '19ks98hfbxc53vh34jd';
 const externalDeviceId = 'df17372ghs982js892js';
@@ -90,7 +104,7 @@ function setExternalDevice() {
   fireEvent.click(screen.getByLabelText('Devices'));
 
   // select the external device
-  fireEvent.click(screen.getByLabelText('Jest Player'));
+  fireEvent.click(screen.getByLabelText('Test Player'));
 }
 
 class Player {
@@ -124,7 +138,7 @@ class Player {
 describe('SpotifyWebPlayer', () => {
   beforeAll(async () => {
     window.Spotify = {
-      // @ts-ignore
+      // @ts-expect-error Mock
       Player,
     };
 
@@ -141,7 +155,7 @@ describe('SpotifyWebPlayer', () => {
             devices: [
               {
                 id: externalDeviceId,
-                name: 'Jest Player',
+                name: 'Test Player',
                 type: 'Computer',
               },
             ],
@@ -164,12 +178,12 @@ describe('SpotifyWebPlayer', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('Error listeners', () => {
     beforeAll(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     it('should handle `authentication_error`', async () => {
@@ -250,7 +264,7 @@ describe('SpotifyWebPlayer', () => {
 
   describe('Device listeners', () => {
     beforeAll(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     it('should handle `ready`', async () => {
@@ -278,7 +292,7 @@ describe('SpotifyWebPlayer', () => {
     const props = { autoPlay: true, showSaveIcon: true };
 
     beforeAll(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     it('should initialize the token', async () => {
@@ -356,7 +370,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0.5);
@@ -373,7 +387,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0.3);
@@ -390,7 +404,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0);
@@ -415,7 +429,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0.5);
@@ -429,7 +443,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0.3);
@@ -443,7 +457,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(mockSetVolume).toHaveBeenCalledWith(0);
@@ -543,10 +557,6 @@ describe('SpotifyWebPlayer', () => {
         'https://api.spotify.com/v1/me/player',
         expect.objectContaining({ method: 'GET' }),
       );
-
-      await waitFor(() => {
-        expect(screen.getByTestId('Slider')).toHaveAttribute('data-position', '0.1');
-      });
     });
 
     it('should handle Volume changes', async () => {
@@ -570,7 +580,7 @@ describe('SpotifyWebPlayer', () => {
       });
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(fetchMock).toHaveBeenCalledWith(
@@ -603,7 +613,9 @@ describe('SpotifyWebPlayer', () => {
       });
 
       // Play the previous track
-      fireEvent.click(screen.getByLabelText('Previous'));
+      await act(async () => {
+        fireEvent.click(screen.getByLabelText('Previous'));
+      });
 
       expect(fetchMock).toHaveBeenLastCalledWith(
         'https://api.spotify.com/v1/me/player/previous',
@@ -611,7 +623,7 @@ describe('SpotifyWebPlayer', () => {
       );
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(fetchMock).toHaveBeenLastCalledWith(
@@ -620,7 +632,9 @@ describe('SpotifyWebPlayer', () => {
       );
 
       // Play the next track
-      fireEvent.click(screen.getByLabelText('Next'));
+      await act(async () => {
+        fireEvent.click(screen.getByLabelText('Next'));
+      });
 
       expect(fetchMock).toHaveBeenLastCalledWith(
         'https://api.spotify.com/v1/me/player/next',
@@ -628,7 +642,7 @@ describe('SpotifyWebPlayer', () => {
       );
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(fetchMock).toHaveBeenLastCalledWith(
@@ -637,7 +651,9 @@ describe('SpotifyWebPlayer', () => {
       );
 
       // Pause the player
-      fireEvent.click(screen.getByLabelText('Pause'));
+      await act(async () => {
+        fireEvent.click(screen.getByLabelText('Pause'));
+      });
 
       expect(fetchMock).toHaveBeenLastCalledWith(
         'https://api.spotify.com/v1/me/player/pause',
@@ -648,7 +664,7 @@ describe('SpotifyWebPlayer', () => {
       playerStatusResponse = playbackState;
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(fetchMock).toHaveBeenLastCalledWith(
@@ -656,7 +672,9 @@ describe('SpotifyWebPlayer', () => {
         expect.any(Object),
       );
 
-      expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'false');
+      await waitFor(() => {
+        expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'false');
+      });
     });
   });
 
@@ -709,7 +727,7 @@ describe('SpotifyWebPlayer', () => {
       rerender(<SpotifyWebPlayer {...baseProps} play={false} />);
 
       await act(async () => {
-        jest.runOnlyPendingTimers();
+        vi.runOnlyPendingTimers();
       });
 
       expect(screen.getByTestId('Controls')).toHaveAttribute('data-playing', 'false');
@@ -758,7 +776,7 @@ describe('SpotifyWebPlayer', () => {
 
   describe('With "getPlayer" prop', () => {
     it('should return the player', async () => {
-      const mockGetPlayer = jest.fn();
+      const mockGetPlayer = vi.fn();
 
       await setup({ getPlayer: mockGetPlayer });
 

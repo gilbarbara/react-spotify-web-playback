@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\` 1`] = `
+exports[`SpotifyWebPlayer > Device listeners > should handle \`player_state_changed\` 1`] = `
 <div
   class="PlayerRSWP"
   data-component-name="Player"
@@ -300,7 +300,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`player_state_changed\
 </div>
 `;
 
-exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
+exports[`SpotifyWebPlayer > Device listeners > should handle \`ready\` 1`] = `
 <div
   class="PlayerRSWP"
   data-component-name="Player"
@@ -526,7 +526,7 @@ exports[`SpotifyWebPlayer Device listeners should handle \`ready\` 1`] = `
 </div>
 `;
 
-exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = `
+exports[`SpotifyWebPlayer > Error listeners > should handle \`account_error\` 1`] = `
 <div
   class="PlayerRSWP"
   data-component-name="Player"
@@ -542,7 +542,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`account_error\` 1`] = 
 </div>
 `;
 
-exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`: With Error 1`] = `
+exports[`SpotifyWebPlayer > Error listeners > should handle \`authentication_error\` > With Error 1`] = `
 <div
   class="PlayerRSWP"
   data-component-name="Player"
@@ -558,7 +558,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`authentication_error\`
 </div>
 `;
 
-exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\` 1`] = `
+exports[`SpotifyWebPlayer > Error listeners > should handle \`initialization_error\` 1`] = `
 <div
   class="PlayerRSWP"
   data-component-name="Player"
@@ -592,7 +592,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                   Select other device
                 </p>
                 <button
-                  aria-label="Jest Player"
+                  aria-label="Test Player"
                   class="ButtonRSWP"
                   data-id="df17372ghs982js892js"
                   type="button"
@@ -609,7 +609,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
                     />
                   </svg>
                   <span>
-                    Jest Player
+                    Test Player
                   </span>
                 </button>
                 <span />
@@ -751,7 +751,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`initialization_error\`
 </div>
 `;
 
-exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] = `
+exports[`SpotifyWebPlayer > Error listeners > should handle \`playback_error\` 1`] = `
 <div
   class="PlayerRSWP"
   data-component-name="Player"
@@ -1032,7 +1032,7 @@ exports[`SpotifyWebPlayer Error listeners should handle \`playback_error\` 1`] =
 </div>
 `;
 
-exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
+exports[`SpotifyWebPlayer > With "compact" layout > should render properly 1`] = `
 <div
   class="PlayerRSWP"
   data-component-name="Player"
@@ -1305,7 +1305,7 @@ exports[`SpotifyWebPlayer With "compact" layout should render properly 1`] = `
 </div>
 `;
 
-exports[`SpotifyWebPlayer With "components" prop should render the components 1`] = `
+exports[`SpotifyWebPlayer > With "components" prop > should render the components 1`] = `
 <div
   class=" _ControlsRSWP __11aa6ep"
   data-component-name="Controls"
@@ -1528,7 +1528,7 @@ exports[`SpotifyWebPlayer With "components" prop should render the components 1`
 </div>
 `;
 
-exports[`SpotifyWebPlayer With the local player should render the full UI 1`] = `
+exports[`SpotifyWebPlayer > With the local player > should render the full UI 1`] = `
 <div
   class="PlayerRSWP"
   data-component-name="Player"
