@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import { primaryColor } from './modules/theme';
 
 const Wrapper = styled.a`
