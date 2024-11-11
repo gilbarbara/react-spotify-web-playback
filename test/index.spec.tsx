@@ -34,13 +34,13 @@ async function waitFor(fn: () => void) {
 const mockAddListener = vi.fn();
 
 const initializePlayer = async () => {
-  const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready');
+  const [, readyFn] = mockAddListener.mock.calls.find(d => d[0] === 'ready')!;
 
   await readyFn({ device_id: deviceId });
 };
 
 const updatePlayer = async (state?: Partial<Spotify.PlaybackState>) => {
-  const [, stateChangeFn] = mockAddListener.mock.calls.find(d => d[0] === 'player_state_changed');
+  const [, stateChangeFn] = mockAddListener.mock.calls.find(d => d[0] === 'player_state_changed')!;
 
   await stateChangeFn({ ...playerState, ...state });
 };
@@ -191,7 +191,7 @@ describe('SpotifyWebPlayer', () => {
 
       const [authenticationType, authenticationFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'authentication_error',
-      );
+      )!;
 
       await act(async () => {
         authenticationFn({ type: authenticationType, message: 'Failed to authenticate' });
@@ -217,7 +217,7 @@ describe('SpotifyWebPlayer', () => {
 
       const [accountType, accountFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'account_error',
-      );
+      )!;
 
       await act(async () => {
         accountFn({ type: accountType, message: 'Failed to validate Spotify account' });
@@ -232,7 +232,7 @@ describe('SpotifyWebPlayer', () => {
 
       const [initializationType, initializationFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'initialization_error',
-      );
+      )!;
 
       await act(async () => {
         initializationFn({ type: initializationType, message: 'Failed to initialize' });
@@ -247,7 +247,7 @@ describe('SpotifyWebPlayer', () => {
 
       const [playbackType, playbackFn] = mockAddListener.mock.calls.find(
         d => d[0] === 'playback_error',
-      );
+      )!;
 
       await act(async () => {
         playbackFn({ type: playbackType, message: 'Failed to perform playback' });
