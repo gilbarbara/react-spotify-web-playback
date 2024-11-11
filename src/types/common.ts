@@ -137,6 +137,7 @@ export interface Props {
 
 export interface State {
   currentDeviceId: string;
+  currentURI: string;
   deviceId: string;
   devices: SpotifyDevice[];
   error: string;
