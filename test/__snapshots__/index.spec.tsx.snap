@@ -12,7 +12,7 @@ exports[`SpotifyWebPlayer > Device listeners > should handle \`player_state_chan
     data-component-name="Wrapper"
   >
     <div
-      class="rswp__active _InfoRSWP __1jmym9x"
+      class="rswp__active _InfoRSWP __14asrht"
       data-component-name="Info"
     >
       <a
@@ -763,7 +763,7 @@ exports[`SpotifyWebPlayer > Error listeners > should handle \`playback_error\` 1
     data-component-name="Wrapper"
   >
     <div
-      class="rswp__active _InfoRSWP __1jmym9x"
+      class="rswp__active _InfoRSWP __14asrht"
       data-component-name="Info"
     >
       <a
@@ -1044,7 +1044,7 @@ exports[`SpotifyWebPlayer > With "compact" layout > should render properly 1`] =
     data-component-name="Wrapper"
   >
     <div
-      class="rswp__active _InfoRSWP __pkinha"
+      class="rswp__active _InfoRSWP __7dq9rw"
       data-component-name="Info"
     >
       <a
@@ -1540,7 +1540,7 @@ exports[`SpotifyWebPlayer > With the local player > should render the full UI 1`
     data-component-name="Wrapper"
   >
     <div
-      class="rswp__active _InfoRSWP __1jmym9x"
+      class="rswp__active _InfoRSWP __14asrht"
       data-component-name="Info"
     >
       <a

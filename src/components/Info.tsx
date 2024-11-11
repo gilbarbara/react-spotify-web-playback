@@ -1,5 +1,5 @@
 import { memo, ReactNode, useEffect, useRef, useState } from 'react';
-import { fade } from 'colorizr';
+import { opacify } from 'colorizr';
 
 import { getBgColor, getSpotifyLink, getSpotifyLinkTitle } from '~/modules/getters';
 import { usePrevious } from '~/modules/hooks';
@@ -58,7 +58,7 @@ const Wrapper = styled('div')(
     const styles: CssLikeObject = {};
 
     if (isCompactLayout) {
-      styles.borderBottom = `1px solid ${fade(style.c, 40)}`;
+      styles.borderBottom = `1px solid ${opacify(style.c, 0.6)}`;
       styles['> a'] = {
         display: 'flex',
         margin: '0 auto',
@@ -81,7 +81,7 @@ const Wrapper = styled('div')(
       styles.display = 'flex';
       styles.minHeight = px(80);
       styles['@media (max-width: 767px)'] = {
-        borderBottom: `1px solid ${fade(style.c, 40)}`,
+        borderBottom: `1px solid ${opacify(style.c, 0.6)}`,
         paddingLeft: px(8),
         display: 'none',
         width: '100%',
