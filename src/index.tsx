@@ -144,6 +144,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
 
     this.state = {
       currentDeviceId: '',
+      currentURI: '',
       deviceId: '',
       devices: [],
       error: '',
@@ -517,6 +518,8 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   };
 
   private handlePlayerStateChanges = async (state: Spotify.PlaybackState) => {
+    const { currentURI } = this.state;
+
     try {
       /* istanbul ignore else */
       if (state) {
@@ -532,8 +535,9 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
         const volume = (await this.player?.getVolume()) ?? 100;
         let trackState = {};
 
-        if (position === 0 && current_track) {
+        if ((!currentURI || currentURI !== current_track.uri) && current_track) {
           trackState = {
+            currentURI: current_track.uri,
             nextTracks: next_tracks.map(convertTrack),
             position: 0,
             previousTracks: previous_tracks.map(convertTrack),
