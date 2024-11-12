@@ -189,7 +189,6 @@ export default function Devices(props: Props) {
   const handleClickSetDevice = (event: MouseEvent<HTMLElement>) => {
     const { dataset } = event.currentTarget;
 
-    /* istanbul ignore else */
     if (dataset.id) {
       onClickDevice(dataset.id);
 

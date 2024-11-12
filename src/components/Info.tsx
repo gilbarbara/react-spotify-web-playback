@@ -296,7 +296,6 @@ function Info(props: Props) {
   const title = getSpotifyLinkTitle(name, locale.title);
   let favorite;
 
-  /* istanbul ignore else */
   if (showSaveIcon && id) {
     favorite = (
       <button

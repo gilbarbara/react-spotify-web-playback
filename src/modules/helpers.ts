@@ -1,44 +1,4 @@
-/* eslint-disable camelcase */
-import { RepeatState, SpotifyTrack } from '~/types';
-
-export function convertTrack(track: Spotify.Track): SpotifyTrack {
-  const { album, artists, duration_ms, id, name, uri } = track;
-
-  return {
-    artists,
-    durationMs: duration_ms,
-    id: id ?? '',
-    image: getAlbumImage(album),
-    name,
-    uri,
-  };
-}
-
-export function getAlbumImage(album: Spotify.Album) {
-  const maxWidth = Math.max(...album.images.map(d => d.width || 0));
-
-  return album.images.find(d => d.width === maxWidth)?.url || '';
-}
-
-export function getRepeatState(mode: number): RepeatState {
-  switch (mode) {
-    case 1:
-      return 'context';
-    case 2:
-      return 'track';
-    case 0:
-    default:
-      return 'off';
-  }
-}
-
-export function getURIs(uris: string | string[]): string[] {
-  if (!uris) {
-    return [];
-  }
-
-  return Array.isArray(uris) ? uris : [uris];
-}
+import { SPOTIFY_CONTENT_TYPE } from '~/constants';
 
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
@@ -108,14 +68,14 @@ export function round(number: number, digits = 2) {
 }
 
 export function validateURI(input: string): boolean {
-  const validTypes = ['album', 'artist', 'playlist', 'show', 'track'];
-
-  /* istanbul ignore else */
   if (input && input.indexOf(':') > -1) {
     const [key, type, id] = input.split(':');
 
-    /* istanbul ignore else */
-    if (key === 'spotify' && validTypes.indexOf(type) >= 0 && id.length === 22) {
+    if (
+      key === 'spotify' &&
+      Object.values(SPOTIFY_CONTENT_TYPE).includes(type) &&
+      id.length === 22
+    ) {
       return true;
     }
   }

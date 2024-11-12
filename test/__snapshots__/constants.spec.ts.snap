@@ -1,5 +1,25 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`ERROR_TYPE > should have all options 1`] = `
+{
+  "ACCOUNT": "account",
+  "AUTHENTICATION": "authentication",
+  "INITIALIZATION": "initialization",
+  "PLAYBACK": "playback",
+  "PLAYER": "player",
+}
+`;
+
+exports[`SPOTIFY_CONTENT_TYPE > should have all options 1`] = `
+{
+  "ALBUM": "album",
+  "ARTIST": "artist",
+  "PLAYLIST": "playlist",
+  "SHOW": "show",
+  "TRACK": "track",
+}
+`;
+
 exports[`STATUS > should have all options 1`] = `
 {
   "ERROR": "ERROR",
@@ -16,6 +36,7 @@ exports[`TYPE > should have all options 1`] = `
   "DEVICE": "device_update",
   "FAVORITE": "favorite_update",
   "PLAYER": "player_update",
+  "PRELOAD": "preload_update",
   "PROGRESS": "progress_update",
   "STATUS": "status_update",
   "TRACK": "track_update",

@@ -2,12 +2,21 @@ import {
   getBgColor,
   getLocale,
   getMergedStyles,
+  getPreloadData,
   getSpotifyLink,
   getSpotifyLinkTitle,
   getSpotifyURIType,
 } from '~/modules/getters';
 
 import { TRANSPARENT_COLOR } from '~/constants';
+
+import {
+  playerAlbumTracks,
+  playerArtistTopTracks,
+  playerPlaylistTracks,
+  playerShow,
+  playerTrack,
+} from '../fixtures/data';
 
 describe('getBgColor', () => {
   it('should return the background color', () => {
@@ -28,6 +37,80 @@ describe('getLocale', () => {
 describe('getMergedStyles', () => {
   it('should return a merged styles', () => {
     expect(getMergedStyles({ bgColor: 'transparent', height: 100 })).toMatchSnapshot();
+  });
+});
+
+describe('getPreloadData', () => {
+  beforeAll(() => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  afterAll(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('should handle albums', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(playerAlbumTracks));
+    fetchMock.mockResponseOnce(JSON.stringify(playerTrack));
+
+    await expect(
+      getPreloadData('token', 'spotify:album:7A0awCXkE1FtSU8B0qwOJQ', 0),
+    ).resolves.toMatchSnapshot();
+  });
+
+  it('should handle artist', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(playerArtistTopTracks));
+
+    await expect(
+      getPreloadData('token', 'spotify:artist:7A0awCXkE1FtSU8B0qwOJQ', 0),
+    ).resolves.toMatchSnapshot();
+  });
+
+  it('should handle playlist', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(playerPlaylistTracks));
+
+    await expect(
+      getPreloadData('token', 'spotify:playlist:7A0awCXkE1FtSU8B0qwOJQ', 0),
+    ).resolves.toMatchSnapshot();
+  });
+
+  it('should handle show', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(playerShow));
+    fetchMock.mockResponseOnce(JSON.stringify(playerShow.episodes));
+
+    await expect(
+      getPreloadData('token', 'spotify:show:7A0awCXkE1FtSU8B0qwOJQ', 0),
+    ).resolves.toMatchSnapshot();
+  });
+
+  it('should handle track', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(playerTrack));
+
+    await expect(
+      getPreloadData('token', 'spotify:track:7A0awCXkE1FtSU8B0qwOJQ', 0),
+    ).resolves.toMatchSnapshot();
+  });
+
+  it('should handle invalid type', async () => {
+    await expect(
+      getPreloadData('token', 'spotify:episode:7A0awCXkE1FtSU8B0qwOJQ', 0),
+    ).resolves.toBeNull();
+
+    expect(console.error).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle API errors', async () => {
+    fetchMock.mockRejectOnce(new Error('API error'));
+
+    await expect(
+      getPreloadData('token', 'spotify:track:7A0awCXkE1FtSU8B0qwOJQ', 0),
+    ).resolves.toBeNull();
+
+    expect(console.error).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -55,7 +138,7 @@ describe('getSpotifyURIType', () => {
     ['spotify:track:0gkVD2tr14wCfJhqhdE94L', 'track'],
     ['spotify:user:gilbarbara', 'user'],
     ['spotify', ''],
-  ])('%p should return %p', (value, expected) => {
+  ])('%s should return %s', (value, expected) => {
     expect(getSpotifyURIType(value)).toBe(expected);
   });
 });

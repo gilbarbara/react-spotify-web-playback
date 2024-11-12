@@ -219,6 +219,9 @@ Save the device selection.
 **play** `boolean`  
 Control the player's status.
 
+**preloadData** `boolean`  
+Preload the track data before playing.
+
 **showSaveIcon** `boolean` ▶︎ false  
 Display a Favorite button. It needs additional scopes in your token.
 
@@ -226,7 +229,7 @@ Display a Favorite button. It needs additional scopes in your token.
 Customize the player's appearance. Check `StylesOptions` in the [types](src/types/common.ts).
 
 **syncExternalDevice** `boolean` ▶︎ false  
-If there are no URIs and an external device is playing, use the external player context.
+Use the external player context if there are no URIs and an external device is playing.
 
 **syncExternalDeviceInterval** `number` ▶︎ 5  
 The time in seconds that the player will sync with external devices.
@@ -252,11 +255,23 @@ import { spotifyApi } from 'react-spotify-web-playback';
 
 **checkTracksStatus(token: string, tracks: string | string[]): Promise\<boolean[]>**
 
+**getAlbumTracks(token: string, id: string): Promise\<SpotifyApi.AlbumTracksResponse>**
+
+**getArtistTopTracks(token: string, id: string): Promise\<SpotifyApi.ArtistsTopTracksResponse>**
+
 **getDevices(token: string): Promise\<SpotifyApi.UserDevicesResponse>**
 
 **getPlaybackState(token: string): Promise\<SpotifyApi.CurrentlyPlayingObject | null>**
 
+**getPlaylistTracks(token: string, id: string): Promise\<SpotifyApi.PlaylistTrackResponse>**
+
 **getQueue(token: string): Promise\<SpotifyApi.UsersQueueResponse>**
+
+**getShow(token: string, id: string): Promise\<SpotifyApi.ShowObjectFull>**
+
+**getShowEpisodes(token: string, id: string, offset = 0): Promise\<SpotifyApi.ShowEpisodesResponse>**
+
+**getTrack(token: string, id: string): Promise\<SpotifyApi.TrackObjectFull>**
 
 **pause(token: string, deviceId?: string): Promise\<void>**
 
@@ -293,7 +308,7 @@ interface SpotifyPlayOptions {
 
 You can customize the UI with a `styles` prop.  
 If you want a transparent player, you can use `bgColor: 'transparent'`.  
-Check all the available options [here](src/types/common.ts#L188).
+Check all the available options [here](src/types/common.ts#L195).
 
 ```tsx
 <SpotifyWebPlayer
@@ -310,7 +325,8 @@ Check all the available options [here](src/types/common.ts#L188).
 />
 ```
 
-![rswp-styles](https://gilbarbara.com/files/rswp-styles-e4060ddf.png)
+![rswp-styles](https://files.gilbarbara.dev/media/rswp-v2.png)
+
 
 ## Issues
 

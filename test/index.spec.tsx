@@ -5,7 +5,7 @@ import {
   fireEvent,
   render,
   screen,
-  waitFor as tlWaitFor,
+  waitFor as testingLibraryWaitFor,
   within,
 } from '@testing-library/react';
 
@@ -13,7 +13,7 @@ import * as helpers from '~/modules/helpers';
 
 import SpotifyWebPlayer, { Props } from '~/index';
 
-import { playbackState, playerState } from './fixtures/data';
+import { playbackState, playerAlbumTracks, playerState, playerTrack } from './fixtures/data';
 import { setBoundingClientRect } from './fixtures/helpers';
 
 vi.spyOn(helpers, 'loadSpotifyPlayer').mockImplementation(() => Promise.resolve());
@@ -26,7 +26,7 @@ let playerStatusResponse = playbackState;
 async function waitFor(fn: () => void) {
   vi.useRealTimers();
 
-  await tlWaitFor(fn);
+  await testingLibraryWaitFor(fn);
 
   vi.useFakeTimers();
 }
@@ -148,6 +148,14 @@ describe('SpotifyWebPlayer', () => {
       if (url.match(/contains\?ids=*/)) {
         return Promise.resolve({
           body: JSON.stringify([false]),
+        });
+      } else if (url.match(/album/)) {
+        return Promise.resolve({
+          body: JSON.stringify(playerAlbumTracks),
+        });
+      } else if (url.match(/track/)) {
+        return Promise.resolve({
+          body: JSON.stringify(playerTrack),
         });
       } else if (url === 'https://api.spotify.com/v1/me/player/devices') {
         return Promise.resolve({
@@ -794,6 +802,24 @@ describe('SpotifyWebPlayer', () => {
       });
 
       expect(screen.getByTestId('Controls')).toMatchSnapshot();
+    });
+  });
+
+  describe('With "preloadData" prop', () => {
+    it('should have preloaded the first track of the album', async () => {
+      await setup({ preloadData: true });
+
+      expect(fetchMock).toHaveBeenNthCalledWith(
+        2,
+        'https://api.spotify.com/v1/albums/7KvKuWUxxNPEU80c4i5AQk/tracks',
+        expect.any(Object),
+      );
+
+      expect(fetchMock).toHaveBeenNthCalledWith(
+        3,
+        'https://api.spotify.com/v1/tracks/6KUjwoHktuX3du8laPVfO8',
+        expect.any(Object),
+      );
     });
   });
 });

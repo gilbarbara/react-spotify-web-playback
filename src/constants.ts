@@ -6,6 +6,14 @@ export const ERROR_TYPE = {
   PLAYER: 'player',
 } as const;
 
+export const SPOTIFY_CONTENT_TYPE = {
+  ALBUM: 'album',
+  ARTIST: 'artist',
+  PLAYLIST: 'playlist',
+  SHOW: 'show',
+  TRACK: 'track',
+};
+
 export const STATUS = {
   ERROR: 'ERROR',
   IDLE: 'IDLE',
@@ -21,6 +29,7 @@ export const TYPE = {
   DEVICE: 'device_update',
   FAVORITE: 'favorite_update',
   PLAYER: 'player_update',
+  PRELOAD: 'preload_update',
   PROGRESS: 'progress_update',
   STATUS: 'status_update',
   TRACK: 'track_update',

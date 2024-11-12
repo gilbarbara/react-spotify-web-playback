@@ -19,18 +19,18 @@ export function useMediaQuery(input: string): boolean {
 
     try {
       matchMedia.addEventListener('change', handleChange);
+      /* c8 ignore next 4 */
     } catch {
       // Safari isn't supporting matchMedia.addEventListener
-      /* istanbul ignore next */
       matchMedia.addListener(handleChange);
     }
 
     return () => {
       try {
         matchMedia.removeEventListener('change', handleChange);
+        /* c8 ignore next 4 */
       } catch {
         // Safari isn't supporting matchMedia.removeEventListener
-        /* istanbul ignore next */
         matchMedia.removeListener(handleChange);
       }
     };
