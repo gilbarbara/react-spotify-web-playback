@@ -1,13 +1,36 @@
 /* eslint-disable camelcase */
-import { RepeatState, SpotifyPlayOptions } from '~/types';
+import { IDs, RepeatState, SpotifyPlayOptions } from '~/types';
 
-export async function checkTracksStatus(
-  token: string,
-  tracks: string | string[],
-): Promise<boolean[]> {
+export async function checkTracksStatus(token: string, tracks: IDs): Promise<boolean[]> {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
   return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function getAlbumTracks(
+  token: string,
+  id: string,
+): Promise<SpotifyApi.AlbumTracksResponse> {
+  return fetch(`https://api.spotify.com/v1/albums/${id}/tracks`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function getArtistTopTracks(
+  token: string,
+  id: string,
+): Promise<SpotifyApi.ArtistsTopTracksResponse> {
+  return fetch(`https://api.spotify.com/v1/artists/${id}/top-tracks`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -44,8 +67,55 @@ export async function getPlaybackState(
   });
 }
 
+export async function getPlaylistTracks(
+  token: string,
+  id: string,
+): Promise<SpotifyApi.PlaylistTrackResponse> {
+  return fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
 export async function getQueue(token: string): Promise<SpotifyApi.UsersQueueResponse> {
   return fetch(`https://api.spotify.com/v1/me/player/queue`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function getShow(token: string, id: string): Promise<SpotifyApi.ShowObjectFull> {
+  return fetch(`https://api.spotify.com/v1/shows/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function getShowEpisodes(
+  token: string,
+  id: string,
+  offset = 0,
+): Promise<SpotifyApi.ShowEpisodesResponse> {
+  return fetch(`https://api.spotify.com/v1/shows/${id}/episodes?offset=${offset}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  }).then(d => d.json());
+}
+
+export async function getTrack(token: string, id: string): Promise<SpotifyApi.TrackObjectFull> {
+  return fetch(`https://api.spotify.com/v1/tracks/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -96,7 +166,6 @@ export async function play(
     const isArtist = context_uri.indexOf('artist') >= 0;
     let position;
 
-    /* istanbul ignore else */
     if (!isArtist) {
       position = { position: offset };
     }
@@ -132,7 +201,7 @@ export async function previous(token: string, deviceId?: string): Promise<void> 
   });
 }
 
-export async function removeTracks(token: string, tracks: string | string[]): Promise<void> {
+export async function removeTracks(token: string, tracks: IDs): Promise<void> {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
   await fetch(`https://api.spotify.com/v1/me/tracks`, {
@@ -161,7 +230,7 @@ export async function repeat(token: string, state: RepeatState, deviceId?: strin
   });
 }
 
-export async function saveTracks(token: string, tracks: string | string[]): Promise<void> {
+export async function saveTracks(token: string, tracks: IDs): Promise<void> {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
   await fetch(`https://api.spotify.com/v1/me/tracks`, {

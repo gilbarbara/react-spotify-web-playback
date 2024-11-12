@@ -36,7 +36,7 @@ describe('millisecondsToTime', () => {
     [63000, '1:03'],
     [3610000, '01:00:10'],
     [7123490, '01:58:43'],
-  ])('should convert %p to %p', (input, expected) => {
+  ])('should convert %d to %s', (input, expected) => {
     expect(millisecondsToTime(input)).toBe(expected);
   });
 });
@@ -48,7 +48,7 @@ describe('parseVolume', () => {
     ['100', 1],
     [3, 0.03],
     [20, 0.2],
-  ])('should parse %p to %p', (input, expected) => {
+  ])('should parse %d to %d', (input, expected) => {
     expect(parseVolume(input)).toBe(expected);
   });
 });
@@ -58,7 +58,7 @@ describe('round', () => {
     [10.1029, 1, 10.1],
     [34.0293, 2, 34.03],
     [79.0178, 3, 79.018],
-  ])('should convert %p with %p digits to %p', (input, digits, expected) => {
+  ])('should convert %d with %d digits to %d', (input, digits, expected) => {
     expect(round(input, digits)).toEqual(expected);
   });
 });
@@ -72,7 +72,7 @@ describe('validateURI', () => {
     ['spotify:show:5huEzXsf133dhbh57Np2tg', true],
     ['spotify:track:0gkVD2tr14wCfJhqhdE94L', true],
     ['spotify:user:gilbarbara', false],
-  ])('%p should return %p', (value, expected) => {
+  ])('%s should return %s', (value, expected) => {
     expect(validateURI(value)).toBe(expected);
   });
 });

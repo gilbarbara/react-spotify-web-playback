@@ -19,7 +19,6 @@ exports[`getLocale > should return a merged locale 1`] = `
 exports[`getMergedStyles > should return a merged styles 1`] = `
 {
   "activeColor": "#1cb954",
-  "altColor": "#ccc",
   "bgColor": "rgba(0, 0, 0, 0)",
   "color": "#333",
   "errorColor": "#ff0026",
@@ -34,5 +33,85 @@ exports[`getMergedStyles > should return a merged styles 1`] = `
   "sliderTrackColor": "#ccc",
   "trackArtistColor": "#666",
   "trackNameColor": "#333",
+}
+`;
+
+exports[`getPreloadData > should handle albums 1`] = `
+{
+  "artists": [
+    {
+      "name": "Marvin Gaye",
+      "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+    },
+  ],
+  "durationMs": 151626,
+  "id": "6KUjwoHktuX3du8laPVfO8",
+  "image": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+  "name": "Main Theme From Trouble Man",
+  "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+}
+`;
+
+exports[`getPreloadData > should handle artist 1`] = `
+{
+  "artists": [
+    {
+      "name": "Marvin Gaye",
+      "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+    },
+  ],
+  "durationMs": 151626,
+  "id": "6KUjwoHktuX3du8laPVfO8",
+  "image": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+  "name": "Main Theme From Trouble Man",
+  "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+}
+`;
+
+exports[`getPreloadData > should handle playlist 1`] = `
+{
+  "artists": [
+    {
+      "name": "Marvin Gaye",
+      "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+    },
+  ],
+  "durationMs": 151626,
+  "id": "6KUjwoHktuX3du8laPVfO8",
+  "image": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+  "name": "Main Theme From Trouble Man",
+  "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
+}
+`;
+
+exports[`getPreloadData > should handle show 1`] = `
+{
+  "artists": [
+    {
+      "name": "Syntax - Tasty Web Development Treats",
+      "uri": "spotify:show:4kYCRYJ3yK5DQbP5tbfZby",
+    },
+  ],
+  "durationMs": 2645609,
+  "id": "5cTJgzcfadfcfPzvJAwJk1",
+  "image": "https://i.scdn.co/image/ab6765630000ba8ada4bfc6d17ba4b7f66e6012a",
+  "name": "846: Talking EVs: Range Anxiety, Charging, and Tech",
+  "uri": "spotify:episode:5cTJgzcfadfcfPzvJAwJk1",
+}
+`;
+
+exports[`getPreloadData > should handle track 1`] = `
+{
+  "artists": [
+    {
+      "name": "Marvin Gaye",
+      "uri": "spotify:artist:3koiLjNrgRTNbOwViDipeA",
+    },
+  ],
+  "durationMs": 151626,
+  "id": "6KUjwoHktuX3du8laPVfO8",
+  "image": "https://i.scdn.co/image/10b3bd8afaf3dfa1f302b8f58e059e9802144052",
+  "name": "Main Theme From Trouble Man",
+  "uri": "spotify:track:6KUjwoHktuX3du8laPVfO8",
 }
 `;

@@ -9,6 +9,10 @@ export default defineConfig({
     coverage: {
       all: true,
       include: ['src/**/*.ts?(x)'],
+      exclude: [
+        'src/components/icons/DevicesMobile.tsx',
+        'src/components/icons/DevicesSpeaker.tsx',
+      ],
       reporter: ['text', 'lcov'],
       thresholds: {
         statements: 90,

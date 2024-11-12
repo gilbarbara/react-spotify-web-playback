@@ -5,6 +5,7 @@ import { ERROR_TYPE, STATUS, TYPE } from '~/constants';
 import { SpotifyDevice, SpotifyTrack } from './spotify';
 
 export type ErrorType = (typeof ERROR_TYPE)[keyof typeof ERROR_TYPE];
+export type IDs = string | string[];
 export type Layout = 'responsive' | 'compact';
 export type RepeatState = 'off' | 'context' | 'track';
 export type Status = (typeof STATUS)[keyof typeof STATUS];
@@ -102,6 +103,10 @@ export interface Props {
    */
   play?: boolean;
   /**
+   * Preload the track data before playing.
+   */
+  preloadData?: boolean;
+  /**
    * Display a Favorite button. It needs additional scopes in your token.
    * @default false
    */
@@ -188,7 +193,6 @@ export interface PlayOptions {
 
 export interface StylesOptions {
   activeColor: string;
-  altColor: string;
   bgColor: string;
   color: string;
   errorColor: string;
