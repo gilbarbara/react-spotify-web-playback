@@ -8,14 +8,15 @@ import SpotifyWebPlayer, {
   STATUS,
   StylesProps,
   TYPE,
+  Type,
 } from 'react-spotify-web-playback';
-import { useEffectOnce, useSetState } from 'react-use';
 import {
   Anchor,
   Box,
   Button,
-  ComponentWrapper,
   Container,
+  Flex,
+  FormElementWrapper,
   Grid,
   H1,
   H4,
@@ -28,6 +29,7 @@ import {
   Toggle,
 } from '@gilbarbara/components';
 import { request } from '@gilbarbara/helpers';
+import { useEffectOnce, useSetState } from '@gilbarbara/hooks';
 
 import GlobalStyles from './components/GlobalStyles';
 import Player from './components/Player';
@@ -64,6 +66,7 @@ const baseURIs = {
   album: 'spotify:album:0WLIcGHr0nLyKJpMirAS17',
   artist: 'spotify:artist:4oLeXFyACqeem2VImYeBFe',
   playlist: 'spotify:playlist:1Zr2FUPeD5hYJTGbTDSQs4',
+  show: 'spotify:show:4kYCRYJ3yK5DQbP5tbfZby',
   tracks: [
     // Boogie
     // 'spotify:track:3zYpRGnnoegSpt3SguSo3W',
@@ -97,6 +100,7 @@ function App() {
 
   const code = new URLSearchParams(window.location.search).get('code');
   const credentials = getCredentials();
+
   const [
     {
       accessToken,
@@ -159,7 +163,7 @@ function App() {
     (event: FormEvent) => {
       event.preventDefault();
 
-      if (URIsInput && URIsInput.current) {
+      if (URIsInput?.current) {
         setState({ URIs: parseURIs(URIsInput.current.value) });
       }
     },
@@ -178,7 +182,7 @@ function App() {
 
       setState({ isPlaying: true, URIs: parseURIs(uris) });
 
-      if (URIsInput && URIsInput.current) {
+      if (URIsInput?.current) {
         URIsInput.current.value = uris;
       }
     },
@@ -202,7 +206,7 @@ function App() {
         });
       }
 
-      if (type === TYPE.TRACK) {
+      if (([TYPE.PRELOAD, TYPE.TRACK] as Array<Type>).includes(type)) {
         const trackStyles = await request<StylesProps>(
           `https://scripts.gilbarbara.dev/api/getImagePlayerStyles?url=${track.image}`,
         );
@@ -238,14 +242,14 @@ function App() {
 
   const content: Record<string, ReactNode> = {
     connect: (
-      <Box flexBox justify="center" maxWidth={320} mx="auto" width="100%">
+      <Flex justify="center" maxWidth={320} mx="auto" width="100%">
         <Anchor href={getAuthorizeUrl()}>
           <Button size="lg">
             <Icon mr="sm" name="spotify" size={24} />
             <span>Connect</span>
           </Button>
         </Anchor>
-      </Box>
+      </Flex>
     ),
   };
 
@@ -262,8 +266,8 @@ function App() {
     content.main = (
       <>
         <Box as="form" maxWidth={320} mx="auto" onSubmit={handleSubmitURIs} width="100%">
-          <ComponentWrapper
-            suffix={
+          <FormElementWrapper
+            endContent={
               <Button
                 shape="round"
                 style={{ borderBottomLeftRadius: 0, borderTopLeftRadius: 0 }}
@@ -281,7 +285,7 @@ function App() {
               placeholder="Enter a Spotify URI"
               suffixSpacing={48}
             />
-          </ComponentWrapper>
+          </FormElementWrapper>
         </Box>
         <Grid gap={20} maxWidth={320} mt="xl" mx="auto" templateColumns="repeat(2, 1fr)">
           <Button data-uris={baseURIs.artist} onClick={handleClickURIs} size="sm">
@@ -314,24 +318,24 @@ function App() {
             value={layout}
           />
           <H4 mt="md">Props</H4>
-          <Spacer distribution="center" gapVertical="md" mx="auto">
+          <Spacer distribution="center" gap="md" mx="auto">
             <Toggle
               checked={hideAttribution}
               label="Hide Attribution"
               name="hideAttribution"
-              onClick={() => setState({ hideAttribution: !hideAttribution })}
+              onToggle={() => setState({ hideAttribution: !hideAttribution })}
             />
             <Toggle
               checked={inlineVolume}
               label="Inline Volume"
               name="inlineVolume"
-              onClick={() => setState({ inlineVolume: !inlineVolume })}
+              onToggle={() => setState({ inlineVolume: !inlineVolume })}
             />
             <Toggle
               checked={transparent}
               label="Transparent"
               name="transparent"
-              onClick={() => setState({ transparent: !transparent })}
+              onToggle={() => setState({ transparent: !transparent })}
             />
           </Spacer>
         </Box>
@@ -348,6 +352,21 @@ function App() {
             ),
             rightButton: <RepeatButton disabled={!isActive} repeat={repeat} token={accessToken} />,
           }}
+          getOAuthToken={async callback => {
+            if ((credentials.expiresAt ?? 0) < Math.round(Date.now() / 1000)) {
+              const newCredentials = await refreshCredentials(refreshToken);
+
+              setCredentials(newCredentials);
+              setState({
+                accessToken: newCredentials.accessToken,
+                refreshToken: newCredentials.refreshToken,
+              });
+
+              callback(newCredentials.accessToken);
+            } else {
+              callback(accessToken);
+            }
+          }}
           getPlayer={getPlayer}
           hideAttribution={hideAttribution}
           initialVolume={100}
@@ -355,6 +374,7 @@ function App() {
           layout={layout}
           persistDeviceSelection
           play={isPlaying}
+          preloadData
           showSaveIcon
           styles={transparent ? { ...styles, bgColor: 'transparent' } : styles}
           syncExternalDevice

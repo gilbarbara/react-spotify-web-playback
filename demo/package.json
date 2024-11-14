@@ -5,24 +5,24 @@
   "keywords": [],
   "main": "src/index.tsx",
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
-    "@gilbarbara/components": "^0.11.4",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@gilbarbara/hooks": "^0.8.2",
+    "@gilbarbara/components": "^0.14.5",
     "@gilbarbara/cookies": "^1.0.1",
-    "@gilbarbara/eslint-config": "^0.7.5",
-    "@gilbarbara/helpers": "^0.9.2",
+    "@gilbarbara/eslint-config": "^0.8.2",
+    "@gilbarbara/helpers": "^0.9.4",
     "@gilbarbara/prettier-config": "^1.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-scripts": "^5.0.1",
-    "react-spotify-web-playback": "latest",
-    "react-use": "^17.5.0"
+    "react-spotify-web-playback": "latest"
   },
   "devDependencies": {
-    "@types/node": "20.11.30",
-    "@types/react": "18.2.73",
-    "@types/react-dom": "18.2.22",
-    "typescript": "5.4.3"
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "5.6.3"
   },
   "scripts": {
     "start": "react-scripts start",

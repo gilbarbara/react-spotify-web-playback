@@ -1,12 +1,12 @@
 import { ComponentProps, useCallback } from 'react';
 import { spotifyApi } from 'react-spotify-web-playback';
-import { BoxInline, ButtonUnstyled, Icon } from '@gilbarbara/components';
+import { ButtonUnstyled, FlexInline, Icon } from '@gilbarbara/components';
 
 export default function ShuffleButton({
-  shuffle,
-  token,
-  ...rest
-}: Omit<ComponentProps<typeof ButtonUnstyled>, 'children'> & {
+                                        shuffle,
+                                        token,
+                                        ...rest
+                                      }: Omit<ComponentProps<typeof ButtonUnstyled>, 'children'> & {
   shuffle: boolean;
   token: string;
 }) {
@@ -23,7 +23,7 @@ export default function ShuffleButton({
       width={32}
       {...rest}
     >
-      <BoxInline as="span" position="relative">
+      <FlexInline position="relative">
         <Icon name="shuffle" size={20} title={null} />
         {shuffle && (
           <span
@@ -39,7 +39,7 @@ export default function ShuffleButton({
             ⏺
           </span>
         )}
-      </BoxInline>
+      </FlexInline>
     </ButtonUnstyled>
   );
 }
