@@ -1,6 +1,6 @@
 import { ComponentProps, useCallback } from 'react';
 import { RepeatState, spotifyApi } from 'react-spotify-web-playback';
-import { BoxInline, ButtonUnstyled, Icon } from '@gilbarbara/components';
+import { ButtonUnstyled, FlexInline, Icon } from '@gilbarbara/components';
 
 export default function RepeatButton({
   repeat,
@@ -41,7 +41,7 @@ export default function RepeatButton({
       width={32}
       {...rest}
     >
-      <BoxInline as="span" position="relative">
+      <FlexInline as="span" position="relative">
         <Icon name="repeat" size={24} title={null} />
         {repeat !== 'off' && (
           <span
@@ -57,7 +57,7 @@ export default function RepeatButton({
             {repeat === 'track' ? '1' : 'all'}
           </span>
         )}
-      </BoxInline>
+      </FlexInline>
     </ButtonUnstyled>
   );
 }

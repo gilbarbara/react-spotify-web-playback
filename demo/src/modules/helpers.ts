@@ -1,5 +1,5 @@
 import { getCookie, removeCookie, setCookie } from '@gilbarbara/cookies';
-import { request } from '@gilbarbara/helpers';
+import { MONTH, request } from '@gilbarbara/helpers';
 
 import { SpotifyCredentials } from '../types';
 
@@ -49,7 +49,7 @@ export function getCredentials() {
 }
 
 export function setCredentials(credentials: SpotifyCredentials) {
-  setCookie(COOKIE_NAME, JSON.stringify(credentials));
+  setCookie(COOKIE_NAME, JSON.stringify(credentials), { expires: MONTH * 6 });
 }
 
 export async function login(code: string) {
@@ -79,7 +79,7 @@ export function parseURIs(input: string): string[] {
 export function validateURI(input: string): boolean {
   let isValid = false;
 
-  if (input && input.includes(':')) {
+  if (input?.includes(':')) {
     const [key, type, id] = input.split(':');
 
     if (key && type && type !== 'user' && id && id.length === 22) {
