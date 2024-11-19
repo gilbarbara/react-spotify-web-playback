@@ -2,6 +2,7 @@ import {
   isNumber,
   loadSpotifyPlayer,
   millisecondsToTime,
+  parseIds,
   parseVolume,
   round,
   validateURI,
@@ -38,6 +39,15 @@ describe('millisecondsToTime', () => {
     [7123490, '01:58:43'],
   ])('should convert %d to %s', (input, expected) => {
     expect(millisecondsToTime(input)).toBe(expected);
+  });
+});
+
+describe('parseIds', () => {
+  it('should return properly', () => {
+    expect(parseIds('sek80pgtykoem9zr189zgyy9')).toEqual(['sek80pgtykoem9zr189zgyy9']);
+    expect(parseIds(['sek80pgtykoem9zr189zgyy9'])).toEqual(['sek80pgtykoem9zr189zgyy9']);
+    /* @ts-expect-error - missing parameter */
+    expect(parseIds()).toEqual([]);
   });
 });
 

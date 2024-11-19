@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
+import { parseIds } from '~/modules/helpers';
+
 import { IDs, RepeatState, SpotifyPlayOptions } from '~/types';
 
 export async function checkTracksStatus(token: string, tracks: IDs): Promise<boolean[]> {
-  const ids = Array.isArray(tracks) ? tracks : [tracks];
-
-  return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`, {
+  return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${parseIds(tracks)}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -202,10 +202,8 @@ export async function previous(token: string, deviceId?: string): Promise<void> 
 }
 
 export async function removeTracks(token: string, tracks: IDs): Promise<void> {
-  const ids = Array.isArray(tracks) ? tracks : [tracks];
-
   await fetch(`https://api.spotify.com/v1/me/tracks`, {
-    body: JSON.stringify({ids}),
+    body: JSON.stringify({ ids: parseIds(tracks) }),
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -231,10 +229,8 @@ export async function repeat(token: string, state: RepeatState, deviceId?: strin
 }
 
 export async function saveTracks(token: string, tracks: IDs): Promise<void> {
-  const ids = Array.isArray(tracks) ? tracks : [tracks];
-
   await fetch(`https://api.spotify.com/v1/me/tracks`, {
-    body: JSON.stringify({ ids }),
+    body: JSON.stringify({ ids: parseIds(tracks) }),
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
