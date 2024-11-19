@@ -1,4 +1,5 @@
 import { SPOTIFY_CONTENT_TYPE } from '~/constants';
+import { IDs } from '~/types';
 
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
@@ -44,6 +45,14 @@ export function millisecondsToTime(input: number) {
   }
 
   return parts.join(':');
+}
+
+export function parseIds(ids: IDs): string[] {
+  if (!ids) {
+    return [];
+  }
+
+  return Array.isArray(ids) ? ids : [ids];
 }
 
 export function parseVolume(value?: unknown): number {

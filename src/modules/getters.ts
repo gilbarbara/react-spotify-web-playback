@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { validateURI } from '~/modules/helpers';
+import { parseIds, validateURI } from '~/modules/helpers';
 import {
   getAlbumTracks,
   getArtistTopTracks,
@@ -73,7 +73,7 @@ export async function getPreloadData(
   uris: IDs,
   offset: number,
 ): Promise<SpotifyTrack | null> {
-  const parsedURIs = getArrayOfStrings(uris);
+  const parsedURIs = parseIds(uris);
   const uri = parsedURIs[offset];
 
   if (!validateURI(uri)) {
@@ -187,12 +187,4 @@ export function getTrackInfo(track: Spotify.Track | SpotifyApi.TrackObjectFull):
     name,
     uri,
   };
-}
-
-export function getArrayOfStrings(ids: IDs): string[] {
-  if (!ids) {
-    return [];
-  }
-
-  return Array.isArray(ids) ? ids : [ids];
 }

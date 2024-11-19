@@ -4,7 +4,6 @@ import isEqual from '@gilbarbara/deep-equal';
 import memoize from 'memoize-one';
 
 import {
-  getArrayOfStrings,
   getItemImage,
   getLocale,
   getMergedStyles,
@@ -13,7 +12,7 @@ import {
   getSpotifyURIType,
   getTrackInfo,
 } from '~/modules/getters';
-import { loadSpotifyPlayer, parseVolume, round, validateURI } from '~/modules/helpers';
+import { loadSpotifyPlayer, parseIds, parseVolume, round, validateURI } from '~/modules/helpers';
 import {
   getDevices,
   getPlaybackState,
@@ -219,7 +218,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
       uris,
     } = this.props;
     const isReady = previousState.status !== STATUS.READY && status === STATUS.READY;
-    const playOptions = this.getPlayOptions(getArrayOfStrings(uris));
+    const playOptions = this.getPlayOptions(parseIds(uris));
 
     const canPlay = !!currentDeviceId && !!(playOptions.context_uri ?? playOptions.uris);
     const shouldPlay = isReady && (autoPlay || playProp);
@@ -832,7 +831,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   private toggleOffset = async () => {
     const { currentDeviceId } = this.state;
     const { offset, uris } = this.props;
-    const playOptions = this.getPlayOptions(getArrayOfStrings(uris));
+    const playOptions = this.getPlayOptions(parseIds(uris));
 
     if (typeof offset === 'number') {
       await play(this.token, { deviceId: currentDeviceId, offset, ...playOptions });
@@ -843,7 +842,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
     const { currentDeviceId, isPlaying, needsUpdate } = this.state;
     const { offset, uris } = this.props;
     const shouldInitialize = force || needsUpdate;
-    const playOptions = this.getPlayOptions(getArrayOfStrings(uris));
+    const playOptions = this.getPlayOptions(parseIds(uris));
 
     try {
       if (this.isExternalPlayer) {
