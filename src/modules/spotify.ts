@@ -205,7 +205,7 @@ export async function removeTracks(token: string, tracks: IDs): Promise<void> {
   const ids = Array.isArray(tracks) ? tracks : [tracks];
 
   await fetch(`https://api.spotify.com/v1/me/tracks`, {
-    body: JSON.stringify(ids),
+    body: JSON.stringify({ids}),
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
