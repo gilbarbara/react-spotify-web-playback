@@ -41,7 +41,7 @@ export default function RepeatButton({
       width={32}
       {...rest}
     >
-      <FlexInline as="span" position="relative">
+      <FlexInline position="relative">
         <Icon name="repeat" size={24} title={null} />
         {repeat !== 'off' && (
           <span

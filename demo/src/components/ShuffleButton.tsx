@@ -3,10 +3,10 @@ import { spotifyApi } from 'react-spotify-web-playback';
 import { ButtonUnstyled, FlexInline, Icon } from '@gilbarbara/components';
 
 export default function ShuffleButton({
-                                        shuffle,
-                                        token,
-                                        ...rest
-                                      }: Omit<ComponentProps<typeof ButtonUnstyled>, 'children'> & {
+  shuffle,
+  token,
+  ...rest
+}: Omit<ComponentProps<typeof ButtonUnstyled>, 'children'> & {
   shuffle: boolean;
   token: string;
 }) {
