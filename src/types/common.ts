@@ -9,10 +9,18 @@ export type IDs = string | string[];
 export type Layout = 'responsive' | 'compact';
 export type RepeatState = 'off' | 'context' | 'track';
 export type Status = (typeof STATUS)[keyof typeof STATUS];
+export type StylesProps = Partial<StylesOptions>;
+
 export type Type = (typeof TYPE)[keyof typeof TYPE];
 
 export interface CallbackState extends State {
   type: Type;
+}
+
+export interface ComponentsProps {
+  [key: string]: any;
+  children?: ReactNode;
+  styles: StylesOptions;
 }
 
 export interface CustomComponents {
@@ -24,6 +32,25 @@ export interface CustomComponents {
    * A React component to be displayed after the next button.
    */
   rightButton?: ReactNode;
+}
+
+export interface Locale {
+  currentDevice: string;
+  devices: string;
+  next: string;
+  otherDevices: string;
+  pause: string;
+  play: string;
+  previous: string;
+  removeTrack: string;
+  saveTrack: string;
+  title: string;
+  volume: string;
+}
+
+export interface PlayOptions {
+  context_uri?: string;
+  uris?: string[];
 }
 
 export interface Props {
@@ -166,29 +193,9 @@ export interface State {
   volume: number;
 }
 
-export interface ComponentsProps {
+export interface StyledProps {
   [key: string]: any;
-  children?: ReactNode;
-  styles: StylesOptions;
-}
-
-export interface Locale {
-  currentDevice: string;
-  devices: string;
-  next: string;
-  otherDevices: string;
-  pause: string;
-  play: string;
-  previous: string;
-  removeTrack: string;
-  saveTrack: string;
-  title: string;
-  volume: string;
-}
-
-export interface PlayOptions {
-  context_uri?: string;
-  uris?: string[];
+  style: Record<string, any>;
 }
 
 export interface StylesOptions {
@@ -207,11 +214,4 @@ export interface StylesOptions {
   sliderTrackColor: string;
   trackArtistColor: string;
   trackNameColor: string;
-}
-
-export type StylesProps = Partial<StylesOptions>;
-
-export interface StyledProps {
-  [key: string]: any;
-  style: Record<string, any>;
 }

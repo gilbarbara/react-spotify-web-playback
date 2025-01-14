@@ -9,9 +9,8 @@ import {
   within,
 } from '@testing-library/react';
 
-import * as helpers from '~/modules/helpers';
-
 import SpotifyWebPlayer, { Props } from '~/index';
+import * as helpers from '~/modules/helpers';
 
 import { playbackState, playerAlbumTracks, playerState, playerTrack } from './fixtures/data';
 import { setBoundingClientRect } from './fixtures/helpers';
@@ -78,35 +77,6 @@ interface SetupProps extends Partial<Props> {
   updateState?: Partial<Spotify.PlaybackState>;
 }
 
-async function setup(props?: SetupProps) {
-  const { initialize = true, skipUpdate = false, updateState, ...rest } = props || {};
-  const view = render(<SpotifyWebPlayer {...baseProps} {...rest} />);
-
-  await act(async () => {
-    window.onSpotifyWebPlaybackSDKReady();
-  });
-
-  if (initialize) {
-    await act(async () => {
-      await initializePlayer();
-
-      if (!skipUpdate) {
-        await updatePlayer(updateState);
-      }
-    });
-  }
-
-  return view;
-}
-
-function setExternalDevice() {
-  // open the device selector
-  fireEvent.click(screen.getByLabelText('Devices'));
-
-  // select the external device
-  fireEvent.click(screen.getByLabelText('Test Player'));
-}
-
 class Player {
   _options: any;
 
@@ -133,6 +103,35 @@ class Player {
   setName = mockSetName;
   setVolume = mockSetVolume;
   togglePlay = mockTogglePlay;
+}
+
+function setExternalDevice() {
+  // open the device selector
+  fireEvent.click(screen.getByLabelText('Devices'));
+
+  // select the external device
+  fireEvent.click(screen.getByLabelText('Test Player'));
+}
+
+async function setup(props?: SetupProps) {
+  const { initialize = true, skipUpdate = false, updateState, ...rest } = props || {};
+  const view = render(<SpotifyWebPlayer {...baseProps} {...rest} />);
+
+  await act(async () => {
+    window.onSpotifyWebPlaybackSDKReady();
+  });
+
+  if (initialize) {
+    await act(async () => {
+      await initializePlayer();
+
+      if (!skipUpdate) {
+        await updatePlayer(updateState);
+      }
+    });
+  }
+
+  return view;
 }
 
 describe('SpotifyWebPlayer', () => {

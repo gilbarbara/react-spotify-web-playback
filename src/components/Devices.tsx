@@ -11,6 +11,11 @@ import DevicesComputerIcon from './icons/DevicesComputer';
 import DevicesMobileIcon from './icons/DevicesMobile';
 import DevicesSpeakerIcon from './icons/DevicesSpeaker';
 
+interface DeviceList {
+  currentDevice: SpotifyDevice | null;
+  otherDevices: SpotifyDevice[];
+}
+
 interface Props {
   currentDeviceId?: string;
   deviceId?: string;
@@ -21,11 +26,6 @@ interface Props {
   open: boolean;
   playerPosition: string;
   styles: StylesOptions;
-}
-
-interface DeviceList {
-  currentDevice: SpotifyDevice | null;
-  otherDevices: SpotifyDevice[];
 }
 
 const Wrapper = styled('div')(

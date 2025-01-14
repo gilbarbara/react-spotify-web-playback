@@ -1,3 +1,4 @@
+import { TRANSPARENT_COLOR } from '~/constants';
 import {
   getBgColor,
   getLocale,
@@ -7,8 +8,6 @@ import {
   getSpotifyLinkTitle,
   getSpotifyURIType,
 } from '~/modules/getters';
-
-import { TRANSPARENT_COLOR } from '~/constants';
 
 import {
   playerAlbumTracks,
