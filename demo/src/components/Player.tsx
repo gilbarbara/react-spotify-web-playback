@@ -20,6 +20,13 @@ const Player = styled.div<{ layout: Layout }>(({ layout }) => {
     position: fixed;
     right: 20px;
     width: 320px;
+
+    > button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 100;
+    }
   `;
 });
 
