@@ -1,10 +1,10 @@
-export type SpotifyPlayerCallback = (token: string) => void;
-
 export type SpotifyAlbum = Spotify.Album;
 
 export type SpotifyArtist = SpotifyApi.ArtistObjectSimplified;
 
 export type SpotifyDevice = SpotifyApi.UserDevice;
+
+export type SpotifyPlayerCallback = (token: string) => void;
 
 export interface SpotifyPlayOptions {
   context_uri?: string;

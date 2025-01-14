@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { SPOTIFY_CONTENT_TYPE, TRANSPARENT_COLOR } from '~/constants';
 import { parseIds, validateURI } from '~/modules/helpers';
 import {
   getAlbumTracks,
@@ -9,14 +10,7 @@ import {
   getTrack,
 } from '~/modules/spotify';
 
-import { SPOTIFY_CONTENT_TYPE, TRANSPARENT_COLOR } from '~/constants';
 import { IDs, Locale, RepeatState, SpotifyTrack, StylesOptions, StylesProps } from '~/types';
-
-export function getItemImage(item: { images: Spotify.Image[] }): string {
-  const maxWidth = Math.max(...item.images.map(d => d.width ?? 0));
-
-  return item.images.find(d => d.width === maxWidth)?.url ?? '';
-}
 
 export function getBgColor(bgColor: string, fallbackColor?: string): string {
   if (fallbackColor) {
@@ -24,6 +18,12 @@ export function getBgColor(bgColor: string, fallbackColor?: string): string {
   }
 
   return bgColor === 'transparent' ? TRANSPARENT_COLOR : bgColor;
+}
+
+export function getItemImage(item: { images: Spotify.Image[] }): string {
+  const maxWidth = Math.max(...item.images.map(d => d.width ?? 0));
+
+  return item.images.find(d => d.width === maxWidth)?.url ?? '';
 }
 
 export function getLocale(locale?: Partial<Locale>): Locale {

@@ -3,6 +3,7 @@ import { createRef, PureComponent, ReactNode } from 'react';
 import isEqual from '@gilbarbara/deep-equal';
 import memoize from 'memoize-one';
 
+import { ERROR_TYPE, STATUS, TYPE } from '~/constants';
 import {
   getItemImage,
   getLocale,
@@ -35,8 +36,6 @@ import Loader from '~/components/Loader';
 import Player from '~/components/Player';
 import Volume from '~/components/Volume';
 import Wrapper from '~/components/Wrapper';
-
-import { ERROR_TYPE, STATUS, TYPE } from '~/constants';
 
 import {
   CallbackState,
@@ -83,6 +82,9 @@ put('.ButtonRSWP', {
   },
 });
 
+export type SpotifyPlayer = Spotify.Player;
+
+export { ERROR_TYPE, STATUS, TYPE } from './constants';
 class SpotifyWebPlayer extends PureComponent<Props, State> {
   private isMounted = false;
   private emptyTrack = {
@@ -1068,10 +1070,7 @@ class SpotifyWebPlayer extends PureComponent<Props, State> {
   }
 }
 
-export * from './types';
-export type SpotifyPlayer = Spotify.Player;
-
-export { ERROR_TYPE, STATUS, TYPE } from './constants';
 export * as spotifyApi from './modules/spotify';
+export * from './types';
 
 export default SpotifyWebPlayer;
